@@ -1,0 +1,24 @@
+/*
+Theme Name: ThePawManual
+Theme URI: https://thepawmanual.com/
+Author: ThePawManual
+Author URI: https://thepawmanual.com/
+Description: Custom theme for ThePawManual — a hub of free, ad-supported pet calculators and tools for dog and cat owners. Built from the Aura design and styled with compiled Tailwind CSS.
+Version: 0.1.0
+Requires at least: 6.3
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: thepawmanual
+Tags: custom-theme, tools, calculators
+*/
+
+/*
+ * This file exists to provide the WordPress theme header above — WordPress
+ * requires it to recognise the theme.
+ *
+ * The theme's actual styles are written with Tailwind in src/tailwind.css and
+ * COMPILED to assets/css/theme.css, which is the stylesheet the browser loads
+ * (enqueued by inc/enqueue.php). Do not add styles to this file.
+ */

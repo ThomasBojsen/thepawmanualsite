@@ -1,0 +1,228 @@
+/*
+ * PawManual Calculators — calculator styles.
+ *
+ * Plain, self-contained CSS: no Tailwind, no theme dependency. Every selector
+ * is scoped under .pm-calc so the calculators render correctly under any theme
+ * and never leak styles into the surrounding page (CLAUDE.md §5, §6).
+ * Visually matched to ThePawManual's neutral, rounded look.
+ */
+
+.pm-calc {
+	--pm-fg: #171717;
+	--pm-muted: #525252;
+	--pm-faint: #737373;
+	--pm-border: #e5e5e5;
+	--pm-surface: #fafafa;
+	--pm-danger: #b91c1c;
+
+	max-width: 34rem;
+	margin: 2rem auto;
+	color: var(--pm-fg);
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.pm-calc *,
+.pm-calc *::before,
+.pm-calc *::after {
+	box-sizing: border-box;
+}
+
+.pm-calc .pm-calc__card {
+	padding: 1.5rem;
+	background: #ffffff;
+	border: 1px solid var(--pm-border);
+	border-radius: 1.5rem;
+}
+
+.pm-calc .pm-calc__title {
+	margin: 0 0 1.25rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.01em;
+	color: var(--pm-fg);
+}
+
+.pm-calc .pm-calc__form {
+	margin: 0;
+}
+
+.pm-calc .pm-calc__fields {
+	display: grid;
+	gap: 1rem;
+}
+
+.pm-calc .pm-calc__field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	min-width: 0;
+}
+
+.pm-calc .pm-calc__label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--pm-fg);
+}
+
+.pm-calc .pm-calc__input,
+.pm-calc .pm-calc__select {
+	width: 100%;
+	padding: 0.625rem 0.75rem;
+	font: inherit;
+	font-size: 1rem;
+	color: var(--pm-fg);
+	background-color: #ffffff;
+	border: 1px solid var(--pm-border);
+	border-radius: 0.625rem;
+}
+
+.pm-calc .pm-calc__input:focus,
+.pm-calc .pm-calc__select:focus {
+	outline: 2px solid var(--pm-fg);
+	outline-offset: 1px;
+	border-color: var(--pm-fg);
+}
+
+.pm-calc .pm-calc__control--unit {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.pm-calc .pm-calc__control--unit .pm-calc__input {
+	padding-right: 3.5rem;
+}
+
+.pm-calc .pm-calc__unit {
+	position: absolute;
+	right: 0.75rem;
+	font-size: 0.875rem;
+	color: var(--pm-faint);
+	pointer-events: none;
+}
+
+.pm-calc .pm-calc__help {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--pm-faint);
+}
+
+.pm-calc .pm-calc__error {
+	margin: 0;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: var(--pm-danger);
+}
+
+.pm-calc .pm-calc__field--invalid .pm-calc__input,
+.pm-calc .pm-calc__field--invalid .pm-calc__select {
+	border-color: var(--pm-danger);
+}
+
+.pm-calc .pm-calc__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.25rem;
+}
+
+.pm-calc .pm-calc__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.625rem 1.25rem;
+	font: inherit;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	border: 1px solid transparent;
+	border-radius: 0.75rem;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pm-calc .pm-calc__button--primary {
+	background-color: var(--pm-fg);
+	color: #ffffff;
+}
+
+.pm-calc .pm-calc__button--primary:hover {
+	background-color: #404040;
+}
+
+.pm-calc .pm-calc__button--ghost {
+	background-color: #ffffff;
+	color: var(--pm-fg);
+	border-color: var(--pm-border);
+}
+
+.pm-calc .pm-calc__button--ghost:hover {
+	background-color: var(--pm-surface);
+}
+
+.pm-calc .pm-calc__button:focus-visible {
+	outline: 2px solid var(--pm-fg);
+	outline-offset: 2px;
+}
+
+.pm-calc .pm-calc__result {
+	margin-top: 1.25rem;
+}
+
+.pm-calc .pm-calc__result--filled {
+	padding: 1.25rem;
+	background: var(--pm-surface);
+	border: 1px solid var(--pm-border);
+	border-radius: 1rem;
+}
+
+.pm-calc .pm-calc__result-value {
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	color: var(--pm-fg);
+}
+
+.pm-calc .pm-calc__result-summary {
+	margin-top: 0.5rem;
+	font-size: 0.9375rem;
+	color: var(--pm-muted);
+}
+
+.pm-calc .pm-calc__result--error .pm-calc__result-value {
+	font-size: 1rem;
+	font-weight: 500;
+	color: var(--pm-danger);
+}
+
+.pm-calc .pm-calc__disclaimer {
+	margin: 1rem 0 0;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: var(--pm-faint);
+}
+
+.pm-calc .pm-calc__noscript {
+	margin: 1rem 0 0;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	background: #fef3c7;
+	border-radius: 0.5rem;
+}
+
+@media (min-width: 640px) {
+	.pm-calc .pm-calc__card {
+		padding: 2rem;
+	}
+}
+
+/* Editor-only notice, shown when the shortcode is given an unknown id. */
+.pm-calc-notice {
+	margin: 1rem 0;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	background: #fef3c7;
+	border-radius: 0.5rem;
+}

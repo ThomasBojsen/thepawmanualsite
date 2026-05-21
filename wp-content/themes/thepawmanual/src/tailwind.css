@@ -1,0 +1,153 @@
+/*
+ * Tailwind INPUT file for the ThePawManual theme.
+ *
+ * Compiled by `npm run build:css` into assets/css/theme.css — that compiled
+ * file is what the theme actually loads, and it IS committed to git so the
+ * production server needs no build step. Always edit THIS file, never the
+ * compiled output.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------- *
+ * Animations
+ * --------------------------------------------------------------------- */
+
+/*
+ * Aura's signature reveal animation. The @keyframes are declared here rather
+ * than in tailwind.config.js so they are guaranteed to be present in the
+ * compiled CSS for the arbitrary `[animation:fadeSlideIn_...]` utilities the
+ * templates use.
+ */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/*
+ * Scroll-reveal. Elements marked `.animate-on-scroll` start paused and are set
+ * running by theme.js (which adds `.is-visible`) when they scroll into view.
+ *
+ * The rules are gated on the `.js` class that header.php puts on <html> before
+ * first paint, so with JavaScript disabled the content is never hidden — which
+ * matters for accessibility and SEO. Reduced-motion users skip the pause (see
+ * the reduced-motion block below).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js .animate-on-scroll {
+    animation-play-state: paused;
+  }
+
+  .js .animate-on-scroll.is-visible {
+    animation-play-state: running;
+  }
+}
+
+/*
+ * Respect the user's reduced-motion preference: collapse every animation and
+ * transition to near-instant so the page settles immediately with no motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------- *
+ * Components
+ * --------------------------------------------------------------------- */
+
+@layer components {
+  /* Primary (header) navigation — shared by the real menu and the fallback. */
+  .tpm-primary-menu {
+    @apply flex items-center gap-5;
+  }
+  .tpm-primary-menu li {
+    @apply list-none;
+  }
+  .tpm-primary-menu a {
+    @apply whitespace-nowrap font-geist text-sm text-neutral-600 transition-colors hover:text-neutral-900;
+  }
+
+  /* Stacked version of the navigation, used inside the mobile panel. */
+  .tpm-mobile-menu {
+    @apply flex flex-col gap-1;
+  }
+  .tpm-mobile-menu li {
+    @apply list-none;
+  }
+  .tpm-mobile-menu a {
+    @apply block rounded-lg px-3 py-2 font-geist text-sm text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900;
+  }
+
+  /*
+   * Long-form content — the output of `the_content()` on Pages and posts.
+   * WordPress and the block editor emit plain <p>/<h2>/<ul>/… elements, and
+   * Tailwind's Preflight strips their default styling, so a readable rhythm is
+   * restored here. Templates wrap post content in an element with this class.
+   */
+  .tpm-prose {
+    @apply font-geist leading-relaxed text-neutral-700;
+  }
+  .tpm-prose > :first-child {
+    @apply mt-0;
+  }
+  .tpm-prose h2 {
+    @apply mt-10 mb-3 font-playfair text-2xl font-medium text-neutral-900 sm:text-3xl;
+  }
+  .tpm-prose h3 {
+    @apply mt-8 mb-2 text-xl font-semibold text-neutral-900;
+  }
+  .tpm-prose p {
+    @apply my-4;
+  }
+  .tpm-prose a {
+    @apply text-neutral-900 underline underline-offset-2 hover:no-underline;
+  }
+  .tpm-prose ul {
+    @apply my-4 list-disc space-y-1 pl-6;
+  }
+  .tpm-prose ol {
+    @apply my-4 list-decimal space-y-1 pl-6;
+  }
+  .tpm-prose strong {
+    @apply font-semibold text-neutral-900;
+  }
+  .tpm-prose img {
+    @apply my-6 rounded-2xl;
+  }
+}
+
+/* --------------------------------------------------------------------- *
+ * WordPress integration
+ * --------------------------------------------------------------------- */
+
+/*
+ * When the WordPress admin bar is shown (logged-in users), drop the sticky
+ * header below it so the two never overlap. The admin bar is 32px on desktop
+ * and 46px on small screens.
+ */
+body.admin-bar .tpm-header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .tpm-header {
+    top: 46px;
+  }
+}

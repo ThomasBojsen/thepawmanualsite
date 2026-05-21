@@ -1,0 +1,633 @@
+<html lang="en" class="h-full"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ThePawManual — Free Pet Tools &amp; Calculators</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @keyframes fadeSlideIn {
+      0% {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(8px);
+      }
+      100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+      }
+      }
+      /* Default: paused */
+      .animate-on-scroll { animation-play-state: paused !important; }
+      /* Activated by JS */
+      .animate-on-scroll.animate { animation-play-state: running !important; }
+    </style>
+    <script>
+      (function () {
+      const once = true;
+      if (!window.__inViewIO) {
+      window.__inViewIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+      entry.target.classList.add("animate");
+      if (once) window.__inViewIO.unobserve(entry.target);
+      }
+      });
+      }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+      }
+      window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+      document.querySelectorAll(selector).forEach((el) => {
+      window.__inViewIO.observe(el);
+      });
+      };
+      document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+      })();
+    </script>
+    <meta name="disabled-font-classes" content="font-roboto,font-poppins,font-merriweather,font-work-sans,font-pt-serif,font-space-mono,font-nunito,font-bricolage,font-jakarta,font-instrument-serif,font-space-grotesk,font-geist-mono,font-quicksand,font-montserrat,font-manrope">
+    
+    <link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap">
+    <style id="all-fonts-style-font-playfair">
+      .font-playfair { font-family: 'Playfair Display', serif !important; }
+    </style>
+    <link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap">
+    <style id="all-fonts-style-font-geist">
+      .font-geist { font-family: 'Geist', sans-serif !important; }
+    </style>
+  </head>
+  <body class="h-full bg-neutral-50 text-neutral-900 antialiased font-sans" style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial">
+    <!-- Background (component) added by Aura -->
+    <div class="aura-background-component top-0 w-full -z-10 absolute h-[800px] hue-rotate-90 saturate-50">
+      <div data-us-project="qTiAlX0sxkuBOAiL7qHL" class="absolute top-0 left-0 -z-10 w-full h-full"></div>
+      <script type="text/javascript">
+        !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();
+      </script>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 backdrop-blur supports-backdrop-blur:bg-white/70 bg-white/80 border-b border-neutral-200 [animation:fadeSlideIn_0.8s_ease-out_0s_both]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <nav class="hidden md:flex items-center gap-7 text-sm text-neutral-600">
+            <a href="#" class="hover:text-neutral-900 transition-colors font-geist">
+              Dog Tools
+            </a>
+            <a href="#" class="hover:text-neutral-900 transition-colors font-geist">
+              Cat Tools
+            </a>
+            <a href="#" class="hover:text-neutral-900 transition-colors font-geist">
+              Bird Tools
+            </a>
+            <a href="#" class="hover:text-neutral-900 transition-colors font-geist">
+              Small Pet Tools
+            </a>
+          </nav>
+          <a href="#" class="text-2xl sm:text-3xl tracking-tight font-playfair font-medium">
+            ThePawManual
+          </a>
+          <div class="flex items-center gap-3">
+            <button aria-label="Search" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full border border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900 hover:border-neutral-300 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-4 h-4">
+                <path d="m21 21-4.34-4.34"></path>
+                <circle cx="11" cy="11" r="8"></circle>
+              </svg>
+              <span class="text-sm font-geist">Search</span>
+            </button>
+
+            <button aria-label="Cart" class="p-2 rounded-full border border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900 hover:border-neutral-300 transition relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-bag" class="lucide lucide-shopping-bag w-4 h-4">
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+                <path d="M3.103 6.034h17.794"></path>
+                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
+              </svg>
+              <span class="absolute -top-1 -right-1 text-[10px] leading-none px-1.5 py-1 rounded-full bg-neutral-900 text-white font-geist">
+                2
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
+        <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+          <div class="lg:col-span-12 [animation:fadeSlideIn_1s_ease-out_0.1s_both]">
+            <h1 class="text-[11vw] leading-[0.9] sm:text-[7rem] md:text-[8rem] lg:text-[9rem] tracking-tight text-neutral-900 font-playfair font-medium">
+              ThePawManual
+            </h1>
+          </div>
+          <div class="lg:col-span-12 grid lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-8 rounded-3xl overflow-hidden relative [animation:fadeSlideIn_1s_ease-out_0.2s_both]">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/52498527-007a-4398-b739-fa38354b88e2_3840w.png" alt="Happy dog running" class="w-full h-[300px] sm:h-[420px] object-cover">
+              <div class="sm:p-6 flex pt-4 pr-4 pb-4 pl-4 absolute right-0 bottom-0 left-0 items-end justify-between">
+                <div class="hidden sm:flex items-center gap-2">
+                  <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 transition text-sm font-geist">
+                    Find a Tool
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="absolute bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0">
+                <div class="flex items-center gap-2 bg-white/80 backdrop-blur rounded-full px-2 py-2 shadow">
+                  <button class="px-3 py-1.5 text-xs rounded-full bg-neutral-900 text-white font-geist">
+                    Age
+                  </button>
+                  <button class="px-3 py-1.5 text-xs rounded-full hover:bg-neutral-100 font-geist">
+                    Nutrition
+                  </button>
+                  <button class="px-3 py-1.5 text-xs rounded-full hover:bg-neutral-100 font-geist">
+                    Health
+                  </button>
+                  <button class="px-3 py-1.5 text-xs rounded-full hover:bg-neutral-100 font-geist">
+                    Puppies
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-4 rounded-3xl bg-white border border-neutral-200 p-5 sm:p-6 flex flex-col justify-between [animation:fadeSlideIn_1s_ease-out_0.3s_both]">
+              <div class="">
+                <h2 class="text-2xl sm:text-3xl tracking-tight font-playfair font-medium">
+                  Featured Tool
+                </h2>
+                <p class="mt-2 text-sm text-neutral-600 font-geist">
+                  Dog Age Calculator: Find out your dog's true age in human
+                  years with our advanced breed-specific calculator.
+                </p>
+              </div>
+              <div class="mt-5 bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex flex-col justify-center items-center text-center gap-3 flex-grow">
+                <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-neutral-900 shadow-sm border border-neutral-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+                    <line x1="8" x2="16" y1="6" y2="6"></line>
+                    <line x1="16" x2="16" y1="14" y2="18"></line>
+                    <path d="M16 10h.01"></path>
+                    <path d="M12 10h.01"></path>
+                    <path d="M8 10h.01"></path>
+                    <path d="M12 14h.01"></path>
+                    <path d="M8 14h.01"></path>
+                    <path d="M12 18h.01"></path>
+                    <path d="M8 18h.01"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold font-geist text-neutral-900">
+                    Accurate Conversion
+                  </p>
+                  <p class="text-xs text-neutral-500 font-geist mt-1">
+                    Based on veterinary guidelines
+                  </p>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800 transition text-sm font-geist">
+                  Open Calculator
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters + Search -->
+    <section class="mt-10 sm:mt-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-neutral-500 font-geist">Filter by</span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-200 bg-white text-sm hover:border-neutral-300 font-geist">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders-horizontal" class="lucide lucide-sliders-horizontal w-4 h-4">
+                  <path d="M10 5H3"></path>
+                  <path d="M12 19H3"></path>
+                  <path d="M14 3v4"></path>
+                  <path d="M16 17v4"></path>
+                  <path d="M21 12h-9"></path>
+                  <path d="M21 19h-5"></path>
+                  <path d="M21 5h-7"></path>
+                  <path d="M8 10v4"></path>
+                  <path d="M8 12H3"></path>
+                </svg>
+                Category
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-200 bg-white text-sm hover:border-neutral-300 font-geist">
+                Pet Size
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down w-4 h-4">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-200 bg-white text-sm hover:border-neutral-300 font-geist">
+                Type: Dogs
+                <span class="w-3 h-3 rounded-full bg-amber-500 border border-amber-600"></span>
+              </button>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center gap-2 px-3 py-2 rounded-full border border-neutral-200 bg-white text-neutral-600 w-64">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-4 h-4">
+              <path d="m21 21-4.34-4.34"></path>
+              <circle cx="11" cy="11" r="8"></circle>
+            </svg>
+            <input type="text" placeholder="Search" class="w-full bg-transparent outline-none text-sm placeholder:text-neutral-400">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="sm:mt-8 mt-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Card 1 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+                  <line x1="8" x2="16" y1="6" y2="6"></line>
+                  <line x1="16" x2="16" y1="14" y2="18"></line>
+                  <path d="M16 10h.01"></path>
+                  <path d="M12 10h.01"></path>
+                  <path d="M8 10h.01"></path>
+                  <path d="M12 14h.01"></path>
+                  <path d="M8 14h.01"></path>
+                  <path d="M12 18h.01"></path>
+                  <path d="M8 18h.01"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Dog Age Calculator
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Calculate your dog's true age in human years based on their
+                breed and weight.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Card 2 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="M12 2v20"></path>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Cat Age Calculator
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Find out how old your feline friend is in human years
+                accurately.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Card 3 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.3s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="m12 14 4-4"></path>
+                  <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Puppy Weight Predictor
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Estimate your puppy's adult weight based on their current age
+                and breed size.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Card 4 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path>
+                  <path d="M12 3v9"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Food Portion Calculator
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Determine the exact daily calorie and food portion needs for
+                your pet.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                  <line x1="16" x2="16" y1="2" y2="6"></line>
+                  <line x1="8" x2="8" y1="2" y2="6"></line>
+                  <line x1="3" x2="21" y1="10" y2="10"></line>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Pregnancy Due Date
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Calculate the expected delivery date for your pregnant dog or
+                cat.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6 -->
+          <article class="group rounded-3xl overflow-hidden border border-neutral-200 bg-white hover:shadow-sm transition [animation:fadeSlideIn_1s_ease-out_0.3s_both] animate-on-scroll">
+            <div class="p-6 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                  <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg tracking-tight font-semibold font-geist">
+                Water Intake Calculator
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 font-geist flex-grow">
+                Ensure your pet is staying hydrated by calculating daily water
+                needs.
+              </p>
+              <div class="mt-6">
+                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 text-sm font-geist transition">
+                  Open Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial / Style Outlook -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24">
+      <div class="w-full h-24 sm:h-32 bg-neutral-200 border border-neutral-300 border-dashed flex items-center justify-center rounded-xl">
+        <span class="text-neutral-500 font-geist text-sm uppercase tracking-wider">
+          Ad Banner Placeholder
+        </span>
+      </div>
+    </section>
+    <section class="mt-16 sm:mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl tracking-tight [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll font-playfair font-medium">
+          Pet Life Gallery
+        </h2>
+      </div>
+      <div class="mt-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 rounded-3xl overflow-hidden bg-neutral-900 [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/a2b3ff65-549f-4799-9cef-e59aa46485be_3840w.png" alt="Dog playing outdoors" class="mix-blend-luminosity w-full h-[420px] object-cover">
+            </div>
+            <div class="lg:col-span-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              <div class="rounded-3xl overflow-hidden [animation:fadeSlideIn_1s_ease-out_0.3s_both] animate-on-scroll">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c67f98d7-cd4f-433c-b7f1-225879808754_3840w.png" alt="Cat portrait" class="w-full h-48 object-cover">
+              </div>
+              <div class="rounded-3xl overflow-hidden [animation:fadeSlideIn_1s_ease-out_0.4s_both] animate-on-scroll">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/b2ba3a11-6e53-438c-965c-026267ab7608_3840w.png" alt="Bird in nature" class="w-full h-48 object-cover">
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center justify-between [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+            <div class="flex flex-wrap gap-2">
+              <button class="px-3 py-1.5 rounded-full text-xs bg-neutral-900 text-white font-geist">
+                Dogs
+              </button>
+              <button class="px-3 py-1.5 rounded-full text-xs border border-neutral-200 bg-white font-geist">
+                Cats
+              </button>
+              <button class="px-3 py-1.5 rounded-full text-xs border border-neutral-200 bg-white font-geist">
+                Birds
+              </button>
+              <button class="px-3 py-1.5 rounded-full text-xs border border-neutral-200 bg-white font-geist">
+                Rabbits
+              </button>
+              <button class="px-3 py-1.5 rounded-full text-xs border border-neutral-200 bg-white font-geist">
+                Reptiles
+              </button>
+            </div>
+            <div class="hidden sm:flex items-center gap-2">
+              <button class="p-2 rounded-full border border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900 hover:border-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left w-4 h-4">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </button>
+              <button class="p-2 rounded-full border border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900 hover:border-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-4 h-4">
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statement -->
+    <section class="mt-20 sm:mt-28 bg-neutral-900 text-white">
+      <div class="sm:px-6 lg:px-8 sm:py-24 max-w-7xl mr-auto ml-auto pt-16 pr-4 pb-16 pl-4">
+        <h3 class="text-4xl sm:text-6xl tracking-tight [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll font-playfair font-medium">
+          Happy Pets, Happy Life
+        </h3>
+        <p class="mt-4 text-sm/relaxed text-neutral-300 max-w-xl [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll font-geist">
+          Science-backed nutrition and thoughtfully crafted accessories. Because
+          they deserve the very best.
+        </p>
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div class="bg-lime-400 h-40 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/85467183-6ee7-4f0b-a42a-ae69667c0097_3840w.png)] bg-cover rounded-2xl [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll"></div>
+          <div class="bg-violet-400 h-40 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e6eb4ba2-5e17-4564-ba9a-8897b35980cc_3840w.png)] bg-cover rounded-2xl [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll"></div>
+          <div class="bg-orange-400 h-40 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/5b2c7fbe-58ae-4247-a05b-97bef32c0993_3840w.png)] bg-cover rounded-2xl [animation:fadeSlideIn_1s_ease-out_0.3s_both] animate-on-scroll"></div>
+          <div class="bg-amber-400 h-40 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3f53d47f-c523-4dec-8d9e-dd359b0acfe9_3840w.png)] bg-cover rounded-2xl [animation:fadeSlideIn_1s_ease-out_0.4s_both] animate-on-scroll"></div>
+        </div>
+        <div class="mt-8">
+          <p class="text-xs text-neutral-400 [animation:fadeSlideIn_1s_ease-out_0.3s_both] animate-on-scroll font-geist">
+            Use code FUREVER to get 15% off your first order.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secondary Promo -->
+    <section class="mt-16 sm:mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-3xl overflow-hidden relative [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/97924528-698c-4ac3-a2d1-cb9a5f49147d_3840w.png" alt="Dog in nature" class="w-full h-[460px] object-cover">
+          <div class="bg-gradient-to-tr from-black/60 via-black/20 to-transparent absolute top-0 right-0 bottom-0 left-0"></div>
+          <div class="absolute left-6 sm:left-10 bottom-8 sm:bottom-12 max-w-lg">
+            <h4 class="text-3xl sm:text-5xl tracking-tight text-white font-playfair font-medium">
+              Nature's Best
+            </h4>
+            <p class="mt-2 text-sm text-neutral-200 font-geist">
+              Introducing our organic wellness line. Real ingredients, real
+              results, real love.
+            </p>
+            <div class="mt-5 flex items-center gap-3">
+              <button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-neutral-900 hover:bg-neutral-100 transition text-sm font-geist">
+                Shop Now
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </button>
+              <button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/20 hover:bg-white/20 transition text-sm font-geist">
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="play" class="lucide lucide-play w-4 h-4">
+                  <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-16 sm:mt-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 [animation:fadeSlideIn_1s_ease-out_0.1s_both] animate-on-scroll">
+          <div>
+            <p class="text-sm font-semibold tracking-tight font-geist">
+              ThePawManual
+            </p>
+            <ul class="mt-3 space-y-2 text-sm text-neutral-600">
+              <li class="font-geist">hello@thepawmanual.com</li>
+              <li class="font-geist">About Us</li>
+              <li class="font-geist">Contact</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-tight font-geist">
+              Social
+            </p>
+            <ul class="mt-3 space-y-2 text-sm text-neutral-600">
+              <li class="font-geist">Instagram</li>
+              <li class="font-geist">Twitter</li>
+              <li class="font-geist">TikTok</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-tight font-geist">
+              Company
+            </p>
+            <ul class="mt-3 space-y-2 text-sm text-neutral-600">
+              <li class="font-geist">Our Mission</li>
+              <li class="font-geist">Veterinary Reviewers</li>
+              <li class="font-geist">Editorial Guidelines</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-tight font-geist">
+              Terms &amp; Policy
+            </p>
+            <ul class="mt-3 space-y-2 text-sm text-neutral-600">
+              <li class="font-geist">Terms of Use</li>
+              <li class="font-geist">Privacy Policy</li>
+              <li class="font-geist">Disclaimer</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-neutral-200 text-center">
+          <p class="text-xs text-neutral-500 font-geist">
+            ©
+            <span id="y" class="font-geist">2025</span>
+            ThePawManual
+          </p>
+        </div>
+        <div class="mt-8 flex items-center justify-between [animation:fadeSlideIn_1s_ease-out_0.2s_both] animate-on-scroll">
+          <p class="text-sm text-neutral-500 font-geist">
+            ©
+            <span id="y" class="font-geist">2025</span>
+            Pawsome
+          </p>
+          <div class="flex items-center gap-3">
+            <button class="p-2 rounded-full border border-neutral-200 hover:border-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up" class="lucide lucide-arrow-up w-4 h-4">
+                <path d="m5 12 7-7 7 7"></path>
+                <path d="M12 19V5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Initialize icons
+      lucide.createIcons();
+
+      // Set year
+      document.getElementById('y').textContent = new Date().getFullYear();
+
+      // Simple "favorite" toggle demo
+      document.querySelectorAll('button[aria-label="Favorite"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('text-rose-500');
+        });
+      });
+    </script>
+  
+</body></html>

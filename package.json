@@ -1,0 +1,14 @@
+{
+  "name": "thepawmanual",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Build tooling for the ThePawManual WordPress theme. Compiles Tailwind CSS into a static stylesheet; this tooling is not deployed to the server.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build:css": "tailwindcss -i ./wp-content/themes/thepawmanual/src/tailwind.css -o ./wp-content/themes/thepawmanual/assets/css/theme.css --minify",
+    "watch:css": "tailwindcss -i ./wp-content/themes/thepawmanual/src/tailwind.css -o ./wp-content/themes/thepawmanual/assets/css/theme.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

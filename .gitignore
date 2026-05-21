@@ -1,0 +1,20 @@
+# Node dependencies (dev tooling only — never deployed to the server)
+/node_modules/
+
+# macOS / Windows file-system cruft
+.DS_Store
+Thumbs.db
+
+# Editor & IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# NOTE: the compiled theme stylesheet
+# (wp-content/themes/thepawmanual/assets/css/theme.css) is intentionally
+# committed so the production server needs no build step — see CLAUDE.md §4.3.
