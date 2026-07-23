@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive Pets Website Structure</title>
+<style>
+    :root {
+        --bg: #f7f3ee;
+        --card: #ffffff;
+        --text: #2b2118;
+        --muted: #756a61;
+        --line: #d8c8b8;
+        --accent: #8b5e34;
+        --accent2: #e6d3bd;
+        --dog: #f3dfc6;
+        --cat: #e4d8f5;
+        --shadow: 0 12px 35px rgba(43, 33, 24, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top left, #fff7ec, var(--bg) 42%, #efe5db);
+        color: var(--text);
+    }
+    header {
+        padding: 28px 28px 12px;
+        max-width: 1380px;
+        margin: 0 auto;
+    }
+    h1 {
+        margin: 0 0 8px;
+        font-size: clamp(28px, 4vw, 48px);
+        letter-spacing: -0.04em;
+    }
+    .sub {
+        color: var(--muted);
+        max-width: 820px;
+        line-height: 1.5;
+        font-size: 16px;
+    }
+    .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+        align-items: center;
+    }
+    button, input {
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 14px;
+        color: var(--text);
+        box-shadow: 0 3px 10px rgba(43,33,24,.06);
+    }
+    button {
+        cursor: pointer;
+        transition: transform .15s, background .15s, border-color .15s;
+    }
+    button:hover {
+        transform: translateY(-1px);
+        background: #fffaf4;
+        border-color: var(--accent);
+    }
+    input {
+        min-width: min(420px, 100%);
+        outline: none;
+    }
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(150px, 1fr));
+        gap: 12px;
+        max-width: 1380px;
+        margin: 18px auto 0;
+        padding: 0 28px;
+    }
+    .stat {
+        background: rgba(255,255,255,.72);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 16px;
+        box-shadow: 0 5px 18px rgba(43,33,24,.06);
+    }
+    .stat b {
+        display: block;
+        font-size: 24px;
+    }
+    .stat span {
+        color: var(--muted);
+        font-size: 13px;
+    }
+    main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 18px;
+        max-width: 1380px;
+        margin: 20px auto 36px;
+        padding: 0 28px;
+    }
+    #treeWrap {
+        background: rgba(255,255,255,.66);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        min-height: 760px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        position: relative;
+    }
+    svg {
+        width: 100%;
+        height: 760px;
+        display: block;
+    }
+    .link {
+        fill: none;
+        stroke: var(--line);
+        stroke-width: 2px;
+    }
+    .node circle {
+        fill: var(--card);
+        stroke: var(--accent);
+        stroke-width: 2px;
+        filter: drop-shadow(0 4px 8px rgba(43,33,24,.12));
+    }
+    .node.has-children circle {
+        fill: var(--accent2);
+    }
+    .node.dogs circle { fill: var(--dog); }
+    .node.cats circle { fill: var(--cat); }
+    .node text {
+        font-size: 13px;
+        paint-order: stroke;
+        stroke: rgba(255,255,255,.9);
+        stroke-width: 4px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: var(--text);
+        cursor: pointer;
+    }
+    .node.search-match circle {
+        stroke: #111;
+        stroke-width: 4px;
+    }
+    aside {
+        background: rgba(255,255,255,.78);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        min-height: 420px;
+        position: sticky;
+        top: 16px;
+        align-self: start;
+    }
+    .panel-title {
+        font-size: 13px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        margin-bottom: 8px;
+    }
+    #selectedTitle {
+        font-size: 26px;
+        line-height: 1.1;
+        margin: 0 0 10px;
+        letter-spacing: -.03em;
+    }
+    .url {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+        padding: 8px 10px;
+        background: #f7efe6;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: #5f3c1e;
+        word-break: break-all;
+    }
+    .note {
+        margin-top: 16px;
+        color: var(--muted);
+        line-height: 1.5;
+    }
+    .children {
+        margin-top: 18px;
+    }
+    .children h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+    }
+    .child-list {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        max-height: 320px;
+        overflow: auto;
+        padding-right: 4px;
+    }
+    .child-item {
+        border: 1px solid var(--line);
+        background: #fffaf5;
+        border-radius: 12px;
+        padding: 9px 10px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+    .legend {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+    }
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: -1px;
+        border: 2px solid var(--accent);
+    }
+    .dot.parent { background: var(--accent2); }
+    .dot.dog { background: var(--dog); }
+    .dot.cat { background: var(--cat); }
+    .dot.page { background: white; }
+    @media (max-width: 950px) {
+        main {
+            grid-template-columns: 1fr;
+        }
+        aside {
+            position: static;
+        }
+        .stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 560px) {
+        header, .stats, main {
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+        .stats {
+            grid-template-columns: 1fr;
+        }
+        svg {
+            height: 700px;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>Interactive Pets Website Structure</h1>
+    <div class="sub">
+        Forsiden er nu <strong>Pets</strong>, og sitets to primære SEO-søjler er <strong>Dogs</strong> og <strong>Cats</strong>.
+        Klik på en sektion for at folde den ud eller ind, og brug søgefeltet til at finde fx “food”, “health”, “kitten”, “puppy” eller “calculator”.
+    </div>
+    <div class="toolbar">
+        <button id="expand">Expand all</button>
+        <button id="collapse">Collapse all</button>
+        <button id="center">Center view</button>
+        <input id="search" placeholder="Search pages, e.g. cats, dogs, food, kitten, puppy..." />
+    </div>
+</header>
+
+<section class="stats">
+    <div class="stat"><b>Pets</b><span>Homepage focus</span></div>
+    <div class="stat"><b>Dogs + Cats</b><span>Primary SEO pillars</span></div>
+    <div class="stat"><b id="statPages">0</b><span>Total pages in map</span></div>
+    <div class="stat"><b id="statTools">0</b><span>Interactive tool ideas</span></div>
+</section>
+
+<main>
+    <section id="treeWrap">
+        <svg id="tree"></svg>
+    </section>
+    <aside>
+        <div class="panel-title">Selected page</div>
+        <h2 id="selectedTitle">Pets</h2>
+        <div id="selectedUrl" class="url">/</div>
+        <p id="selectedNote" class="note">Main homepage targeting broad pet-owner searches, with Dogs and Cats as the two primary topical pillars.</p>
+        <div class="children">
+            <h3>Child pages</h3>
+            <div id="childList" class="child-list"></div>
+        </div>
+        <div class="legend">
+            <span><span class="dot dog"></span>Dogs</span>
+            <span><span class="dot cat"></span>Cats</span>
+            <span><span class="dot parent"></span>Section</span>
+            <span><span class="dot page"></span>Page</span>
+        </div>
+    </aside>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const data = {"name": "Pets", "url": "/", "note": "Main homepage targeting broad pet-owner searches, with Dogs and Cats as the two primary topical pillars.", "children": [{"name": "Dogs", "url": "/dogs/", "note": "Primary dog hub for breed research, food, health, training, puppy care, products, behavior and tools.", "children": [{"name": "Dog Breeds", "url": "/dogs/breeds/", "note": "Breed guides, comparison pages, and dog-type clusters.", "children": [{"name": "Golden Retriever", "url": "/dogs/breeds/golden-retriever/"}, {"name": "Labrador Retriever", "url": "/dogs/breeds/labrador-retriever/"}, {"name": "French Bulldog", "url": "/dogs/breeds/french-bulldog/"}, {"name": "German Shepherd", "url": "/dogs/breeds/german-shepherd/"}, {"name": "Poodle", "url": "/dogs/breeds/poodle/"}, {"name": "Small Dogs", "url": "/dogs/breeds/small-dogs/"}, {"name": "Family Dogs", "url": "/dogs/breeds/family-dogs/"}, {"name": "Apartment Dogs", "url": "/dogs/breeds/apartment-dogs/"}, {"name": "Low-Shedding Dogs", "url": "/dogs/breeds/low-shedding-dogs/"}]}, {"name": "Dog Food", "url": "/dogs/food/", "note": "Dog nutrition guides, feeding questions, and commercial food pages.", "children": [{"name": "Best Dog Food", "url": "/dogs/food/best-dog-food/"}, {"name": "Puppy Food", "url": "/dogs/food/puppy-food/"}, {"name": "Senior Dog Food", "url": "/dogs/food/senior-dog-food/"}, {"name": "Dog Food for Allergies", "url": "/dogs/food/dog-food-for-allergies/"}, {"name": "How Much Should I Feed My Dog?", "url": "/dogs/food/how-much-should-i-feed-my-dog/"}, {"name": "Can Dogs Eat Rice?", "url": "/dogs/food/can-dogs-eat-rice/"}, {"name": "Can Dogs Eat Chicken?", "url": "/dogs/food/can-dogs-eat-chicken/"}]}, {"name": "Dog Health", "url": "/dogs/health/", "note": "Dog health information with clear vet disclaimers.", "children": [{"name": "Dog Symptoms", "url": "/dogs/health/symptoms/"}, {"name": "Dog Allergies", "url": "/dogs/health/allergies/"}, {"name": "Dog Dental Care", "url": "/dogs/health/dental-care/"}, {"name": "Skin & Coat", "url": "/dogs/health/skin-and-coat/"}, {"name": "Why Is My Dog Itching?", "url": "/dogs/health/why-is-my-dog-itching/"}, {"name": "Why Is My Dog Throwing Up?", "url": "/dogs/health/why-is-my-dog-throwing-up/"}, {"name": "Signs Your Dog Needs a Vet", "url": "/dogs/health/signs-your-dog-needs-a-vet/"}]}, {"name": "Dog Training", "url": "/dogs/training/", "note": "Evergreen how-to content for puppy and adult dog training.", "children": [{"name": "Puppy Training", "url": "/dogs/training/puppy-training/"}, {"name": "Potty Training", "url": "/dogs/training/potty-training/"}, {"name": "Crate Training", "url": "/dogs/training/crate-training/"}, {"name": "Leash Training", "url": "/dogs/training/leash-training/"}, {"name": "How to Stop Dog Barking", "url": "/dogs/training/how-to-stop-dog-barking/"}, {"name": "Separation Anxiety", "url": "/dogs/training/separation-anxiety-in-dogs/"}]}, {"name": "Puppy Care", "url": "/dogs/puppy-care/", "note": "New puppy owner content and schedules.", "children": [{"name": "New Puppy Checklist", "url": "/dogs/puppy-care/new-puppy-checklist/"}, {"name": "8-Week-Old Puppy Schedule", "url": "/dogs/puppy-care/8-week-old-puppy-schedule/"}, {"name": "Puppy Vaccination Schedule", "url": "/dogs/puppy-care/puppy-vaccination-schedule/"}, {"name": "First Night With Puppy", "url": "/dogs/puppy-care/first-night-with-puppy/"}, {"name": "Puppy Teething Guide", "url": "/dogs/puppy-care/puppy-teething-guide/"}]}, {"name": "Dog Products", "url": "/dogs/products/", "note": "Affiliate and product review section for dog owners.", "children": [{"name": "Best Dog Beds", "url": "/dogs/products/best-dog-beds/"}, {"name": "Best Dog Crates", "url": "/dogs/products/best-dog-crates/"}, {"name": "Best Dog Harnesses", "url": "/dogs/products/best-dog-harnesses/"}, {"name": "Best Dog Toys for Chewers", "url": "/dogs/products/best-dog-toys-for-chewers/"}, {"name": "Dog GPS Trackers", "url": "/dogs/products/best-gps-dog-trackers/"}]}, {"name": "Dog Behavior", "url": "/dogs/behavior/", "note": "Question-led dog behavior content.", "children": [{"name": "Why Does My Dog Lick Me?", "url": "/dogs/behavior/why-does-my-dog-lick-me/"}, {"name": "Why Does My Dog Eat Grass?", "url": "/dogs/behavior/why-does-my-dog-eat-grass/"}, {"name": "Why Does My Dog Follow Me Everywhere?", "url": "/dogs/behavior/why-does-my-dog-follow-me-everywhere/"}, {"name": "Why Does My Dog Shake?", "url": "/dogs/behavior/why-does-my-dog-shake/"}]}]}, {"name": "Cats", "url": "/cats/", "note": "Primary cat hub for breed research, food, health, behavior, kitten care, products and tools.", "children": [{"name": "Cat Breeds", "url": "/cats/breeds/", "note": "Cat breed profiles and lifestyle-based cat breed lists.", "children": [{"name": "Maine Coon", "url": "/cats/breeds/maine-coon/"}, {"name": "Ragdoll", "url": "/cats/breeds/ragdoll/"}, {"name": "Siamese", "url": "/cats/breeds/siamese/"}, {"name": "British Shorthair", "url": "/cats/breeds/british-shorthair/"}, {"name": "Bengal", "url": "/cats/breeds/bengal/"}, {"name": "Persian", "url": "/cats/breeds/persian/"}, {"name": "Hypoallergenic Cats", "url": "/cats/breeds/hypoallergenic-cats/"}, {"name": "Apartment Cats", "url": "/cats/breeds/apartment-cats/"}, {"name": "Family Cats", "url": "/cats/breeds/family-cats/"}]}, {"name": "Cat Food", "url": "/cats/food/", "note": "Cat nutrition, feeding questions, and commercial food guides.", "children": [{"name": "Best Cat Food", "url": "/cats/food/best-cat-food/"}, {"name": "Kitten Food", "url": "/cats/food/kitten-food/"}, {"name": "Senior Cat Food", "url": "/cats/food/senior-cat-food/"}, {"name": "Wet Cat Food", "url": "/cats/food/wet-cat-food/"}, {"name": "Dry Cat Food", "url": "/cats/food/dry-cat-food/"}, {"name": "Cat Food for Sensitive Stomachs", "url": "/cats/food/cat-food-for-sensitive-stomachs/"}, {"name": "How Much Should I Feed My Cat?", "url": "/cats/food/how-much-should-i-feed-my-cat/"}, {"name": "Can Cats Eat Tuna?", "url": "/cats/food/can-cats-eat-tuna/"}]}, {"name": "Cat Health", "url": "/cats/health/", "note": "Cat health information with vet disclaimers.", "children": [{"name": "Cat Symptoms", "url": "/cats/health/symptoms/"}, {"name": "Cat Allergies", "url": "/cats/health/allergies/"}, {"name": "Cat Dental Care", "url": "/cats/health/dental-care/"}, {"name": "Hairballs", "url": "/cats/health/hairballs/"}, {"name": "Why Is My Cat Throwing Up?", "url": "/cats/health/why-is-my-cat-throwing-up/"}, {"name": "Why Is My Cat Sneezing?", "url": "/cats/health/why-is-my-cat-sneezing/"}, {"name": "Signs Your Cat Needs a Vet", "url": "/cats/health/signs-your-cat-needs-a-vet/"}]}, {"name": "Cat Behavior", "url": "/cats/behavior/", "note": "Question-led cat behavior content.", "children": [{"name": "Why Does My Cat Meow So Much?", "url": "/cats/behavior/why-does-my-cat-meow-so-much/"}, {"name": "Why Does My Cat Knead?", "url": "/cats/behavior/why-does-my-cat-knead/"}, {"name": "Why Does My Cat Lick Me?", "url": "/cats/behavior/why-does-my-cat-lick-me/"}, {"name": "Why Does My Cat Bite Me?", "url": "/cats/behavior/why-does-my-cat-bite-me/"}, {"name": "Why Is My Cat Hiding?", "url": "/cats/behavior/why-is-my-cat-hiding/"}]}, {"name": "Kitten Care", "url": "/cats/kitten-care/", "note": "New kitten owner content, schedules and essentials.", "children": [{"name": "New Kitten Checklist", "url": "/cats/kitten-care/new-kitten-checklist/"}, {"name": "8-Week-Old Kitten Care", "url": "/cats/kitten-care/8-week-old-kitten-care/"}, {"name": "Kitten Feeding Schedule", "url": "/cats/kitten-care/kitten-feeding-schedule/"}, {"name": "Kitten Vaccination Schedule", "url": "/cats/kitten-care/kitten-vaccination-schedule/"}, {"name": "How to Litter Train a Kitten", "url": "/cats/kitten-care/how-to-litter-train-a-kitten/"}]}, {"name": "Cat Products", "url": "/cats/products/", "note": "Affiliate and product review section for cat owners.", "children": [{"name": "Best Cat Litter", "url": "/cats/products/best-cat-litter/"}, {"name": "Best Litter Boxes", "url": "/cats/products/best-litter-boxes/"}, {"name": "Best Cat Trees", "url": "/cats/products/best-cat-trees/"}, {"name": "Best Cat Toys", "url": "/cats/products/best-cat-toys/"}, {"name": "Best Cat Carriers", "url": "/cats/products/best-cat-carriers/"}]}]}, {"name": "Pet Guides", "url": "/pet-guides/", "note": "Broad pet content that applies across dogs, cats and general pet ownership.", "children": [{"name": "Pet Insurance", "url": "/pet-guides/pet-insurance/"}, {"name": "Pet Costs", "url": "/pet-guides/pet-costs/"}, {"name": "Pet Safety", "url": "/pet-guides/pet-safety/"}, {"name": "Pet Travel", "url": "/pet-guides/pet-travel/"}, {"name": "New Pet Checklist", "url": "/pet-guides/new-pet-checklist/"}]}, {"name": "Tools", "url": "/tools/", "note": "Interactive calculators and generators for both dog and cat owners.", "children": [{"name": "Dog Age Calculator", "url": "/tools/dog-age-calculator/"}, {"name": "Cat Age Calculator", "url": "/tools/cat-age-calculator/"}, {"name": "Dog Food Calculator", "url": "/tools/dog-food-calculator/"}, {"name": "Cat Food Calculator", "url": "/tools/cat-food-calculator/"}, {"name": "Pet Cost Calculator", "url": "/tools/pet-cost-calculator/"}, {"name": "Dog Breed Selector", "url": "/tools/dog-breed-selector/"}, {"name": "Cat Breed Selector", "url": "/tools/cat-breed-selector/"}, {"name": "Pet Name Generator", "url": "/tools/pet-name-generator/"}]}]};
+
+const svg = d3.select("#tree");
+const g = svg.append("g");
+const linkGroup = g.append("g");
+const nodeGroup = g.append("g");
+
+let root = d3.hierarchy(data);
+root.x0 = 380;
+root.y0 = 0;
+
+root.descendants().forEach((d, i) => {
+    d.id = i;
+    d._children = d.children;
+    if (d.depth > 2) d.children = null;
+});
+
+const zoom = d3.zoom()
+    .scaleExtent([0.3, 2])
+    .on("zoom", (event) => g.attr("transform", event.transform));
+svg.call(zoom);
+
+function countNodes(node) {
+    let c = 1;
+    (node.children || node._children || []).forEach(ch => c += countNodes(ch));
+    return c;
+}
+function countTools(node) {
+    let c = node.data.url && node.data.url.includes("/tools/") && node.data.url !== "/tools/" ? 1 : 0;
+    (node.children || node._children || []).forEach(ch => c += countTools(ch));
+    return c;
+}
+document.getElementById("statPages").textContent = countNodes(root) - 1;
+document.getElementById("statTools").textContent = countTools(root);
+
+function branchClass(d) {
+    let n = d;
+    while (n.depth > 1) n = n.parent;
+    if (n.data.name === "Dogs") return " dogs";
+    if (n.data.name === "Cats") return " cats";
+    return "";
+}
+
+function centerView() {
+    const t = d3.zoomIdentity.translate(70, 40).scale(0.78);
+    svg.transition().duration(450).call(zoom.transform, t);
+}
+
+function update(source) {
+    const treeLayout = d3.tree().nodeSize([34, 205]);
+    treeLayout(root);
+
+    const nodes = root.descendants();
+    const links = root.links();
+
+    let left = root, right = root;
+    root.eachBefore(n => {
+        if (n.x < left.x) left = n;
+        if (n.x > right.x) right = n;
+    });
+
+    const treeHeight = Math.max(760, right.x - left.x + 140);
+    svg.attr("height", treeHeight);
+
+    nodes.forEach(d => d.y = d.depth * 215);
+
+    const link = linkGroup.selectAll("path")
+        .data(links, d => d.target.id);
+
+    link.join(
+        enter => enter.append("path")
+            .attr("class", "link")
+            .attr("d", d => {
+                const o = {x: source.x0, y: source.y0};
+                return diagonal({source: o, target: o});
+            })
+            .transition().duration(350)
+            .attr("d", diagonal),
+        update => update.transition().duration(350).attr("d", diagonal),
+        exit => exit.transition().duration(250)
+            .attr("d", d => {
+                const o = {x: source.x, y: source.y};
+                return diagonal({source: o, target: o});
+            })
+            .remove()
+    );
+
+    const node = nodeGroup.selectAll("g")
+        .data(nodes, d => d.id);
+
+    const nodeEnter = node.enter().append("g")
+        .attr("class", d => "node" + ((d.children || d._children) ? " has-children" : "") + branchClass(d))
+        .attr("transform", d => `translate(${source.y0},${source.x0})`)
+        .on("click", (event, d) => {
+            selectNode(d);
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else {
+                d.children = d._children;
+                d._children = null;
+            }
+            update(d);
+        });
+
+    nodeEnter.append("circle").attr("r", 1e-6);
+
+    nodeEnter.append("text")
+        .attr("dy", "0.31em")
+        .attr("x", d => d.children || d._children ? -14 : 14)
+        .attr("text-anchor", d => d.children || d._children ? "end" : "start")
+        .text(d => d.data.name);
+
+    node.merge(nodeEnter)
+        .attr("class", d => "node" + ((d.children || d._children) ? " has-children" : "") + branchClass(d) + (d.data.match ? " search-match" : ""))
+        .transition().duration(350)
+        .attr("transform", d => `translate(${d.y},${d.x})`);
+
+    node.merge(nodeEnter).select("circle")
+        .transition().duration(350)
+        .attr("r", d => d.depth === 0 ? 11 : (d.children || d._children ? 8 : 6));
+
+    node.exit().transition().duration(250)
+        .attr("transform", d => `translate(${source.y},${source.x})`)
+        .remove();
+
+    nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+    });
+}
+
+function diagonal(d) {
+    return `M ${d.source.y} ${d.source.x}
+            C ${(d.source.y + d.target.y) / 2} ${d.source.x},
+              ${(d.source.y + d.target.y) / 2} ${d.target.x},
+              ${d.target.y} ${d.target.x}`;
+}
+
+function selectNode(d) {
+    document.getElementById("selectedTitle").textContent = d.data.name;
+    document.getElementById("selectedUrl").textContent = d.data.url || "/";
+    document.getElementById("selectedNote").textContent = d.data.note || "SEO page idea in the pets structure.";
+    const kids = d.children || d._children || [];
+    const childList = document.getElementById("childList");
+    childList.innerHTML = "";
+    if (!kids.length) {
+        childList.innerHTML = '<div class="child-item">No child pages</div>';
+        return;
+    }
+    kids.forEach(k => {
+        const el = document.createElement("div");
+        el.className = "child-item";
+        el.textContent = `${k.data.name} — ${k.data.url || ""}`;
+        el.onclick = () => selectNode(k);
+        childList.appendChild(el);
+    });
+}
+
+function expandAllNode(d) {
+    if (d._children) {
+        d.children = d._children;
+        d._children = null;
+    }
+    if (d.children) d.children.forEach(expandAllNode);
+}
+
+function collapseAllNode(d) {
+    if (d.depth > 1 && d.children) {
+        d._children = d.children;
+        d.children = null;
+    }
+    if (d._children) d._children.forEach(collapseAllNode);
+}
+
+function clearMatches(d) {
+    d.data.match = false;
+    (d.children || d._children || []).forEach(clearMatches);
+}
+
+function revealMatches(d, q) {
+    const kids = d.children || d._children || [];
+    let self = d.data.name.toLowerCase().includes(q) || (d.data.url || "").toLowerCase().includes(q);
+    let childMatch = false;
+    kids.forEach(k => {
+        if (revealMatches(k, q)) childMatch = true;
+    });
+    if (childMatch && d._children) {
+        d.children = d._children;
+        d._children = null;
+    }
+    d.data.match = self;
+    return self || childMatch;
+}
+
+document.getElementById("expand").onclick = () => {
+    expandAllNode(root);
+    update(root);
+};
+document.getElementById("collapse").onclick = () => {
+    collapseAllNode(root);
+    update(root);
+};
+document.getElementById("center").onclick = centerView;
+document.getElementById("search").addEventListener("input", e => {
+    const q = e.target.value.trim().toLowerCase();
+    clearMatches(root);
+    if (q) revealMatches(root, q);
+    update(root);
+});
+
+selectNode(root);
+update(root);
+centerView();
+window.addEventListener("resize", () => update(root));
+</script>
+</body>
+</html>

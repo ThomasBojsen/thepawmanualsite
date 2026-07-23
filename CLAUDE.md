@@ -554,3 +554,49 @@ action for each — **please confirm or adjust when you approve this plan.**
   (remote `github.com/ThomasBojsen/thepawmanualsite.git`, branch `main`).
 
 Update §7.2 checkboxes and this section as each phase completes.
+
+---
+
+## 12. Deploying to simply.com (team preview)
+
+**Goal:** put the site on **`thepawmanual.com`** (simply.com hosting, where a
+WordPress install already exists) as a **password-protected, non-indexed**
+preview for the team — without exposing a half-built site to Google.
+
+**The SEO rule (non-negotiable):** the preview must never be indexable. Google
+indexing a thin, unfinished site weakens the domain before the real launch. The
+preview is locked behind a password **and** has search-engine indexing
+discouraged. Indexing is switched on only at the real launch.
+
+**Approach — upload the code, reproduce the setup.** The theme and plugin are
+git-managed and symlinked into LocalWP, and the site content is tiny (three
+pages). Deployment is therefore: (1) upload the theme + plugin folders from the
+repo, (2) reproduce the WordPress configuration on simply.com. This avoids the
+fragility of a database-migration tool against symlinked folders, and it
+doubles as the repeatable update process.
+
+**Procedure:**
+1. **[Claude]** Compile the CSS; zip the theme and plugin from the repo
+   (output: `~/Desktop/thepawmanual-deploy/`).
+2. **[You]** simply.com WP admin → install the theme and plugin directly from
+   their zips (Appearance → Themes → Add New → Upload Theme; Plugins → Add New
+   → Upload Plugin) and activate both. WordPress unpacks theme/plugin zips
+   natively — simply.com's File Manager cannot extract zips, so it is not used.
+3. **[You]** simply.com WP admin → set the Site Title; set permalinks to
+   "Post name".
+4. **[You]** Create the Dog Age Calculator, Cat Age Calculator and Home pages
+   (the calculator pages hold `[pawmanual_calculator id="…"]`); set Home as the
+   static front page.
+5. **[You]** Lock it down: install the "Password Protected" plugin and set a
+   password; Settings → Reading → tick "Discourage search engines".
+6. **[You]** Verify in a private browser window — the password gate appears and
+   every page works once past it. Hand the URL + password to the team.
+
+**Ongoing updates:** rebuild the CSS, re-zip, re-upload the theme/plugin folders
+(overwriting), and add any new calculator pages on simply.com. All development
+stays in LocalWP — never edit the live preview directly, or the next upload
+overwrites it.
+
+**At the real launch (later):** remove the password, untick "Discourage search
+engines", confirm HTTPS/SSL is active, and submit the site to Google Search
+Console.
