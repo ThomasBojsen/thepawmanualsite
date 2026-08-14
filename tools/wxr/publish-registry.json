@@ -1,0 +1,633 @@
+{
+  "_readme": "URL -> { date, title, filePath } recorded the first time that URL was ever emitted into a WXR file. WordPress recognizes an already-imported page by matching its TITLE AND its DATE together (see \"How WordPress decides...\" in tools/wxr/README.md), and it keeps both even after a human later publishes the imported Draft by hand — so this file is what makes a page's title+date pair both believable on the live site AND permanently stable no matter how many more times it gets regenerated, or how much later. generate.js appends one new entry automatically (via --date) the first time a URL needs one; it never rewrites an entry that already exists — if the current H1 for a URL no longer matches the recorded title, generate.js stops with an error instead of guessing which one is right (silently picking either one reopens the exact duplicate-page bug this file exists to prevent). \"filePath\" is only used to notice when a URL itself has been renamed in content/ (the same file now defines a different URL) — see \"A page's URL changing\" in tools/wxr/README.md. Commit this file whenever generate.js reports it added new entries. To correct a mistake before anything has actually been imported into WordPress, it is safe to hand-edit an entry directly — it is plain JSON.",
+  "/about/": {
+    "date": "2026-08-14",
+    "title": "About ThePawManual",
+    "filePath": "content/about.md"
+  },
+  "/affiliate-disclosure/": {
+    "date": "2026-08-14",
+    "title": "Affiliate Disclosure",
+    "filePath": "content/affiliate-disclosure.md"
+  },
+  "/cats/": {
+    "date": "2026-08-14",
+    "title": "Cat Care Guides: Built on How Cats Actually Work",
+    "filePath": "content/cats/index.md"
+  },
+  "/cats/behavior/": {
+    "date": "2026-08-14",
+    "title": "Cat Behavior, Explained: Consistent, Just Not Obvious",
+    "filePath": "content/cats/behavior/index.md"
+  },
+  "/cats/behavior/why-does-my-cat-bite-me/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Cat Bite Me? A Field Guide to Every Bite",
+    "filePath": "content/cats/behavior/why-does-my-cat-bite-me.md"
+  },
+  "/cats/behavior/why-does-my-cat-knead/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Cat Knead? Biscuits, Explained",
+    "filePath": "content/cats/behavior/why-does-my-cat-knead.md"
+  },
+  "/cats/behavior/why-does-my-cat-lick-me/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Cat Lick Me? You've Been Accepted Into the Colony",
+    "filePath": "content/cats/behavior/why-does-my-cat-lick-me.md"
+  },
+  "/cats/behavior/why-does-my-cat-meow-so-much/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Cat Meow So Much? Because It Works on You",
+    "filePath": "content/cats/behavior/why-does-my-cat-meow-so-much.md"
+  },
+  "/cats/behavior/why-is-my-cat-hiding/": {
+    "date": "2026-08-14",
+    "title": "Why Is My Cat Hiding? The Most Medically Loaded Question in Cat Behavior",
+    "filePath": "content/cats/behavior/why-is-my-cat-hiding.md"
+  },
+  "/cats/breeds/": {
+    "date": "2026-08-14",
+    "title": "Cat Breed Guides: Find the Right Cat for Your Home",
+    "filePath": "content/cats/breeds/index.md"
+  },
+  "/cats/breeds/apartment-cats/": {
+    "date": "2026-08-14",
+    "title": "Best Apartment Cats: 8 Breeds That Genuinely Thrive in Small Spaces",
+    "filePath": "content/cats/breeds/apartment-cats.md"
+  },
+  "/cats/breeds/bengal/": {
+    "date": "2026-08-14",
+    "title": "Bengal: A Beautiful Cat That Comes With Homework",
+    "filePath": "content/cats/breeds/bengal.md"
+  },
+  "/cats/breeds/british-shorthair/": {
+    "date": "2026-08-14",
+    "title": "British Shorthair: The Cat That Has Its Life Together",
+    "filePath": "content/cats/breeds/british-shorthair.md"
+  },
+  "/cats/breeds/family-cats/": {
+    "date": "2026-08-14",
+    "title": "Best Family Cats: Breeds That Genuinely Like Living With Kids",
+    "filePath": "content/cats/breeds/family-cats.md"
+  },
+  "/cats/breeds/hypoallergenic-cats/": {
+    "date": "2026-08-14",
+    "title": "Hypoallergenic Cats: What the Science Actually Supports",
+    "filePath": "content/cats/breeds/hypoallergenic-cats.md"
+  },
+  "/cats/breeds/maine-coon/": {
+    "date": "2026-08-14",
+    "title": "Maine Coon: The Gentle Giant That Acts Like a Dog",
+    "filePath": "content/cats/breeds/maine-coon.md"
+  },
+  "/cats/breeds/persian/": {
+    "date": "2026-08-14",
+    "title": "Persian: Serenity, Purchased With a Comb",
+    "filePath": "content/cats/breeds/persian.md"
+  },
+  "/cats/breeds/ragdoll/": {
+    "date": "2026-08-14",
+    "title": "Ragdoll: The Cat That Chose People",
+    "filePath": "content/cats/breeds/ragdoll.md"
+  },
+  "/cats/breeds/siamese/": {
+    "date": "2026-08-14",
+    "title": "Siamese: The Cat That Talks Back (Constantly)",
+    "filePath": "content/cats/breeds/siamese.md"
+  },
+  "/cats/food/": {
+    "date": "2026-08-14",
+    "title": "Cat Food & Nutrition: Feeding an Obligate Carnivore",
+    "filePath": "content/cats/food/index.md"
+  },
+  "/cats/food/best-cat-food/": {
+    "date": "2026-08-14",
+    "title": "How to Choose the Best Cat Food (Without the Marketing)",
+    "filePath": "content/cats/food/best-cat-food.md"
+  },
+  "/cats/food/can-cats-eat-tuna/": {
+    "date": "2026-08-14",
+    "title": "Can Cats Eat Tuna? Yes — As a Treat, Never as a Diet",
+    "filePath": "content/cats/food/can-cats-eat-tuna.md"
+  },
+  "/cats/food/cat-food-for-sensitive-stomachs/": {
+    "date": "2026-08-14",
+    "title": "Cat Food for Sensitive Stomachs: Fix the Cause, Not Just the Bag",
+    "filePath": "content/cats/food/cat-food-for-sensitive-stomachs.md"
+  },
+  "/cats/food/dry-cat-food/": {
+    "date": "2026-08-14",
+    "title": "Dry Cat Food: Convenient, Affordable — and Easy to Get Wrong",
+    "filePath": "content/cats/food/dry-cat-food.md"
+  },
+  "/cats/food/how-much-should-i-feed-my-cat/": {
+    "date": "2026-08-14",
+    "title": "How Much Should I Feed My Cat? The Math, the Rib Test, and the Bowl Policy",
+    "filePath": "content/cats/food/how-much-should-i-feed-my-cat.md"
+  },
+  "/cats/food/kitten-food/": {
+    "date": "2026-08-14",
+    "title": "Kitten Food: What to Feed, How Often, and When to Switch",
+    "filePath": "content/cats/food/kitten-food.md"
+  },
+  "/cats/food/senior-cat-food/": {
+    "date": "2026-08-14",
+    "title": "Senior Cat Food: What Actually Changes After 10",
+    "filePath": "content/cats/food/senior-cat-food.md"
+  },
+  "/cats/food/wet-cat-food/": {
+    "date": "2026-08-14",
+    "title": "Wet Cat Food: The Case for Moisture",
+    "filePath": "content/cats/food/wet-cat-food.md"
+  },
+  "/cats/health/": {
+    "date": "2026-08-14",
+    "title": "Cat Health: Reading an Animal That Hides Everything",
+    "filePath": "content/cats/health/index.md"
+  },
+  "/cats/health/allergies/": {
+    "date": "2026-08-14",
+    "title": "Cat Allergies: The Itch That Looks Like Grooming",
+    "filePath": "content/cats/health/allergies.md"
+  },
+  "/cats/health/dental-care/": {
+    "date": "2026-08-14",
+    "title": "Cat Dental Care: The Pain Your Cat Will Never Show You",
+    "filePath": "content/cats/health/dental-care.md"
+  },
+  "/cats/health/hairballs/": {
+    "date": "2026-08-14",
+    "title": "Cat Hairballs: Where Normal Ends and Problems Begin",
+    "filePath": "content/cats/health/hairballs.md"
+  },
+  "/cats/health/signs-your-cat-needs-a-vet/": {
+    "date": "2026-08-14",
+    "title": "Signs Your Cat Needs a Vet, Ranked by Urgency",
+    "filePath": "content/cats/health/signs-your-cat-needs-a-vet.md"
+  },
+  "/cats/health/symptoms/": {
+    "date": "2026-08-14",
+    "title": "Cat Symptoms: What They Mean and How Urgent Each One Is",
+    "filePath": "content/cats/health/symptoms.md"
+  },
+  "/cats/health/why-is-my-cat-sneezing/": {
+    "date": "2026-08-14",
+    "title": "Why Is My Cat Sneezing? From Dust to URI, Sorted",
+    "filePath": "content/cats/health/why-is-my-cat-sneezing.md"
+  },
+  "/cats/health/why-is-my-cat-throwing-up/": {
+    "date": "2026-08-14",
+    "title": "Why Is My Cat Throwing Up? Retiring \"Cats Just Do That\"",
+    "filePath": "content/cats/health/why-is-my-cat-throwing-up.md"
+  },
+  "/cats/kitten-care/": {
+    "date": "2026-08-14",
+    "title": "Kitten Care: The First Months, Planned Out",
+    "filePath": "content/cats/kitten-care/index.md"
+  },
+  "/cats/kitten-care/8-week-old-kitten-care/": {
+    "date": "2026-08-14",
+    "title": "8-Week-Old Kitten Care: The First Weeks, Done Right",
+    "filePath": "content/cats/kitten-care/8-week-old-kitten-care.md"
+  },
+  "/cats/kitten-care/how-to-litter-train-a-kitten/": {
+    "date": "2026-08-14",
+    "title": "How to Litter Train a Kitten: Mostly Instinct, Plus Your 10%",
+    "filePath": "content/cats/kitten-care/how-to-litter-train-a-kitten.md"
+  },
+  "/cats/kitten-care/kitten-feeding-schedule/": {
+    "date": "2026-08-14",
+    "title": "Kitten Feeding Schedule: How Often and How Much, by Age",
+    "filePath": "content/cats/kitten-care/kitten-feeding-schedule.md"
+  },
+  "/cats/kitten-care/kitten-vaccination-schedule/": {
+    "date": "2026-08-14",
+    "title": "Kitten Vaccination Schedule: Which Shots, When, and Why the Series Works This Way",
+    "filePath": "content/cats/kitten-care/kitten-vaccination-schedule.md"
+  },
+  "/cats/kitten-care/new-kitten-checklist/": {
+    "date": "2026-08-14",
+    "title": "New Kitten Checklist: What You Need Before Pickup Day",
+    "filePath": "content/cats/kitten-care/new-kitten-checklist.md"
+  },
+  "/cats/products/": {
+    "date": "2026-08-14",
+    "title": "Cat Gear That Cats Actually Use",
+    "filePath": "content/cats/products/index.md"
+  },
+  "/cats/products/best-cat-carriers/": {
+    "date": "2026-08-14",
+    "title": "Best Cat Carriers: The Gear Half of a Problem That's Mostly Strategy",
+    "filePath": "content/cats/products/best-cat-carriers.md"
+  },
+  "/cats/products/best-cat-litter/": {
+    "date": "2026-08-14",
+    "title": "Best Cat Litter: What Cats Prefer vs. What Gets Marketed",
+    "filePath": "content/cats/products/best-cat-litter.md"
+  },
+  "/cats/products/best-cat-toys/": {
+    "date": "2026-08-14",
+    "title": "Best Cat Toys: Buy for the Hunter, Not the Human",
+    "filePath": "content/cats/products/best-cat-toys.md"
+  },
+  "/cats/products/best-cat-trees/": {
+    "date": "2026-08-14",
+    "title": "Best Cat Trees: Stability First, Everything Else Second",
+    "filePath": "content/cats/products/best-cat-trees.md"
+  },
+  "/cats/products/best-litter-boxes/": {
+    "date": "2026-08-14",
+    "title": "Best Litter Boxes: The Rules Beat the Features",
+    "filePath": "content/cats/products/best-litter-boxes.md"
+  },
+  "/contact/": {
+    "date": "2026-08-14",
+    "title": "Contact ThePawManual",
+    "filePath": "content/contact.md"
+  },
+  "/dogs/": {
+    "date": "2026-08-14",
+    "title": "Dog Care Guides: Breeds, Food, Health, Training & More",
+    "filePath": "content/dogs/index.md"
+  },
+  "/dogs/behavior/": {
+    "date": "2026-08-14",
+    "title": "Dog Behavior, Explained",
+    "filePath": "content/dogs/behavior/index.md"
+  },
+  "/dogs/behavior/dog-zoomies/": {
+    "date": "2026-08-14",
+    "title": "Dog Zoomies, Explained: The Science of the Sudden Sprint",
+    "filePath": "content/dogs/behavior/dog-zoomies.md"
+  },
+  "/dogs/behavior/why-does-my-dog-dig/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Dig? Five Drivers, One Honest Fix",
+    "filePath": "content/dogs/behavior/why-does-my-dog-dig.md"
+  },
+  "/dogs/behavior/why-does-my-dog-eat-grass/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Eat Grass? (Mostly: Because Dogs Eat Grass)",
+    "filePath": "content/dogs/behavior/why-does-my-dog-eat-grass.md"
+  },
+  "/dogs/behavior/why-does-my-dog-follow-me-everywhere/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Follow Me Everywhere? The Velcro Dog, Explained",
+    "filePath": "content/dogs/behavior/why-does-my-dog-follow-me-everywhere.md"
+  },
+  "/dogs/behavior/why-does-my-dog-lick-me/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Lick Me? The 6 Real Reasons",
+    "filePath": "content/dogs/behavior/why-does-my-dog-lick-me.md"
+  },
+  "/dogs/behavior/why-does-my-dog-shake/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Shake? Reading the Difference Between Quirk and Warning",
+    "filePath": "content/dogs/behavior/why-does-my-dog-shake.md"
+  },
+  "/dogs/behavior/why-does-my-dog-stare-at-me/": {
+    "date": "2026-08-14",
+    "title": "Why Does My Dog Stare at Me? Mostly Love, Partly Logistics",
+    "filePath": "content/dogs/behavior/why-does-my-dog-stare-at-me.md"
+  },
+  "/dogs/breeds/": {
+    "date": "2026-08-14",
+    "title": "Dog Breed Guides: Find the Right Dog for Your Life",
+    "filePath": "content/dogs/breeds/index.md"
+  },
+  "/dogs/breeds/apartment-dogs/": {
+    "date": "2026-08-14",
+    "title": "Best Apartment Dogs: 10 Breeds That Genuinely Thrive in Small Spaces",
+    "filePath": "content/dogs/breeds/apartment-dogs.md"
+  },
+  "/dogs/breeds/best-dogs-for-seniors/": {
+    "date": "2026-08-14",
+    "title": "Best Dogs for Seniors: The Right Companion for the Retirement Years",
+    "filePath": "content/dogs/breeds/best-dogs-for-seniors.md"
+  },
+  "/dogs/breeds/family-dogs/": {
+    "date": "2026-08-14",
+    "title": "Best Family Dogs: 10 Kid-Friendly Breeds, Compared Honestly",
+    "filePath": "content/dogs/breeds/family-dogs.md"
+  },
+  "/dogs/breeds/french-bulldog/": {
+    "date": "2026-08-14",
+    "title": "French Bulldog: America's #1 Breed — and Its Most Complicated",
+    "filePath": "content/dogs/breeds/french-bulldog.md"
+  },
+  "/dogs/breeds/german-shepherd/": {
+    "date": "2026-08-14",
+    "title": "German Shepherd: A Working Dog First, a Pet Second",
+    "filePath": "content/dogs/breeds/german-shepherd.md"
+  },
+  "/dogs/breeds/golden-retriever/": {
+    "date": "2026-08-14",
+    "title": "Golden Retriever: The Family Dog That Earned the Cliché",
+    "filePath": "content/dogs/breeds/golden-retriever.md"
+  },
+  "/dogs/breeds/guard-dogs/": {
+    "date": "2026-08-14",
+    "title": "Best Guard Dog Breeds: What Families Actually Need (and What They Don't)",
+    "filePath": "content/dogs/breeds/guard-dogs.md"
+  },
+  "/dogs/breeds/labrador-retriever/": {
+    "date": "2026-08-14",
+    "title": "Labrador Retriever: America's Default Dog, for Good Reason",
+    "filePath": "content/dogs/breeds/labrador-retriever.md"
+  },
+  "/dogs/breeds/large-dogs/": {
+    "date": "2026-08-14",
+    "title": "Best Large Dog Breeds: The Gentle Giants, Honestly Compared",
+    "filePath": "content/dogs/breeds/large-dogs.md"
+  },
+  "/dogs/breeds/low-shedding-dogs/": {
+    "date": "2026-08-14",
+    "title": "Low-Shedding Dog Breeds: What \"Hypoallergenic\" Actually Buys You",
+    "filePath": "content/dogs/breeds/low-shedding-dogs.md"
+  },
+  "/dogs/breeds/poodle/": {
+    "date": "2026-08-14",
+    "title": "Poodle: The Smartest Dog You're Underestimating",
+    "filePath": "content/dogs/breeds/poodle.md"
+  },
+  "/dogs/breeds/small-dogs/": {
+    "date": "2026-08-14",
+    "title": "Best Small Dog Breeds: The Honest Comparison",
+    "filePath": "content/dogs/breeds/small-dogs.md"
+  },
+  "/dogs/food/": {
+    "date": "2026-08-14",
+    "title": "Dog Food & Nutrition, Without the Marketing Noise",
+    "filePath": "content/dogs/food/index.md"
+  },
+  "/dogs/food/best-dog-food/": {
+    "date": "2026-08-14",
+    "title": "How to Choose the Best Dog Food (Without the Marketing)",
+    "filePath": "content/dogs/food/best-dog-food.md"
+  },
+  "/dogs/food/can-dogs-eat-chicken/": {
+    "date": "2026-08-14",
+    "title": "Can Dogs Eat Chicken? Yes — With Three Hard Rules",
+    "filePath": "content/dogs/food/can-dogs-eat-chicken.md"
+  },
+  "/dogs/food/can-dogs-eat-chocolate/": {
+    "date": "2026-08-14",
+    "title": "Can Dogs Eat Chocolate? No — and Darker Means More Dangerous",
+    "filePath": "content/dogs/food/can-dogs-eat-chocolate.md"
+  },
+  "/dogs/food/can-dogs-eat-grapes/": {
+    "date": "2026-08-14",
+    "title": "Can Dogs Eat Grapes? No — and \"Just One\" Is Still a Vet Call",
+    "filePath": "content/dogs/food/can-dogs-eat-grapes.md"
+  },
+  "/dogs/food/can-dogs-eat-rice/": {
+    "date": "2026-08-14",
+    "title": "Can Dogs Eat Rice? Yes — Here's How and When",
+    "filePath": "content/dogs/food/can-dogs-eat-rice.md"
+  },
+  "/dogs/food/dog-food-for-allergies/": {
+    "date": "2026-08-14",
+    "title": "Dog Food for Allergies: What Works, What's Wishful Thinking",
+    "filePath": "content/dogs/food/dog-food-for-allergies.md"
+  },
+  "/dogs/food/how-much-should-i-feed-my-dog/": {
+    "date": "2026-08-14",
+    "title": "How Much Should I Feed My Dog? The Math, the Chart, and the Rib Test",
+    "filePath": "content/dogs/food/how-much-should-i-feed-my-dog.md"
+  },
+  "/dogs/food/puppy-food/": {
+    "date": "2026-08-14",
+    "title": "Puppy Food: What to Feed, How Often, and When to Switch",
+    "filePath": "content/dogs/food/puppy-food.md"
+  },
+  "/dogs/food/senior-dog-food/": {
+    "date": "2026-08-14",
+    "title": "Senior Dog Food: What Actually Needs to Change (and What's Marketing)",
+    "filePath": "content/dogs/food/senior-dog-food.md"
+  },
+  "/dogs/grooming/": {
+    "date": "2026-08-14",
+    "title": "Dog Grooming: Health Care That Looks Like Vanity",
+    "filePath": "content/dogs/grooming/index.md"
+  },
+  "/dogs/health/": {
+    "date": "2026-08-14",
+    "title": "Dog Health: What's Normal, What's Not, and When to Call the Vet",
+    "filePath": "content/dogs/health/index.md"
+  },
+  "/dogs/health/allergies/": {
+    "date": "2026-08-14",
+    "title": "Dog Allergies: Why Your Dog Itches Instead of Sneezes",
+    "filePath": "content/dogs/health/allergies.md"
+  },
+  "/dogs/health/dental-care/": {
+    "date": "2026-08-14",
+    "title": "Dog Dental Care: The Most Ignored Health Problem in Dogs",
+    "filePath": "content/dogs/health/dental-care.md"
+  },
+  "/dogs/health/ear-infections/": {
+    "date": "2026-08-14",
+    "title": "Dog Ear Infections: Why They Happen, and Why They Keep Coming Back",
+    "filePath": "content/dogs/health/ear-infections.md"
+  },
+  "/dogs/health/fleas-ticks-and-worms/": {
+    "date": "2026-08-14",
+    "title": "Fleas, Ticks & Worms: The Prevention Habit That Beats Every Treatment",
+    "filePath": "content/dogs/health/fleas-ticks-and-worms.md"
+  },
+  "/dogs/health/signs-your-dog-needs-a-vet/": {
+    "date": "2026-08-14",
+    "title": "Signs Your Dog Needs a Vet, Ranked by Urgency",
+    "filePath": "content/dogs/health/signs-your-dog-needs-a-vet.md"
+  },
+  "/dogs/health/skin-and-coat/": {
+    "date": "2026-08-14",
+    "title": "Dog Skin and Coat: What Healthy Looks Like — and What Problems Mean",
+    "filePath": "content/dogs/health/skin-and-coat.md"
+  },
+  "/dogs/health/symptoms/": {
+    "date": "2026-08-14",
+    "title": "Dog Symptoms: What They Mean and How Urgent Each One Is",
+    "filePath": "content/dogs/health/symptoms.md"
+  },
+  "/dogs/health/why-is-my-dog-itching/": {
+    "date": "2026-08-14",
+    "title": "Why Is My Dog Itching? The Four Usual Suspects, in Order",
+    "filePath": "content/dogs/health/why-is-my-dog-itching.md"
+  },
+  "/dogs/health/why-is-my-dog-throwing-up/": {
+    "date": "2026-08-14",
+    "title": "Why Is My Dog Throwing Up? Reading the Difference Between \"Fine\" and \"Go Now\"",
+    "filePath": "content/dogs/health/why-is-my-dog-throwing-up.md"
+  },
+  "/dogs/products/": {
+    "date": "2026-08-14",
+    "title": "Dog Gear That Earns Its Keep",
+    "filePath": "content/dogs/products/index.md"
+  },
+  "/dogs/products/best-dog-beds/": {
+    "date": "2026-08-14",
+    "title": "Best Dog Beds: The Three Specs That Actually Matter",
+    "filePath": "content/dogs/products/best-dog-beds.md"
+  },
+  "/dogs/products/best-dog-crates/": {
+    "date": "2026-08-14",
+    "title": "Best Dog Crates: Get the Size Right, Then Pick the Type",
+    "filePath": "content/dogs/products/best-dog-crates.md"
+  },
+  "/dogs/products/best-dog-harnesses/": {
+    "date": "2026-08-14",
+    "title": "Best Dog Harnesses: Clip Position First, Fit Second, Brand Last",
+    "filePath": "content/dogs/products/best-dog-harnesses.md"
+  },
+  "/dogs/products/best-dog-toys-for-chewers/": {
+    "date": "2026-08-14",
+    "title": "Best Dog Toys for Aggressive Chewers: Material Science for the Dog That Destroys Everything",
+    "filePath": "content/dogs/products/best-dog-toys-for-chewers.md"
+  },
+  "/dogs/products/best-gps-dog-trackers/": {
+    "date": "2026-08-14",
+    "title": "Best GPS Dog Trackers: The Three Questions That Decide",
+    "filePath": "content/dogs/products/best-gps-dog-trackers.md"
+  },
+  "/dogs/puppy-care/": {
+    "date": "2026-08-14",
+    "title": "Puppy Care: Your First Weeks, Planned Out",
+    "filePath": "content/dogs/puppy-care/index.md"
+  },
+  "/dogs/puppy-care/8-week-old-puppy-schedule/": {
+    "date": "2026-08-14",
+    "title": "8-Week-Old Puppy Schedule: What a Day Actually Looks Like",
+    "filePath": "content/dogs/puppy-care/8-week-old-puppy-schedule.md"
+  },
+  "/dogs/puppy-care/first-night-with-puppy/": {
+    "date": "2026-08-14",
+    "title": "First Night With Your Puppy: A Survival Guide",
+    "filePath": "content/dogs/puppy-care/first-night-with-puppy.md"
+  },
+  "/dogs/puppy-care/how-to-stop-puppy-biting/": {
+    "date": "2026-08-14",
+    "title": "How to Stop Puppy Biting: The Method, the Timeline, and the Overtired Trap",
+    "filePath": "content/dogs/puppy-care/how-to-stop-puppy-biting.md"
+  },
+  "/dogs/puppy-care/new-puppy-checklist/": {
+    "date": "2026-08-14",
+    "title": "New Puppy Checklist: What You Need Before Pickup Day",
+    "filePath": "content/dogs/puppy-care/new-puppy-checklist.md"
+  },
+  "/dogs/puppy-care/puppy-socialization/": {
+    "date": "2026-08-14",
+    "title": "Puppy Socialization: The Deadline That Outranks Every Command",
+    "filePath": "content/dogs/puppy-care/puppy-socialization.md"
+  },
+  "/dogs/puppy-care/puppy-teething-guide/": {
+    "date": "2026-08-14",
+    "title": "Puppy Teething: The Timeline, the Relief, and the Furniture Insurance",
+    "filePath": "content/dogs/puppy-care/puppy-teething-guide.md"
+  },
+  "/dogs/puppy-care/puppy-vaccination-schedule/": {
+    "date": "2026-08-14",
+    "title": "Puppy Vaccination Schedule: Which Shots, When, and Why the Series Works This Way",
+    "filePath": "content/dogs/puppy-care/puppy-vaccination-schedule.md"
+  },
+  "/dogs/training/": {
+    "date": "2026-08-14",
+    "title": "Dog Training That Works: Kind, Consistent, Evidence-Based",
+    "filePath": "content/dogs/training/index.md"
+  },
+  "/dogs/training/crate-training/": {
+    "date": "2026-08-14",
+    "title": "Crate Training: Building a Den, Not a Jail",
+    "filePath": "content/dogs/training/crate-training.md"
+  },
+  "/dogs/training/how-to-stop-dog-barking/": {
+    "date": "2026-08-14",
+    "title": "How to Stop Dog Barking: Diagnose the Cause, Then Fix That",
+    "filePath": "content/dogs/training/how-to-stop-dog-barking.md"
+  },
+  "/dogs/training/leash-training/": {
+    "date": "2026-08-14",
+    "title": "Leash Training: Why Dogs Pull, and How to Make Stopping Pay Better",
+    "filePath": "content/dogs/training/leash-training.md"
+  },
+  "/dogs/training/potty-training/": {
+    "date": "2026-08-14",
+    "title": "How to Potty Train a Puppy (the Boring, Reliable Way)",
+    "filePath": "content/dogs/training/potty-training.md"
+  },
+  "/dogs/training/puppy-training/": {
+    "date": "2026-08-14",
+    "title": "Puppy Training: What to Teach First, and When",
+    "filePath": "content/dogs/training/puppy-training.md"
+  },
+  "/dogs/training/recall-training/": {
+    "date": "2026-08-14",
+    "title": "Recall Training: The Skill That Saves Lives (and Why Yours Isn't Working)",
+    "filePath": "content/dogs/training/recall-training.md"
+  },
+  "/dogs/training/separation-anxiety-in-dogs/": {
+    "date": "2026-08-14",
+    "title": "Separation Anxiety in Dogs: It's Panic, Not Payback",
+    "filePath": "content/dogs/training/separation-anxiety-in-dogs.md"
+  },
+  "/editorial-process/": {
+    "date": "2026-08-14",
+    "title": "How ThePawManual Researches, Writes, and Reviews Content",
+    "filePath": "content/editorial-process.md"
+  },
+  "/pet-guides/": {
+    "date": "2026-08-14",
+    "title": "Pet Guides: The Decisions That Apply to Every Pet",
+    "filePath": "content/pet-guides/index.md"
+  },
+  "/pet-guides/new-pet-checklist/": {
+    "date": "2026-08-14",
+    "title": "New Pet Checklist: The Decisions Before the Shopping List",
+    "filePath": "content/pet-guides/new-pet-checklist.md"
+  },
+  "/pet-guides/pet-costs/": {
+    "date": "2026-08-14",
+    "title": "How Much Does a Pet Cost? The Honest, Itemized Answer",
+    "filePath": "content/pet-guides/pet-costs.md"
+  },
+  "/pet-guides/pet-insurance/": {
+    "date": "2026-08-14",
+    "title": "Pet Insurance: How It Works, and an Honest Framework for Whether You Need It",
+    "filePath": "content/pet-guides/pet-insurance.md"
+  },
+  "/pet-guides/pet-safety/": {
+    "date": "2026-08-14",
+    "title": "Pet Safety at Home: The Master List of What Actually Hurts Pets",
+    "filePath": "content/pet-guides/pet-safety.md"
+  },
+  "/pet-guides/pet-travel/": {
+    "date": "2026-08-14",
+    "title": "Traveling With Pets: The Practical Guide, Including the Question Nobody Asks",
+    "filePath": "content/pet-guides/pet-travel.md"
+  },
+  "/privacy-policy/": {
+    "date": "2026-08-14",
+    "title": "Privacy Policy",
+    "filePath": "content/privacy-policy.md"
+  },
+  "/terms/": {
+    "date": "2026-08-14",
+    "title": "Terms of Use",
+    "filePath": "content/terms.md"
+  },
+  "/tools/": {
+    "date": "2026-08-14",
+    "title": "Tools: Free Pet Calculators",
+    "filePath": "content/tools/index.md"
+  },
+  "/tools/cat-age-calculator/": {
+    "date": "2026-08-14",
+    "title": "Cat Age Calculator: How Old Is Your Cat in Human Years?",
+    "filePath": "content/tools/cat-age-calculator.md"
+  },
+  "/tools/dog-age-calculator/": {
+    "date": "2026-08-14",
+    "title": "Dog Age Calculator: How Old Is Your Dog in Human Years?",
+    "filePath": "content/tools/dog-age-calculator.md"
+  }
+}

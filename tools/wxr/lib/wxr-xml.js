@@ -5,6 +5,20 @@ const AUTHOR_LOGIN = 'admin';
 const AUTHOR_EMAIL = 'info@thepawmanual.com';
 const AUTHOR_DISPLAY_NAME = 'ThePawManual';
 
+// This is ONLY the RSS <channel>'s own <pubDate> — the "when was this feed
+// generated" field the WXR format inherits from RSS, describing the export
+// itself, not any one page. It is never read per-post: WordPress's importer
+// takes each page's date from that item's own <wp:post_date> (see
+// buildWxr's `page.date` below), and nothing in WordPress persists the
+// channel-level value against any post_id. So, unlike a page's own date, it
+// doesn't need to be "plausible" — it just needs to be fixed, so that
+// generating the same content twice keeps producing byte-identical output
+// (see tools/wxr/README.md's "Reproducible output"). Each page's *own*
+// date is NOT allowed to default to this or to "now" — see
+// generate.js's resolvePublishDates() for why a page's date has its own,
+// separate, per-URL source of truth (a committed registry, not a constant).
+const CHANNEL_DATE = new Date('1970-01-01T00:00:00Z');
+
 /** Wrap text in a CDATA section, escaping any literal "]]>" it might contain. */
 function cdata(text) {
   const safe = String(text == null ? '' : text).replace(/]]>/g, ']]]]><![CDATA[>');
@@ -39,17 +53,21 @@ function formatWpDate(date) {
 /**
  * @param {Array<{
  *   id: number, parentId: number, url: string, title: string, contentHtml: string,
- *   seoTitle: string, metaDescription: string,
- * }>} pages  Already ordered parents-before-children.
+ *   seoTitle: string, metaDescription: string, date: Date,
+ * }>} pages  Already ordered parents-before-children. `date` is per-page —
+ *   see generate.js's resolvePublishDates() for where it comes from and why
+ *   it can't be a single shared value the way `id` and `parentId` aren't
+ *   either.
  */
-function buildWxr(pages, { now = new Date() } = {}) {
-  const pubDate = now.toUTCString();
-  const wpDate = formatWpDate(now);
+function buildWxr(pages, { channelDate = CHANNEL_DATE } = {}) {
+  const channelPubDate = channelDate.toUTCString();
 
   const items = pages
     .map((page) => {
       const link = `${SITE_URL}${page.url}`;
       const postName = slugFromUrl(page.url);
+      const itemPubDate = page.date.toUTCString();
+      const wpDate = formatWpDate(page.date);
       const postmeta = [
         ['rank_math_title', page.seoTitle],
         ['rank_math_description', page.metaDescription],
@@ -67,7 +85,7 @@ function buildWxr(pages, { now = new Date() } = {}) {
         '\t<item>',
         `\t\t<title>${cdata(page.title)}</title>`,
         `\t\t<link>${escapeXml(link)}</link>`,
-        `\t\t<pubDate>${pubDate}</pubDate>`,
+        `\t\t<pubDate>${itemPubDate}</pubDate>`,
         `\t\t<dc:creator>${cdata(AUTHOR_LOGIN)}</dc:creator>`,
         `\t\t<guid isPermaLink="false">${escapeXml(`${SITE_URL}/?page_id=${page.id}`)}</guid>`,
         '\t\t<description></description>',
@@ -105,7 +123,7 @@ function buildWxr(pages, { now = new Date() } = {}) {
 	<title>${escapeXml('ThePawManual')}</title>
 	<link>${escapeXml(SITE_URL)}</link>
 	<description>${escapeXml('ThePawManual content import')}</description>
-	<pubDate>${pubDate}</pubDate>
+	<pubDate>${channelPubDate}</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>${escapeXml(SITE_URL)}</wp:base_site_url>

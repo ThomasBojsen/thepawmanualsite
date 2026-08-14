@@ -29,7 +29,7 @@ load-bearing for everything else:
 | Terms of Use | `/terms/` | ✍️ draft — `content/terms.md` ⚠️ legal review | Legal |
 | Affiliate Disclosure | `/affiliate-disclosure/` | ✍️ draft — `content/affiliate-disclosure.md` ⚠️ confirm programs | FTC requirement — the `/products/` sections are affiliate content |
 
-## Dogs — `/dogs/` (51 pages)
+## Dogs — `/dogs/` (65 pages)
 
 | Page | URL | Status |
 |---|---|---|
