@@ -14,6 +14,12 @@ const NOTES_HEADINGS = [
   '## Implementation notes (not page copy)',
 ];
 
+// Shortcodes that may appear in page copy. Deliberately a whitelist rather
+// than a generic `[...]` pattern: the content is full of markdown link text
+// ("[allergies guide](/dogs/health/allergies/)"), and a generic pattern would
+// happily mangle those. Add a name here when the plugin registers a new one.
+const SHORTCODE_NAMES = ['pawmanual_calculator'];
+
 /**
  * Remove the notes/expansion/implementation section and any preceding `---`
  * horizontal rule that directly introduces it (with its surrounding blank
@@ -66,6 +72,35 @@ function extractFaqJsonLd(body) {
 }
 
 /**
+ * Undo `marked`'s HTML-escaping *inside shortcode brackets only*.
+ *
+ * `marked` escapes text-node quotes, so `[pawmanual_calculator id="dog-age"]`
+ * renders as `[pawmanual_calculator id=&quot;dog-age&quot;]`. That escaping is
+ * correct for prose but fatal here: WordPress runs do_shortcode() against the
+ * stored post content *before* any entity decoding, and its attribute parser
+ * falls through to the unquoted-value branch, yielding the id
+ * `&quot;dog-age&quot;`. The registry lookup misses and the calculator renders
+ * as nothing — a silently empty tool page.
+ *
+ * Scoped to the SHORTCODE_NAMES whitelist so ordinary escaped quotes in copy
+ * (and every markdown link's bracketed text) are left exactly as marked wrote
+ * them.
+ */
+function restoreShortcodeQuotes(html) {
+  return SHORTCODE_NAMES.reduce((acc, name) => {
+    // `[name ...attrs]` with no nested bracket or tag — shortcodes are flat.
+    const re = new RegExp(`\\[(\\/?${name})([^\\][<>]*)\\]`, 'g');
+    return acc.replace(re, (_full, tag, attrs) => {
+      const decoded = attrs
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&');
+      return `[${tag}${decoded}]`;
+    });
+  }, html);
+}
+
+/**
  * Extract the first H1 as the post title and remove that line from the body
  * (WordPress renders the title from the template — duplicating it in the
  * content would print it twice).
@@ -108,7 +143,7 @@ function parsePage(raw, filePath) {
   const { body: bodyNoFaqFence, faqHtml } = extractFaqJsonLd(bodyNoNotes);
   const { title, body: bodyNoTitle } = extractTitle(bodyNoFaqFence, filePath);
 
-  const renderedHtml = marked.parse(bodyNoTitle.trim() + '\n', { async: false });
+  const renderedHtml = restoreShortcodeQuotes(marked.parse(bodyNoTitle.trim() + '\n', { async: false }));
   let contentHtml = htmlToGutenberg(renderedHtml);
   if (faqHtml) {
     contentHtml += '\n\n' + faqScriptToGutenbergHtml(faqHtml);
@@ -117,4 +152,12 @@ function parsePage(raw, filePath) {
   return { url, seoTitle, metaDescription, status, title, contentHtml, filePath, hasFaq: Boolean(faqHtml) };
 }
 
-module.exports = { parsePage, stripNotesSection, extractFaqJsonLd, extractTitle, NOTES_HEADINGS };
+module.exports = {
+  parsePage,
+  stripNotesSection,
+  extractFaqJsonLd,
+  extractTitle,
+  restoreShortcodeQuotes,
+  NOTES_HEADINGS,
+  SHORTCODE_NAMES,
+};
