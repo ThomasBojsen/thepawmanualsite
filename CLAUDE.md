@@ -512,11 +512,35 @@ action for each — **please confirm or adjust when you approve this plan.**
 
 ## 11. Current Status
 
-- **Last updated:** 2026-07-28.
-- **Phase:** **POC complete + content workstream landed.** The site is no longer a
-  two-calculator proof of concept: 130 content pages are drafted, the import
-  tooling exists, and the theme has a real internal-linking layer. The next
-  milestone is **wave-1 launch** — see §13 and `docs/LAUNCH-RUNBOOK.md`.
+- **Last updated:** 2026-08-14.
+- **Phase:** **Wave-1 deploy artifacts are built and reviewed.** 127 content
+  pages are drafted, the import tooling exists, and the theme's internal-linking
+  layer now covers page content as well as templates. A multi-agent review pass
+  on 2026-08-14 found and fixed six defects that would each have surfaced only
+  after deployment — see the note below. The next milestone is **wave-1 launch**
+  — §13, §12, and `docs/LAUNCH-RUNBOOK.md`.
+
+**Pre-deploy review, 2026-08-14 — what it caught, so nobody re-introduces it.**
+The content workstream's output was reviewed before anything was uploaded. All
+six findings were confirmed by reproduction, not inspection:
+1. The calculator shortcode was HTML-escaped into `id=&quot;dog-age&quot;` by the
+   markdown converter — both tool pages would have imported with no calculator.
+2. 201 of 262 internal links on the wave-1 pages pointed at unpublished pages.
+3. Five trust pages carry `[PLACEHOLDER]` copy that publishes verbatim.
+4. The generator stamped a fresh date per run, so wave 2 would have duplicated
+   every ancestor hub and orphaned its children.
+5. Page titles were re-read from the markdown H1 on every run, reproducing (4)
+   whenever an H1 was edited.
+6. The `DOMDocument` heading pass could silently drop everything after a
+   JSON-LD block containing a literal `<`.
+Structure fidelity was verified against `design/seo-site-structure.html`: 107 of
+its 113 URLs are written and correctly nested; the 6 absent ones are tools pages
+for calculators that do not exist yet.
+
+**Known, still open (not defects — decisions):** 25 pages outside wave 1 have
+FAQ text that differs between the visible question and its JSON-LD; Google
+requires the two to match, and which wording wins is an SEO call. Fix before
+generating wave 2.
 
 **Done**
 - **Phase 0 — Scaffolding** ✓ — `.gitignore`, `package.json`, `tailwind.config.js`,
@@ -646,6 +670,17 @@ Everything imports as **drafts**, with parent/child hierarchy derived from the
 URL and RankMath title/description as postmeta. `tools/wxr/README.md` has the
 WP-admin walkthrough. Three rules the tooling enforces, all of them load-bearing:
 
+> **`tools/wxr/publish-registry.json` is state, not a build artifact — never
+> delete it.** WordPress's importer recognises an already-imported page by
+> **title + date** (`post_id` is only a transient parent-mapping key). Every
+> wave re-includes its ancestor hubs so `post_parent` resolves, so if `/dogs/`
+> arrives on wave 2 with a different title or date than wave 1 gave it,
+> WordPress inserts a *second* `/dogs/` at `dogs-2` and parents that wave's
+> children to the duplicate. The registry pins both values per URL on first
+> generation and reuses them forever. Editing a page's H1 in `content/` after
+> it has been imported therefore fails the build loudly rather than silently
+> duplicating weeks later — that error is the tool working, not breaking.
+
 - **Waves, never a bulk publish.** Google's scaled-content policies flag
   single-shot dumps of templated pages on a fresh domain. `--wave N` exists so
   nobody is tempted.
@@ -667,13 +702,39 @@ a wave ships. `tpm_get_published_page_url()` in `inc/content-nav.php` is the
 helper that enforces it — use it for any new hardcoded internal link in a
 template, including in the homepage copy (`template-parts/home/seo-content.php`).
 
+**Page *content* is covered too, since 2026-08-14.** The templates always
+honoured the rule above; the imported page bodies did not, and they are where
+most links live — after wave 1, 201 of 262 internal links on the launch pages
+pointed at pages that had not shipped yet. `inc/internal-links.php` adds a
+`the_content` filter that degrades any link to a not-yet-published page into
+plain text, and lights it back up automatically when that page's wave ships —
+no re-import, no template edit. It costs one memoized `get_pages()` query per
+request. Two limits are documented at the call site: targets are matched by
+**current path**, so moving a live page permanently strands links written
+against its old path; and the path map loads every page row per request, which
+needs a persistent cache well before the programmatic-SEO scale in §1.
+
+`inc/script-protection.php` exists because the heading/TOC pass runs
+`DOMDocument` over content that contains the FAQ JSON-LD block, and libxml has
+no HTML5 script-data state — a literal `<` followed by a letter inside that JSON
+used to break out of the script and silently drop the rest of the page. Script
+blocks are swapped for inert placeholders and restored verbatim; anything
+unbalanced fails closed. **If you add a pass that parses post content, route it
+through this helper** — losing a table of contents is a non-event, losing half a
+page is not.
+
 ### The two things that block launch and cannot be fixed in code
 
-1. **The trust pages carry `[PLACEHOLDER]`s** — `content/about.md`,
-   `content/contact.md`, `content/editorial-process.md` need real human names and
-   a real domain email. Pet health is YMYL-adjacent; an anonymous site publishing
-   it caps its own rankings. Never invent a name or imply veterinary review that
-   doesn't happen.
+1. **The trust pages carry `[PLACEHOLDER]`s** — **five** of them, all in wave 1:
+   `content/about.md` (`[FOUNDER/TEAM SECTION]`), `content/contact.md`
+   (`[CONTACT EMAIL]`), `content/affiliate-disclosure.md` (`[LIST ACTUAL
+   PROGRAMS]`), `content/terms.md` (`[LEGAL ENTITY NAME]` ×4, `[STATE]`,
+   `[DATE]`) and `content/privacy-policy.md` (`[CONTACT EMAIL]`, `[DATE]`).
+   Nothing in the import pipeline strips them — they are ordinary body copy, so
+   they publish verbatim. **Keep those five as Drafts when publishing wave 1.**
+   Pet health is YMYL-adjacent; an anonymous site publishing it caps its own
+   rankings, and a Terms of Use governed by "the State of [STATE]" is worse than
+   none. Never invent a name or imply veterinary review that doesn't happen.
 2. **The fact-check pass hasn't run.** Each page's Notes section lists its own
    flags. Publishing unverified veterinary claims is the one mistake here that is
    genuinely expensive to undo.
