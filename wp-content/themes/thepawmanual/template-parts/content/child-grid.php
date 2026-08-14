@@ -39,7 +39,44 @@ $heading = ! empty( $args['heading'] ) ? $args['heading'] : __( 'In This Section
 					<?php echo esc_html( get_the_title( $child ) ); ?>
 				</h3>
 
-				<?php $excerpt = get_the_excerpt( $child ); ?>
+				<?php
+				/*
+				 * A manually-set excerpt is free (it's already in the DB — no
+				 * filters to run) and get_the_excerpt() would return it
+				 * as-is too, so read post_excerpt directly and only derive
+				 * one when the editor hasn't written one.
+				 *
+				 * The derive-a-summary path deliberately does NOT call
+				 * get_the_excerpt()/wp_trim_excerpt(): with no manual
+				 * excerpt, that falls through to the full `the_content`
+				 * filter chain (wptexturize, wpautop, shortcode_unautop,
+				 * do_shortcode, …) run over the child's ENTIRE body — once
+				 * per card, uncached, on every hub-page view. do_shortcode()
+				 * (executing every registered shortcode callback) is the
+				 * expensive/risky part; wpautop()/shortcode_unautop() are
+				 * pointless here since the tags get stripped straight back
+				 * out. strip_shortcodes() + wp_trim_words() reproduce the
+				 * same "first 55 words + […]" shape without any of that.
+				 *
+				 * wp_strip_all_tags() is called explicitly (redundant with
+				 * wp_trim_words()'s own internal call to it) so the
+				 * script/style-block safety is visible right here at the
+				 * call site, not buried inside wp_trim_words(): some child
+				 * pages carry a `<script type="application/ld+json">` FAQ
+				 * block in their body, and wp_strip_all_tags() — unlike
+				 * plain strip_tags() — removes the whole element INCLUDING
+				 * its text content, so the raw JSON can never end up as
+				 * visible card text.
+				 */
+				$excerpt = $child->post_excerpt;
+				if ( '' === $excerpt ) {
+					$excerpt = wp_trim_words(
+						wp_strip_all_tags( strip_shortcodes( $child->post_content ) ),
+						55,
+						' [&hellip;]'
+					);
+				}
+				?>
 				<?php if ( $excerpt ) : ?>
 					<p class="mt-2 flex-grow font-geist text-sm text-neutral-600">
 						<?php echo esc_html( $excerpt ); ?>

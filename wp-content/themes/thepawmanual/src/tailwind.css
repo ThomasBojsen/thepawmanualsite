@@ -196,3 +196,71 @@ body.admin-bar .tpm-header {
     top: 46px;
   }
 }
+
+/* --------------------------------------------------------------------- *
+ * Table of contents (template-parts/content/toc.php)
+ * --------------------------------------------------------------------- */
+
+/*
+ * toc.php renders a collapsed-by-default <details> so mobile (where
+ * page.php stacks the TOC above the article body) doesn't bury the content
+ * under a fully expanded heading list. Desktop's sticky sidebar TOC is
+ * meant to read as permanently open instead — the two rules below are the
+ * CSS half of that (assets/js/theme.js's initTocDesktopOpen() is the other
+ * half, and is the one that actually flips the real `open` attribute; see
+ * toc.php's docblock for the full "why both are needed" writeup).
+ *
+ * `@screen lg` ties this to the SAME `lg` breakpoint tailwind.config.js
+ * defines, rather than a second hardcoded `1024px` living here too.
+ */
+@screen lg {
+  /*
+   * Firefox/Safari hide closed <details> content via a plain
+   * `display: none` applied straight to the non-summary children (the
+   * HTML spec's suggested rendering) — the `lg:block` utility class
+   * already on toc.php's <ol> is an ordinary author rule, which beats
+   * that user-agent one regardless of the `open` attribute.
+   *
+   * Chrome (verified in 151 via computed-style inspection) hides it a
+   * different way: it renders the content inside an internal
+   * `::details-content` pseudo-element and applies `content-visibility:
+   * hidden` to THAT instead, so a `display` override on the children does
+   * nothing there — the ancestor pseudo-element never generates their
+   * boxes at all. This rule is Chrome's half of the same override.
+   * `visible` is content-visibility's default/no-op value, so it stays
+   * harmless once initTocDesktopOpen() has genuinely opened the details.
+   */
+  .tpm-toc details::details-content {
+    content-visibility: visible;
+  }
+
+  /*
+   * The chevron's rotation is Tailwind's `group-open:rotate-180`, which
+   * reads the real `[open]` attribute — correct once initTocDesktopOpen()
+   * has run, but for the one frame before that script executes, and for
+   * the JS-disabled case toc.php's docblock documents as a degraded
+   * fallback, the arrow would otherwise point "closed" while the list
+   * above is visibly open. Same mismatch as the content override above,
+   * same fix: force the visual regardless of the attribute.
+   */
+  .tpm-toc-chevron {
+    transform: rotate(180deg);
+  }
+}
+
+/*
+ * Bridges the same `lg` breakpoint to assets/js/theme.js. initTocDesktopOpen()
+ * needs to know whether it's at/above `lg` too (to set the real `open`
+ * attribute the rules above can't touch) — reading this custom property lets
+ * it reuse THIS `@screen lg` instead of a third hardcoded `1024px` living in
+ * a .js file with no connection to Tailwind's config at all. `getComputedStyle`
+ * + custom properties are what theme.js reads; see that file's isLgBreakpoint().
+ */
+:root {
+  --tpm-is-lg: 0;
+}
+@screen lg {
+  :root {
+    --tpm-is-lg: 1;
+  }
+}

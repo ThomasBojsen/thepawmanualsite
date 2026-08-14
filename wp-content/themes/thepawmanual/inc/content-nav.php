@@ -8,6 +8,12 @@
  * together in one file because they all answer the same question — "where
  * does this Page sit in the ~110-page hierarchy, and what should link to it?"
  *
+ * The internal-link *degrading* subsystem (rewriting post-body links to
+ * unpublished Pages into plain text) used to live here too, growing out of
+ * tpm_get_published_page_url() below, but outgrew this file's actual
+ * subject once post-body content needed the same protection — see
+ * inc/internal-links.php, split out 2026-08-14.
+ *
  * @package thepawmanual
  */
 
@@ -127,6 +133,18 @@ function tpm_get_last_updated_label( $post_id ) {
  * 3). DOMDocument is guarded throughout: a missing extension or malformed
  * input falls back to the original content with an empty TOC, never a fatal.
  *
+ * `<script>` blocks (the FAQ JSON-LD every page carries) are pulled out
+ * before the parse and spliced back in verbatim afterwards — see
+ * tpm_extract_script_blocks() (inc/script-protection.php) for why that has
+ * to happen. That helper fails CLOSED, not open: if it can't prove every
+ * `<script>` block was safely extracted — most plausibly an unclosed
+ * `<script>` left by a hand-edit — this function takes the same fallback
+ * it uses for a missing DOMDocument or empty content: return the original,
+ * completely unparsed, with an empty TOC. A page rendering without a TOC
+ * is a harmless, silent degrade; a page that stops rendering halfway
+ * through — the original bug this whole mechanism exists to prevent — is
+ * not, so this never trades one for the other.
+ *
  * @param string $content Fully filtered post content (i.e. already run
  *                         through the `the_content` filter — shortcodes
  *                         executed, wpautop applied — so the H2s found here
@@ -143,6 +161,12 @@ function tpm_inject_heading_ids( $content ) {
 		return $fallback;
 	}
 
+	list( $protected_content, $script_blocks, $scripts_protected ) = tpm_extract_script_blocks( $content );
+
+	if ( ! $scripts_protected ) {
+		return $fallback;
+	}
+
 	$dom = new DOMDocument();
 
 	// The XML-prolog trick tells libxml the source is UTF-8 without an actual
@@ -152,7 +176,7 @@ function tpm_inject_heading_ids( $content ) {
 	// NODEFDTD drops the doctype libxml would otherwise inject.
 	libxml_use_internal_errors( true );
 	$loaded = $dom->loadHTML(
-		'<?xml encoding="utf-8" ?><div>' . $content . '</div>',
+		'<?xml encoding="utf-8" ?><div>' . $protected_content . '</div>',
 		LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 	);
 	libxml_clear_errors();
@@ -202,32 +226,9 @@ function tpm_inject_heading_ids( $content ) {
 	}
 
 	return array(
-		'content' => $html,
+		'content' => tpm_restore_script_blocks( $html, $script_blocks ),
 		'items'   => $items,
 	);
-}
-
-/**
- * Permalink for a published Page at a given path, or null.
- *
- * Used anywhere a template needs to hardcode a link to a Page that isn't
- * guaranteed to exist yet — e.g. footer.php's "Pet Emergency?" links to the
- * two vet-signs pages, which ship in wave 3 (dogs) and wave 6 (cats) of the
- * content rollout (content/SEO-STRATEGY.md §4), long after wave 1 launches.
- * `get_page_by_path()` matches a Page regardless of status, so the explicit
- * `publish` check is what keeps this from linking to a draft that 404s for
- * anonymous visitors — the same "never link what doesn't exist yet" rule
- * `tpm_get_emergency_callout()` already follows below.
- *
- * @param string $path Page path relative to site root, no leading/trailing slash (e.g. 'dogs/health/signs-your-dog-needs-a-vet').
- * @return string|null
- */
-function tpm_get_published_page_url( $path ) {
-	$page = get_page_by_path( $path, OBJECT, 'page' );
-	if ( ! $page || 'publish' !== $page->post_status ) {
-		return null;
-	}
-	return get_permalink( $page );
 }
 
 /**
