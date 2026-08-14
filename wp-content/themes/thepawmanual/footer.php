@@ -15,53 +15,80 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php
 			/*
-			 * Column 1: brand and contact. No hardcoded email address here —
-			 * the previous "hello@thepawmanual.com" mailto was invented; the
-			 * real contact address is still a [PLACEHOLDER] in
-			 * content/contact.md, so this links to the /contact/ page
-			 * instead (SEO-STRATEGY.md §1 items 0.2 and 0.8).
+			 * Every footer link goes through tpm_get_published_page_url() and is
+			 * simply omitted until its target page is actually published — the
+			 * same rule the rest of the theme follows (CLAUDE.md §13).
+			 *
+			 * This is not hypothetical here. The five trust pages carrying
+			 * [PLACEHOLDER] copy (about, contact, terms, privacy-policy,
+			 * affiliate-disclosure) are deliberately held back as Drafts at
+			 * wave-1 launch until a human fills in real names, a real address
+			 * and a real legal entity. Hardcoding home_url() would have put
+			 * five 404s in the footer of every page on the site for as long as
+			 * that takes. A column with nothing published yet renders nothing.
+			 *
+			 * No email address is hardcoded either — the previous
+			 * "hello@thepawmanual.com" mailto was invented, and the real
+			 * address is still a [PLACEHOLDER] in content/contact.md.
 			 */
+			$tpm_footer_columns = array(
+				array(
+					'heading' => get_bloginfo( 'name' ),
+					'intro'   => __( 'Vet-informed dog and cat care guides and free calculators.', 'thepawmanual' ),
+					'links'   => array(
+						'contact' => __( 'Contact', 'thepawmanual' ),
+					),
+				),
+				// Aura's "Social" column is dropped rather than linking to accounts that don't exist (CLAUDE.md §10).
+				array(
+					'heading' => __( 'ThePawManual', 'thepawmanual' ),
+					'links'   => array(
+						'about'             => __( 'About Us', 'thepawmanual' ),
+						'editorial-process' => __( 'Editorial Process', 'thepawmanual' ),
+					),
+				),
+				array(
+					'heading' => __( 'Terms & Policy', 'thepawmanual' ),
+					'links'   => array(
+						'terms'                => __( 'Terms of Use', 'thepawmanual' ),
+						'privacy-policy'       => __( 'Privacy Policy', 'thepawmanual' ),
+						'affiliate-disclosure' => __( 'Affiliate Disclosure', 'thepawmanual' ),
+					),
+				),
+			);
+
+			foreach ( $tpm_footer_columns as $tpm_column ) :
+				$tpm_live_links = array();
+				foreach ( $tpm_column['links'] as $tpm_path => $tpm_label ) {
+					$tpm_url = tpm_get_published_page_url( $tpm_path );
+					if ( $tpm_url ) {
+						$tpm_live_links[ $tpm_url ] = $tpm_label;
+					}
+				}
+
+				// An intro paragraph is the column's own copy, so it stands even with no links yet.
+				if ( ! $tpm_live_links && empty( $tpm_column['intro'] ) ) {
+					continue;
+				}
+				?>
+				<div>
+					<p class="font-geist text-sm font-semibold tracking-tight"><?php echo esc_html( $tpm_column['heading'] ); ?></p>
+					<?php if ( ! empty( $tpm_column['intro'] ) ) : ?>
+						<p class="mt-3 font-geist text-sm text-neutral-600"><?php echo esc_html( $tpm_column['intro'] ); ?></p>
+					<?php endif; ?>
+					<?php if ( $tpm_live_links ) : ?>
+						<ul class="mt-3 space-y-2 text-sm text-neutral-600">
+							<?php foreach ( $tpm_live_links as $tpm_url => $tpm_label ) : ?>
+								<li class="font-geist">
+									<a href="<?php echo esc_url( $tpm_url ); ?>" class="transition-colors hover:text-neutral-900"><?php echo esc_html( $tpm_label ); ?></a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endif; ?>
+				</div>
+				<?php
+			endforeach;
 			?>
-			<div>
-				<p class="font-geist text-sm font-semibold tracking-tight"><?php bloginfo( 'name' ); ?></p>
-				<p class="mt-3 font-geist text-sm text-neutral-600">
-					<?php esc_html_e( 'Vet-informed dog and cat care guides and free calculators.', 'thepawmanual' ); ?>
-				</p>
-				<ul class="mt-3 space-y-2 text-sm text-neutral-600">
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Contact', 'thepawmanual' ); ?></a>
-					</li>
-				</ul>
-			</div>
-
-			<?php // Column 2: about the site. Aura's social column is dropped rather than linking to accounts that don't exist (CLAUDE.md §10). ?>
-			<div>
-				<p class="font-geist text-sm font-semibold tracking-tight"><?php esc_html_e( 'ThePawManual', 'thepawmanual' ); ?></p>
-				<ul class="mt-3 space-y-2 text-sm text-neutral-600">
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'About Us', 'thepawmanual' ); ?></a>
-					</li>
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/editorial-process/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Editorial Process', 'thepawmanual' ); ?></a>
-					</li>
-				</ul>
-			</div>
-
-			<?php // Column 3: terms and policy. ?>
-			<div>
-				<p class="font-geist text-sm font-semibold tracking-tight"><?php esc_html_e( 'Terms & Policy', 'thepawmanual' ); ?></p>
-				<ul class="mt-3 space-y-2 text-sm text-neutral-600">
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Terms of Use', 'thepawmanual' ); ?></a>
-					</li>
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Privacy Policy', 'thepawmanual' ); ?></a>
-					</li>
-					<li class="font-geist">
-						<a href="<?php echo esc_url( home_url( '/affiliate-disclosure/' ) ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Affiliate Disclosure', 'thepawmanual' ); ?></a>
-					</li>
-				</ul>
-			</div>
 
 			<?php
 			/*
