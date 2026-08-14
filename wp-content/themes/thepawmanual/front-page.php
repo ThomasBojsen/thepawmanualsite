@@ -24,6 +24,16 @@ get_header();
 
 	<?php get_template_part( 'template-parts/home/tools-grid' ); ?>
 
+	<?php
+	/*
+	 * The homepage's indexable text (SEO-STRATEGY.md §1 item 0.4): the four
+	 * hub summaries, the trust/E-E-A-T block, and the FAQ, carried from
+	 * content/home.md. Placed directly below the tools grid, matching that
+	 * file's own implementation notes.
+	 */
+	get_template_part( 'template-parts/home/seo-content' );
+	?>
+
 	<section class="mt-16 sm:mt-24">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<?php get_template_part( 'template-parts/ad-slot', null, array( 'label' => __( 'Advertisement', 'thepawmanual' ) ) ); ?>

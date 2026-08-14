@@ -411,10 +411,17 @@ WordPress admin → **Settings → Permalinks → select "Post name" → Save**.
 (Clean URLs matter for SEO.)
 
 **Step 8 — [You] Create the calculator pages.**
-WordPress admin → **Pages → Add New** → title **"Dog Age Calculator"** → in the
-content add the shortcode **`[pawmanual_calculator id="dog-age"]`** → **Publish**.
-Repeat for **"Cat Age Calculator"** with **`[pawmanual_calculator id="cat-age"]`**.
-(I'll confirm the exact shortcodes when the plugin is built.)
+> **Superseded by the content workstream (§13).** The calculator pages now live
+> under a `/tools/` parent — `/tools/dog-age-calculator/`, not the flat
+> `/dog-age-calculator/` this step originally created — and they arrive via the
+> WXR import (§13) with their SEO copy already written, rather than being typed
+> by hand. If you have the old flat pages in LocalWP from the POC, move them
+> under the `Tools` parent (Page Attributes → Parent) or delete them before
+> importing, so you don't end up with two copies.
+
+The shortcodes are unchanged: **`[pawmanual_calculator id="dog-age"]`** and
+**`[pawmanual_calculator id="cat-age"]`**, and they ship inside the imported
+page content.
 
 **Step 9 — [You] Set the homepage.**
 **Pages → Add New** → title **"Home"** → **Publish** (leave the content empty;
@@ -505,8 +512,11 @@ action for each — **please confirm or adjust when you approve this plan.**
 
 ## 11. Current Status
 
-- **Last updated:** 2026-05-21.
-- **Phase:** **POC complete** — all six phases built and verified in LocalWP. Next: post-POC work (§7.2 "After the POC").
+- **Last updated:** 2026-07-28.
+- **Phase:** **POC complete + content workstream landed.** The site is no longer a
+  two-calculator proof of concept: 130 content pages are drafted, the import
+  tooling exists, and the theme has a real internal-linking layer. The next
+  milestone is **wave-1 launch** — see §13 and `docs/LAUNCH-RUNBOOK.md`.
 
 **Done**
 - **Phase 0 — Scaffolding** ✓ — `.gitignore`, `package.json`, `tailwind.config.js`,
@@ -599,4 +609,71 @@ overwrites it.
 
 **At the real launch (later):** remove the password, untick "Discourage search
 engines", confirm HTTPS/SSL is active, and submit the site to Google Search
-Console.
+Console. The step-by-step version of that day now lives in
+`docs/LAUNCH-RUNBOOK.md` — follow it rather than this paragraph.
+
+---
+
+## 13. The Content Workstream *(added 2026-07-28)*
+
+The site has a second half that §1–§12 predate: **the content**. It has its own
+source of truth, deliberately separate from this file.
+
+| Where | What it owns |
+|---|---|
+| `content/README.md` | The **editorial constitution** — the rules every page follows. Read before writing or editing any page. |
+| `content/SITEMAP.md` | Page-by-page tracker: every URL, its status, its file, plus the backlog of unwritten pages. |
+| `content/SEO-STRATEGY.md` | Launch checklist, GSC setup, the **wave publishing plan**, link building, ops calendar. |
+| `docs/LAUNCH-RUNBOOK.md` | The executable version of the above — what to do, in order, on launch day. |
+
+**`content/` mirrors the URL structure.** `content/dogs/food/puppy-food.md` →
+`/dogs/food/puppy-food/`; a folder's `index.md` is that folder's hub page.
+Frontmatter carries the RankMath fields. **127 of 133 pages are drafted** (126 of
+them importable — the homepage is a theme template, not a WP page). The six
+holdouts are Tools pages for calculators that don't exist yet, deliberately on
+hold: a tool page without a working tool is thin content a fresh domain can't
+afford.
+
+### The import path — do not hand-paste pages
+
+`tools/wxr/` generates a WordPress import file from the markdown:
+
+```bash
+node tools/wxr/generate.js --wave 1
+```
+
+Everything imports as **drafts**, with parent/child hierarchy derived from the
+URL and RankMath title/description as postmeta. `tools/wxr/README.md` has the
+WP-admin walkthrough. Three rules the tooling enforces, all of them load-bearing:
+
+- **Waves, never a bulk publish.** Google's scaled-content policies flag
+  single-shot dumps of templated pages on a fresh domain. `--wave N` exists so
+  nobody is tempted.
+- **`## Notes (not page copy)` sections never publish.** They hold fact-check
+  flags and citation lists meant for the SEO specialist.
+- **Visible FAQ text and its JSON-LD must stay identical.** Both ship; editing
+  one without the other breaks the schema.
+
+### What the theme now does for internal linking
+
+`page.php` branches on whether a page has children. Hubs render an automatic
+child-page grid; articles render a table of contents, sibling links, and a link
+back up the hub. Breadcrumbs defer entirely to RankMath when it is active.
+
+The important property: **all of it queries live WordPress state, not hardcoded
+lists.** A page links only once its target is actually published, so partial
+wave publishing never produces a dead link, and no template needs editing when
+a wave ships. `tpm_get_published_page_url()` in `inc/content-nav.php` is the
+helper that enforces it — use it for any new hardcoded internal link in a
+template, including in the homepage copy (`template-parts/home/seo-content.php`).
+
+### The two things that block launch and cannot be fixed in code
+
+1. **The trust pages carry `[PLACEHOLDER]`s** — `content/about.md`,
+   `content/contact.md`, `content/editorial-process.md` need real human names and
+   a real domain email. Pet health is YMYL-adjacent; an anonymous site publishing
+   it caps its own rankings. Never invent a name or imply veterinary review that
+   doesn't happen.
+2. **The fact-check pass hasn't run.** Each page's Notes section lists its own
+   flags. Publishing unverified veterinary claims is the one mistake here that is
+   genuinely expensive to undo.

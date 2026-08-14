@@ -15,9 +15,65 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="relative">
 	<div class="mx-auto max-w-7xl px-4 pt-10 sm:px-6 sm:pt-14 lg:px-8">
 
-		<h1 class="font-playfair text-[clamp(2rem,9vw,8rem)] font-medium leading-[0.9] tracking-tight text-neutral-900 [animation:fadeSlideIn_1s_ease-out_0.1s_both]">
-			<?php bloginfo( 'name' ); ?>
+		<?php
+		/*
+		 * The page's one and only H1 (SEO-STRATEGY §1 item 0.4 / CLAUDE.md
+		 * "single H1" rule). This used to just repeat the site name at giant
+		 * display size — a wordmark, not a headline, and duplicated the
+		 * header's own logo text with zero indexable meaning. It now carries
+		 * the real headline from content/home.md, so the clamp() max is
+		 * dialled back from 8rem (fine for one word) to a size a full
+		 * sentence can occupy without overflowing on small screens; the
+		 * brand name itself stays visible via the header wordmark.
+		 */
+		?>
+		<h1 class="font-playfair text-[clamp(1.875rem,5.5vw,4.5rem)] font-medium leading-[1.05] tracking-tight text-neutral-900 [animation:fadeSlideIn_1s_ease-out_0.1s_both]">
+			<?php esc_html_e( "The Owner's Manual for Happy, Healthy Dogs and Cats", 'thepawmanual' ); ?>
 		</h1>
+
+		<p class="mt-6 max-w-3xl font-geist text-base leading-relaxed text-neutral-700 [animation:fadeSlideIn_1s_ease-out_0.15s_both] sm:text-lg">
+			<?php
+			/*
+			 * The homepage intro paragraph from content/home.md. Built from
+			 * pre-sanitized link fragments (esc_url()/esc_html() applied
+			 * before substitution) rather than escaping the whole sentence,
+			 * since the sentence itself must carry real <a> markup.
+			 *
+			 * AVMA, AKC, and APPA are linked here because this is their
+			 * first mention on the page (home.md implementation note 3) —
+			 * rel="nofollow noopener" on all three, per the same note.
+			 */
+			$tpm_hero_dog_age_link = sprintf(
+				'<a href="%1$s" class="underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-900">%2$s</a>',
+				esc_url( home_url( '/tools/dog-age-calculator/' ) ),
+				esc_html__( 'dog age calculator', 'thepawmanual' )
+			);
+			$tpm_hero_appa_link = sprintf(
+				'<a href="%1$s" rel="nofollow noopener" target="_blank" class="underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-900">%2$s</a>',
+				esc_url( 'https://www.americanpetproducts.org/' ),
+				esc_html__( 'American Pet Products Association', 'thepawmanual' )
+			);
+			$tpm_hero_avma_link = sprintf(
+				'<a href="%1$s" rel="nofollow noopener" target="_blank" class="underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-900">%2$s</a>',
+				esc_url( 'https://www.avma.org/' ),
+				esc_html__( 'American Veterinary Medical Association (AVMA)', 'thepawmanual' )
+			);
+			$tpm_hero_akc_link = sprintf(
+				'<a href="%1$s" rel="nofollow noopener" target="_blank" class="underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-900">%2$s</a>',
+				esc_url( 'https://www.akc.org/' ),
+				esc_html__( 'American Kennel Club (AKC)', 'thepawmanual' )
+			);
+
+			printf(
+				/* translators: 1: dog age calculator link, 2: American Pet Products Association link, 3: AVMA link, 4: AKC link. */
+				__( 'ThePawManual gives dog and cat owners clear, research-backed answers about breeds, food, health, behavior, and training — paired with free interactive tools like our %1$s. About 87 million U.S. households (66%%) own a pet, according to the %2$s — yet much of the pet advice online is contradictory or outdated. We fix that by grounding every guide in veterinary sources such as the %3$s and the %4$s, and by telling you plainly when a question belongs at your vet\'s office instead of a search bar.', 'thepawmanual' ),
+				$tpm_hero_dog_age_link,
+				$tpm_hero_appa_link,
+				$tpm_hero_avma_link,
+				$tpm_hero_akc_link
+			); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every substituted fragment is pre-built with esc_url()/esc_html__() above.
+			?>
+		</p>
 
 		<div class="mt-8 grid gap-8 lg:grid-cols-12">
 
@@ -66,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 				<div class="mt-4">
-					<a href="<?php echo esc_url( home_url( '/dog-age-calculator/' ) ); ?>" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-neutral-800">
+					<a href="<?php echo esc_url( home_url( '/tools/dog-age-calculator/' ) ); ?>" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-neutral-800">
 						<?php esc_html_e( 'Open Calculator', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>

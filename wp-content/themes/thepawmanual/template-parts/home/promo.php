@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php esc_html_e( 'Browse all tools', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>
-					<a href="<?php echo esc_url( home_url( '/dog-age-calculator/' ) ); ?>" class="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-white/20">
+					<a href="<?php echo esc_url( home_url( '/tools/dog-age-calculator/' ) ); ?>" class="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-white/20">
 						<?php esc_html_e( 'Try the Dog Age Calculator', 'thepawmanual' ); ?>
 					</a>
 				</div>

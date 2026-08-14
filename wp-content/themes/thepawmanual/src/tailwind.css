@@ -113,6 +113,9 @@
   .tpm-prose h3 {
     @apply mt-8 mb-2 text-xl font-semibold text-neutral-900;
   }
+  .tpm-prose h4 {
+    @apply mt-6 mb-2 text-lg font-semibold text-neutral-900;
+  }
   .tpm-prose p {
     @apply my-4;
   }
@@ -125,11 +128,53 @@
   .tpm-prose ol {
     @apply my-4 list-decimal space-y-1 pl-6;
   }
+  .tpm-prose li > ul,
+  .tpm-prose li > ol {
+    @apply my-1;
+  }
   .tpm-prose strong {
     @apply font-semibold text-neutral-900;
   }
   .tpm-prose img {
     @apply my-6 rounded-2xl;
+  }
+
+  /*
+   * Tables: the imported content uses them for comparisons (breed stats,
+   * cost ranges, feeding charts). `display: block` on the table itself lets
+   * it scroll horizontally on narrow viewports with no wrapper element
+   * needed in the markdown-converted content — the inner thead/tbody/tr/td
+   * keep their own table-* display values, so the grid still renders
+   * correctly; only the outer box scrolls.
+   */
+  .tpm-prose table {
+    @apply my-6 block w-full overflow-x-auto rounded-xl border border-neutral-200;
+    border-collapse: collapse;
+  }
+  .tpm-prose th,
+  .tpm-prose td {
+    @apply border-b border-neutral-200 px-3 py-2 text-left align-top;
+  }
+  .tpm-prose thead th {
+    @apply whitespace-nowrap bg-neutral-50 font-semibold text-neutral-900;
+  }
+  .tpm-prose tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /*
+   * Blockquotes: the imported content's veterinary disclaimers are
+   * blockquotes (content/README.md, editorial constitution rule 5) — styled
+   * to read as a deliberate callout, not a stray indent.
+   */
+  .tpm-prose blockquote {
+    @apply my-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900;
+  }
+  .tpm-prose blockquote > :first-child {
+    @apply mt-0;
+  }
+  .tpm-prose blockquote > :last-child {
+    @apply mb-0;
   }
 }
 

@@ -1,0 +1,63 @@
+# ============================================================================
+# ThePawManual — robots.txt (deployable reference)
+#
+# WHERE THIS GOES: the site root, i.e. https://thepawmanual.com/robots.txt
+# On WordPress/simply.com that usually means the file's contents get pasted
+# into an SEO-plugin robots.txt editor (RankMath: Titles & Meta → sitemap
+# settings has a robots.txt editor under General Settings → Edit robots.txt)
+# rather than uploaded as a physical file — WordPress serves a virtual
+# robots.txt by default, and RankMath's editor overrides it cleanly. Only
+# create a physical file in the site root if RankMath's editor is not used.
+#
+# This file encodes the decision in SEO-STRATEGY.md §5 and §7: allow the
+# named AI/GEO crawlers on purpose, because the content (BLUF answers, FAQ
+# schema, myth-corrections) was written to be quoted by AI answer engines.
+# See docs/LAUNCH-RUNBOOK.md §6 for the reasoning and the owner's sign-off.
+# ============================================================================
+
+# --- Standard search engine crawlers -----------------------------------
+# Allow everything by default. This is the normal, unremarkable setting for
+# a content site that wants to be found.
+User-agent: *
+Allow: /
+
+# --- WordPress admin area -----------------------------------------------
+# Keep crawlers out of the WP admin, but explicitly allow admin-ajax.php —
+# some front-end features (search, calculators, dynamic widgets) call it,
+# and blocking it can silently break them for anything that crawls JS.
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+
+# --- AI / GEO crawlers (deliberately allowed) ----------------------------
+# ThePawManual's content was engineered for generative engines: direct
+# BLUF answers, FAQ schema that mirrors the visible text, and explicit
+# myth-corrections AI systems like to quote. Blocking these crawlers would
+# throw that investment away. This block is the site owner's explicit,
+# confirmed choice — see the runbook before changing it.
+
+# OpenAI's crawler (feeds ChatGPT browsing / training)
+User-agent: GPTBot
+Allow: /
+
+# Perplexity's crawler (feeds Perplexity answers)
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic's crawler (feeds Claude browsing / training)
+User-agent: ClaudeBot
+Allow: /
+
+# Google's AI-training crawler (separate from the regular Googlebot above;
+# controls whether content can be used for Gemini / AI Overviews training)
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl's crawler (feeds many downstream AI/research datasets)
+User-agent: CCBot
+Allow: /
+
+# --- Sitemap ---------------------------------------------------------------
+# RankMath auto-generates this index; confirm it exists and lists only real
+# (published, non-placeholder) content before relying on it — see the
+# runbook's GSC section.
+Sitemap: https://thepawmanual.com/sitemap_index.xml

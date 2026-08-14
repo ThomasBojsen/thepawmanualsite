@@ -6,9 +6,13 @@
   "license": "UNLICENSED",
   "scripts": {
     "build:css": "tailwindcss -i ./wp-content/themes/thepawmanual/src/tailwind.css -o ./wp-content/themes/thepawmanual/assets/css/theme.css --minify",
-    "watch:css": "tailwindcss -i ./wp-content/themes/thepawmanual/src/tailwind.css -o ./wp-content/themes/thepawmanual/assets/css/theme.css --watch"
+    "watch:css": "tailwindcss -i ./wp-content/themes/thepawmanual/src/tailwind.css -o ./wp-content/themes/thepawmanual/assets/css/theme.css --watch",
+    "wxr": "node tools/wxr/generate.js",
+    "wxr:wave1": "node tools/wxr/generate.js --wave 1",
+    "wxr:all": "node tools/wxr/generate.js --all"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "marked": "^18.0.0"
   }
 }

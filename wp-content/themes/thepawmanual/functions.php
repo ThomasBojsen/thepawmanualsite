@@ -23,3 +23,5 @@ require_once TPM_THEME_DIR . 'inc/enqueue.php';
 require_once TPM_THEME_DIR . 'inc/nav-menus.php';
 require_once TPM_THEME_DIR . 'inc/icons.php';
 require_once TPM_THEME_DIR . 'inc/tools-data.php';
+require_once TPM_THEME_DIR . 'inc/breadcrumbs.php';
+require_once TPM_THEME_DIR . 'inc/content-nav.php';
