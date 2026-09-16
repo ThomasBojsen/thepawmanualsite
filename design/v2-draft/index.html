@@ -1,0 +1,2367 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ThePawManual — v2 Design Draft</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, nofollow">
+	<!-- This is a client-review design draft, not a live page: it must never be indexed. -->
+
+	<!-- The only external request this file makes: one Google Fonts stylesheet.
+	     It carries BOTH typeface directions the "Typeface" control (top bar)
+	     switches between, so flipping the toggle costs no extra request and
+	     there is no flash of unstyled/fallback text on switch:
+	       - Geist / Inter / Playfair Display — the SAME three families and
+	         SAME query string inc/enqueue.php already requests for the live
+	         theme (CLAUDE.md §3.1 / tailwind.config.js). This is direction A,
+	         "Current theme", the default on load.
+	       - Fraunces (ital,opsz,wght axes — the italic instance is what the
+	         green deck line under the H1 needs) / Source Sans 3 — the pairing
+	         all three Figma references in RECON.md use. This is direction B,
+	         "Figma direction". Two extra webfont families is exactly the
+	         Core Web Vitals trade-off the "Typeface" annotation chip below
+	         calls out — this comment doesn't hide that cost, it's why the
+	         control exists. -->
+	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Inter:wght@300..800&family=Playfair+Display:wght@400..900&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Source+Sans+3:wght@300..700&display=swap" rel="stylesheet">
+
+	<style>
+		/* =====================================================================
+		   Design tokens.
+		   Type: two directions, both driven ONLY through --font-display /
+		   --font-ui / --font-body — every font-family declaration in this
+		   file resolves through one of those three variables, nowhere else,
+		   so a direction is swapped in exactly one place (this file's two
+		   variable blocks) rather than by overriding rules all over the
+		   document. Direction A is set right here on :root and is the
+		   default on load; direction B lives in the
+		   :root[data-typeface="figma"] block immediately below and is
+		   flipped in by JS setting that attribute on <html> (see the
+		   "Typeface" control in the top bar, and the script at the bottom).
+		     - font-display — h1/h2/h3/h4 and the italic deck.
+		     - font-ui — controls: nav, buttons, pills, tables, forms,
+		       captions, footer — matches how the built theme already uses
+		       `font-geist` on this same class of element.
+		     - font-body — the base/fallback on <body>, matching the
+		       theme's `font-sans` body class.
+		   Colour: five palettes swap --brand-* / --accent-* / --ground below —
+		   the same "redefine ONLY these variables" contract Type above uses.
+		   --green-* / --clay-* (SPEC.md's `brand`/`clay` scale names, and the
+		   vocabulary every rule elsewhere in this file actually calls) are
+		   pure var() aliases onto --brand-* / --accent-*, so a palette switch
+		   re-resolves live without editing any of this file's ~150 existing
+		   var(--green…)/var(--clay…) call sites. "green" — the values on the
+		   bare :root below — is today's live site and the default on load;
+		   every other key (see the :root[data-palette="…"] blocks further
+		   down, and the "Colour" control in the top bar) is a deliberate
+		   opt-in, never the first thing a reader sees.
+		   --ground/--surface/--ink/--muted/--border are NOT from SPEC.md — SPEC
+		   only says "keep the neutral palette", it doesn't fix hex values —
+		   these four are carried over from the V3 Figma reference (RECON.md)
+		   as this pass's reading of "neutral", and are Tailwind's stock `gray`
+		   scale (gray-50/800/500/200) rather than `neutral`, which is close
+		   enough to the Aura-era neutral-50/900 look this brief keeps. --ground
+		   is the one neutral a palette is allowed to touch — only "clay"
+		   warms it, per the brief for this control; every other key leaves
+		   it at the value below.
+		   ===================================================================== */
+		:root {
+			--ground:    #f9f8f6;
+			--surface:   #ffffff;
+			--ink:       #1f2937;
+			/* #5b6472, not Tailwind's stock gray-500 (#6b7280) this replaced:
+			   --muted is rendered text (the "coming soon" tool cards, section
+			   ledes, table cells) that sits on --brand-50/--accent-50 tints as
+			   often as it sits on white, and #6b7280 measured 4.30–4.46:1 on
+			   four of the five palettes' --brand-50 — below the 4.5:1 AA floor,
+			   confirmed by rendering the page, not estimating from the hex.
+			   #5b6472 is the darkened value with real headroom: worst case
+			   5.32:1 (clay/ochre --accent-50), vs. 4.5:1 required — clears
+			   every ground/tint/palette combination in the file, including
+			   plain white (5.98:1). */
+			--muted:     #5b6472;
+			--border:    #e5e7eb;
+
+			/* Semantic, NOT brand — deliberately outside the --brand-* / --accent-*
+			   system every :root[data-palette="…"] block below redefines, and
+			   no palette block is allowed to touch these three. Urgency (the
+			   emergency-vet callout) used to be borrowed from --accent-*, which
+			   reads as "the everyday link/button colour" in the clay and ochre
+			   palettes (where accent is navy, not terracotta) — inverting the
+			   one hierarchy on the site that must never invert: a poison-control
+			   callout rendering as a calm blue info box. A fixed warm-red triple,
+			   identical in every palette, is what "this is the four-figure
+			   Tuesday that ends pets' lives early" needs. #912018 on #FEF3F2 =
+			   7.97:1, comfortably clear of the 4.5:1 floor. See .callout-alert. */
+			--alert-50:  #FEF3F2;
+			--alert-100: #FECDCA;
+			--alert-700: #912018;
+
+			/* The seven --brand-* / four --accent-* tiers a :root[data-palette="…"]
+			   block below redefines, and ONLY ever redefines. Values here are
+			   the "green" key — today's live site, unchanged from before this
+			   control existed — since green is the default on load. */
+			--brand-50:  #f1f7f4;
+			--brand-100: #dcebe3;
+			--brand-200: #bcd8cb;
+			--brand-500: #3a8264;
+			--brand-600: #2d6a4f;
+			--brand-700: #235640;
+			--brand-900: #143326;
+
+			--accent-50:  #fdf5f1;
+			--accent-100: #f8e5dc;
+			--accent-600: #c15c3d;
+			--accent-700: #a04a30;
+
+			/* SPEC.md `brand` scale (green, primary) — all six tiers, even
+			   though this draft's component set only needed four of them.
+			   Pure var() aliases onto --brand-* above: every rule below still
+			   calls var(--green…), so redefining --brand-* is the only thing
+			   a palette block (below) ever has to do. */
+			--green-50:  var(--brand-50);
+			--green-100: var(--brand-100);
+			--green-200: var(--brand-200);
+			--green-500: var(--brand-500);
+			--green:     var(--brand-600); /* brand.600 */
+			--green-700: var(--brand-700);
+			--green-900: var(--brand-900);
+
+			/* SPEC.md `clay` scale (terracotta, accent) — same var()-alias
+			   pattern, onto --accent-* above. */
+			--clay-50:   var(--accent-50);
+			--clay-100:  var(--accent-100);
+			--clay:      var(--accent-600); /* clay.600 */
+			--clay-700:  var(--accent-700);
+
+			--r-lg: 24px;
+			--r-md: 16px;
+			--r-sm: 12px;
+
+			--shadow-sm: 0 1px 2px rgba(31,41,55,.06), 0 1px 1px rgba(31,41,55,.04);
+			--shadow-md: 0 16px 32px -16px rgba(31,41,55,.22);
+
+			/* Direction A — "Current theme". What the live site ships today
+			   (tailwind.config.js, CLAUDE.md §3.1); needs no new font work. */
+			--font-display: 'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif;
+			--font-ui: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+			--font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+			--switcher-h: 48px;
+			--gutter: clamp(16px, 5vw, 32px);
+		}
+
+		/* Direction B — "Figma direction". The pairing all three Figma
+		   references in RECON.md use: Fraunces (variable optical-size serif,
+		   loaded with its italic axis for the deck line) for display, Source
+		   Sans 3 for everything else. :root[data-typeface="figma"] beats a
+		   bare :root selector on specificity regardless of source order, so
+		   this block reliably overrides the defaults above whenever JS sets
+		   data-typeface="figma" on <html> — no !important needed. Because
+		   every font-family rule in the file already resolves through the
+		   three variables, this block is the ONLY place the swap happens. */
+		:root[data-typeface="figma"] {
+			--font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+			--font-ui: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+			--font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		}
+
+		/* =====================================================================
+		   Colour control — five palettes, the same shape as Direction A/B
+		   above: a bare :root (the "green" key, today's live site, already
+		   defined above) is the default on load, and each key other than
+		   green gets its own :root[data-palette="…"] block here that beats a
+		   bare :root on specificity regardless of source order — exactly the
+		   :root[data-typeface="figma"] mechanism above, one level up. Every
+		   block below redefines ONLY --brand-* / --accent-* / --ground (never
+		   --ink/--muted/--border/--surface/--alert-* — the brief keeps those
+		   fixed across every key, and --alert-* is semantic urgency, not
+		   brand, so no palette block gets to touch it either — because every
+		   brand-tinted rule in this file
+		   already resolves through --green-* / --clay-*, which are themselves
+		   var() aliases onto --brand-* / --accent-* (see the :root block
+		   above) — so nothing outside this block of the stylesheet has to
+		   change for a palette switch to repaint the whole page. Flipped in
+		   by JS setting data-palette on <html> (see the "Colour" control in
+		   the top bar, and the script at the bottom). --ground only appears
+		   in the "clay" block: every other key leaves the page background at
+		   the value on the bare :root above, per the brief.
+		   ===================================================================== */
+		:root[data-palette="ink"] {
+			--brand-50:  #EEF2F8;
+			--brand-100: #DAE3F0;
+			--brand-200: #BBCADF;
+			--brand-500: #2C5285;
+			--brand-600: #1F3A5F;
+			--brand-700: #172E4B;
+			--brand-900: #0E1C2E;
+			--accent-50:  #FDF6EB;
+			--accent-100: #F7E7C6;
+			--accent-600: #B0741F;
+			--accent-700: #8A5A16;
+		}
+		:root[data-palette="clay"] {
+			--brand-50:  #FDF4F0;
+			--brand-100: #F8E1D6;
+			--brand-200: #EFC4B1;
+			--brand-500: #C4643D;
+			--brand-600: #B4522F;
+			--brand-700: #8F3F23;
+			--brand-900: #5C2715;
+			--accent-50:  #EEF2F7;
+			--accent-100: #D9E2EE;
+			--accent-600: #2A3F5C;
+			--accent-700: #1F3047;
+			--ground:     #FAF7F4; /* the one key that warms the page ground — see the brief */
+		}
+		:root[data-palette="plum"] {
+			--brand-50:  #FAF1F5;
+			--brand-100: #F2DCE6;
+			--brand-200: #E3BCCE;
+			--brand-500: #8A3A64;
+			--brand-600: #6D2B4E;
+			--brand-700: #55203C;
+			--brand-900: #351326;
+			--accent-50:  #FDF6EB;
+			--accent-100: #F7E7C6;
+			--accent-600: #B07F26;
+			--accent-700: #8A631A;
+		}
+		:root[data-palette="ochre"] {
+			--brand-50:  #FDF6EC;
+			--brand-100: #F8E6C9;
+			--brand-200: #EFCE95;
+			--brand-500: #C06E16;
+			--brand-600: #A85B12;
+			--brand-700: #83460C;
+			--brand-900: #532C06;
+			--accent-50:  #EEF2F7;
+			--accent-100: #D9E2EE;
+			--accent-600: #34506B;
+			--accent-700: #263C51;
+		}
+
+		/* Palette-selection note, not a rule: --brand-700 is the colour every
+		   second-tier emphasis in this file leans on — prose links (.tpm-prose
+		   a:not(.card) above), the two-tone wordmark's italic half
+		   (.tpm-header__brand em), the H1 deck (.article-head__deck /
+		   .hub-head__deck), the KEY TAKEAWAY tint. All 25 required pairs pass
+		   for all five palettes, but "does --brand-700 read as a distinct
+		   colour next to --ink body text" is a separate question the required
+		   pairs don't ask, and it does not hold evenly: contrast(--brand-700,
+		   --ink) measures ink 1.07:1, plum 1.16:1 (the same darkness as the
+		   paragraph around it — the wordmark/deck/link system visibly
+		   flattens toward monochrome in the browser), green 1.73:1, ochre
+		   1.99:1, clay 2.03:1 (clay clears the others by a real margin, still
+		   short of a 3:1 ideal). Not fixable by nudging --brand-700 alone —
+		   even --brand-500 only reaches ~1.85:1 against --ink, and going
+		   light enough for 3:1 drops it toward the 4.5:1 AA floor on white and
+		   stops reading as "ink navy"/"deep plum". This is the deciding
+		   factor between the otherwise-passing palettes: prefer clay, drop
+		   plum — state it to whoever picks the palette, don't let it surface
+		   after launch. */
+
+		/* =====================================================================
+		   Reset & base
+		   ===================================================================== */
+		*, *::before, *::after { box-sizing: border-box; }
+		html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			background: var(--ground);
+			color: var(--ink);
+			/* Geist, not --font-body: in the built theme <body> itself carries
+			   `font-sans` (Inter, --font-body), but every piece of running
+			   text down from there — .tpm-prose, card copy, nav, footer — is
+			   given its own explicit `font-geist` class (src/tailwind.css,
+			   template-parts/**) that outranks it, so Inter never actually
+			   paints. Matching that visible result, rather than the invisible
+			   base layer, is what this draft's default needs to do. --font-body
+			   stays defined above and IS on <body> in the real theme — it's
+			   just not where this draft's reviewable pixels come from. */
+			font-family: var(--font-ui);
+			font-size: 16px;
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+		}
+		img, svg { display: block; max-width: 100%; }
+		a { color: inherit; }
+		ul, ol { margin: 0; padding: 0; list-style: none; }
+		h1, h2, h3, h4, p, figure { margin: 0; }
+		button, input { font: inherit; color: inherit; }
+		table { width: 100%; }
+
+		/* Visible focus states everywhere — never rely on the browser default alone. */
+		a:focus-visible, button:focus-visible, input:focus-visible,
+		summary:focus-visible, [tabindex]:focus-visible {
+			outline: 3px solid var(--green);
+			outline-offset: 3px;
+			border-radius: 4px;
+		}
+
+		.sr-only {
+			position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+			overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+		}
+		.skip-link {
+			position: fixed; left: 12px; top: -60px; z-index: 300;
+			background: var(--green-900); color: #fff; padding: 10px 16px;
+			border-radius: 999px; font-size: .85rem; font-weight: 600;
+			transition: top .15s ease;
+		}
+		.skip-link:focus { top: calc(var(--switcher-h) + 10px); }
+
+		.icon { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+		.icon--fill { fill: currentColor; stroke: none; }
+
+		.container { max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+
+		/* =====================================================================
+		   Screen switcher — the review tool, deliberately styled as "not the
+		   site" (dark, compact, monospace-ish) so nobody mistakes it for part
+		   of the design being reviewed.
+		   ===================================================================== */
+		.draft-switcher {
+			position: fixed; inset: 0 0 auto 0; z-index: 200;
+			/* min-height, not height: at narrow widths this bar now wraps to
+			   two rows (tabs / typeface+annotations) rather than overflow
+			   horizontally — see the 480px query below. --switcher-h is kept
+			   in sync with the bar's REAL rendered height by
+			   syncSwitcherHeight() in the script at the bottom, on load and
+			   on resize, so every consumer of --switcher-h (.tpm-screen's
+			   padding-top, .tpm-header's sticky top, .skip-link's focus
+			   offset) stays correct whether the bar is one row or two —
+			   nobody has to predict/hardcode the wrapped height by eye. */
+			min-height: var(--switcher-h);
+			background: #14161a; color: #e7e7ea;
+			/* Fixed, not var(--green)/var(--clay): this bar's own "selected"
+			   states (tabs, the Annotations switch, the Typeface/Colour
+			   segmented controls below) used to borrow the SITE's brand
+			   tokens, so choosing "Burnt Ochre" painted the selected Ochre
+			   pill navy — ochre's own --accent colour — reading as a broken
+			   control rather than a selection. Confirmed in the browser. One
+			   constant blue, unrelated to any palette, is the fix: the review
+			   tool's own chrome is the one thing on the page that must NOT
+			   repaint when the palette does (see the comment on this bar's
+			   "not the site" intent below). */
+			--switcher-accent: #4a7fd4;
+			display: flex; flex-wrap: wrap; align-items: center; gap: 10px; row-gap: 6px;
+			padding: 6px 12px;
+			font-family: var(--font-ui); font-size: 12.5px;
+			border-bottom: 1px solid #2a2d33;
+		}
+		.draft-switcher__brand {
+			font-weight: 700; letter-spacing: .02em; color: #fff; white-space: nowrap;
+		}
+		.draft-switcher__brand span { color: #b8bac0; font-weight: 500; }
+		.draft-switcher__tabs { display: flex; gap: 4px; margin-inline-start: 4px; }
+		.draft-switcher__tabs a {
+			display: inline-flex; align-items: center; height: 30px; padding-inline: 12px;
+			border-radius: 999px; text-decoration: none; color: #b8bac0; font-weight: 600;
+			border: 1px solid transparent; white-space: nowrap;
+		}
+		.draft-switcher__tabs a:hover { color: #fff; }
+		.draft-switcher__tabs a[aria-current="page"] { background: var(--switcher-accent); color: #fff; }
+		.draft-switcher__spacer { flex: 1 1 auto; }
+		.draft-switcher__annot {
+			display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+		}
+		.tswitch {
+			position: relative; width: 34px; height: 20px; flex-shrink: 0;
+			border-radius: 999px; background: #3a3e46; border: 1px solid #4a4f58;
+			appearance: none; cursor: pointer; transition: background .15s ease;
+		}
+		.tswitch::after {
+			content: ''; position: absolute; top: 1px; left: 1px; width: 16px; height: 16px;
+			border-radius: 50%; background: #fff; transition: transform .15s ease;
+		}
+		.tswitch:checked { background: var(--switcher-accent); border-color: var(--switcher-accent); }
+		.tswitch:checked::after { transform: translateX(14px); }
+
+		/* =====================================================================
+		   Typeface control — a real <fieldset>/radio pair (not a div with a
+		   click handler) styled as a segmented control, next to Annotations.
+		   Each radio is stretched to cover its own label via
+		   .tseg__option { position:relative } + input { inset:0; opacity:0 },
+		   so the page's ONE shared `input:focus-visible` rule (near the top
+		   of this stylesheet) already draws a visible ring in exactly the
+		   right place — no bespoke focus CSS needed here, same trick the
+		   .tswitch checkbox above relies on.
+		   ===================================================================== */
+		.draft-switcher__typeface { display: inline-flex; align-items: center; gap: 8px; }
+		.draft-switcher__colour { display: inline-flex; align-items: center; gap: 8px; }
+		/* The mobile disclosure wrapper (see the HTML comment above the
+		   markup): display:contents on both levels means "be invisible to
+		   layout" above 480px, so .typeface/.colour above lay out as direct
+		   flex children of <nav> exactly as before — nothing here changes
+		   the >480px bar. The @media block below is the only place either
+		   wrapper becomes a real box. */
+		.draft-switcher__more { display: contents; }
+		.draft-switcher__more-toggle { display: none; }
+		.draft-switcher__more-body { display: contents; }
+		.tseg {
+			display: flex; align-items: center; gap: 2px; margin: 0; padding: 2px;
+			border: 0; border-radius: 999px; background: #23262c;
+		}
+		/* .cseg augments .tseg (shared with Typeface) for the Colour control's
+		   five options — more than Typeface's two, so unlike Typeface this
+		   fieldset is allowed to wrap its own pills onto a second internal
+		   row rather than force the bar into horizontal scroll. Typeface's
+		   own single-row .tseg behaviour is untouched by this addition. */
+		.cseg { flex-wrap: wrap; row-gap: 4px; }
+		.tseg__option { position: relative; display: flex; }
+		.tseg__option input {
+			position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer;
+		}
+		.tseg__label {
+			display: inline-flex; align-items: center; height: 26px; padding-inline: 11px;
+			border-radius: 999px; font-weight: 600; color: #b8bac0; white-space: nowrap;
+			transition: background .15s ease, color .15s ease;
+		}
+		.tseg__option input:checked ~ .tseg__label { background: var(--switcher-accent); color: #fff; }
+		.tseg__short { display: none; }
+		/* The trade-off chip: same dashed/clay visual language as the
+		   .annot-chip labels sprinkled through the design itself, so it
+		   reads as "part of the annotation layer" even though it lives in
+		   the review bar rather than floating over a .annot-block. Hidden
+		   unless Annotations is on — same body.show-annotations gate. */
+		.typeface-note {
+			display: none; align-items: center; max-width: 300px;
+			background: #fff; border: 1px dashed var(--clay); color: var(--clay-700);
+			font-family: var(--font-ui); font-size: 10.5px; font-weight: 600; line-height: 1.35;
+			padding: 4px 10px; border-radius: 10px;
+		}
+		body.show-annotations .typeface-note { display: inline-flex; }
+		/* Same trade-off-chip treatment as .typeface-note above, for the
+		   Colour control — hidden unless Annotations is on, same gate. */
+		.colour-note {
+			display: none; align-items: center; max-width: 300px;
+			background: #fff; border: 1px dashed var(--clay); color: var(--clay-700);
+			font-family: var(--font-ui); font-size: 10.5px; font-weight: 600; line-height: 1.35;
+			padding: 4px 10px; border-radius: 10px;
+		}
+		body.show-annotations .colour-note { display: inline-flex; }
+		@media (max-width: 480px) {
+			.draft-switcher__brand { display: none; }
+			.draft-switcher { font-size: 11.5px; gap: 8px; padding-inline: 8px; }
+			.draft-switcher__tabs a { padding-inline: 9px; }
+			.draft-switcher__annot { gap: 6px; }
+			/* Collapse "Current theme" / "Figma direction" to short forms so
+			   the segmented control doesn't force horizontal scroll once it's
+			   sharing a 375px-wide bar with the screen tabs + Annotations —
+			   verified in-browser at 375px, see the build report. */
+			.tseg__full { display: none; }
+			.tseg__short { display: inline; }
+			.tseg__label { padding-inline: 8px; height: 24px; }
+			/* Give the trade-off chip its own full-width row when it's shown
+			   at this width, rather than letting it fight the controls above
+			   for horizontal space. */
+			.typeface-note { flex-basis: 100%; max-width: 100%; }
+			.colour-note { flex-basis: 100%; max-width: 100%; }
+
+			/* Typeface + Colour behind a disclosure, closed by default, ONLY
+			   at this width — 241px of fixed chrome (measured with
+			   Annotations on) was ~30% of a 375x812 viewport. Both wrapper
+			   elements stop being display:contents here and become real
+			   flex children of <nav> instead: the toggle a compact pill in
+			   the first row, the body a closed-by-default full-width block.
+			   syncSwitcherHeight() (script at the bottom) already re-measures
+			   on every input this bar exposes — the toggle's own `change`
+			   listener is one more call alongside it, so --switcher-h keeps
+			   tracking the bar's real height whichever way this is left. */
+			.draft-switcher__more-toggle {
+				display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+				height: 24px; padding-inline: 9px; border-radius: 999px;
+				background: #23262c; color: #b8bac0; font-weight: 600;
+			}
+			.draft-switcher__more-toggle .icon { width: 13px; height: 13px; transition: transform .15s ease; }
+			/* The checkbox itself is sr-only (no visible box of its own), so
+			   the shared input:focus-visible rule near the top of this
+			   stylesheet would otherwise draw its ring around an invisible
+			   1px target — redirected to the toggle label instead, same
+			   reason .tseg__option positions its input rather than relying
+			   on the browser default. */
+			#switcher-more-toggle:focus-visible ~ .draft-switcher__more-toggle {
+				outline: 3px solid var(--switcher-accent); outline-offset: 3px; border-radius: 999px;
+			}
+			#switcher-more-toggle:checked ~ .draft-switcher__more-toggle {
+				background: var(--switcher-accent); color: #fff;
+			}
+			#switcher-more-toggle:checked ~ .draft-switcher__more-toggle .icon { transform: rotate(180deg); }
+			.draft-switcher__more-body {
+				display: none; flex-basis: 100%; flex-direction: column; gap: 10px; padding-top: 6px;
+			}
+			#switcher-more-toggle:checked ~ .draft-switcher__more-body { display: flex; }
+		}
+
+		/* =====================================================================
+		   Screens
+		   ===================================================================== */
+		.tpm-screen { padding-top: var(--switcher-h); }
+		.tpm-screen[hidden] { display: none; }
+
+		/* =====================================================================
+		   Annotation system — dotted chips naming each component + which
+		   requirement it answers. Off by default; the switch in the review bar
+		   toggles `.show-annotations` on <body>.
+		   ===================================================================== */
+		.annot-block { position: relative; }
+		body.show-annotations .annot-block {
+			outline: 1.5px dashed var(--clay);
+			outline-offset: 6px;
+			border-radius: 10px;
+			/* The chip floats above the block on a fixed -12px offset, but its
+			   own height varies with how much the label text wraps (one line
+			   in a wide .container, two or three in something narrow like the
+			   TOC). A block whose real content starts flush at its own top —
+			   an H1 with no eyebrow row above it, a table's first row — has
+			   nothing to push the chip's tail out of the way, so padding-top
+			   is bumped here unconditionally rather than tuned per block: it
+			   is comfortably taller than a 3-line chip, so it clears every
+			   case in this file, and it only ever applies in review mode. */
+			padding-top: 38px;
+		}
+		.annot-chip {
+			display: none;
+			/* Higher than the sticky header's own z-index (90): a block right
+			   below the header can scroll to where its chip's -12px offset
+			   lands exactly under the header's own screen position, and the
+			   label should stay legible through that, not disappear behind it. */
+			position: absolute; top: -12px; left: 14px; z-index: 95;
+			align-items: center; gap: 5px;
+			max-width: calc(100% - 28px);
+			background: #fff; border: 1px dashed var(--clay);
+			color: var(--clay-700); font-family: var(--font-ui);
+			font-size: 10.5px; font-weight: 700; letter-spacing: .01em;
+			line-height: 1.3; padding: 3px 9px; border-radius: 999px;
+			box-shadow: 0 1px 3px rgba(31,41,55,.08);
+		}
+		.annot-chip b { color: var(--green-700); font-weight: 800; }
+		body.show-annotations .annot-chip { display: inline-flex; }
+
+		/* =====================================================================
+		   Header (shared shape across all three screens)
+		   ===================================================================== */
+		.tpm-header {
+			position: sticky; top: var(--switcher-h); z-index: 90;
+			background: rgba(249,248,246,.92); backdrop-filter: blur(8px);
+			border-bottom: 1px solid var(--border);
+		}
+		.tpm-header__bar {
+			display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+			gap: 16px; min-height: 72px; padding-block: 10px;
+		}
+		.tpm-header__brand {
+			font-family: var(--font-display); font-weight: 600; font-size: 1.4rem;
+			text-decoration: none; color: var(--ink); white-space: nowrap;
+		}
+		.tpm-header__brand em { color: var(--green); font-style: italic; }
+		.tpm-nav { display: none; }
+		.tpm-nav ul { display: flex; gap: 28px; justify-content: center; }
+		.tpm-nav a {
+			text-decoration: none; font-weight: 600; font-size: .92rem; color: var(--ink);
+			padding-block: 6px; border-bottom: 2px solid transparent;
+		}
+		.tpm-nav a:hover { border-bottom-color: var(--green); }
+		.tpm-header__actions { display: flex; align-items: center; gap: 8px; justify-self: end; }
+		.icon-btn {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--border);
+			background: #fff; cursor: pointer;
+		}
+		.icon-btn:hover { border-color: var(--green); color: var(--green); }
+		.nav-toggle { display: inline-flex; }
+
+		@media (min-width: 1024px) {
+			.tpm-nav { display: block; }
+			.nav-toggle { display: none; }
+		}
+
+		/* Mobile nav panel */
+		.tpm-mobile-nav {
+			border-top: 1px solid var(--border); background: var(--surface);
+		}
+		.tpm-mobile-nav[hidden] { display: none; }
+		.tpm-mobile-nav ul { padding: 8px var(--gutter) 14px; display: flex; flex-direction: column; }
+		.tpm-mobile-nav a {
+			display: block; padding: 11px 4px; text-decoration: none; font-weight: 600;
+			border-bottom: 1px solid var(--border); color: var(--ink);
+		}
+		.tpm-mobile-nav li:last-child a { border-bottom: none; }
+		@media (min-width: 1024px) { .tpm-mobile-nav { display: none !important; } }
+
+		/* Search panel (Req 4 — a real, working control, not a dead button) */
+		.tpm-search-panel { border-top: 1px solid var(--border); background: var(--green-50); }
+		.tpm-search-panel[hidden] { display: none; }
+		.tpm-search-form {
+			display: flex; gap: 10px; padding: 14px var(--gutter);
+			max-width: 640px; margin-inline: auto;
+		}
+		.tpm-search-form label { flex: 1; }
+		.tpm-search-form input[type="search"] {
+			width: 100%; border: 1px solid var(--border); border-radius: 999px;
+			padding: 10px 16px; font-size: .95rem; background: #fff;
+		}
+		.tpm-search-form input[type="search"]:focus-visible { outline: 3px solid var(--green); outline-offset: 1px; }
+		.tpm-search-form button[type="submit"] {
+			border: none; border-radius: 999px; background: var(--green); color: #fff;
+			padding: 10px 20px; font-weight: 700; cursor: pointer; white-space: nowrap;
+		}
+		.tpm-search-form button[type="submit"]:hover { background: var(--green-700); }
+		.tpm-search-hint { max-width: 640px; margin: 0 auto; padding: 0 var(--gutter) 14px; font-size: .8rem; color: var(--muted); }
+
+		/* =====================================================================
+		   Buttons & pills (shared)
+		   ===================================================================== */
+		.btn {
+			display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+			border-radius: 999px; padding: 13px 24px; font-weight: 700; font-size: .95rem;
+			text-decoration: none; border: 1px solid transparent; cursor: pointer;
+			transition: transform .12s ease, box-shadow .12s ease;
+		}
+		.btn--primary { background: var(--green); color: #fff; }
+		.btn--primary:hover { background: var(--green-700); }
+		.btn--ghost { background: #fff; border-color: var(--border); color: var(--ink); }
+		.btn--ghost:hover { border-color: var(--green); color: var(--green); }
+		.btn--on-dark { background: #fff; color: var(--green-900); }
+		.btn--on-dark:hover { background: var(--green-50); }
+		.btn--sm { padding: 9px 16px; font-size: .85rem; }
+
+		.pill {
+			display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;
+			padding: 6px 13px; font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+			text-decoration: none; border: 1px solid transparent;
+			/* Was a repeated `style="width:fit-content;"` on ~18 individual
+			   pills (needed because their parent is a flex column, which
+			   stretches children full-width by default) — belongs on the
+			   class every one of them already carries, not retyped per pill. */
+			align-self: start;
+		}
+		.pill--green { background: var(--green-50); color: var(--green-700); border-color: var(--green-100); }
+		.pill--clay { background: var(--clay-50); color: var(--clay-700); border-color: var(--clay-100); }
+		.pill--dark { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.25); }
+		.pill--link:hover { background: var(--green-100); }
+		.pill-soon {
+			display: inline-flex; align-items: center; align-self: start; border-radius: 999px; padding: 4px 10px;
+			font-size: .68rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+			color: var(--muted); border: 1px dashed var(--border); background: #fff;
+		}
+
+		/* =====================================================================
+		   Image placeholders — CSS-only "photography". Every one carries a
+		   visible caption describing the real photo that belongs there.
+		   ===================================================================== */
+		.ph { position: relative; border-radius: var(--r-md); overflow: hidden; isolation: isolate; }
+		.ph::before {
+			content: ''; position: absolute; inset: 0;
+			background-image:
+				radial-gradient(120% 140% at 15% 10%, rgba(255,255,255,.35), transparent 55%),
+				var(--ph-grad);
+		}
+		.ph__icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+		.ph__icon .icon { width: 34%; height: 34%; opacity: .22; color: #fff; }
+		.ph__cap {
+			position: absolute; left: 0; right: 0; bottom: 0;
+			/* .88 alpha (was .72) and a lower stop (was a straight fade from
+			   the bottom edge) so a two-line caption sits on a near-opaque
+			   scrim start to finish — measured 3.02:1 on the old value over
+			   .ph--gold's lighter stop, under the 4.5:1 floor. White text on
+			   rgba(20,20,20,.88) clears it regardless of which gradient sits
+			   underneath. */
+			background: linear-gradient(0deg, rgba(20,20,20,.88) 45%, transparent);
+			color: #fff; font-size: .72rem; line-height: 1.35; padding: 34px 12px 10px;
+			font-style: italic;
+		}
+		/* Placeholder hues restricted to tints of the two brand colours plus
+		   one neutral — the old gold/plum/slate set (fixed while this photo
+		   research was pending) read as a five-hue palette to a reviewer
+		   checking colour discipline, when the brief is green + terracotta +
+		   neutrals only. */
+		.ph--green      { --ph-grad: linear-gradient(135deg, var(--brand-600), var(--brand-900)); }
+		.ph--green-deep { --ph-grad: linear-gradient(135deg, var(--brand-500), var(--brand-700)); }
+		.ph--clay       { --ph-grad: linear-gradient(135deg, var(--accent-600), var(--accent-700)); }
+		.ph--neutral    { --ph-grad: linear-gradient(135deg, #6b7280, #374151); }
+
+		/* =====================================================================
+		   Cards (guide cards / tool cards / related-reading cards)
+		   ===================================================================== */
+		.card {
+			background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+			box-shadow: var(--shadow-sm); overflow: hidden; display: flex; flex-direction: column;
+			transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+		}
+		a.card { text-decoration: none; color: inherit; }
+		a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--green-100); }
+
+		.section { padding-block: clamp(40px, 7vw, 76px); }
+		.section-head { max-width: 680px; margin-bottom: 28px; }
+		.eyebrow {
+			font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+			color: var(--green-700);
+		}
+		h2.display, h1.display {
+			font-family: var(--font-display); font-weight: 600; color: var(--ink);
+			line-height: 1.12; letter-spacing: -.01em;
+		}
+		h2.display { font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem); margin-top: 8px; }
+		.lede { margin-top: 12px; color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+
+		.grid { display: grid; gap: 20px; }
+		/* Named for what they actually control — the minimum track width —
+		   not a column count: auto-fit decides the count from how many
+		   tracks that minimum fits in the container, which is why a
+		   `.grid-4`-style name was misleading (see .related-grid and
+		   .tpm-child-grid below for the two spots that need a real,
+		   viewport-independent column count instead). */
+		.grid-min-240 { grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+		.grid-min-220 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+		.grid-min-200 { grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
+
+		/* =====================================================================
+		   Footer
+		   ===================================================================== */
+		.tpm-footer { margin-top: 64px; border-top: 1px solid var(--border); background: var(--surface); }
+		.tpm-footer__cols {
+			display: grid; gap: 32px; padding-block: 44px;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (min-width: 640px) { .tpm-footer__cols { grid-template-columns: repeat(4, 1fr); } }
+		.tpm-footer h3 { font-family: var(--font-ui); font-weight: 700; font-size: .92rem; }
+		.tpm-footer p { margin-top: 10px; color: var(--muted); font-size: .88rem; }
+		.tpm-footer ul { margin-top: 12px; display: flex; flex-direction: column; gap: 9px; }
+		.tpm-footer a { text-decoration: none; color: var(--muted); font-size: .88rem; }
+		.tpm-footer a:hover { color: var(--green); }
+		.tpm-footer__bottom {
+			border-top: 1px solid var(--border); padding-block: 20px; text-align: center;
+			color: var(--muted); font-size: .78rem;
+		}
+
+		/* =====================================================================
+		   HOME — hero
+		   ===================================================================== */
+		.hero { padding-block: clamp(32px, 6vw, 64px) clamp(40px, 7vw, 72px); }
+		.hero__grid { display: grid; gap: 32px; align-items: center; }
+		@media (min-width: 960px) { .hero__grid { grid-template-columns: 1.05fr .95fr; gap: 48px; } }
+		.hero h1 {
+			font-family: var(--font-display); font-weight: 600; letter-spacing: -.01em;
+			font-size: clamp(2.2rem, 1.6rem + 3vw, 3.6rem); line-height: 1.05; color: var(--ink);
+		}
+		.hero h1 em { font-style: italic; color: var(--green); }
+		.hero__deck { margin-top: 18px; font-size: 1.1rem; color: var(--muted); max-width: 52ch; }
+		.hero__pills { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+		.hero__ctas { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+		.hero__art { position: relative; }
+		.hero__art .ph { aspect-ratio: 4 / 3; }
+		.hero__feature {
+			position: relative; margin-top: -46px; margin-inline: 16px;
+			background: #fff; border: 1px solid var(--border); border-radius: var(--r-md);
+			box-shadow: var(--shadow-md); padding: 16px; display: flex; gap: 12px; align-items: center;
+			text-decoration: none; transition: border-color .15s ease, box-shadow .15s ease;
+		}
+		.hero__feature:hover { border-color: var(--green-100); box-shadow: var(--shadow-md), 0 0 0 1px var(--green-100); }
+		.hero__feature .ph { width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; }
+		.hero__feature .ph__cap { display: none; }
+		/* A <p>, not a heading — it's a promo card restating a guide that
+		   already has its own H2/H3 lower on the page, and it sat directly
+		   under the hero's H1 with no H2/H3 between, skipping levels. */
+		.hero__feature p.hero__feature-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink); }
+		.hero__feature p { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+		/* Tools strip */
+		.tools-strip { background: var(--green-50); border-block: 1px solid var(--green-100); }
+		.tool-card { padding: 22px; gap: 14px; }
+		.tool-card__icon {
+			width: 44px; height: 44px; border-radius: 12px; background: var(--green);
+			color: #fff; display: flex; align-items: center; justify-content: center;
+		}
+		.tool-card--soon .tool-card__icon { background: var(--surface); color: var(--muted); border: 1px dashed var(--border); }
+		.tool-card h3 { font-family: var(--font-display); font-size: 1.08rem; font-weight: 600; margin-top: 14px; }
+		.tool-card p { font-size: .88rem; color: var(--muted); margin-top: 6px; flex: 1; }
+		.tool-card__cta { margin-top: 14px; font-weight: 700; font-size: .86rem; display: inline-flex; align-items: center; gap: 6px; color: var(--green-700); }
+		.tool-card--soon .tool-card__cta { color: var(--muted); }
+		/* A quieter treatment, not just a different pill: the two "soon" cards
+		   were the same white surface + shadow + full-weight title as the two
+		   live ones, distinguished only by a small dashed icon and a pill a
+		   reader has to read to notice — so the whole row reads as four
+		   equally-clickable cards. Dropping the surface and softening the
+		   title reads as "inert" at a glance, before the pill text registers. */
+		.tool-card--soon { background: transparent; box-shadow: none; border-style: dashed; }
+		.tool-card--soon h3 { color: var(--muted); }
+
+		/* Guide grid (lead + rail) */
+		.guide-lead { display: grid; }
+		@media (min-width: 780px) { .guide-lead { grid-template-columns: 1.1fr 1fr; } }
+		.guide-lead .ph { aspect-ratio: 16/10; }
+		@media (min-width: 780px) { .guide-lead .ph { aspect-ratio: auto; height: 100%; } }
+		.guide-lead__body { padding: 26px clamp(18px, 3vw, 34px); display: flex; flex-direction: column; justify-content: center; }
+		.guide-lead__body h3 { font-family: var(--font-display); font-size: clamp(1.3rem,1rem + 1.4vw,1.8rem); font-weight: 600; margin-top: 12px; }
+		.guide-lead__body p { color: var(--muted); margin-top: 10px; }
+		.guide-lead__cta { margin-top: 16px; font-weight: 700; color: var(--green-700); display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+
+		.guide-rail { margin-top: 20px; }
+		/* Full-bleed image, padding pushed onto its own __body div — matches
+		   .child-card / .related-card / .guide-lead, all of which run their
+		   photo to the card edge. This was the one card style still insetting
+		   its image inside the card's own padding, which read as an
+		   unrelated pattern next to every other card on the same page. */
+		.rail-card .ph { aspect-ratio: 16/9; }
+		.rail-card__body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+		/* h3, matching .guide-lead__body h3 — the lead card and the rail cards
+		   are peer guides in the same grid and were sitting at different
+		   heading levels (h3 vs h4) for no structural reason. */
+		.rail-card h3 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; }
+		.rail-card p { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+		.rail-card__cta { margin-top: 12px; font-size: .82rem; font-weight: 700; color: var(--green-700); display: inline-flex; align-items: center; gap: 5px; }
+
+		/* Trust / stats band (dark) */
+		.trust-band { background: linear-gradient(160deg, var(--green-900), var(--green-700)); color: #fff; }
+		.trust-band h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.6rem,1.2rem + 1.6vw,2.3rem); }
+		.trust-band__lede { margin-top: 12px; color: rgba(255,255,255,.78); max-width: 68ch; }
+		.trust-stats { margin-top: 32px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); }
+		.trust-stats .stat { border-radius: var(--r-md); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); padding: 18px; }
+		.trust-stats .stat b { display: block; font-family: var(--font-display); font-size: 2rem; }
+		.trust-stats .stat span { font-size: .82rem; color: rgba(255,255,255,.72); }
+		.trust-points { margin-top: 32px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+		.trust-points li { display: flex; gap: 12px; }
+		.trust-points .icon-wrap {
+			width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.12);
+			display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+		}
+		.trust-points h3 { font-weight: 700; font-size: .95rem; }
+		.trust-points p { font-size: .85rem; color: rgba(255,255,255,.7); margin-top: 4px; }
+		.trust-band .disclaimer {
+			margin-top: 32px; border-top: 1px solid rgba(255,255,255,.18); padding-top: 22px;
+			font-size: .82rem; color: rgba(255,255,255,.65); max-width: 72ch;
+		}
+		.trust-band .disclaimer strong { color: #fff; }
+		.trust-band__links { margin-top: 16px; display: flex; gap: 18px; flex-wrap: wrap; }
+		.trust-band__links a { color: #fff; font-weight: 700; font-size: .85rem; text-decoration: underline; text-underline-offset: 3px; }
+
+		/* =====================================================================
+		   HUB
+		   ===================================================================== */
+		.breadcrumb { padding-block: 18px; }
+		.breadcrumb ol { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: .82rem; color: var(--muted); }
+		.breadcrumb a { text-decoration: none; color: var(--muted); }
+		.breadcrumb a:hover { color: var(--green); text-decoration: underline; }
+		.breadcrumb li[aria-current] { color: var(--ink); font-weight: 600; }
+		/* Was var(--border) (#e5e7eb) — 1.16:1 against the page ground, the
+		   lowest-contrast text node on the hub/article screens, rendering
+		   the trail as one run-on string. --muted (now AA-clear on every
+		   ground after the fix above) reads as a real, if quiet, separator. */
+		.breadcrumb .sep { color: var(--muted); }
+
+		.hub-head { padding-block: 6px clamp(28px,5vw,44px); }
+		.hub-head h1 {
+			font-family: var(--font-display); font-weight: 600; letter-spacing: -.01em;
+			font-size: clamp(2rem, 1.5rem + 2.4vw, 3.1rem); line-height: 1.08; max-width: 18ch;
+		}
+		/* Same two-tone treatment as .article-head__deck: a short H1 plus a
+		   green italic serif deck, not a colon-joined H1 left whole. A hub
+		   title follows the same "Short Hook: Subtitle clause" pattern an
+		   article title does, and tpm_split_title() (Req 5) does not know or
+		   care whether the page it's splitting is a hub or an article. */
+		.hub-head__deck {
+			margin-top: 10px; font-family: var(--font-display); font-style: italic; font-weight: 500;
+			color: var(--green); font-size: clamp(1.15rem, 1rem + 1vw, 1.6rem); max-width: 56ch;
+		}
+		.hub-head__intro { margin-top: 16px; color: var(--muted); max-width: 72ch; font-size: 1.02rem; }
+
+		/* Explicit column counts, not auto-fit: five cards in an auto-fit
+		   `minmax(220px,1fr)` track resolved to 4 columns at desktop widths
+		   (1180px container / 220px min → floor fits 4), orphaning the fifth
+		   card alone on its own row with three empty cells beside it. Fixed
+		   counts read 1 / 2 / 3 columns as the viewport grows, so five cards
+		   land 3+2 at desktop instead of 4+1. */
+		.tpm-child-grid { margin-top: 8px; grid-template-columns: 1fr; }
+		@media (min-width: 640px) { .tpm-child-grid { grid-template-columns: repeat(2, 1fr); } }
+		@media (min-width: 980px) { .tpm-child-grid { grid-template-columns: repeat(3, 1fr); } }
+		.child-card { }
+		.child-card .ph { aspect-ratio: 16/10; }
+		.child-card__body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+		.child-card__body h3 { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; margin-top: 12px; }
+		.child-card__body p { font-size: .87rem; color: var(--muted); margin-top: 8px; flex: 1; }
+		.child-card__cta { margin-top: 14px; font-weight: 700; font-size: .85rem; color: var(--green-700); display: inline-flex; align-items: center; gap: 6px; }
+		/* Author row — V1/V2's own card-grid references both carry one
+		   (RECON.md), and CLAUDE.md §13 names site anonymity as a
+		   self-imposed ranking cap for this YMYL-adjacent content. Shipping
+		   the slot now, even filled with a placeholder byline, means it
+		   doesn't get redrawn later once about.md names real people. */
+		.card-byline { margin-top: 8px; display: flex; align-items: center; gap: 6px; font-size: .76rem; font-weight: 600; color: var(--muted); }
+		.card-byline .icon { width: 13px; height: 13px; color: var(--green-700); }
+
+		.explore-block { background: var(--clay-50); border: 1px solid var(--clay-100); border-radius: var(--r-lg); padding: clamp(20px,4vw,36px); }
+		.explore-card {
+			background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px;
+			display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit;
+			transition: transform .15s ease, box-shadow .15s ease;
+		}
+		.explore-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--clay-100); }
+		.explore-card h3 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; }
+		.explore-card p { font-size: .85rem; color: var(--muted); }
+		.explore-card__cta { margin-top: 4px; font-size: .82rem; font-weight: 700; color: var(--clay-700); display: inline-flex; align-items: center; gap: 5px; }
+
+		/* =====================================================================
+		   ARTICLE
+		   ===================================================================== */
+		.article-head { padding-block: 8px clamp(20px,4vw,32px); }
+		.article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: .85rem; color: var(--muted); }
+		.article-meta__item { display: inline-flex; align-items: center; gap: 6px; }
+		.article-head h1 {
+			font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; color: var(--ink);
+			font-size: clamp(2rem, 1.5rem + 2.6vw, 3.3rem); line-height: 1.08; margin-top: 16px;
+		}
+		.article-head__deck {
+			font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--green);
+			font-size: clamp(1.15rem, 1rem + 1vw, 1.7rem); margin-top: 8px;
+		}
+
+		/* Byline — missing from the first draft of this header entirely.
+		   CLAUDE.md §13 names site anonymity as a self-imposed ranking cap on
+		   this YMYL-adjacent content, and it's the stated reason the trust
+		   pages are held back from wave 1 — a redrawn article header that
+		   still has nowhere to put an author or a "Reviewed by" line just
+		   reopens that work once about.md is filled in. The reviewed-by row
+		   is conditional by design (the class below only renders it when
+		   populated) and reads honestly as "pending" until then, rather than
+		   inventing a reviewer. */
+		.article-byline { margin-top: 16px; display: flex; align-items: center; gap: 10px; }
+		.article-byline__avatar {
+			width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+			background: var(--green-100); color: var(--green-700);
+			display: flex; align-items: center; justify-content: center;
+		}
+		.article-byline__avatar .icon { width: 18px; height: 18px; }
+		.article-byline__author { font-weight: 700; font-size: .9rem; color: var(--ink); text-decoration: none; }
+		.article-byline__author:hover { color: var(--green-700); text-decoration: underline; }
+		.article-byline__reviewed { margin-top: 1px; font-size: .78rem; color: var(--muted); }
+		.article-byline__reviewed b { font-weight: 700; color: var(--clay-700); }
+
+		.tpm-key-takeaway {
+			margin-top: 26px; background: var(--green-50); border: 1px solid var(--green-100);
+			border-left: 5px solid var(--green); border-radius: var(--r-md); padding: 20px 22px;
+		}
+		.tpm-key-takeaway__eyebrow { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--green-700); font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
+		.tpm-key-takeaway__body ul { margin-top: 12px; display: grid; gap: 8px; }
+		/* NOT display:flex — a flex container splits running prose into one
+		   flex item per text node/inline element, so every <strong> and every
+		   bit of punctuation around it becomes its own column with a `gap`
+		   void on each side (visible as orphaned ";" and "." at 1280px, and
+		   as unreadable 60px stacked columns at 375px, once flex-wraps).
+		   position:relative + padding-left keeps the <li> a single inline
+		   flow — normal text wrapping, inline <strong> behaves inline — and
+		   only the leading icon is pulled out of flow to sit in the gutter. */
+		.tpm-key-takeaway__body li { position: relative; padding-left: 26px; font-size: .96rem; }
+		.tpm-key-takeaway__body li .icon { position: absolute; left: 0; top: .2em; color: var(--green); }
+		.tpm-key-takeaway__body .kt-note { margin-top: 12px; font-size: .88rem; color: var(--green-700); }
+
+		.article-layout { display: grid; gap: 32px; padding-block: clamp(28px,5vw,48px) 8px; }
+		@media (min-width: 1024px) { .article-layout { grid-template-columns: 256px minmax(0,1fr); gap: 48px; align-items: start; } }
+
+		.tpm-toc { background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); }
+		@media (min-width: 1024px) { .tpm-toc { position: sticky; top: 132px; } }
+		.tpm-toc > details > summary {
+			list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+			gap: 8px; padding: 14px 16px; font-weight: 700; font-size: .85rem; letter-spacing: .03em; text-transform: uppercase; color: var(--ink);
+		}
+		.tpm-toc > details > summary::-webkit-details-marker { display: none; }
+		.tpm-toc > details > summary .icon { transition: transform .15s ease; color: var(--muted); }
+		.tpm-toc > details[open] > summary .icon { transform: rotate(180deg); }
+		/* No unconditional `display` here on purpose — a closed <details> must
+		   stay hidden by the browser's own default (mobile: closed until
+		   tapped). Setting `display:grid` unconditionally would override that
+		   default and defeat the native closed state entirely, so `display`
+		   is only ever granted scoped to `[open]` or to the desktop
+		   always-open override below. */
+		.tpm-toc__list { padding: 0 14px 16px; gap: 3px; }
+		.tpm-toc > details[open] > .tpm-toc__list { display: grid; }
+		.tpm-toc__link {
+			display: block; padding: 8px 10px; border-radius: 8px; text-decoration: none;
+			font-size: .88rem; color: var(--muted); border-left: 2px solid transparent;
+		}
+		.tpm-toc__link:hover { background: var(--green-50); color: var(--ink); }
+		.tpm-toc__link.is-active { color: var(--green-700); font-weight: 700; background: var(--green-50); border-left-color: var(--green); }
+		@media (min-width: 1024px) {
+			/* Belt-and-braces for the instant before JS runs: Firefox/Safari
+			   hide a closed details' children via `display:none` on the
+			   children themselves, which this author rule beats (author
+			   styles win over UA defaults). Chrome hides via an internal
+			   ::details-content pseudo-element instead, which no plain CSS
+			   selector can reach — only the actual `open` attribute fixes
+			   that, which is what setupToc() below sets on load/resize. */
+			.tpm-toc > details:not([open]) > .tpm-toc__list { display: grid; }
+			.tpm-toc > details > summary { pointer-events: none; cursor: default; }
+			.tpm-toc > details > summary .icon { display: none; }
+		}
+
+		.tpm-prose { min-width: 0; }
+		.tpm-prose h2 {
+			font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem,1.15rem + 1vw,1.9rem);
+			margin-top: 44px; scroll-margin-top: 150px; color: var(--ink);
+		}
+		.tpm-prose h2:first-child { margin-top: 0; }
+		.tpm-prose p { margin-top: 14px; color: var(--ink); }
+		.tpm-prose p.muted-note { color: var(--muted); font-size: .9rem; font-style: italic; }
+		/* :not(.card) keeps this scoped to inline prose links — the Related
+		   Reading card grid lives inside .tpm-prose too (it's the last thing
+		   in the article), and without the guard its card titles would
+		   inherit an underline from here with no clean specificity fix. */
+		/* text-decoration-color was --green-100 (a --brand-100 alias) — ~1.2:1
+		   against white in every palette, functionally invisible, so in
+		   practice the link was signalled by hue plus 600-weight alone
+		   (WCAG F73 wants ~3:1 between link and surrounding text when colour
+		   does that job — measured 1.07:1 in ink, 1.16:1 in plum, i.e. the
+		   SAME darkness as the paragraph around it, before this fix). A
+		   45%-currentColor mix carries the link's own colour into the
+		   underline instead of a fixed pale tint, so it's visible standalone
+		   in every palette without the text itself having to darken (which
+		   --brand-700 can't do much further without leaving "ink navy"/etc
+		   behind — see the code comment on .tpm-prose a's colour choice
+		   in the palette write-up). Recomputed: ~1.2:1 -> ~2.0–2.6:1 against
+		   white/--ground across all five palettes — a real, perceptible line
+		   under the text; ink/plum still read as the two palettes to avoid
+		   for this reason specifically, not something this fix hides. */
+		.tpm-prose a:not(.card) { color: var(--green-700); text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 2px; font-weight: 600; }
+		.tpm-prose a:not(.card):hover { text-decoration-color: currentColor; }
+		.tpm-prose ul.bullets { margin-top: 14px; display: grid; gap: 10px; }
+		/* Same fix, same reason as .tpm-key-takeaway__body li above: no flex
+		   on a list item that wraps running prose with inline <strong> leads.
+		   The dot marker moves to an absolutely-positioned ::before instead
+		   of a flex sibling, so it no longer forces each text run onto its
+		   own column. */
+		.tpm-prose ul.bullets li { position: relative; padding-left: 20px; }
+		.tpm-prose ul.bullets li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--clay); }
+
+		.table-wrap { margin-top: 18px; border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; overflow-x: auto; box-shadow: var(--shadow-sm); }
+		table.tpm-table { border-collapse: collapse; min-width: 520px; }
+		table.tpm-table th { background: var(--green); color: #fff; text-align: left; font-size: .82rem; letter-spacing: .02em; padding: 12px 16px; }
+		table.tpm-table th:first-child { border-top-left-radius: 0; }
+		table.tpm-table td { padding: 12px 16px; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+		table.tpm-table tbody tr:nth-child(even) { background: var(--green-50); }
+		table.tpm-table tbody tr:last-child td { border-bottom: none; }
+		table.tpm-table td:first-child { font-weight: 700; white-space: nowrap; }
+
+		.tpm-tool-cta {
+			margin-top: 32px; display: grid; gap: 0; border: 1px solid var(--border); border-radius: var(--r-lg);
+			overflow: hidden; background: #fff;
+		}
+		@media (min-width: 640px) { .tpm-tool-cta { grid-template-columns: 1.1fr 1fr; } }
+		.tpm-tool-cta__main { padding: 22px; border-bottom: 1px dashed var(--border); }
+		@media (min-width: 640px) { .tpm-tool-cta__main { border-bottom: none; border-right: 1px dashed var(--border); } }
+		.tpm-tool-cta__main .icon-wrap {
+			width: 42px; height: 42px; border-radius: 12px; border: 1px dashed var(--border); color: var(--muted);
+			display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+		}
+		.tpm-tool-cta__main h3 { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; margin-top: 8px; }
+		.tpm-tool-cta__main p { font-size: .88rem; color: var(--muted); margin-top: 6px; }
+		.tpm-tool-cta__live { padding: 22px; background: var(--green-50); }
+		.tpm-tool-cta__live p { font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--green-700); }
+		.tpm-tool-cta__live ul { margin-top: 12px; display: grid; gap: 8px; }
+		/* Doubled up as `.tpm-tool-cta .tpm-tool-cta__live a`: this component sits
+		   inside .tpm-prose, and .tpm-prose a:not(.card) (two class-level
+		   selectors) otherwise outranks a plain single-class `.tpm-tool-cta__live a`
+		   regardless of source order, leaking the prose underline onto these. */
+		.tpm-tool-cta .tpm-tool-cta__live a {
+			display: flex; align-items: center; justify-content: space-between; gap: 8px;
+			background: #fff; border: 1px solid var(--green-100); border-radius: 10px; padding: 10px 12px;
+			text-decoration: none; font-weight: 700; font-size: .86rem; color: var(--green-700);
+		}
+		.tpm-tool-cta .tpm-tool-cta__live a:hover { border-color: var(--green); }
+
+		.tpm-faq { margin-top: 44px; scroll-margin-top: 150px; }
+		.tpm-faq__list { margin-top: 16px; display: grid; gap: 10px; }
+		.tpm-faq__item { background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+		.tpm-faq__item[open] { border-color: var(--green-100); }
+		.tpm-faq__q {
+			list-style: none; cursor: pointer; padding: 16px 18px; display: flex; align-items: center;
+			justify-content: space-between; gap: 12px; font-weight: 700; font-size: .96rem;
+		}
+		.tpm-faq__q::-webkit-details-marker { display: none; }
+		.tpm-faq__q .icon { color: var(--green); transition: transform .15s ease; flex-shrink: 0; }
+		.tpm-faq__item[open] .tpm-faq__q .icon { transform: rotate(180deg); }
+		.tpm-faq__a { padding: 0 18px 18px; color: var(--muted); font-size: .92rem; }
+
+		.tpm-related-reading { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border); }
+		/* Explicit 2 columns, not auto-fit: this grid sits inside the narrow
+		   .tpm-prose column (1180px container minus the 256px TOC rail and
+		   48px gap), where an auto-fit `minmax(200px,1fr)` track resolves to
+		   3 columns and orphans the fourth card alone on its own row. Four
+		   cards in a fixed 2-column grid is always a clean 2x2. */
+		.related-grid { grid-template-columns: 1fr; }
+		@media (min-width: 480px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+		.related-card .ph { aspect-ratio: 16/10; }
+		.related-card__body { padding: 16px; }
+		.related-card__body h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-top: 10px; }
+		.related-card__cta { margin-top: 10px; font-size: .82rem; font-weight: 700; color: var(--green-700); display: inline-flex; align-items: center; gap: 5px; }
+
+		/* Callout used in the emergency section — urgency, not brand. Was
+		   .callout-clay on --clay-* / --accent-*: correct only by coincidence in
+		   the two palettes where accent happens to be terracotta (green, plum's
+		   accent is amber-ish too) — in clay and ochre, --accent-* IS navy, so
+		   this rendered as a calm blue "info" card, exactly backwards for "the
+		   emergency question" on a page about poison protocols and bloat
+		   surgery. Bound to the fixed --alert-* triple instead (never redefined
+		   by any :root[data-palette] block — see the :root block up top), so
+		   this one card reads the same warm red in all five palettes. The left
+		   rule + bold "Emergency" lead-in + filled triangle glyph (markup below)
+		   are the non-colour reinforcement: urgency shouldn't rest on hue alone
+		   in any of them, alert included. */
+		.callout-alert {
+			margin-top: 18px; background: var(--alert-50); border: 1px solid var(--alert-100);
+			border-left: 4px solid var(--alert-700); border-radius: var(--r-md);
+			padding: 16px 18px 16px 15px; display: flex; gap: 12px;
+		}
+		.callout-alert .icon { color: var(--alert-700); flex-shrink: 0; margin-top: 2px; }
+		.callout-alert p { margin: 0; font-size: .92rem; }
+		.callout-alert strong { color: var(--alert-700); }
+	</style>
+</head>
+<body>
+
+<!-- Icon sprite: one inline set, referenced everywhere via <use>. Keeps every
+     "photo" and UI glyph as inline SVG — no external image requests. -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+	<defs>
+		<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></symbol>
+		<symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></symbol>
+		<symbol id="i-close" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+		<symbol id="i-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+		<symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+		<symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+		<symbol id="i-alert" viewBox="0 0 24 24"><path d="m10.6 3.5-8 14A2 2 0 0 0 4.4 20.5h15.2a2 2 0 0 0 1.8-2.9l-8-14a2 2 0 0 0-3.5 0Z"/><line x1="12" y1="9.5" x2="12" y2="13.5"/><line x1="12" y1="16.7" x2="12" y2="16.7"/></symbol>
+		<symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16.2" rx="5.3" ry="4.2"/><circle cx="5.3" cy="9" r="2.1"/><circle cx="9.9" cy="5.4" r="2.1"/><circle cx="14.1" cy="5.4" r="2.1"/><circle cx="18.7" cy="9" r="2.1"/></symbol>
+		<symbol id="i-calc" viewBox="0 0 24 24"><rect x="4.5" y="2.2" width="15" height="19.6" rx="2"/><line x1="8" y1="6.2" x2="16" y2="6.2"/><line x1="8" y1="10.6" x2="8" y2="10.6"/><line x1="12" y1="10.6" x2="12" y2="10.6"/><line x1="16" y1="10.6" x2="16" y2="10.6"/><line x1="8" y1="14.4" x2="8" y2="14.4"/><line x1="12" y1="14.4" x2="12" y2="14.4"/><line x1="16" y1="14.4" x2="16" y2="14.4"/><line x1="8" y1="18.2" x2="8" y2="18.2"/><line x1="12" y1="18.2" x2="16" y2="18.2"/></symbol>
+		<symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a8 8 0 0 1-16 0Z"/><ellipse cx="12" cy="6.4" rx="6" ry="2.3"/></symbol>
+		<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 15.5a8 8 0 1 1 16 0"/><line x1="12" y1="15.5" x2="15.6" y2="11"/><circle cx="12" cy="15.5" r="1"/></symbol>
+		<symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="16" cy="12" r="2"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="11" cy="17" r="2"/></symbol>
+		<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></symbol>
+		<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2"/><line x1="3.5" y1="10" x2="20.5" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></symbol>
+		<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 5.5v6c0 5 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.5 7.5-9.5v-6Z"/></symbol>
+		<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.2A2.2 2.2 0 0 1 6.2 3H20v16H6.2A2.2 2.2 0 0 0 4 21.2Z"/><path d="M4 5.2v16"/></symbol>
+	</defs>
+</svg>
+
+<!-- href/target kept in sync with the visible screen by showScreenFromHash()
+     below — a bare "#screen-home" only ever worked on the homepage screen;
+     on the other two it pointed at a `hidden` element and did nothing. -->
+<a class="skip-link" id="skip-link" href="#main-home">Skip to design draft content</a>
+
+<!-- ============================================================
+     Review bar — not part of the design, part of the deliverable.
+     ============================================================ -->
+<nav class="draft-switcher" aria-label="Design draft screens">
+	<span class="draft-switcher__brand">ThePawManual <span>· v2 design draft</span></span>
+	<div class="draft-switcher__tabs" id="draft-tabs">
+		<a href="#home" data-screen-link="home" aria-current="page">Homepage</a>
+		<a href="#hub" data-screen-link="hub">Hub page</a>
+		<a href="#article" data-screen-link="article">Article</a>
+	</div>
+	<span class="draft-switcher__spacer"></span>
+	<!-- Typeface + Colour behind a disclosure below 480px only: at that width
+	     the bar was measuring 241px tall with Annotations on — ~30% of a
+	     375x812 viewport, on a site whose traffic is mostly mobile, so a lot
+	     of the review would happen through what was left. display:contents
+	     on both wrapper elements below keeps them invisible to layout at
+	     wider widths — .draft-switcher__typeface / __colour lay out as
+	     direct flex children of <nav>, exactly as before this control
+	     existed — so nothing changes above 480px. Below it, the wrapper CSS
+	     flips them to a real flex-basis:100% block, closed by default. The
+	     checkbox is sr-only (this file's existing utility) with the
+	     focus-visible ring redirected to the visible label via a sibling
+	     selector, the same reason .tseg__option below positions its own
+	     input rather than relying on the browser default box. -->
+	<div class="draft-switcher__more">
+		<input type="checkbox" id="switcher-more-toggle" class="sr-only" aria-controls="switcher-more-body" aria-expanded="false">
+		<label class="draft-switcher__more-toggle" for="switcher-more-toggle">
+			<svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+			Controls
+		</label>
+		<div class="draft-switcher__more-body" id="switcher-more-body">
+			<div class="draft-switcher__typeface">
+				<fieldset class="tseg">
+					<legend class="sr-only">Typeface direction</legend>
+					<!-- aria-label pins the accessible name to the full phrase regardless
+					     of which of .tseg__full/.tseg__short the 480px breakpoint is
+					     currently showing — the visual short form is a space-saving
+					     trick, not something a screen-reader user should have to
+					     puzzle out as "Current"/"Figma" without context. -->
+					<label class="tseg__option">
+						<input type="radio" name="typeface" value="current" checked aria-label="Current theme">
+						<span class="tseg__label"><span class="tseg__full">Current theme</span><span class="tseg__short">Current</span></span>
+					</label>
+					<label class="tseg__option">
+						<input type="radio" name="typeface" value="figma" aria-label="Figma direction">
+						<span class="tseg__label"><span class="tseg__full">Figma direction</span><span class="tseg__short">Figma</span></span>
+					</label>
+				</fieldset>
+				<span class="typeface-note">Trade-off: the Figma direction loads two extra webfont families (Fraunces + Source&nbsp;Sans&nbsp;3) to self-host or serve — a real Core Web Vitals cost on a site whose traffic is mostly mobile.</span>
+			</div>
+			<div class="draft-switcher__colour">
+				<fieldset class="tseg cseg">
+					<legend class="sr-only">Colour palette</legend>
+					<!-- Same aria-label pattern as the Typeface control above: pins the
+					     accessible name to the full palette name regardless of which of
+					     .tseg__full/.tseg__short the 480px breakpoint is currently
+					     showing. "green" ships checked — today's live site — so the
+					     client sees the current design first and switches away from it
+					     deliberately, same contract as Typeface's "current" default. -->
+					<label class="tseg__option">
+						<input type="radio" name="palette" value="green" checked aria-label="Current (Green)">
+						<span class="tseg__label"><span class="tseg__full">Current (Green)</span><span class="tseg__short">Green</span></span>
+					</label>
+					<label class="tseg__option">
+						<input type="radio" name="palette" value="ink" aria-label="Ink Navy">
+						<span class="tseg__label"><span class="tseg__full">Ink Navy</span><span class="tseg__short">Ink</span></span>
+					</label>
+					<label class="tseg__option">
+						<input type="radio" name="palette" value="clay" aria-label="Terracotta">
+						<span class="tseg__label"><span class="tseg__full">Terracotta</span><span class="tseg__short">Clay</span></span>
+					</label>
+					<label class="tseg__option">
+						<input type="radio" name="palette" value="plum" aria-label="Plum">
+						<span class="tseg__label"><span class="tseg__full">Plum</span><span class="tseg__short">Plum</span></span>
+					</label>
+					<label class="tseg__option">
+						<input type="radio" name="palette" value="ochre" aria-label="Burnt Ochre">
+						<span class="tseg__label"><span class="tseg__full">Burnt Ochre</span><span class="tseg__short">Ochre</span></span>
+					</label>
+				</fieldset>
+				<span class="colour-note">Trade-off: on the live site, swapping this palette is a two-line hex edit in tailwind.config.js plus one Tailwind rebuild — a cheap decision to reverse.</span>
+			</div>
+		</div>
+	</div>
+	<label class="draft-switcher__annot" for="annot-toggle">
+		Annotations
+		<input type="checkbox" id="annot-toggle" class="tswitch" role="switch" aria-checked="false">
+	</label>
+</nav>
+
+<!-- ================================================================
+     SCREEN 1 — HOMEPAGE
+     ================================================================ -->
+<div class="tpm-screen" id="screen-home" data-screen="home">
+<main id="main-home" tabindex="-1">
+
+	<header class="tpm-header">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Header · search</b> — Req 4: header search is a real control</span>
+			<div class="tpm-header__bar">
+				<div style="display:flex;align-items:center;gap:10px;">
+					<button type="button" class="icon-btn nav-toggle" data-tpm-nav-toggle aria-controls="tpm-mobile-nav-home" aria-expanded="false">
+						<span class="sr-only">Toggle menu</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+					</button>
+					<a href="#home" class="tpm-header__brand">The<em>Paw</em>Manual</a>
+				</div>
+				<nav class="tpm-nav" aria-label="Primary">
+					<ul>
+						<li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li>
+						<li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li>
+						<li><a href="#hub">Pet Guides</a></li>
+						<li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li>
+					</ul>
+				</nav>
+				<div class="tpm-header__actions">
+					<button type="button" class="icon-btn" data-tpm-search-toggle aria-controls="tpm-search-panel-home" aria-expanded="false">
+						<span class="sr-only">Search</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="tpm-mobile-nav" id="tpm-mobile-nav-home" hidden>
+			<ul>
+				<li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li>
+				<li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li>
+				<li><a href="#hub">Pet Guides</a></li>
+				<li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li>
+			</ul>
+		</div>
+		<!-- The -home/-hub/-article suffix on this id (and on the field id below)
+		     exists ONLY because all three screens share one HTML document and
+		     three copies of the same id would collide. SPEC's class/ID
+		     contract fixes these as the unsuffixed #tpm-search-panel and
+		     #tpm-search-field — the real header.php renders exactly one panel
+		     per page load, so it must emit those bare ids, not this suffixed
+		     pattern. -->
+		<div class="tpm-search-panel" id="tpm-search-panel-home" hidden>
+			<form class="tpm-search-form" role="search">
+				<label for="tpm-search-field-home">
+					<span class="sr-only">Search ThePawManual</span>
+					<input type="search" id="tpm-search-field-home" name="s" placeholder="Search breeds, food, health, training…">
+				</label>
+				<button type="submit">Search</button>
+			</form>
+			<p class="tpm-search-hint">Design demo — wires to WordPress search on the live theme (task 4).</p>
+		</div>
+	</header>
+
+	<!-- Hero — split layout, category pills, a featured-guide card pinned over the photo. -->
+	<section class="section hero">
+		<div class="container annot-block">
+			<span class="annot-chip">Hero — split layout, brand voice</span>
+			<div class="hero__grid">
+				<div>
+					<h1>The Owner's Manual for <em>Happy, Healthy</em> Dogs and Cats</h1>
+					<p class="hero__deck">ThePawManual gives dog and cat owners clear, research-backed answers about breeds, food, health, behavior, and training — paired with free interactive tools like our dog age calculator.</p>
+					<div class="hero__pills">
+						<a class="pill pill--green pill--link" href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a>
+						<a class="pill pill--green pill--link" href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a>
+						<a class="pill pill--green pill--link" href="#hub">Pet Guides</a>
+						<a class="pill pill--green pill--link" href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a>
+					</div>
+					<div class="hero__ctas">
+						<a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener" class="btn btn--primary">Explore Dog Care <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+						<a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener" class="btn btn--ghost">Explore Cat Care</a>
+					</div>
+				</div>
+				<div class="hero__art">
+					<div class="ph ph--green">
+						<div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div>
+						<p class="ph__cap">Photo: a dog and a cat resting together on a sofa at home, warm natural light, editorial lifestyle style.</p>
+					</div>
+					<!-- A tool, not the pet-costs guide — that guide is already the
+					     homepage's lead promotion below (.guide-lead); featuring it
+					     a second time up here just doubled the same headline. A
+					     live calculator earns the hero spot on its own and gives
+					     Req 3 (homepage → tools) a second, higher-up entry point. -->
+					<a class="hero__feature" href="https://thepawmanual.com/tools/dog-age-calculator/" target="_blank" rel="noopener">
+						<div class="ph ph--clay"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-calc"></use></svg></div><p class="ph__cap">Photo: a vet bill and a calculator on a kitchen table.</p></div>
+						<div>
+							<span class="pill pill--clay" style="margin-bottom:2px;">Featured tool</span>
+							<p class="hero__feature-title">Dog Age Calculator</p>
+							<p>Free — works instantly in your browser</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Tools strip — 4 cards, only the two built calculators link anywhere. -->
+	<section class="section tools-strip tpm-tools-strip">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Tools strip</b> — Req 3: homepage links straight into the free tools</span>
+			<div class="section-head">
+				<p class="eyebrow">Free & instant</p>
+				<h2 class="display">Smart Tools &amp; Calculators</h2>
+				<p class="lede">No signup, no paywall — the math runs right in your browser.</p>
+			</div>
+			<div class="grid grid-min-200">
+				<a class="card tool-card" href="https://thepawmanual.com/tools/dog-age-calculator/" target="_blank" rel="noopener">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-calc"></use></svg></div>
+					<h3>Dog Age Calculator</h3>
+					<p>Calculate your dog's true age in human years, based on their breed size.</p>
+					<span class="tool-card__cta">Open calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+				</a>
+				<a class="card tool-card" href="https://thepawmanual.com/tools/cat-age-calculator/" target="_blank" rel="noopener">
+					<div class="tool-card__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div>
+					<h3>Cat Age Calculator</h3>
+					<p>Find out how old your cat is in human years with the standard feline model.</p>
+					<span class="tool-card__cta">Open calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+				</a>
+				<div class="card tool-card tool-card--soon">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-gauge"></use></svg></div>
+					<h3>Pet Cost Calculator</h3>
+					<p>See what a dog or cat will realistically cost you per year.</p>
+					<span class="pill-soon" style="margin-top:14px;">Coming soon</span>
+				</div>
+				<div class="card tool-card tool-card--soon">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-sliders"></use></svg></div>
+					<h3>Dog Breed Selector</h3>
+					<p>Find which breeds fit your home, schedule, and activity level.</p>
+					<span class="pill-soon" style="margin-top:14px;">Coming soon</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Guide card grid — lead article + rail, magazine language from the Cats.com reference. -->
+	<section class="section">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Guide grid</b> — Req 2: homepage links onward into the guides</span>
+			<div class="section-head">
+				<p class="eyebrow">Pet Guides</p>
+				<h2 class="display">Practical Guides for Every Pet Household</h2>
+				<p class="lede">Decisions that don't care whether you have a dog or a cat: cost, insurance, safety, travel, and the new-pet checklist.</p>
+			</div>
+
+			<a class="card guide-lead" href="#article">
+				<div class="ph ph--clay">
+					<div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-calc"></use></svg></div>
+					<p class="ph__cap">Photo: a person reviewing a vet bill and a calculator at a kitchen table, a dog resting nearby.</p>
+				</div>
+				<div class="guide-lead__body">
+					<span class="pill pill--clay">Pet Guides</span>
+					<h3>How Much Does a Pet Cost?</h3>
+					<p>First-year and annual numbers for dogs and cats, itemized — including the lines nobody budgets, and the emergency-fund question that decides everything.</p>
+					<span class="guide-lead__cta">Read the guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+				</div>
+			</a>
+
+			<div class="grid grid-min-200 guide-rail">
+				<a class="card rail-card" href="https://thepawmanual.com/pet-guides/pet-insurance/" target="_blank" rel="noopener">
+					<div class="ph ph--green"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-shield"></use></svg></div><p class="ph__cap">Photo: a vet handing paperwork to an owner at the front desk.</p></div>
+					<div class="rail-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Pet Insurance: How It Works</h3>
+						<p>The reimbursement model, the pre-existing-condition rule, and a decision framework instead of a sales pitch.</p>
+						<span class="rail-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card rail-card" href="https://thepawmanual.com/pet-guides/pet-safety/" target="_blank" rel="noopener">
+					<div class="ph ph--neutral"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-alert"></use></svg></div><p class="ph__cap">Photo: a tidy kitchen counter with household chemicals stored up high, out of pet reach.</p></div>
+					<div class="rail-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Pet Safety at Home</h3>
+						<p>The master toxin list, physical hazards by species, and the poison-emergency protocol.</p>
+						<span class="rail-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card rail-card" href="https://thepawmanual.com/pet-guides/pet-travel/" target="_blank" rel="noopener">
+					<div class="ph ph--green-deep"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div><p class="ph__cap">Photo: a dog wearing a car harness, looking out of a car window.</p></div>
+					<div class="rail-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Traveling With Pets</h3>
+						<p>Car restraint, the honest truth about flying, and whether your pet should come at all.</p>
+						<span class="rail-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card rail-card" href="https://thepawmanual.com/pet-guides/new-pet-checklist/" target="_blank" rel="noopener">
+					<div class="ph ph--clay"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-book"></use></svg></div><p class="ph__cap">Photo: a checklist on a clipboard beside a pet carrier and food bowl.</p></div>
+					<div class="rail-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>New Pet Checklist</h3>
+						<p>The decision layer before the shopping lists: time, money, lifestyle fit, and adopt vs. buy.</p>
+						<span class="rail-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Trust / stats band (dark) — the E-E-A-T copy from home.md, not a discount-code promo. -->
+	<section class="trust-band">
+		<div class="container section annot-block">
+			<span class="annot-chip" style="background:#14161a;color:#fff;border-color:rgba(255,255,255,.4);">Trust band — sourcing &amp; credibility signals</span>
+			<h2>Why Pet Owners Trust ThePawManual</h2>
+			<p class="trust-band__lede">About 87 million U.S. households (66%) own a pet, according to the American Pet Products Association — yet much of the pet advice online is contradictory or outdated. We ground every guide in veterinary sources like the AVMA and the AKC.</p>
+
+			<div class="trust-stats">
+				<div class="stat"><b>87M</b><span>U.S. households own a pet, per APPA</span></div>
+				<div class="stat"><b>5</b><span>vet-sourced guides live today</span></div>
+				<div class="stat"><b>2</b><span>free calculators live today</span></div>
+			</div>
+
+			<ul class="trust-points">
+				<li>
+					<span class="icon-wrap"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+					<div><h3>Sourced, not opinionated</h3><p>Health and nutrition claims cite the AVMA, the AKC, and peer-reviewed veterinary research, with references linked on every page.</p></div>
+				</li>
+				<li>
+					<span class="icon-wrap"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg></span>
+					<div><h3>Honest about our limits</h3><p>We're an educational resource, not a vet. Every health page carries a clear disclaimer and tells you when to call one.</p></div>
+				</li>
+				<li>
+					<span class="icon-wrap"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg></span>
+					<div><h3>Kept current</h3><p>Guides carry a visible last-updated date and are reviewed on a schedule, because guidelines change.</p></div>
+				</li>
+			</ul>
+
+			<p class="disclaimer"><strong>Veterinary disclaimer:</strong> ThePawManual provides general educational information for pet owners. It is not a substitute for professional veterinary advice, diagnosis, or treatment. If your pet shows signs of illness or distress, contact a licensed veterinarian.</p>
+			<div class="trust-band__links">
+				<a href="https://thepawmanual.com/about/" target="_blank" rel="noopener">Who we are →</a>
+				<a href="https://thepawmanual.com/editorial-process/" target="_blank" rel="noopener">How we research &amp; review →</a>
+			</div>
+		</div>
+	</section>
+
+	<footer class="tpm-footer">
+		<div class="container annot-block">
+			<span class="annot-chip">Footer — sitewide link block (published pages only)</span>
+			<div class="tpm-footer__cols">
+				<div>
+					<h3>ThePawManual</h3>
+					<p>Vet-informed dog and cat care guides and free calculators.</p>
+				</div>
+				<div>
+					<h3>Explore</h3>
+					<ul><li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li><li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li><li><a href="#hub">Pet Guides</a></li><li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li></ul>
+				</div>
+				<div>
+					<h3>Company</h3>
+					<ul><li><a href="https://thepawmanual.com/about/" target="_blank" rel="noopener">About Us</a></li><li><a href="https://thepawmanual.com/editorial-process/" target="_blank" rel="noopener">Editorial Process</a></li><li><a href="https://thepawmanual.com/contact/" target="_blank" rel="noopener">Contact</a></li></ul>
+				</div>
+				<div>
+					<h3>Terms &amp; Policy</h3>
+					<ul><li><a href="https://thepawmanual.com/terms/" target="_blank" rel="noopener">Terms of Use</a></li><li><a href="https://thepawmanual.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://thepawmanual.com/affiliate-disclosure/" target="_blank" rel="noopener">Affiliate Disclosure</a></li></ul>
+				</div>
+			</div>
+			<div class="tpm-footer__bottom">&copy; 2026 ThePawManual</div>
+		</div>
+	</footer>
+
+</main>
+</div>
+
+<!-- ================================================================
+     SCREEN 2 — HUB PAGE  (/pet-guides/)
+     ================================================================ -->
+<div class="tpm-screen" id="screen-hub" data-screen="hub" hidden>
+<main id="main-hub" tabindex="-1">
+
+	<header class="tpm-header">
+		<div class="container">
+			<div class="tpm-header__bar">
+				<div style="display:flex;align-items:center;gap:10px;">
+					<button type="button" class="icon-btn nav-toggle" data-tpm-nav-toggle aria-controls="tpm-mobile-nav-hub" aria-expanded="false">
+						<span class="sr-only">Toggle menu</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+					</button>
+					<a href="#home" class="tpm-header__brand">The<em>Paw</em>Manual</a>
+				</div>
+				<nav class="tpm-nav" aria-label="Primary">
+					<ul>
+						<li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li>
+						<li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li>
+						<li><a href="#hub" style="border-bottom-color:var(--green);">Pet Guides</a></li>
+						<li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li>
+					</ul>
+				</nav>
+				<div class="tpm-header__actions">
+					<button type="button" class="icon-btn" data-tpm-search-toggle aria-controls="tpm-search-panel-hub" aria-expanded="false">
+						<span class="sr-only">Search</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="tpm-mobile-nav" id="tpm-mobile-nav-hub" hidden>
+			<ul><li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li><li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li><li><a href="#hub">Pet Guides</a></li><li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li></ul>
+		</div>
+		<div class="tpm-search-panel" id="tpm-search-panel-hub" hidden>
+			<form class="tpm-search-form" role="search">
+				<label for="tpm-search-field-hub"><span class="sr-only">Search ThePawManual</span>
+				<input type="search" id="tpm-search-field-hub" name="s" placeholder="Search breeds, food, health, training…"></label>
+				<button type="submit">Search</button>
+			</form>
+			<p class="tpm-search-hint">Design demo — wires to WordPress search on the live theme (task 4).</p>
+		</div>
+	</header>
+
+	<div class="container">
+		<nav class="breadcrumb annot-block" aria-label="Breadcrumb">
+			<span class="annot-chip">Breadcrumb — wayfinding, defers to RankMath on the live theme</span>
+			<ol>
+				<li><a href="#home">Home</a></li>
+				<li class="sep">/</li>
+				<li aria-current="page">Pet Guides</li>
+			</ol>
+		</nav>
+	</div>
+
+	<!-- Hub H1 + deck + intro -->
+	<section class="hub-head">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Hub H1 split</b> — Req 5: same treatment as the article — the H1 is only "Pet Guides"</span>
+			<h1>Pet Guides</h1>
+			<p class="hub-head__deck">The Decisions That Apply to Every Pet.</p>
+			<p class="hub-head__intro">What pets really cost, whether insurance is worth it, home safety, travel, and getting a new pet right. Some pet-ownership questions don't care whether you have a dog or a cat: what this actually costs, whether insurance is worth it, how to keep the house from poisoning anyone, how travel works, and — before all of that — whether and which pet to get at all. These five guides are the cross-species layer of ThePawManual, deliberately honest about money and trade-offs, because the pets surrendered to shelters are overwhelmingly the ones whose costs and demands surprised someone.</p>
+		</div>
+	</section>
+
+	<!-- In this section — child-page grid, one card per live guide -->
+	<section class="section" style="padding-top:8px;">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Child grid</b> — Req 2: hub links down to every published guide</span>
+			<h2 class="display" style="margin-bottom:20px;">In This Section</h2>
+			<div class="grid tpm-child-grid">
+				<a class="card child-card" href="#article">
+					<div class="ph ph--clay"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-calc"></use></svg></div><p class="ph__cap">Photo: a vet bill and a calculator on a kitchen table.</p></div>
+					<div class="child-card__body">
+						<span class="pill pill--clay">Pet Guides</span>
+						<h3>How Much Does a Pet Cost?</h3>
+						<p>First-year and annual numbers for dogs and cats, itemized, including the lines nobody budgets and the emergency-fund question.</p>
+						<span class="child-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card child-card" href="https://thepawmanual.com/pet-guides/pet-insurance/" target="_blank" rel="noopener">
+					<div class="ph ph--green"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-shield"></use></svg></div><p class="ph__cap">Photo: a vet handing paperwork to an owner at the front desk.</p></div>
+					<div class="child-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Pet Insurance: How It Works and When It's Worth It</h3>
+						<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+						<p>The reimbursement model, the pre-existing-condition rule that makes timing everything, and a decision framework.</p>
+						<span class="child-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card child-card" href="https://thepawmanual.com/pet-guides/pet-safety/" target="_blank" rel="noopener">
+					<div class="ph ph--neutral"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-alert"></use></svg></div><p class="ph__cap">Photo: household chemicals stored up high on a shelf, out of pet reach.</p></div>
+					<div class="child-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Pet Safety at Home</h3>
+						<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+						<p>The master toxin list, the physical hazards by species, and the poison-emergency protocol worth memorizing.</p>
+						<span class="child-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card child-card" href="https://thepawmanual.com/pet-guides/pet-travel/" target="_blank" rel="noopener">
+					<div class="ph ph--green-deep"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div><p class="ph__cap">Photo: a dog in a car harness looking out the window.</p></div>
+					<div class="child-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>Traveling With Pets</h3>
+						<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+						<p>Car restraint, the honest truth about flying, and the question most guides skip: whether your pet should come at all.</p>
+						<span class="child-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+				<a class="card child-card" href="https://thepawmanual.com/pet-guides/new-pet-checklist/" target="_blank" rel="noopener">
+					<div class="ph ph--clay"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-book"></use></svg></div><p class="ph__cap">Photo: a checklist on a clipboard next to a pet carrier and food bowl.</p></div>
+					<div class="child-card__body">
+						<span class="pill pill--green">Pet Guides</span>
+						<h3>New Pet Checklist</h3>
+						<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+						<p>The decision layer before the shopping lists: time, money, lifestyle fit, adopt vs. buy, and which species fits your life.</p>
+						<span class="child-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Tools strip (shared component, reused) -->
+	<section class="section tools-strip tpm-tools-strip">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Tools strip</b> — Req 3: every landing page links to the Tools</span>
+			<div class="section-head">
+				<p class="eyebrow">Free & instant</p>
+				<h2 class="display">Put These Guides to Work</h2>
+				<p class="lede">Two calculators are live today — try them while you read.</p>
+			</div>
+			<div class="grid grid-min-200">
+				<a class="card tool-card" href="https://thepawmanual.com/tools/dog-age-calculator/" target="_blank" rel="noopener">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-calc"></use></svg></div>
+					<h3>Dog Age Calculator</h3>
+					<p>Calculate your dog's true age in human years, based on their breed size.</p>
+					<span class="tool-card__cta">Open calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+				</a>
+				<a class="card tool-card" href="https://thepawmanual.com/tools/cat-age-calculator/" target="_blank" rel="noopener">
+					<div class="tool-card__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div>
+					<h3>Cat Age Calculator</h3>
+					<p>Find out how old your cat is in human years with the standard feline model.</p>
+					<span class="tool-card__cta">Open calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+				</a>
+				<div class="card tool-card tool-card--soon">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-gauge"></use></svg></div>
+					<h3>Pet Cost Calculator</h3>
+					<p>See what a dog or cat will realistically cost you per year.</p>
+					<span class="pill-soon" style="margin-top:14px;">Coming soon</span>
+				</div>
+				<div class="card tool-card tool-card--soon">
+					<div class="tool-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-sliders"></use></svg></div>
+					<h3>Dog Breed Selector</h3>
+					<p>Find which breeds fit your home, schedule, and activity level.</p>
+					<span class="pill-soon" style="margin-top:14px;">Coming soon</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Explore more — bottom-of-page link block to other live landing pages -->
+	<section class="section" style="padding-top:8px;">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Explore more</b> — Req 2: bottom-of-page links to other landing pages</span>
+			<div class="explore-block">
+				<h2 class="display" style="font-size:1.4rem;margin-bottom:18px;">Explore More of ThePawManual</h2>
+				<div class="grid grid-min-220">
+					<a class="explore-card" href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">
+						<h3>Dog Care Hub</h3>
+						<p>Everything for dog owners — breeds, food, health, training, and puppy care.</p>
+						<span class="explore-card__cta">Visit the dog care hub <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</a>
+					<a class="explore-card" href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">
+						<h3>Cat Care Hub</h3>
+						<p>Cats aren't small dogs — breeds, food, health, behavior, and kitten care, treated accordingly.</p>
+						<span class="explore-card__cta">Visit the cat care hub <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</a>
+					<a class="explore-card" href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">
+						<h3>All Free Tools</h3>
+						<p>Calculators that turn veterinary guidelines into instant, personalized answers.</p>
+						<span class="explore-card__cta">Browse all tools <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="tpm-footer">
+		<div class="container">
+			<div class="tpm-footer__cols">
+				<div><h3>ThePawManual</h3><p>Vet-informed dog and cat care guides and free calculators.</p></div>
+				<div><h3>Explore</h3><ul><li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li><li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li><li><a href="#hub">Pet Guides</a></li><li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li></ul></div>
+				<div><h3>Company</h3><ul><li><a href="https://thepawmanual.com/about/" target="_blank" rel="noopener">About Us</a></li><li><a href="https://thepawmanual.com/editorial-process/" target="_blank" rel="noopener">Editorial Process</a></li><li><a href="https://thepawmanual.com/contact/" target="_blank" rel="noopener">Contact</a></li></ul></div>
+				<div><h3>Terms &amp; Policy</h3><ul><li><a href="https://thepawmanual.com/terms/" target="_blank" rel="noopener">Terms of Use</a></li><li><a href="https://thepawmanual.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://thepawmanual.com/affiliate-disclosure/" target="_blank" rel="noopener">Affiliate Disclosure</a></li></ul></div>
+			</div>
+			<div class="tpm-footer__bottom">&copy; 2026 ThePawManual</div>
+		</div>
+	</footer>
+
+</main>
+</div>
+
+<!-- ================================================================
+     SCREEN 3 — ARTICLE  (/pet-guides/pet-costs/)
+     ================================================================ -->
+<div class="tpm-screen" id="screen-article" data-screen="article" hidden>
+<main id="main-article" tabindex="-1">
+
+	<header class="tpm-header">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>Header · search</b> — Req 4: real toggle, panel, labelled field</span>
+			<div class="tpm-header__bar">
+				<div style="display:flex;align-items:center;gap:10px;">
+					<button type="button" class="icon-btn nav-toggle" data-tpm-nav-toggle aria-controls="tpm-mobile-nav-article" aria-expanded="false">
+						<span class="sr-only">Toggle menu</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+					</button>
+					<a href="#home" class="tpm-header__brand">The<em>Paw</em>Manual</a>
+				</div>
+				<nav class="tpm-nav" aria-label="Primary">
+					<ul>
+						<li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li>
+						<li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li>
+						<li><a href="#hub" style="border-bottom-color:var(--green);">Pet Guides</a></li>
+						<li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li>
+					</ul>
+				</nav>
+				<div class="tpm-header__actions">
+					<button type="button" class="icon-btn" data-tpm-search-toggle aria-controls="tpm-search-panel-article" aria-expanded="false">
+						<span class="sr-only">Search</span>
+						<svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="tpm-mobile-nav" id="tpm-mobile-nav-article" hidden>
+			<ul><li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li><li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li><li><a href="#hub">Pet Guides</a></li><li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li></ul>
+		</div>
+		<div class="tpm-search-panel" id="tpm-search-panel-article" hidden>
+			<form class="tpm-search-form" role="search">
+				<label for="tpm-search-field-article"><span class="sr-only">Search ThePawManual</span>
+				<input type="search" id="tpm-search-field-article" name="s" placeholder="Search breeds, food, health, training…"></label>
+				<button type="submit">Search</button>
+			</form>
+			<p class="tpm-search-hint">Design demo — wires to WordPress search on the live theme (task 4).</p>
+		</div>
+	</header>
+
+	<div class="container">
+		<nav class="breadcrumb" aria-label="Breadcrumb">
+			<ol>
+				<li><a href="#home">Home</a></li>
+				<li class="sep">/</li>
+				<li><a href="#hub">Pet Guides</a></li>
+				<li class="sep">/</li>
+				<li aria-current="page">How Much Does a Pet Cost?</li>
+			</ol>
+		</nav>
+	</div>
+
+	<!-- Eyebrow + H1 + green italic deck -->
+	<section class="article-head">
+		<div class="container annot-block">
+			<span class="annot-chip"><b>H1 split</b> — Req 5: the H1 is only "How Much Does a Pet Cost?"; the rest becomes the deck</span>
+			<div class="article-meta">
+				<a href="#hub" class="pill pill--clay">Pet Guides</a>
+				<span class="article-meta__item"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Updated Aug 14, 2026</span>
+				<span class="article-meta__item"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg> 8 min read</span>
+			</div>
+			<h1>How Much Does a Pet Cost?</h1>
+			<p class="article-head__deck">The Honest, Itemized Answer.</p>
+			<div class="article-byline annot-block">
+				<span class="annot-chip">Byline — author + a "Reviewed by" slot that renders only once populated</span>
+				<span class="article-byline__avatar" aria-hidden="true"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></span>
+				<div>
+					<a class="article-byline__author" href="https://thepawmanual.com/about/" target="_blank" rel="noopener">ThePawManual Editorial Team</a>
+					<p class="article-byline__reviewed">Veterinary review: <b>pending</b> — this line shows a named reviewer once editorial-process.md assigns one.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Key takeaway — the answer, directly under the H1 -->
+	<div class="container">
+		<aside class="tpm-key-takeaway annot-block" aria-labelledby="kt-heading-article">
+			<span class="annot-chip"><b>Key takeaway</b> — Req 1: the answer sits directly under the H1</span>
+			<p class="tpm-key-takeaway__eyebrow" id="kt-heading-article">
+				<svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> Key Takeaway
+			</p>
+			<div class="tpm-key-takeaway__body">
+				<ul>
+					<li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> A dog runs roughly <strong>$1,000–$2,000 per year</strong>; a cat roughly <strong>$800–$1,200</strong>.</li>
+					<li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> First-year costs run <strong>$1,500–$3,000+</strong> for dogs and <strong>$800–$1,500</strong> for cats, thanks to setup, vaccines, and spay/neuter.</li>
+					<li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> Over a 10–16 year life, that's a <strong>$15,000–$30,000+</strong> commitment — the number worth seeing before the adoption photos.</li>
+				</ul>
+				<p class="kt-note">A personalized pet cost calculator is coming soon. Meanwhile, the tables below itemize every line.</p>
+			</div>
+		</aside>
+	</div>
+
+	<!-- TOC + prose -->
+	<div class="container">
+		<div class="article-layout">
+
+			<nav class="tpm-toc annot-block" aria-label="Table of contents">
+				<span class="annot-chip"><b>TOC</b> — Req 1: links down to every H2, sticky on desktop, a details on mobile — nav.tpm-toc per SPEC's class contract (a TOC is navigation, not complementary content)</span>
+				<details>
+					<summary>In This Article <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+					<ol class="tpm-toc__list">
+						<li><a class="tpm-toc__link" data-toc-link href="#first-year-costs">First-year costs</a></li>
+						<li><a class="tpm-toc__link" data-toc-link href="#annual-costs">Annual costs</a></li>
+						<li><a class="tpm-toc__link" data-toc-link href="#lines-nobody-budgets">The lines nobody budgets</a></li>
+						<li><a class="tpm-toc__link" data-toc-link href="#emergency-question">The emergency question</a></li>
+						<li><a class="tpm-toc__link" data-toc-link href="#faq">Frequently asked questions</a></li>
+					</ol>
+				</details>
+			</nav>
+
+			<div class="tpm-prose">
+
+				<h2 id="first-year-costs">First-year costs (the expensive year)</h2>
+				<!-- The chip sits on this wrapper, not on .table-wrap itself: that element
+				     scrolls horizontally (overflow-x:auto), which also clips an absolutely
+				     positioned child that pokes above its own box — exactly the kind of
+				     thing this annotation layer exists to catch before a reviewer does. -->
+				<div class="annot-block">
+					<span class="annot-chip">Comparison table — green header, itemized Dog vs. Cat</span>
+					<div class="table-wrap">
+					<table class="tpm-table">
+						<thead><tr><th>Line</th><th>Dog</th><th>Cat</th></tr></thead>
+						<tbody>
+							<tr><td>Acquisition (adoption fee ↔ breeder)</td><td>$50–$500 ↔ $1,000–$3,000+</td><td>$50–$200 ↔ $500–$1,500+</td></tr>
+							<tr><td>Spay/neuter</td><td>$150–$600</td><td>$100–$400</td></tr>
+							<tr><td>Vaccine series + initial vet</td><td>$200–$500 (the schedule)</td><td>$150–$400 (the schedule)</td></tr>
+							<tr><td>Setup gear</td><td>$200–$500 (the checklist)</td><td>$150–$400 (the checklist)</td></tr>
+							<tr><td>Microchip, license, misc</td><td>$50–$150</td><td>$50–$100</td></tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+				<p class="muted-note">Low-cost clinics compress the vet lines substantially — they exist in most regions and deserve more traffic than they get.</p>
+
+				<h2 id="annual-costs">Annual costs (the steady state)</h2>
+				<div class="table-wrap">
+					<table class="tpm-table">
+						<thead><tr><th>Line</th><th>Dog</th><th>Cat</th></tr></thead>
+						<tbody>
+							<tr><td>Food</td><td>$300–$900+ — size is the multiplier</td><td>$200–$500 (wet-forward costs more)</td></tr>
+							<tr><td>Routine vet + prevention (flea/tick/heartworm)</td><td>$300–$700</td><td>$200–$500</td></tr>
+							<tr><td><a href="#hub">Insurance</a> (if chosen)</td><td>~$360–$840/yr</td><td>~$180–$480/yr</td></tr>
+							<tr><td>Litter</td><td>—</td><td>$150–$300</td></tr>
+							<tr><td>Toys, chews, replacement gear</td><td>$100–$300</td><td>$50–$150</td></tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Inline tool CTA — mid-article, contextual to the topic. The calculator this
+				     content actually links to isn't built yet, so it's shown honestly as
+				     "coming soon" next to the two calculators that really do work.
+				     The chip lives on this outer wrapper, not on .tpm-tool-cta itself:
+				     that element clips its own children with `overflow:hidden` (for its
+				     rounded corners), which would clip the chip's negative top offset too. -->
+				<div class="annot-block">
+					<span class="annot-chip"><b>Inline tool CTA</b> — Req 3: contextual mid-article, coming-soon tool never linked</span>
+					<div class="tpm-tool-cta">
+					<div class="tpm-tool-cta__main">
+						<div class="icon-wrap"><svg class="icon" aria-hidden="true"><use href="#i-gauge"></use></svg></div>
+						<span class="pill-soon">Coming soon</span>
+						<h3>Pet Cost Calculator</h3>
+						<p>A personalized yearly estimate for your specific dog or cat — plug in size, diet, and insurance choice.</p>
+					</div>
+					<div class="tpm-tool-cta__live">
+						<p>Two calculators are live today</p>
+						<ul>
+							<li><a href="https://thepawmanual.com/tools/dog-age-calculator/" target="_blank" rel="noopener">Dog Age Calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+							<li><a href="https://thepawmanual.com/tools/cat-age-calculator/" target="_blank" rel="noopener">Cat Age Calculator <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+						</ul>
+					</div>
+					</div>
+				</div>
+
+				<h2 id="lines-nobody-budgets">The lines nobody budgets (and everyone pays)</h2>
+				<ul class="bullets">
+					<li><strong>Dental cleanings:</strong> $300–$800+ per anesthetic cleaning, more with extractions — and cats need them too. Home brushing is the cost-avoidance program.</li>
+					<li><strong>Boarding/sitters:</strong> $25–$85+ per night; two vacations a year is a real line item.</li>
+					<li><strong>Grooming:</strong> $60–$120+ every 4–6 weeks for life for Poodles, doodles, Persians — a four-figure annual line the breed choice locked in.</li>
+					<li><strong>Pet rent:</strong> $25–$100/month plus deposits in many rentals — the quiet urban tax.</li>
+					<li><strong>The aging years:</strong> senior pets cost more — twice-yearly vet visits, bloodwork, chronic medications. Budget the last third of life above the average.</li>
+				</ul>
+
+				<h2 id="emergency-question">The emergency question (the one that matters)</h2>
+				<p>A single emergency — bloat surgery, a urinary blockage, a swallowed <a href="#hub">string</a> — commonly runs <strong>$1,500–$5,000+</strong>, and it arrives unscheduled.</p>
+				<div class="callout-alert">
+					<svg class="icon icon--fill" aria-hidden="true"><use href="#i-alert"></use></svg>
+					<p><strong>Emergency:</strong> the two rational answers are <strong><a href="#hub">insurance enrolled young</a></strong>, or a dedicated emergency fund you actually fund. The irrational answer — hoping — is how treatable conditions end early. Decide before the pet, not in the exam room.</p>
+				</div>
+
+				<!-- FAQ — real Q&A from content/pet-guides/pet-costs.md, byte-identical to the JSON-LD below.
+				     div.tpm-faq per SPEC's class contract (not section — it's part of the
+				     article's one document outline under the H2 below it, not a landmark of its own). -->
+				<div class="tpm-faq annot-block" id="faq" aria-labelledby="faq-heading">
+					<span class="annot-chip"><b>FAQ accordion</b> — Req 1. Questions match the JSON-LD byte-for-byte, as SPEC requires; the four ANSWERS are paraphrased slightly shorter in the JSON-LD, copied faithfully from content/pet-guides/pet-costs.md. That mismatch is CLAUDE.md §11's known open item across 25 pages, not new here — flagging it live on the one screen where it's visible, since which wording wins is an SEO call, not a design one.</span>
+					<h2 id="faq-heading">Frequently asked questions</h2>
+					<div class="tpm-faq__list">
+						<details class="tpm-faq__item">
+							<summary class="tpm-faq__q">How much does a dog cost per month? <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+							<div class="tpm-faq__a"><p>Roughly $85–$170/month averaged across routine years for most dogs — more for large breeds, groomed breeds, and insured dogs; more still in the senior years. First year runs well above the average.</p></div>
+						</details>
+						<details class="tpm-faq__item">
+							<summary class="tpm-faq__q">Are cats cheaper than dogs? <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+							<div class="tpm-faq__a"><p>Somewhat — roughly $800–$1,200/year versus $1,000–$2,000, with lower food, boarding, and gear costs. The gap narrows with wet-food feeding and closes entirely at the emergency vet.</p></div>
+						</details>
+						<details class="tpm-faq__item">
+							<summary class="tpm-faq__q">What's the most surprising pet expense? <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+							<div class="tpm-faq__a"><p>Three candidates by acclamation: the first dental cleaning (routine care nobody mentioned), boarding (the vacation multiplier), and the emergency (the four-figure Tuesday). Grooming breeds add a fourth surprise on a 4–6 week loop.</p></div>
+						</details>
+						<details class="tpm-faq__item">
+							<summary class="tpm-faq__q">How much should I save for pet emergencies? <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></summary>
+							<div class="tpm-faq__a"><p>A dedicated $2,000–$5,000 fund covers the common catastrophes — or <a href="#hub">insurance</a> converts the risk into premiums. Either works; having neither is the plan that fails.</p></div>
+						</details>
+					</div>
+				</div>
+				<script type="application/ld+json">
+				{
+					"@context": "https://schema.org",
+					"@type": "FAQPage",
+					"mainEntity": [
+						{
+							"@type": "Question",
+							"name": "How much does a dog cost per month?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Roughly $85–$170 per month averaged across routine years — more for large, groomed, or insured dogs, and more in senior years."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "Are cats cheaper than dogs?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Somewhat — roughly $800–$1,200 per year versus $1,000–$2,000, with the gap closing entirely at the emergency vet."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "What's the most surprising pet expense?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Dental cleanings, boarding, and emergencies top the list — with recurring professional grooming as the fourth for coat-heavy breeds."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "How much should I save for pet emergencies?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "A dedicated $2,000–$5,000 fund covers common catastrophes, or pet insurance converts the risk into premiums. Having neither is the plan that fails."
+							}
+						}
+					]
+				}
+				</script>
+
+				<!-- Related Reading — the article's four live siblings under /pet-guides/ -->
+				<section class="tpm-related-reading annot-block" aria-labelledby="related-heading">
+					<span class="annot-chip"><b>Related Reading</b> — Req 2: bottom-of-article links to the other guides</span>
+					<h2 id="related-heading" class="display" style="font-size:1.6rem;">Related Reading</h2>
+					<div class="grid related-grid" style="margin-top:20px;">
+						<a class="card related-card tpm-card" href="https://thepawmanual.com/pet-guides/pet-insurance/" target="_blank" rel="noopener">
+							<div class="ph ph--green"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-shield"></use></svg></div><p class="ph__cap">Photo: a vet handing paperwork to an owner.</p></div>
+							<div class="related-card__body">
+								<span class="pill pill--green">Pet Guides</span>
+								<h3>Pet Insurance: How It Works</h3>
+								<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+								<span class="related-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+							</div>
+						</a>
+						<a class="card related-card tpm-card" href="https://thepawmanual.com/pet-guides/pet-safety/" target="_blank" rel="noopener">
+							<div class="ph ph--neutral"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-alert"></use></svg></div><p class="ph__cap">Photo: household chemicals stored out of pet reach.</p></div>
+							<div class="related-card__body">
+								<span class="pill pill--green">Pet Guides</span>
+								<h3>Pet Safety at Home</h3>
+								<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+								<span class="related-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+							</div>
+						</a>
+						<a class="card related-card tpm-card" href="https://thepawmanual.com/pet-guides/pet-travel/" target="_blank" rel="noopener">
+							<div class="ph ph--green-deep"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-paw"></use></svg></div><p class="ph__cap">Photo: a dog in a car harness looking out the window.</p></div>
+							<div class="related-card__body">
+								<span class="pill pill--green">Pet Guides</span>
+								<h3>Traveling With Pets</h3>
+								<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+								<span class="related-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+							</div>
+						</a>
+						<a class="card related-card tpm-card" href="https://thepawmanual.com/pet-guides/new-pet-checklist/" target="_blank" rel="noopener">
+							<div class="ph ph--clay"><div class="ph__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="#i-book"></use></svg></div><p class="ph__cap">Photo: a checklist beside a pet carrier and food bowl.</p></div>
+							<div class="related-card__body">
+								<span class="pill pill--green">Pet Guides</span>
+								<h3>New Pet Checklist</h3>
+								<span class="card-byline"><svg class="icon" aria-hidden="true"><use href="#i-paw"></use></svg>ThePawManual Editorial Team</span>
+								<span class="related-card__cta">Read guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+							</div>
+						</a>
+					</div>
+					<p style="margin-top:20px;font-size:.9rem;">
+						<a href="#hub" style="font-weight:700;text-decoration:underline;">See all pages in Pet Guides →</a>
+					</p>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	<footer class="tpm-footer">
+		<div class="container">
+			<div class="tpm-footer__cols">
+				<div><h3>ThePawManual</h3><p>Vet-informed dog and cat care guides and free calculators.</p></div>
+				<div><h3>Explore</h3><ul><li><a href="https://thepawmanual.com/dogs/" target="_blank" rel="noopener">Dogs</a></li><li><a href="https://thepawmanual.com/cats/" target="_blank" rel="noopener">Cats</a></li><li><a href="#hub">Pet Guides</a></li><li><a href="https://thepawmanual.com/tools/" target="_blank" rel="noopener">Tools</a></li></ul></div>
+				<div><h3>Company</h3><ul><li><a href="https://thepawmanual.com/about/" target="_blank" rel="noopener">About Us</a></li><li><a href="https://thepawmanual.com/editorial-process/" target="_blank" rel="noopener">Editorial Process</a></li><li><a href="https://thepawmanual.com/contact/" target="_blank" rel="noopener">Contact</a></li></ul></div>
+				<div><h3>Terms &amp; Policy</h3><ul><li><a href="https://thepawmanual.com/terms/" target="_blank" rel="noopener">Terms of Use</a></li><li><a href="https://thepawmanual.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://thepawmanual.com/affiliate-disclosure/" target="_blank" rel="noopener">Affiliate Disclosure</a></li></ul></div>
+			</div>
+			<div class="tpm-footer__bottom">&copy; 2026 ThePawManual</div>
+		</div>
+	</footer>
+
+</main>
+</div>
+
+<script>
+( function () {
+	'use strict';
+
+	/**
+	 * localStorage helpers for the two review-bar preferences (Typeface,
+	 * Annotations). Wrapped in try/catch on BOTH read and write: private
+	 * windows don't just fail on write, some (older Safari) throw on
+	 * getItem() too once storage is disabled, and either one going uncaught
+	 * would take the whole script down with it. On any failure we fall back
+	 * to the given default and the choice simply stops persisting for that
+	 * session — never a broken page.
+	 */
+	function readPref( key, fallback ) {
+		try {
+			var v = window.localStorage.getItem( key );
+			return v === null ? fallback : v;
+		} catch ( e ) {
+			return fallback;
+		}
+	}
+	function writePref( key, value ) {
+		try {
+			window.localStorage.setItem( key, value );
+		} catch ( e ) {
+			// Private window / storage disabled / quota — the page still
+			// works, the choice just won't survive a reload this session.
+		}
+	}
+
+	var TYPEFACE_KEY = 'tpm-draft-typeface';
+	var ANNOTATIONS_KEY = 'tpm-draft-annotations';
+
+	// Applied as the first thing this script does, before any other DOM
+	// work below, so the restored typeface/annotations state is in place
+	// before the reader has a chance to see the other direction.
+	var savedTypeface = readPref( TYPEFACE_KEY, 'current' );
+	if ( savedTypeface !== 'figma' ) {
+		savedTypeface = 'current'; // unknown/corrupted value -> safe default, per spec
+	}
+	document.documentElement.setAttribute( 'data-typeface', savedTypeface );
+
+	var PALETTE_KEY = 'tpm-draft-palette';
+	var PALETTE_VALUES = [ 'green', 'ink', 'clay', 'plum', 'ochre' ];
+
+	// Same restore-before-paint contract as Typeface above: applied before
+	// any other DOM work, so the reader's last choice (or the "green"
+	// default) is in place before they see the other direction.
+	var savedPalette = readPref( PALETTE_KEY, 'green' );
+	if ( PALETTE_VALUES.indexOf( savedPalette ) === -1 ) {
+		savedPalette = 'green'; // unknown/corrupted value -> safe default, per spec
+	}
+	document.documentElement.setAttribute( 'data-palette', savedPalette );
+
+	var savedAnnotations = readPref( ANNOTATIONS_KEY, '0' ) === '1';
+	document.body.classList.toggle( 'show-annotations', savedAnnotations );
+
+	/**
+	 * Keeps --switcher-h equal to the review bar's REAL rendered height.
+	 * The bar can now wrap to two rows at narrow widths (Typeface control +
+	 * Annotations sharing space with the screen tabs), and --switcher-h
+	 * drives .tpm-screen's padding-top, .tpm-header's sticky top, and the
+	 * skip-link's focus offset — so this has to track the actual box,
+	 * not a guessed constant, or wrapped content would sit half-hidden
+	 * under the bar. Re-run on resize and whenever bar content that can
+	 * change its height is toggled (annotations chip, typeface labels).
+	 */
+	var switcherEl = document.querySelector( '.draft-switcher' );
+	function syncSwitcherHeight() {
+		if ( ! switcherEl ) return;
+		var h = Math.ceil( switcherEl.getBoundingClientRect().height );
+		if ( h > 0 ) {
+			document.documentElement.style.setProperty( '--switcher-h', h + 'px' );
+		}
+	}
+	syncSwitcherHeight();
+	window.addEventListener( 'resize', syncSwitcherHeight );
+	// Swapping typefaces changes glyph metrics (Fraunces/Source Sans 3 vs.
+	// Playfair/Geist/Inter fallbacks while loading), which can itself shift
+	// where the bar wraps — re-measure once real fonts are in.
+	if ( document.fonts && document.fonts.ready ) {
+		document.fonts.ready.then( syncSwitcherHeight ).catch( function () {} );
+	}
+
+	var SCREENS = [ 'home', 'hub', 'article' ];
+
+	/**
+	 * Show the screen named by the URL hash and hide the rest, reflecting the
+	 * choice in the review bar's tab state.
+	 *
+	 * Deliberately a no-op for any hash that ISN'T one of the three screen
+	 * keys. Every screen also carries ordinary in-page anchors of its own —
+	 * TOC links (#first-year-costs), the FAQ heading (#faq), cross-links from
+	 * the article into the hub (#hub, which happens to collide with a screen
+	 * key on purpose) — and those must fall through to the browser's native
+	 * same-page scroll instead of being caught here and bounced to "home".
+	 * Only #home / #hub / #article ever switch screens.
+	 */
+	function showScreenFromHash() {
+		var key = window.location.hash.replace( '#', '' );
+		if ( SCREENS.indexOf( key ) === -1 ) {
+			return;
+		}
+		SCREENS.forEach( function ( name ) {
+			var el = document.getElementById( 'screen-' + name );
+			if ( el ) {
+				el.hidden = name !== key;
+			}
+			var tab = document.querySelector( '[data-screen-link="' + name + '"]' );
+			if ( tab ) {
+				if ( name === key ) {
+					tab.setAttribute( 'aria-current', 'page' );
+				} else {
+					tab.removeAttribute( 'aria-current' );
+				}
+			}
+		} );
+		// A hard-coded "#screen-home" only ever worked on the homepage — on
+		// the other two screens it pointed at a `hidden` element, so
+		// activating it moved neither scroll position nor focus. Retargeting
+		// it here every time the visible screen changes keeps it pointed at
+		// content that's actually on screen.
+		var skipLink = document.getElementById( 'skip-link' );
+		if ( skipLink ) {
+			skipLink.setAttribute( 'href', '#main-' + key );
+		}
+		window.scrollTo( { top: 0 } );
+	}
+	window.addEventListener( 'hashchange', showScreenFromHash );
+	showScreenFromHash();
+
+	/**
+	 * Wire every header's mobile-nav toggle. Several headers exist in the DOM
+	 * at once (one per screen), so this runs once and binds all of them.
+	 */
+	document.querySelectorAll( '[data-tpm-nav-toggle]' ).forEach( function ( btn ) {
+		btn.addEventListener( 'click', function () {
+			var panel = document.getElementById( btn.getAttribute( 'aria-controls' ) );
+			if ( ! panel ) return;
+			var open = panel.hidden;
+			panel.hidden = ! open;
+			btn.setAttribute( 'aria-expanded', String( open ) );
+		} );
+	} );
+
+	/**
+	 * Wire every header's search toggle (Req 4 — a real, working control).
+	 * Submitting is prevented: this is a static design draft with nowhere to
+	 * send the query, but the toggle/panel/field/labels are all real.
+	 */
+	document.querySelectorAll( '[data-tpm-search-toggle]' ).forEach( function ( btn ) {
+		btn.addEventListener( 'click', function () {
+			var panel = document.getElementById( btn.getAttribute( 'aria-controls' ) );
+			if ( ! panel ) return;
+			var open = panel.hidden;
+			panel.hidden = ! open;
+			btn.setAttribute( 'aria-expanded', String( open ) );
+			if ( open ) {
+				var field = panel.querySelector( 'input[type="search"]' );
+				if ( field ) field.focus();
+			}
+		} );
+	} );
+	document.querySelectorAll( '.tpm-search-form' ).forEach( function ( form ) {
+		form.addEventListener( 'submit', function ( e ) { e.preventDefault(); } );
+	} );
+
+	/**
+	 * Annotations switch — toggles the dotted outlines + chips sitewide, and
+	 * persists the choice (see readPref/writePref above). The `checked` /
+	 * `aria-checked` state is synced to the restored preference here too,
+	 * since the markup's static default (unchecked) is only correct on a
+	 * first-ever visit.
+	 */
+	var annotToggle = document.getElementById( 'annot-toggle' );
+	if ( annotToggle ) {
+		annotToggle.checked = savedAnnotations;
+		annotToggle.setAttribute( 'aria-checked', String( savedAnnotations ) );
+		annotToggle.addEventListener( 'change', function () {
+			document.body.classList.toggle( 'show-annotations', annotToggle.checked );
+			annotToggle.setAttribute( 'aria-checked', String( annotToggle.checked ) );
+			writePref( ANNOTATIONS_KEY, annotToggle.checked ? '1' : '0' );
+			syncSwitcherHeight(); // the trade-off chip appearing/disappearing can change wrap
+		} );
+	}
+
+	/**
+	 * "Controls" disclosure — only present as a real toggle below 480px (the
+	 * CSS keeps it display:none above that; the checkbox stays in the DOM
+	 * either way, harmlessly unchecked). Closed by default so the bar's
+	 * initial mobile height stays to one row; opening it reveals Typeface +
+	 * Colour, which is exactly the content that used to push the bar to
+	 * 241px unconditionally. No persisted preference — unlike Annotations/
+	 * Typeface/Colour this isn't a content choice, just a "show me more of
+	 * the review bar right now" affordance, correctly reset closed on every
+	 * visit/reload.
+	 */
+	var switcherMoreToggle = document.getElementById( 'switcher-more-toggle' );
+	if ( switcherMoreToggle ) {
+		switcherMoreToggle.addEventListener( 'change', function () {
+			switcherMoreToggle.setAttribute( 'aria-expanded', String( switcherMoreToggle.checked ) );
+			syncSwitcherHeight(); // the body going from display:none to flex changes the bar's real height
+		} );
+	}
+
+	/**
+	 * Typeface control — two radios (a real fieldset, not a div with a click
+	 * handler) flip data-typeface on <html>, which is all it takes: every
+	 * font-family rule in the file already resolves through --font-display /
+	 * --font-ui / --font-body, and the :root[data-typeface="figma"] block
+	 * near the top of the stylesheet is the only place those variables get
+	 * redefined. `checked` is re-synced from the restored preference for the
+	 * same reason as the Annotations switch above.
+	 */
+	document.querySelectorAll( 'input[name="typeface"]' ).forEach( function ( radio ) {
+		radio.checked = radio.value === savedTypeface;
+		radio.addEventListener( 'change', function () {
+			if ( ! radio.checked ) return;
+			document.documentElement.setAttribute( 'data-typeface', radio.value );
+			writePref( TYPEFACE_KEY, radio.value );
+			syncSwitcherHeight(); // short/full label widths differ slightly between fonts
+		} );
+	} );
+
+	/**
+	 * Colour control — same shape as Typeface just above: radios (a real
+	 * fieldset, not a div with a click handler) flip data-palette on
+	 * <html>, and the :root[data-palette="…"] blocks near the top of the
+	 * stylesheet are the only place --brand-* / --accent-* / --ground get
+	 * redefined — every --green-* / --clay-*-named rule elsewhere in this
+	 * file is a var() alias onto those, so nothing else has to change.
+	 * `checked` is re-synced from the restored preference for the same
+	 * reason as Typeface/Annotations above. Composes freely with Typeface:
+	 * data-typeface and data-palette are independent attributes on <html>.
+	 */
+	document.querySelectorAll( 'input[name="palette"]' ).forEach( function ( radio ) {
+		radio.checked = radio.value === savedPalette;
+		radio.addEventListener( 'change', function () {
+			if ( ! radio.checked ) return;
+			document.documentElement.setAttribute( 'data-palette', radio.value );
+			writePref( PALETTE_KEY, radio.value );
+			syncSwitcherHeight(); // label widths differ slightly between palette names
+		} );
+	} );
+
+	/**
+	 * Article TOC: forced open on desktop regardless of user interaction
+	 * (covers Chrome's ::details-content mechanism, which CSS alone can't
+	 * reach — see template-parts/content/toc.php in the theme for the full
+	 * cross-browser explanation this mirrors), and a light scroll-spy that
+	 * marks the current section's link `is-active` as the reader scrolls.
+	 */
+	function isDesktop() {
+		return window.matchMedia( '(min-width: 1024px)' ).matches;
+	}
+	var tocDetails = document.querySelector( '.tpm-toc > details' );
+	if ( tocDetails ) {
+		var tocSummary = tocDetails.querySelector( ':scope > summary' );
+		var wasDesktop = null; // null on first run so the initial call always sets state
+		var syncTocOpen = function () {
+			var desktop = isDesktop();
+			// Only force `.open` on an ACTUAL crossing of the 1024px
+			// boundary, not on every call — forcing it unconditionally on
+			// every resize (the original bug's own fix attempt: always
+			// `true`, never `false`) either never re-closes on mobile, or,
+			// force-set every time, throws away a reader's manual tap on
+			// mobile the next time anything resizes. A real crossing is the
+			// only case degraded to the OS default (closed mobile / open
+			// desktop) is actually correct.
+			if ( desktop !== wasDesktop ) {
+				tocDetails.open = desktop;
+				wasDesktop = desktop;
+			}
+			// The desktop CSS rule already makes the summary inert
+			// (`pointer-events:none`) so it can't be toggled by mouse there,
+			// but a plain <summary> stays in the tab order regardless —
+			// tabbing to it and pressing Enter/Space does nothing, which
+			// reads as a broken control. tabindex="-1" is the one part of
+			// "inert" that only JS can express; CSS has no property for it.
+			if ( tocSummary ) tocSummary.tabIndex = desktop ? -1 : 0;
+		};
+		syncTocOpen();
+		window.addEventListener( 'resize', syncTocOpen );
+		tocDetails.addEventListener( 'toggle', function () {
+			if ( isDesktop() && ! tocDetails.open ) tocDetails.open = true;
+		} );
+	}
+
+	var tocLinks = document.querySelectorAll( '[data-toc-link]' );
+	if ( tocLinks.length && 'IntersectionObserver' in window ) {
+		var headings = [];
+		tocLinks.forEach( function ( link ) {
+			var id = link.getAttribute( 'href' ).slice( 1 );
+			var heading = document.getElementById( id );
+			if ( heading ) headings.push( heading );
+		} );
+		// Track EVERY heading currently inside the "active" band, not just
+		// the last one an entry fired for — an entry only fires when a
+		// heading crosses the band's edge, so reacting per-entry and never
+		// clearing left a stale `is-active` on whatever heading the reader
+		// had last scrolled past once they jumped straight to a later
+		// section (e.g. via the "See all pages" or Related Reading links).
+		var inBand = new Set();
+		var observer = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				if ( entry.isIntersecting ) {
+					inBand.add( entry.target.id );
+				} else {
+					inBand.delete( entry.target.id );
+				}
+			} );
+			// Document order, first match: with several headings in the band
+			// at once (short sections), the topmost is the one the reader is
+			// actually reading.
+			var currentId = null;
+			headings.some( function ( h ) {
+				if ( inBand.has( h.id ) ) { currentId = h.id; return true; }
+				return false;
+			} );
+			tocLinks.forEach( function ( link ) {
+				link.classList.toggle( 'is-active', currentId !== null && link.getAttribute( 'href' ) === '#' + currentId );
+			} );
+		}, { rootMargin: '-160px 0px -70% 0px' } );
+		headings.forEach( function ( h ) { observer.observe( h ); } );
+	}
+} )();
+</script>
+
+</body>
+</html>
