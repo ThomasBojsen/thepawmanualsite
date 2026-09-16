@@ -27,7 +27,7 @@ The evening piranha hour (frantic zoomies, relentless hard biting that no redire
 
 ## What should I never do when my puppy bites?
 
-No yelling, no muzzle-grabbing, no holding the mouth shut, no "alpha rolls": [the dominance framework is debunked](/dogs/training/puppy-training/), and physical corrections teach fear of hands, which buys stealth biting and a dog that won't tolerate [handling](/dogs/health/dental-care/) later. Never play rough hand-games you'll regret at 60 lb, and brief the kids: hands and feet are never toys, running and shrieking is prey-school ([kid rules here](/dogs/breeds/family-dogs/)): kid-and-puppy play happens through toys, supervised.
+No yelling, no muzzle-grabbing, no holding the mouth shut, no "alpha rolls": [the dominance framework is debunked](/dogs/training/puppy-training/), and physical corrections teach fear of hands, which buys stealth biting and a dog that won't tolerate [handling](/dogs/health/dental-care/) later. Never play rough hand-games you'll regret at 60 lb, and brief the kids: hands and feet are never toys, running and shrieking is prey-school ([the family-dog kid rules](/dogs/breeds/family-dogs/)): kid-and-puppy play happens through toys, supervised.
 
 ## When is puppy biting not normal?
 
@@ -70,7 +70,7 @@ The *pause* works; the sound is just a marker, and for some puppies a dramatic s
       "name": "What should I never do when my puppy bites?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No yelling, no muzzle-grabbing, no holding the mouth shut, no \"alpha rolls\": the dominance framework is debunked, and physical corrections teach fear of hands, which buys stealth biting and a dog that won't tolerate handling later. Never play rough hand-games you'll regret at 60 lb, and brief the kids: hands and feet are never toys, running and shrieking is prey-school (kid rules here): kid-and-puppy play happens through toys, supervised."
+        "text": "No yelling, no muzzle-grabbing, no holding the mouth shut, no \"alpha rolls\": the dominance framework is debunked, and physical corrections teach fear of hands, which buys stealth biting and a dog that won't tolerate handling later. Never play rough hand-games you'll regret at 60 lb, and brief the kids: hands and feet are never toys, running and shrieking is prey-school (the family-dog kid rules): kid-and-puppy play happens through toys, supervised."
       }
     },
     {

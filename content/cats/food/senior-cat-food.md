@@ -95,7 +95,7 @@ High-quality protein stays *up* for healthy seniors: muscle loss is the enemy, a
     },
     {
       "@type": "Question",
-      "name": "Should senior cats eat more protein or less?",
+      "name": "Should I feed my senior cat more protein or less?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "High-quality protein stays up for healthy seniors to fight muscle loss: restriction is only for veterinarian-managed kidney disease."

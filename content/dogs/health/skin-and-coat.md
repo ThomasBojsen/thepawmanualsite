@@ -100,7 +100,7 @@ Same-day vet, yes: they're painful, infected, spread within hours, and almost al
     },
     {
       "@type": "Question",
-      "name": "Are hot spots on dogs an emergency?",
+      "name": "Are hot spots an emergency?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Same-day veterinary care is warranted: hot spots are painful, infected, spread within hours, and nearly always have an underlying trigger that needs treatment too."
