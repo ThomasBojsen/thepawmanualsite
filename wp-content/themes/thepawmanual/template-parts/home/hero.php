@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			printf(
 				/* translators: 1: dog age calculator link, 2: American Pet Products Association link, 3: AVMA link, 4: AKC link. */
-				__( 'ThePawManual gives dog and cat owners clear, research-backed answers about breeds, food, health, behavior, and training — paired with free interactive tools like our %1$s. About 87 million U.S. households (66%%) own a pet, according to the %2$s — yet much of the pet advice online is contradictory or outdated. We fix that by grounding every guide in veterinary sources such as the %3$s and the %4$s, and by telling you plainly when a question belongs at your vet\'s office instead of a search bar.', 'thepawmanual' ),
+				__( 'ThePawManual gives dog and cat owners clear, research-backed answers about breeds, food, health, behavior, and training, paired with free interactive tools like our %1$s. About 87 million U.S. households (66%%) own a pet, according to the %2$s, yet much of the pet advice online is contradictory or outdated. We fix that by grounding every guide in veterinary sources such as the %3$s and the %4$s, and by telling you plainly when a question belongs at your vet\'s office instead of a search bar.', 'thepawmanual' ),
 				$tpm_hero_dog_age_link,
 				$tpm_hero_appa_link,
 				$tpm_hero_avma_link,
@@ -87,14 +87,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					decoding="async"
 				>
 				<div class="absolute bottom-4 left-4">
-					<a href="#tools" class="hidden items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 font-geist text-sm text-white transition hover:bg-neutral-800 sm:inline-flex">
+					<a href="#tools" class="hidden items-center gap-2 rounded-full bg-brand-600 px-4 py-2 font-geist text-sm text-white transition hover:bg-brand-700 sm:inline-flex">
 						<?php esc_html_e( 'Find a Tool', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>
 				</div>
 				<div class="absolute bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0">
 					<div class="flex items-center gap-1 rounded-full bg-white/80 p-2 shadow backdrop-blur">
-						<span class="rounded-full bg-neutral-900 px-3 py-1.5 font-geist text-xs text-white"><?php esc_html_e( 'Age', 'thepawmanual' ); ?></span>
+						<span class="rounded-full bg-brand-600 px-3 py-1.5 font-geist text-xs text-white"><?php esc_html_e( 'Age', 'thepawmanual' ); ?></span>
 						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Nutrition', 'thepawmanual' ); ?></span>
 						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Health', 'thepawmanual' ); ?></span>
 						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Puppies', 'thepawmanual' ); ?></span>
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<?php // Featured-tool card. ?>
-			<div class="flex flex-col rounded-3xl border border-neutral-200 bg-white p-5 [animation:fadeSlideIn_1s_ease-out_0.3s_both] sm:p-6 lg:col-span-4">
+			<div class="tpm-card [animation:fadeSlideIn_1s_ease-out_0.3s_both] rounded-3xl p-5 sm:p-6 lg:col-span-4">
 				<div>
 					<h2 class="font-playfair text-2xl font-medium tracking-tight sm:text-3xl">
 						<?php esc_html_e( 'Featured Tool', 'thepawmanual' ); ?>
@@ -112,8 +112,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php esc_html_e( "The Dog Age Calculator converts your dog's age into human years using a breed-size-aware veterinary model.", 'thepawmanual' ); ?>
 					</p>
 				</div>
-				<div class="mt-5 flex flex-grow flex-col items-center justify-center gap-3 rounded-2xl border border-neutral-100 bg-neutral-50 p-6 text-center">
-					<div class="flex h-12 w-12 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-sm">
+				<div class="tpm-tool-cta mt-5 flex flex-grow flex-col items-center justify-center gap-3 p-6 text-center">
+					<div class="flex h-12 w-12 items-center justify-center rounded-full border border-brand-200 bg-white text-brand-600 shadow-sm">
 						<?php tpm_icon( 'calculator', 'h-6 w-6' ); ?>
 					</div>
 					<div>
@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 				<div class="mt-4">
-					<a href="<?php echo esc_url( home_url( '/tools/dog-age-calculator/' ) ); ?>" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-neutral-800">
+					<a href="<?php echo esc_url( home_url( '/tools/dog-age-calculator/' ) ); ?>" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-brand-700">
 						<?php esc_html_e( 'Open Calculator', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>

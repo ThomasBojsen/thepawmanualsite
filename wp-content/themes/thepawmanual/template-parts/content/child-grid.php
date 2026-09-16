@@ -7,6 +7,14 @@
  * page in two clicks from the section root. This is what makes hubs the
  * PageRank distributors the content cluster structure was written to use.
  *
+ * Restyled 2026-09-14 into the same tpm-card language as
+ * related-reading.php: a category chip (this hub's own SHORT title — every
+ * card here shares one parent, this page, so the chip is the same for all
+ * of them), the child's own SHORT title, then the excerpt and "Read more"
+ * line unchanged. Short titles go through tpm_split_title()
+ * (inc/article-meta.php, a sibling worker's file), function_exists()-guarded
+ * so a missing file degrades to the untrimmed title rather than a fatal.
+ *
  * Expects $args['children'] — WP_Post[], e.g. from tpm_get_child_pages().
  * Optional $args['heading'] overrides the section heading text.
  *
@@ -23,6 +31,15 @@ if ( empty( $children ) ) {
 }
 
 $heading = ! empty( $args['heading'] ) ? $args['heading'] : __( 'In This Section', 'thepawmanual' );
+
+// Every card's chip is this hub's own short title — get_the_title() with no
+// argument reads the current Page, which is still set from page.php's own
+// the_post() call; this template never receives its own post_id via $args.
+$chip_label = '';
+if ( function_exists( 'tpm_split_title' ) ) {
+	$hub_split  = tpm_split_title( get_the_title() );
+	$chip_label = ! empty( $hub_split['h1'] ) ? $hub_split['h1'] : '';
+}
 ?>
 <section class="tpm-child-grid mt-12" aria-labelledby="tpm-child-grid-heading">
 	<h2 id="tpm-child-grid-heading" class="font-playfair text-2xl font-medium text-neutral-900 sm:text-3xl">
@@ -31,12 +48,24 @@ $heading = ! empty( $args['heading'] ) ? $args['heading'] : __( 'In This Section
 
 	<div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 		<?php foreach ( $children as $child ) : ?>
+			<?php
+			$child_title = get_the_title( $child );
+			if ( function_exists( 'tpm_split_title' ) ) {
+				$child_split = tpm_split_title( $child_title );
+				$child_title = ! empty( $child_split['h1'] ) ? $child_split['h1'] : $child_title;
+			}
+			?>
 			<a
 				href="<?php echo esc_url( get_permalink( $child ) ); ?>"
-				class="group flex flex-col rounded-2xl border border-neutral-200 bg-white p-6 transition hover:border-neutral-300 hover:shadow-sm"
+				class="tpm-card group flex flex-col rounded-2xl border border-neutral-200 bg-white p-6 transition hover:border-brand-200 hover:shadow-sm"
 			>
-				<h3 class="font-geist text-base font-semibold tracking-tight text-neutral-900 group-hover:underline">
-					<?php echo esc_html( get_the_title( $child ) ); ?>
+				<?php if ( $chip_label ) : ?>
+					<span class="inline-flex w-fit items-center rounded-full bg-accent-50 px-2.5 py-1 font-geist text-[11px] font-semibold uppercase tracking-wide text-accent-700">
+						<?php echo esc_html( $chip_label ); ?>
+					</span>
+				<?php endif; ?>
+				<h3 class="mt-3 font-geist text-base font-semibold tracking-tight text-neutral-900 group-hover:underline">
+					<?php echo esc_html( $child_title ); ?>
 				</h3>
 
 				<?php
@@ -83,9 +112,9 @@ $heading = ! empty( $args['heading'] ) ? $args['heading'] : __( 'In This Section
 					</p>
 				<?php endif; ?>
 
-				<span class="mt-4 inline-flex items-center gap-1.5 font-geist text-sm font-medium text-neutral-900">
+				<span class="mt-4 inline-flex items-center gap-1.5 font-geist text-sm font-medium text-brand-700">
 					<?php esc_html_e( 'Read more', 'thepawmanual' ); ?>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+					<?php tpm_icon( 'arrow-right', 'h-4 w-4 transition-transform group-hover:translate-x-0.5' ); ?>
 				</span>
 			</a>
 		<?php endforeach; ?>

@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<ul class="mt-3 space-y-2 text-sm text-neutral-600">
 							<?php foreach ( $tpm_live_links as $tpm_url => $tpm_label ) : ?>
 								<li class="font-geist">
-									<a href="<?php echo esc_url( $tpm_url ); ?>" class="transition-colors hover:text-neutral-900"><?php echo esc_html( $tpm_label ); ?></a>
+									<a href="<?php echo esc_url( $tpm_url ); ?>" class="transition-colors hover:text-brand-700"><?php echo esc_html( $tpm_label ); ?></a>
 								</li>
 							<?php endforeach; ?>
 						</ul>
@@ -104,18 +104,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$tpm_dog_vet_signs_url = tpm_get_published_page_url( 'dogs/health/signs-your-dog-needs-a-vet' );
 			$tpm_cat_vet_signs_url = tpm_get_published_page_url( 'cats/health/signs-your-cat-needs-a-vet' );
 			?>
+			<?php
+			/*
+			 * `text-caution-700`, not `text-brand-600` (deploy-gate finding,
+			 * 2026-09-14). This heading is not a navigational label like the
+			 * three columns beside it — it carries the exact "Pet emergency?"
+			 * wording emergency-callout.php uses for the SAME two vet-signs
+			 * pages, rendered sitewide (including pages with no inline
+			 * callout at all, e.g. the homepage). That makes it the site's
+			 * second emergency affordance, not a rebrand of the first, so it
+			 * should read with the same weight `caution` gives the callout,
+			 * not the ordinary brand colour every other footer heading gets.
+			 * `caution-700` (not `-900`): this is a small `text-sm` label,
+			 * not the callout's large bold heading, and 8.02:1 against white
+			 * already clears AA with room to spare.
+			 *
+			 * tailwind.config.js's `caution` comment still says
+			 * emergency-callout.php is the only place this scale is used —
+			 * that statement is now one file out of date. This file does not
+			 * own tailwind.config.js, so widening it is a config-owner edit,
+			 * escalated rather than made here (see this task's report).
+			 */
+			?>
 			<?php if ( $tpm_dog_vet_signs_url || $tpm_cat_vet_signs_url ) : ?>
 				<div>
-					<p class="font-geist text-sm font-semibold tracking-tight text-amber-600"><?php esc_html_e( 'Pet Emergency?', 'thepawmanual' ); ?></p>
+					<p class="font-geist text-sm font-semibold tracking-tight text-caution-700"><?php esc_html_e( 'Pet Emergency?', 'thepawmanual' ); ?></p>
 					<ul class="mt-3 space-y-2 text-sm text-neutral-600">
 						<?php if ( $tpm_dog_vet_signs_url ) : ?>
 							<li class="font-geist">
-								<a href="<?php echo esc_url( $tpm_dog_vet_signs_url ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Signs your dog needs a vet', 'thepawmanual' ); ?></a>
+								<a href="<?php echo esc_url( $tpm_dog_vet_signs_url ); ?>" class="transition-colors hover:text-brand-700"><?php esc_html_e( 'Signs your dog needs a vet', 'thepawmanual' ); ?></a>
 							</li>
 						<?php endif; ?>
 						<?php if ( $tpm_cat_vet_signs_url ) : ?>
 							<li class="font-geist">
-								<a href="<?php echo esc_url( $tpm_cat_vet_signs_url ); ?>" class="transition-colors hover:text-neutral-900"><?php esc_html_e( 'Signs your cat needs a vet', 'thepawmanual' ); ?></a>
+								<a href="<?php echo esc_url( $tpm_cat_vet_signs_url ); ?>" class="transition-colors hover:text-brand-700"><?php esc_html_e( 'Signs your cat needs a vet', 'thepawmanual' ); ?></a>
 							</li>
 						<?php endif; ?>
 					</ul>

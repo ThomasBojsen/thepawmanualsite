@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="mt-6 flex flex-wrap gap-2 animate-on-scroll [animation:fadeSlideIn_1s_ease-out_0.1s_both]">
-			<span class="rounded-full bg-neutral-900 px-3 py-1.5 font-geist text-xs text-white"><?php esc_html_e( 'Dogs', 'thepawmanual' ); ?></span>
+			<span class="rounded-full bg-brand-600 px-3 py-1.5 font-geist text-xs text-white"><?php esc_html_e( 'Dogs', 'thepawmanual' ); ?></span>
 			<span class="rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Cats', 'thepawmanual' ); ?></span>
 			<span class="rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Birds', 'thepawmanual' ); ?></span>
 			<span class="rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Rabbits', 'thepawmanual' ); ?></span>

@@ -19,13 +19,13 @@ $tiles = array(
 	array( 'file' => 'statement-4.jpg', 'alt' => __( 'A small pet', 'thepawmanual' ) ),
 );
 ?>
-<section class="mt-20 bg-neutral-900 text-white sm:mt-28">
+<section class="mt-20 border-t-4 border-brand-600 bg-neutral-900 text-white sm:mt-28">
 	<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
 		<h2 class="font-playfair text-4xl font-medium tracking-tight animate-on-scroll [animation:fadeSlideIn_1s_ease-out_0.1s_both] sm:text-6xl">
 			<?php esc_html_e( 'Happy Pets, Happy Life', 'thepawmanual' ); ?>
 		</h2>
 		<p class="mt-4 max-w-xl font-geist text-sm leading-relaxed text-neutral-300 animate-on-scroll [animation:fadeSlideIn_1s_ease-out_0.2s_both]">
-			<?php esc_html_e( 'Practical, science-backed tools that make it easier to care for your pet at every stage of life — free to use, for every kind of companion.', 'thepawmanual' ); ?>
+			<?php esc_html_e( 'Practical, science-backed tools that make it easier to care for your pet at every stage of life, free to use, for every kind of companion.', 'thepawmanual' ); ?>
 		</p>
 		<div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
 			<?php foreach ( $tiles as $tile ) : ?>

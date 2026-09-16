@@ -5,6 +5,15 @@
  * Visual only for the POC — the controls are intentionally inert. Real
  * filtering of the tools grid is a post-POC task (CLAUDE.md §10).
  *
+ * The search FIELD this bar used to carry was removed 2026-09-14 (requirement
+ * 4 review): it had no wrapping `<form>` and no action, so pressing Enter in
+ * it did nothing — a second dead search control on the site's highest-traffic
+ * page, right next to the header search this same pass made real. An inert
+ * text input that LOOKS like it submits is worse than the honestly-decorative
+ * pills beside it; the header's working `#tpm-search-panel` is the one search
+ * entry point on the homepage until the tools-grid filtering this bar is
+ * built for actually exists.
+ *
  * @package thepawmanual
  */
 
@@ -28,14 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</span>
 					<span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-sm text-neutral-700">
 						<?php esc_html_e( 'Type: Dogs', 'thepawmanual' ); ?>
-						<span class="h-3 w-3 rounded-full border border-amber-600 bg-amber-500"></span>
+						<span class="h-3 w-3 rounded-full border border-brand-600 bg-brand-500"></span>
 					</span>
 				</div>
-			</div>
-			<div class="hidden w-64 items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-2 text-neutral-500 md:flex">
-				<?php tpm_icon( 'search', 'h-4 w-4' ); ?>
-				<label for="tpm-tools-search" class="sr-only"><?php esc_html_e( 'Search tools', 'thepawmanual' ); ?></label>
-				<input type="search" id="tpm-tools-search" placeholder="<?php esc_attr_e( 'Search', 'thepawmanual' ); ?>" class="w-full bg-transparent font-geist text-sm text-neutral-900 outline-none placeholder:text-neutral-400">
 			</div>
 		</div>
 	</div>

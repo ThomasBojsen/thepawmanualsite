@@ -78,7 +78,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					<?php
 					printf(
 						/* translators: %s: "dog care hub" link to /dogs/. */
-						__( 'Everything for dog owners lives in our %s — organized so you can go from "which breed?" to "why is he doing that?" without leaving the site:', 'thepawmanual' ),
+						__( 'Everything for dog owners lives in our %s, organized so you can go from "which breed?" to "why is he doing that?" without leaving the site:', 'thepawmanual' ),
 						tpm_seo_internal_link( '/dogs/', __( 'dog care hub', 'thepawmanual' ) )
 					); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fragment built via tpm_seo_internal_link(), which escapes internally.
 					?>
@@ -88,7 +88,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Dog breeds" hub link. */
-							__( '%s — honest profiles of popular breeds like the Golden Retriever and French Bulldog, plus lifestyle lists like the best family dogs and apartment-friendly dogs.', 'thepawmanual' ),
+							__( '%s: honest profiles of popular breeds like the Golden Retriever and French Bulldog, plus lifestyle lists like the best family dogs and apartment-friendly dogs.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/dogs/breeds/', __( 'Dog breeds', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -97,7 +97,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Dog food & nutrition" hub link. */
-							__( '%s — from choosing the best dog food to the question every owner googles: how much should I feed my dog?', 'thepawmanual' ),
+							__( '%s, from choosing the best dog food to the question every owner googles: how much should I feed my dog?', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/dogs/food/', __( 'Dog food & nutrition', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -106,7 +106,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Dog health" hub link. */
-							__( '%s — symptom guides written with clear veterinary sourcing, including signs your dog needs a vet.', 'thepawmanual' ),
+							__( '%s: symptom guides written with clear veterinary sourcing, including signs your dog needs a vet.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/dogs/health/', __( 'Dog health', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -115,7 +115,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Dog training" hub link. */
-							__( '%s — step-by-step help with potty training, crate training, and excessive barking.', 'thepawmanual' ),
+							__( '%s: step-by-step help with potty training, crate training, and excessive barking.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/dogs/training/', __( 'Dog training', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -124,7 +124,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Puppy care" hub link. */
-							__( '%s — start with the new puppy checklist and the puppy vaccination schedule.', 'thepawmanual' ),
+							__( '%s: start with the new puppy checklist and the puppy vaccination schedule.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/dogs/puppy-care/', __( 'Puppy care', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -141,7 +141,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					<?php
 					printf(
 						/* translators: %s: "cat care hub" link to /cats/. */
-						__( "Cats aren't small dogs — our %s treats them accordingly:", 'thepawmanual' ),
+						__( "Cats aren't small dogs; our %s treats them accordingly:", 'thepawmanual' ),
 						tpm_seo_internal_link( '/cats/', __( 'cat care hub', 'thepawmanual' ) )
 					); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
@@ -151,7 +151,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Cat breeds" hub link. */
-							__( '%s — profiles of the Maine Coon, Ragdoll, Siamese, and more, plus lists like hypoallergenic cats.', 'thepawmanual' ),
+							__( '%s: profiles of the Maine Coon, Ragdoll, Siamese, and more, plus lists like hypoallergenic cats.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/cats/breeds/', __( 'Cat breeds', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -160,7 +160,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Cat food & nutrition" hub link. */
-							__( '%s — including the wet vs. dry food decision and how much to feed your cat.', 'thepawmanual' ),
+							__( '%s: including the wet vs. dry food decision and how much to feed your cat.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/cats/food/', __( 'Cat food & nutrition', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -169,7 +169,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Cat health" hub link. */
-							__( "%s — practical guides to hairballs, sneezing, and when a vet visit can't wait.", 'thepawmanual' ),
+							__( "%s: practical guides to hairballs, sneezing, and when a vet visit can't wait.", 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/cats/health/', __( 'Cat health', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -178,7 +178,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Cat behavior" hub link. */
-							__( '%s — decode kneading, constant meowing, and hiding.', 'thepawmanual' ),
+							__( '%s: decode kneading, constant meowing, and hiding.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/cats/behavior/', __( 'Cat behavior', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -187,7 +187,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: %s: "Kitten care" hub link. */
-							__( '%s — from the new kitten checklist to litter training.', 'thepawmanual' ),
+							__( '%s: from the new kitten checklist to litter training.', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/cats/kitten-care/', __( 'Kitten care', 'thepawmanual' ) ) . '</strong>'
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
@@ -204,7 +204,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					<?php
 					printf(
 						/* translators: %s: "free tools" link to /tools/. */
-						__( 'Our %s turn veterinary guidelines into instant, personalized answers. No signup, no paywall — the math runs right in your browser. Start with the two most popular:', 'thepawmanual' ),
+						__( 'Our %s turn veterinary guidelines into instant, personalized answers. No signup, no paywall. The math runs right in your browser. Start with the two most popular:', 'thepawmanual' ),
 						tpm_seo_internal_link( '/tools/', __( 'free tools', 'thepawmanual' ) )
 					); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
@@ -226,7 +226,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: 1: Dog Age Calculator link, 2: description. */
-							__( '%1$s — %2$s', 'thepawmanual' ),
+							__( '%1$s: %2$s', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/tools/dog-age-calculator/', __( 'Dog Age Calculator', 'thepawmanual' ) ) . '</strong>',
 							esc_html__( "Your dog's age in human years, adjusted for breed size", 'thepawmanual' )
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -236,7 +236,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: 1: Cat Age Calculator link, 2: description. */
-							__( '%1$s — %2$s', 'thepawmanual' ),
+							__( '%1$s: %2$s', 'thepawmanual' ),
 							'<strong>' . tpm_seo_internal_link( '/tools/cat-age-calculator/', __( 'Cat Age Calculator', 'thepawmanual' ) ) . '</strong>',
 							esc_html__( "Your cat's age in human years, using the standard feline model", 'thepawmanual' )
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -246,7 +246,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: 1: Pet Cost Calculator name, 2: description. */
-							__( '%1$s — %2$s (coming soon)', 'thepawmanual' ),
+							__( '%1$s: %2$s (coming soon)', 'thepawmanual' ),
 							'<strong>' . esc_html__( 'Pet Cost Calculator', 'thepawmanual' ) . '</strong>',
 							esc_html__( 'What a dog or cat will realistically cost you per year', 'thepawmanual' )
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -256,7 +256,7 @@ function tpm_seo_internal_link( $path, $text ) {
 						<?php
 						printf(
 							/* translators: 1: Dog Breed Selector name, 2: description. */
-							__( '%1$s — %2$s (coming soon)', 'thepawmanual' ),
+							__( '%1$s: %2$s (coming soon)', 'thepawmanual' ),
 							'<strong>' . esc_html__( 'Dog Breed Selector', 'thepawmanual' ) . '</strong>',
 							esc_html__( 'Which breeds fit your home, schedule, and activity level', 'thepawmanual' )
 						); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -264,7 +264,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					</li>
 				</ul>
 				<p class="mt-4 font-geist text-sm text-neutral-600">
-					<?php esc_html_e( 'Fun fact the tools are built on: the old "multiply by 7" rule is wrong. A 1-year-old dog is developmentally closer to a 15-year-old human, and small breeds age more slowly in later life than giant breeds — which is why our calculator asks for size.', 'thepawmanual' ); ?>
+					<?php esc_html_e( 'Fun fact the tools are built on: the old "multiply by 7" rule is wrong. A 1-year-old dog is developmentally closer to a 15-year-old human, and small breeds age more slowly in later life than giant breeds, which is why our calculator asks for size.', 'thepawmanual' ); ?>
 				</p>
 			</div>
 
@@ -304,7 +304,7 @@ function tpm_seo_internal_link( $path, $text ) {
 			<ul class="mt-4 space-y-3 font-geist text-sm text-neutral-700">
 				<li>
 					<strong><?php esc_html_e( 'Sourced, not opinionated.', 'thepawmanual' ); ?></strong>
-					<?php esc_html_e( 'Health and nutrition claims cite veterinary authorities — the AVMA, the AKC, and peer-reviewed veterinary research — with references linked on every page.', 'thepawmanual' ); ?>
+					<?php esc_html_e( 'Health and nutrition claims cite veterinary authorities (the AVMA, the AKC, and peer-reviewed veterinary research) with references linked on every page.', 'thepawmanual' ); ?>
 				</li>
 				<li>
 					<strong><?php esc_html_e( 'Honest about our limits.', 'thepawmanual' ); ?></strong>
@@ -375,7 +375,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					<?php
 					printf(
 						/* translators: %s: "dog age calculator" link to /tools/dog-age-calculator/. */
-						__( 'A 1-year-old dog is roughly as mature as a 15-year-old human, and aging speed depends on breed size — the old "7 dog years" rule is inaccurate. Use our free %s for a size-adjusted estimate based on veterinary aging models.', 'thepawmanual' ),
+						__( 'A 1-year-old dog is roughly as mature as a 15-year-old human, and aging speed depends on breed size: the old "7 dog years" rule is inaccurate. Use our free %s for a size-adjusted estimate based on veterinary aging models.', 'thepawmanual' ),
 						tpm_seo_internal_link( '/tools/dog-age-calculator/', __( 'dog age calculator', 'thepawmanual' ) )
 					); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
@@ -425,7 +425,7 @@ function tpm_seo_internal_link( $path, $text ) {
 					<?php esc_html_e( 'Does ThePawManual replace veterinary advice?', 'thepawmanual' ); ?>
 				</dt>
 				<dd class="mt-2 font-geist text-sm leading-relaxed text-neutral-600">
-					<?php esc_html_e( 'No. Our content is educational and helps you ask better questions, spot warning signs, and handle routine care confidently — but diagnosis and treatment belong with a licensed veterinarian. When in doubt, call your vet.', 'thepawmanual' ); ?>
+					<?php esc_html_e( 'No. Our content is educational and helps you ask better questions, spot warning signs, and handle routine care confidently, but diagnosis and treatment belong with a licensed veterinarian. When in doubt, call your vet.', 'thepawmanual' ); ?>
 				</dd>
 			</div>
 

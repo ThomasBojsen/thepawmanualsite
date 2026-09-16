@@ -156,7 +156,7 @@
     @apply border-b border-neutral-200 px-3 py-2 text-left align-top;
   }
   .tpm-prose thead th {
-    @apply whitespace-nowrap bg-neutral-50 font-semibold text-neutral-900;
+    @apply whitespace-nowrap bg-brand-600 font-semibold text-white;
   }
   .tpm-prose tbody tr:last-child td {
     @apply border-b-0;
@@ -166,15 +166,182 @@
    * Blockquotes: the imported content's veterinary disclaimers are
    * blockquotes (content/README.md, editorial constitution rule 5) — styled
    * to read as a deliberate callout, not a stray indent.
+   *
+   * Deliberately NEUTRAL, not `amber`/`caution`: a disclaimer is not an
+   * emergency, and every article can carry one of these on top of the real
+   * emergency-callout.php box further down the page — two warm-tinted boxes
+   * stacked would compete for the same attention the actual emergency
+   * callout needs. The `caution` scale is reserved for that one component
+   * (see its docblock and tailwind.config.js) and stays untouched here.
+   *
+   * `bg-white`, not `bg-neutral-50` (deploy-gate finding, 2026-09-14):
+   * `body` (header.php) is ALSO `bg-neutral-50`, so a same-colour fill left
+   * only the 1px `border-neutral-200` hairline between this box and the
+   * page — 1.21:1, effectively invisible. `border-l-4 border-l-neutral-500`
+   * gives the box one edge that actually survives on that ground (4.54:1,
+   * clears the 3:1 a perceivable boundary needs) without recolouring the
+   * whole perimeter into something bolder than a disclaimer should read as.
+   * Deliberately HALF the weight of emergency-callout.php's `border-l-8`
+   * and grayscale rather than `caution`-toned: the two boxes now both read
+   * as "a bordered block," but the emergency callout stays visibly the
+   * heavier, more urgent one — the hierarchy this pass exists to protect.
    */
   .tpm-prose blockquote {
-    @apply my-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900;
+    @apply my-6 rounded-2xl border border-neutral-200 border-l-4 border-l-neutral-500 bg-white px-5 py-4 text-neutral-600;
   }
   .tpm-prose blockquote > :first-child {
     @apply mt-0;
   }
   .tpm-prose blockquote > :last-child {
     @apply mb-0;
+  }
+
+  /*
+   * Shared card — the one box style every card grid on the site (tools
+   * strip, related reading, future child-grid work) builds on, so a card
+   * looks identical regardless of which template emits it. `h-full` +
+   * `flex-col` is what lets a card's own content (title/description/button)
+   * distribute inside a fixed-height grid row instead of every card in the
+   * row settling to its own shortest content height.
+   */
+  .tpm-card {
+    @apply flex h-full flex-col rounded-2xl border border-neutral-200 bg-white transition-colors hover:border-neutral-300 hover:shadow-sm;
+  }
+
+  /*
+   * Category chip — a small eyebrow label (article-header.php's category
+   * pill). A "coming soon" variant was speculatively added here as
+   * `.tpm-chip--muted` but no template ever used it — the real coming-soon
+   * chips in tools-strip.php ship their own inline neutral utilities
+   * instead — and it computed to 4.35:1 (neutral-500 on neutral-100),
+   * under the 4.5:1 floor for its text size. Removed rather than fixed
+   * in place (deploy-gate finding, 2026-09-14): a dead, sub-AA rule left
+   * in the source is a trap for the next template that reaches for it
+   * expecting it to be both used and compliant.
+   *
+   * `max-w-full truncate`: the label is a hub's own (already-short, via
+   * tpm_split_title()) title, but that split is a best-effort heuristic, not
+   * a length guarantee — a future title with none of the separator shapes it
+   * looks for falls back to the FULL string. Without a cap, that one title
+   * blows this small pill out to several lines; truncating with an ellipsis
+   * degrades gracefully instead, the same defensive posture the rest of this
+   * pass takes everywhere content length isn't provably bounded.
+   */
+  .tpm-chip {
+    @apply inline-flex max-w-full items-center truncate rounded-full bg-brand-50 px-2.5 py-1 font-geist text-xs font-semibold uppercase tracking-widest text-brand-700;
+  }
+
+  /*
+   * Key takeaway — the lead-paragraph extract content-blocks.php (W2) lifts
+   * out of the article body and renders ahead of the content, outside
+   * `.tpm-prose`. It ships as bare inner HTML (no wrapping <p>), so this
+   * class has to supply its own leading/colour AND style whatever inline
+   * tags happen to be in that first paragraph — it can't lean on
+   * `.tpm-prose`'s p/strong/a rules the way the rest of the article does.
+   */
+  .tpm-key-takeaway__body {
+    @apply font-geist text-base leading-relaxed text-neutral-800;
+  }
+  .tpm-key-takeaway__body strong {
+    @apply font-semibold text-neutral-900;
+  }
+  .tpm-key-takeaway__body em {
+    @apply italic;
+  }
+  .tpm-key-takeaway__body a {
+    @apply text-brand-700 underline underline-offset-2 hover:no-underline;
+  }
+
+  /*
+   * FAQ accordion. content-blocks.php (W2) emits this INSIDE `.tpm-prose`
+   * (it's part of the article body), which is why `.tpm-faq__q-text` below
+   * is written as `.tpm-prose .tpm-faq__q-text` rather than bare — that
+   * compound selector (two classes) outranks `.tpm-prose h3` (one class,
+   * one element) on specificity alone, so the reset wins with no
+   * `!important` and without caring which rule happens to load last.
+   */
+  .tpm-faq {
+    @apply space-y-3;
+  }
+  .tpm-faq__item {
+    @apply rounded-2xl border border-neutral-200 bg-white;
+  }
+  /* Subtle brand tint while an item is expanded — reads as "currently open". */
+  .tpm-faq__item[open] {
+    @apply border-brand-200;
+  }
+  .tpm-faq__q {
+    @apply flex cursor-pointer list-none items-center justify-between gap-3 rounded-2xl px-4 py-3 font-geist text-neutral-900 [&::-webkit-details-marker]:hidden;
+  }
+  /*
+   * `list-none` above removes the `::marker` triangle Firefox/Chrome render
+   * on a <summary> (it has UA `display: list-item`); Safari instead uses
+   * this separate pseudo-element, so both have to be hidden — same two-part
+   * fix `.tpm-toc-chevron`'s docblock (below, "Table of contents" section)
+   * documents for the identical browser split. The chevron icon itself is
+   * an inline SVG content-blocks.php appends into the summary (not styled
+   * from here), using the exact same `group` + `group-open:rotate-180`
+   * mechanism toc.php's own chevron uses — this file doesn't need to draw
+   * a second one.
+   */
+  .tpm-prose .tpm-faq__q-text {
+    @apply m-0 text-base font-semibold text-neutral-900;
+  }
+  .tpm-faq__a {
+    @apply border-t border-neutral-100 px-4 pb-4 pt-3;
+  }
+  /* First paragraph sits flush under the border instead of doubling the gap `.tpm-prose p`'s `my-4` already gives every paragraph in here. */
+  .tpm-prose .tpm-faq__a > :first-child {
+    @apply mt-0;
+  }
+
+  /*
+   * Tool CTA / tools strip — deliberately thin hooks. Both templates
+   * (inline in-article CTA, homepage-style tools strip) carry their own
+   * layout utilities inline; these two classes only pin the shared card
+   * shell (shape + border + tint) so every tool promo reads as one family.
+   */
+  .tpm-tool-cta {
+    @apply rounded-2xl border border-brand-100 bg-brand-50/60;
+  }
+  .tpm-tools-strip {
+    @apply rounded-2xl border border-neutral-200 bg-white;
+  }
+
+  /*
+   * Header search. `#tpm-search-panel` never gets a `display` utility here
+   * — it ships with the `hidden` attribute (see header.php), and the
+   * browser's own `[hidden] { display: none }` UA rule is what the toggle
+   * script relies on. An ID selector outranks that plain attribute
+   * selector, so a `display` set here would defeat `hidden` the instant
+   * it's re-added; box/spacing/type properties carry no such risk and are
+   * all this needs.
+   */
+  #tpm-search-panel {
+    @apply w-full border-b border-neutral-200 bg-white;
+  }
+  .tpm-search-form {
+    @apply mx-auto flex max-w-3xl items-center gap-3 px-4 py-4 sm:px-6 lg:px-8;
+  }
+  /*
+   * The search FIELD's look, styled by CLASS rather than by the `#tpm-
+   * search-field` id the SHARED CLASS/ID CONTRACT still reserves for the
+   * one canonical (unsuffixed) instance. searchform.php renders four times
+   * on a full page load (header panel, header <noscript>, and search.php's
+   * "refine" and empty-state fields) and every instance after the first
+   * gets a SUFFIXED id so the ids stay unique — an id-keyed rule here would
+   * therefore only ever reach the first one. That was exactly the bug
+   * (deploy-gate finding, 2026-09-14): three of the four fields fell back
+   * to a near-invisible default focus ring (1.23:1), failing WCAG 2.4.7 /
+   * 1.4.11. `.tpm-search-field` is a literal class on the `<input>` in
+   * searchform.php regardless of which id that instance got, so this rule
+   * — focus ring included — now reaches all four. White text on
+   * `brand-600` measures 5.01:1 (tailwind.config.js); the ring itself
+   * (`ring-brand-600` outside a white `ring-offset-2` gap, against a white
+   * or `neutral-50` page ground) clears 3:1 by the same margin.
+   */
+  .tpm-search-field {
+    @apply w-full rounded-full border border-neutral-200 bg-neutral-50 px-5 py-2.5 font-geist text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2;
   }
 }
 
@@ -263,4 +430,19 @@ body.admin-bar .tpm-header {
   :root {
     --tpm-is-lg: 1;
   }
+}
+
+/*
+ * Individual TOC links. `.is-active` is added/removed by a scroll-spy in
+ * assets/js/theme.js (out of scope here — this file only has to style the
+ * class it's told to toggle) as the reader scrolls past each heading in the
+ * article. The left border is the "you are here" marker; it stays
+ * transparent (rather than absent) at rest so the active state doesn't
+ * shift every link's text 2px sideways when it lights up.
+ */
+.tpm-toc__link {
+  @apply block border-l-2 border-transparent py-1 pl-3 text-neutral-600 transition-colors hover:border-neutral-300 hover:text-neutral-900;
+}
+.tpm-toc__link.is-active {
+  @apply border-brand-600 font-medium text-brand-700;
 }

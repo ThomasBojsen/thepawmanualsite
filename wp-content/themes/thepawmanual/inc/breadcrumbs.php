@@ -53,9 +53,21 @@ function tpm_breadcrumbs() {
 	);
 
 	foreach ( $ancestor_ids as $ancestor_id ) {
+		// Same short-H1 rule as the final crumb below, applied to every
+		// ancestor too (deploy-gate finding, 2026-09-14): before this fix
+		// only the LAST crumb was split, so a deep page under /tools/ showed
+		// the short "Free Pet Calculators" for itself but the full stored
+		// "Tools: Free Pet Calculators" for that same hub one level up —
+		// same page, two different titles in one trail. function_exists()
+		// guards the same load-order edge case the final crumb already
+		// guards against.
+		$ancestor_title = function_exists( 'tpm_get_title_parts' )
+			? tpm_get_title_parts( $ancestor_id )['h1']
+			: get_the_title( $ancestor_id );
+
 		$trail[] = array(
 			'url'   => get_permalink( $ancestor_id ),
-			'title' => get_the_title( $ancestor_id ),
+			'title' => $ancestor_title,
 		);
 	}
 	?>
@@ -70,7 +82,27 @@ function tpm_breadcrumbs() {
 				</li>
 			<?php endforeach; ?>
 			<li class="text-neutral-900" aria-current="page">
-				<?php echo esc_html( get_the_title( $post ) ); ?>
+				<?php
+				// The final crumb must read the same short phrase as the <h1>
+				// immediately below it — page.php resolves tpm_get_title_parts()
+				// once and hands it to article-header.php, so a raw
+				// get_the_title() here would show the long "Hook: Deck" form in
+				// the trail while the H1 shows only the short "Hook" half of the
+				// same page. function_exists() guards this so the file degrades
+				// to the raw title (never fatals) if load order ever changes and
+				// inc/article-meta.php hasn't loaded yet.
+				//
+				// This only covers the theme's OWN fallback trail, built above
+				// when RankMath is absent — the early return at the top of this
+				// function hands off to rank_math_the_breadcrumbs() entirely
+				// when RankMath is active, and that trail's final-crumb text is
+				// that plugin's own per-page "Breadcrumb Title" field, not
+				// anything this file controls.
+				$crumb_title = function_exists( 'tpm_get_title_parts' )
+					? tpm_get_title_parts( $post->ID )['h1']
+					: get_the_title( $post );
+				echo esc_html( $crumb_title );
+				?>
 			</li>
 		</ol>
 	</nav>

@@ -59,6 +59,17 @@
  * `aria-expanded` stays stale" rather than the stuck-closed, unopenable TOC
  * the brief warns against.
  *
+ * V3 rail redesign: the visible label reads "In this article" as a small
+ * uppercase eyebrow rather than a semibold sentence, and the <ol>/<a>
+ * elements carry the `tpm-toc__list` / `tpm-toc__link` classes a scroll-spy
+ * in assets/js/theme.js hooks into to toggle `.is-active` as the reader
+ * scrolls past each heading — that JS is out of scope for this file, which
+ * only has to emit the class names the shared contract fixes. The <nav>
+ * also grows `lg:max-h-*` + `lg:overflow-y-auto` alongside its existing
+ * `lg:sticky lg:top-24` so a long TOC scrolls inside its own rail instead of
+ * outgrowing the viewport; none of the open/closed mechanics above change
+ * because of it.
+ *
  * Expects $args['items'] — array<int, array{id:string,text:string}>.
  *
  * @package thepawmanual
@@ -73,16 +84,16 @@ if ( empty( $items ) ) {
 	return;
 }
 ?>
-<nav class="tpm-toc rounded-2xl border border-neutral-200 bg-white lg:sticky lg:top-24" aria-label="<?php esc_attr_e( 'Table of contents', 'thepawmanual' ); ?>">
+<nav class="tpm-toc rounded-2xl border border-neutral-200 bg-white lg:sticky lg:top-24 lg:max-h-[calc(100vh_-_8rem)] lg:overflow-y-auto" aria-label="<?php esc_attr_e( 'Table of contents', 'thepawmanual' ); ?>">
 	<details class="group">
-		<summary class="flex list-none cursor-pointer items-center justify-between gap-2 rounded-2xl px-4 py-3 font-geist text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden">
-			<?php esc_html_e( 'In This Article', 'thepawmanual' ); ?>
+		<summary class="flex list-none cursor-pointer items-center justify-between gap-2 rounded-2xl px-4 py-3 font-geist text-xs font-semibold uppercase tracking-widest text-neutral-500 [&::-webkit-details-marker]:hidden">
+			<?php esc_html_e( 'In this article', 'thepawmanual' ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tpm-toc-chevron h-4 w-4 shrink-0 text-neutral-400 transition-transform group-open:rotate-180" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
 		</summary>
-		<ol class="space-y-1.5 px-4 pb-4 font-geist text-sm lg:block">
+		<ol class="tpm-toc__list space-y-1 px-4 pb-4 font-geist text-sm lg:block">
 			<?php foreach ( $items as $item ) : ?>
 				<li>
-					<a href="#<?php echo esc_attr( $item['id'] ); ?>" class="block text-neutral-600 transition-colors hover:text-neutral-900 hover:underline">
+					<a href="#<?php echo esc_attr( $item['id'] ); ?>" class="tpm-toc__link">
 						<?php echo esc_html( $item['text'] ); ?>
 					</a>
 				</li>
