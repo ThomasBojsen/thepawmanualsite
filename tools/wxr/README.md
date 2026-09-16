@@ -74,12 +74,22 @@ directions:
   same reasoning as the hidden reference number, just applied here too.
 - **The date has to be real and believable on the published page** — not a
   placeholder like "1 January 1970" (an earlier version of this tool did
-  exactly that, and it does not work: WordPress keeps whatever date a page
-  arrives with even after you publish the draft by hand, so the placeholder
-  would have stayed on the live page forever). **The title has to be
-  whatever the page's H1 actually, currently says** — a title frozen at
-  registration time and never allowed to update would eventually go stale
-  against the real page content, which is just as bad as a fake date.
+  exactly that, and a fixed placeholder does not work: it shows up as the
+  page's date forever, since nothing about publishing a page changes it).
+  **The title has to be whatever the page's H1 actually, currently says** —
+  a title frozen at registration time and never allowed to update would
+  eventually go stale against the real page content, which is just as bad
+  as a fake date.
+
+  One more wrinkle, corrected 2026-09-14 after it bit wave 1 (see
+  "Re-harvesting a drifted date" below): this tool always imports every page
+  as a **Draft** (see "Importing into WordPress" below), and a WordPress
+  draft's post_date isn't the real "went live" date yet — the moment a human
+  clicks **Publish** on it, WordPress stamps that literal moment as the
+  page's real, permanent date, overwriting whatever this tool imported it
+  with. So "real and believable" only holds automatically for a URL nobody
+  has published yet. Once a page IS published, this registry has to be
+  updated by hand, once, to match — it doesn't happen on its own.
 
 Nothing the tool can *compute* satisfies both at once for either field — a
 fixed placeholder date is stable but not believable, "whatever day you
@@ -92,7 +102,12 @@ So instead, this tool **remembers** each page's date and title the first
 time it's ever generated, in a small committed file:
 **`tools/wxr/publish-registry.json`** — one entry per URL, in plain
 `"/some-page/": { "date": "2026-08-14", "title": "..." }` format, readable
-and editable by hand, no code required. (It also records which content file
+and editable by hand, no code required. `"date"` is either a bare
+`"YYYY-MM-DD"` (a reservation, for a URL nobody has published yet — the
+common case) or a full ISO-8601 datetime with an offset, e.g.
+`"2026-09-10T20:03:42+00:00"` (a value actually harvested from a live,
+already-published page — see "Re-harvesting a drifted date" below for when
+and how that happens). (The registry also records which content file
 produced the entry — that's only used to catch a URL rename; see "A page's
 URL changing" below.)
 
@@ -153,8 +168,13 @@ What this means when you run the tool:
 - **Made a typo, or want to correct an entry before anything is actually
   imported into WordPress yet?** Open `publish-registry.json` and edit the
   line by hand — it's plain JSON, safe to edit directly, no tool required.
-  Just don't edit the date or title for a page that's already live in
-  WordPress (see below).
+- **A page's registered date needs correcting because it's already live** —
+  this is different from the point above, and it's an expected, supported
+  repair, not a mistake to avoid: see "Re-harvesting a drifted date" below.
+  **Title is the one field that's more dangerous to hand-edit once a page is
+  live** — see the three-option error flow above, and don't skip straight to
+  editing the registry for a title without first confirming which of the
+  three situations you're actually in.
 
 **If a wave's pages link up to a page from an earlier wave that hasn't been
 generated yet** (e.g. you generate wave 3 — dog health articles — without ever
@@ -241,10 +261,13 @@ that's already there — there is no "refresh the content" outcome.
 This tool now gives a page the exact same title and the exact same date every
 single time you generate it — both come from the committed
 `publish-registry.json` registry described in "Where a page's date AND title
-come from" above, and neither changes once they're in there (a changed H1
-stops the tool cold instead of silently drifting — see that section). That
-fixes the specific bug this section used to describe wrongly, and it changes
-what re-importing does:
+come from" above, and **the tool itself never changes either one once
+they're in there** (a changed H1 stops the tool cold instead of silently
+drifting — see that section). WordPress can still move a page's date out
+from under this file, though — see "Re-harvesting a drifted date" below —
+which is why "the tool never changes it" is not quite the same promise as
+"it can never go stale." That fixes the specific bug this section used to
+describe wrongly, and it changes what re-importing does:
 
 - **Importing the exact same wave file a second time** — same title, same
   date as before — WordPress recognizes every page as already there and
@@ -288,10 +311,11 @@ what re-importing does:
   numbers themselves were never what WordPress used to detect duplicates.
   (An earlier fix stamped every page with a fixed placeholder date,
   1 January 1970, instead of "now" — that solved the duplicate-hub bug the
-  same way the registry does, but broke something else: WordPress keeps
-  whatever date a page arrives with even after it's published by hand, so
-  "1 January 1970" would have stayed on the live page forever. The registry
-  is the fix that keeps the bug fixed *and* the visible date real.)
+  same way the registry does, but broke something else: "1 January 1970" is
+  a nonsense date to show a reader on a real article. The registry is the
+  fix that keeps the bug fixed *and* the visible date real — for a page
+  nobody's published yet. For a page that HAS been published, "real" needs
+  one more step; see "Re-harvesting a drifted date" immediately below.)
 - **Two different places a title can change, and only one is guarded:**
   editing a page's H1 **in the markdown source** — where all real authoring
   on this project happens — is now caught automatically: the tool compares
@@ -313,6 +337,99 @@ what re-importing does:
   re-included that URL as an ancestor hub would stop matching the live
   page, and the duplicate-hub bug would be right back — which is the same
   reasoning behind refusing to guess on a source-side title mismatch too.)
+
+  This is about a **human** retitling or redating a page in wp-admin — a
+  separate thing from **WordPress itself** silently moving a page's date the
+  moment someone clicks Publish on an imported Draft, with nobody touching
+  the date field at all. That second kind of drift isn't a mistake to avoid;
+  it happens to every wave-1 URL that goes live, every time, by design of
+  how WordPress handles drafts — see "Re-harvesting a drifted date" next.
+
+### Re-harvesting a drifted date
+
+**Every page this tool imports goes in as a Draft** (see "Importing into
+WordPress" above, and `tools/wxr/lib/wxr-xml.js`, which always emits
+`<wp:status>draft</wp:status>`) — nothing is ever published automatically.
+A freshly imported WordPress draft does not keep the `wp:post_date` this
+tool wrote as its real "this page went live" date. Internally, a draft's
+post_date is treated as unset, and the instant a human clicks **Publish** on
+it in wp-admin, WordPress stamps that literal moment as the page's real,
+permanent `post_date`/`post_date_gmt` — overwriting whatever this tool
+imported it with. Nobody edits a date field to make this happen; it's just
+what Publish does to a draft.
+
+**This means a registry entry with a bare date (`"2026-08-14"`, no
+time-of-day) is only ever guaranteed accurate for a URL nobody has published
+yet.** The moment a human publishes it, this tool's stamped date quietly
+goes stale — still sitting in `publish-registry.json`, but no longer
+matching the live page. This is exactly what happened to all 17 of wave 1's
+imported URLs: every one was registered here at a bare `"2026-08-14"`, and
+by the time the live site was checked on 2026-09-14, their real, live
+`datePublished` (read from each page's own RankMath JSON-LD) turned out to
+be `2026-09-10T20:03:42+00:00` for 16 of them and, separately,
+`2026-09-10T20:20:17+00:00` for `/pet-guides/pet-travel/` — proof that
+**every URL has to be checked on its own**, never assumed to share another
+page's value just because they were imported together.
+
+**Why this matters, concretely:** if wave 2 (or any later wave) ever
+re-includes one of these URLs as an ancestor hub with the wrong, drifted
+date still in the registry, WordPress won't recognize it as the same page —
+title+date no longer matches the live post — and creates a duplicate (the
+exact bug this whole registry exists to prevent, arriving from the date
+side after all, just later and by a different route than the original bug).
+Fixing the registry *before* that happens is the entire point.
+
+**How to fix it, for any URL, any time you suspect this has happened:**
+
+1. Open the **live** page in a browser (not the WXR file, not WordPress
+   admin's editor — the actual published URL).
+2. View its page source (or open DevTools) and find the JSON-LD block(s) of
+   type `application/ld+json`. In the console, this one-liner lists every
+   `datePublished` on the page:
+   ```js
+   [...document.querySelectorAll('script[type="application/ld+json"]')]
+     .flatMap(s => { try { const d = JSON.parse(s.textContent); return d['@graph'] || [d]; } catch { return []; } })
+     .filter(n => n.datePublished)
+     .map(n => ({ type: n['@type'], datePublished: n.datePublished }))
+   ```
+   RankMath emits the same `datePublished` on both the page's `WebPage` and
+   `Article` nodes — either one is the value you want. Copy it exactly,
+   including the `+00:00` (or other) UTC offset.
+3. Open `tools/wxr/publish-registry.json` and replace that URL's `"date"`
+   with the copied string verbatim — e.g.
+   `"date": "2026-09-10T20:03:42+00:00"`. Leave `"title"` and `"filePath"`
+   untouched; this is a date-only correction. (If `dateModified` differs
+   from `datePublished`, use `datePublished` — the registry models "when
+   WordPress first considers this page to exist," which is what the
+   duplicate-detection check compares against, not "when it was last
+   edited.")
+4. Commit the file. `git diff` should show only that one `"date"` line
+   changing — if it shows anything else (a title, a filePath, an added or
+   removed URL), stop and re-check before committing.
+5. Regenerate and confirm: `grep -A2 '"/the-url/"' tools/wxr/publish-registry.json`
+   should show the new value, and `node tools/wxr/generate.js --wave N` (for
+   whichever wave includes that URL, or `--all`) should complete without a
+   title-drift error.
+
+**You don't have to remember to do this on your own.** `generate.js` now
+warns automatically, every run, for any URL it's about to emit whose
+registry date is still bare AND which already had a registry entry before
+this run started (freshly-registered URLs in the same run can't trigger
+it — nothing could have published them yet). The warning looks like:
+```
+Warnings:
+  - /some-page/ still has a bare registry date ("2026-08-14", no time-of-day)
+    from an earlier run. If this page has already been imported into
+    WordPress and a human has clicked Publish on it, its live post_date has
+    almost certainly drifted away from this placeholder...
+```
+It's a nudge, not a gate: the script has no way to check the live site
+itself (no network access from `generate.js`, and the production site sits
+behind a WAF anyway — curl gets a security block; checking by hand in a
+browser, per the steps above, is the only way). So it warns on every
+URL that's plausibly at risk rather than guessing which ones actually are,
+and generation still completes either way. Treat the warning as "go check,"
+not "something is broken."
 
 ### The hidden reference number (`wp:post_id`)
 

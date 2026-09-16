@@ -1,17 +1,17 @@
 {
   "_readme": "URL -> { date, title, filePath } recorded the first time that URL was ever emitted into a WXR file. WordPress recognizes an already-imported page by matching its TITLE AND its DATE together (see \"How WordPress decides...\" in tools/wxr/README.md), and it keeps both even after a human later publishes the imported Draft by hand — so this file is what makes a page's title+date pair both believable on the live site AND permanently stable no matter how many more times it gets regenerated, or how much later. generate.js appends one new entry automatically (via --date) the first time a URL needs one; it never rewrites an entry that already exists — if the current H1 for a URL no longer matches the recorded title, generate.js stops with an error instead of guessing which one is right (silently picking either one reopens the exact duplicate-page bug this file exists to prevent). \"filePath\" is only used to notice when a URL itself has been renamed in content/ (the same file now defines a different URL) — see \"A page's URL changing\" in tools/wxr/README.md. Commit this file whenever generate.js reports it added new entries. To correct a mistake before anything has actually been imported into WordPress, it is safe to hand-edit an entry directly — it is plain JSON.",
   "/about/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "About ThePawManual",
     "filePath": "content/about.md"
   },
   "/affiliate-disclosure/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Affiliate Disclosure",
     "filePath": "content/affiliate-disclosure.md"
   },
   "/cats/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Cat Care Guides: Built on How Cats Actually Work",
     "filePath": "content/cats/index.md"
   },
@@ -107,7 +107,7 @@
   },
   "/cats/food/can-cats-eat-tuna/": {
     "date": "2026-08-14",
-    "title": "Can Cats Eat Tuna? Yes — As a Treat, Never as a Diet",
+    "title": "Can Cats Eat Tuna? Yes, As a Treat, Never as a Diet",
     "filePath": "content/cats/food/can-cats-eat-tuna.md"
   },
   "/cats/food/cat-food-for-sensitive-stomachs/": {
@@ -117,7 +117,7 @@
   },
   "/cats/food/dry-cat-food/": {
     "date": "2026-08-14",
-    "title": "Dry Cat Food: Convenient, Affordable — and Easy to Get Wrong",
+    "title": "Dry Cat Food: Convenient, Affordable, and Easy to Get Wrong",
     "filePath": "content/cats/food/dry-cat-food.md"
   },
   "/cats/food/how-much-should-i-feed-my-cat/": {
@@ -241,12 +241,12 @@
     "filePath": "content/cats/products/best-litter-boxes.md"
   },
   "/contact/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Contact ThePawManual",
     "filePath": "content/contact.md"
   },
   "/dogs/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Dog Care Guides: Breeds, Food, Health, Training & More",
     "filePath": "content/dogs/index.md"
   },
@@ -312,7 +312,7 @@
   },
   "/dogs/breeds/french-bulldog/": {
     "date": "2026-08-14",
-    "title": "French Bulldog: America's #1 Breed — and Its Most Complicated",
+    "title": "French Bulldog: America's #1 Breed, and Its Most Complicated",
     "filePath": "content/dogs/breeds/french-bulldog.md"
   },
   "/dogs/breeds/german-shepherd/": {
@@ -367,22 +367,22 @@
   },
   "/dogs/food/can-dogs-eat-chicken/": {
     "date": "2026-08-14",
-    "title": "Can Dogs Eat Chicken? Yes — With Three Hard Rules",
+    "title": "Can Dogs Eat Chicken? Yes, With Three Hard Rules",
     "filePath": "content/dogs/food/can-dogs-eat-chicken.md"
   },
   "/dogs/food/can-dogs-eat-chocolate/": {
     "date": "2026-08-14",
-    "title": "Can Dogs Eat Chocolate? No — and Darker Means More Dangerous",
+    "title": "Can Dogs Eat Chocolate? No, and Darker Means More Dangerous",
     "filePath": "content/dogs/food/can-dogs-eat-chocolate.md"
   },
   "/dogs/food/can-dogs-eat-grapes/": {
     "date": "2026-08-14",
-    "title": "Can Dogs Eat Grapes? No — and \"Just One\" Is Still a Vet Call",
+    "title": "Can Dogs Eat Grapes? No, and \"Just One\" Is Still a Vet Call",
     "filePath": "content/dogs/food/can-dogs-eat-grapes.md"
   },
   "/dogs/food/can-dogs-eat-rice/": {
     "date": "2026-08-14",
-    "title": "Can Dogs Eat Rice? Yes — Here's How and When",
+    "title": "Can Dogs Eat Rice? Yes, Here's How and When",
     "filePath": "content/dogs/food/can-dogs-eat-rice.md"
   },
   "/dogs/food/dog-food-for-allergies/": {
@@ -442,7 +442,7 @@
   },
   "/dogs/health/skin-and-coat/": {
     "date": "2026-08-14",
-    "title": "Dog Skin and Coat: What Healthy Looks Like — and What Problems Mean",
+    "title": "Dog Skin and Coat: What Healthy Looks Like, and What Problems Mean",
     "filePath": "content/dogs/health/skin-and-coat.md"
   },
   "/dogs/health/symptoms/": {
@@ -571,62 +571,62 @@
     "filePath": "content/dogs/training/separation-anxiety-in-dogs.md"
   },
   "/editorial-process/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "How ThePawManual Researches, Writes, and Reviews Content",
     "filePath": "content/editorial-process.md"
   },
   "/pet-guides/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Pet Guides: The Decisions That Apply to Every Pet",
     "filePath": "content/pet-guides/index.md"
   },
   "/pet-guides/new-pet-checklist/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "New Pet Checklist: The Decisions Before the Shopping List",
     "filePath": "content/pet-guides/new-pet-checklist.md"
   },
   "/pet-guides/pet-costs/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "How Much Does a Pet Cost? The Honest, Itemized Answer",
     "filePath": "content/pet-guides/pet-costs.md"
   },
   "/pet-guides/pet-insurance/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Pet Insurance: How It Works, and an Honest Framework for Whether You Need It",
     "filePath": "content/pet-guides/pet-insurance.md"
   },
   "/pet-guides/pet-safety/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Pet Safety at Home: The Master List of What Actually Hurts Pets",
     "filePath": "content/pet-guides/pet-safety.md"
   },
   "/pet-guides/pet-travel/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:20:17+00:00",
     "title": "Traveling With Pets: The Practical Guide, Including the Question Nobody Asks",
     "filePath": "content/pet-guides/pet-travel.md"
   },
   "/privacy-policy/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Privacy Policy",
     "filePath": "content/privacy-policy.md"
   },
   "/terms/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Terms of Use",
     "filePath": "content/terms.md"
   },
   "/tools/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Tools: Free Pet Calculators",
     "filePath": "content/tools/index.md"
   },
   "/tools/cat-age-calculator/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Cat Age Calculator: How Old Is Your Cat in Human Years?",
     "filePath": "content/tools/cat-age-calculator.md"
   },
   "/tools/dog-age-calculator/": {
-    "date": "2026-08-14",
+    "date": "2026-09-10T20:03:42+00:00",
     "title": "Dog Age Calculator: How Old Is Your Dog in Human Years?",
     "filePath": "content/tools/dog-age-calculator.md"
   }

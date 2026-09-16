@@ -208,29 +208,66 @@ function loadPublishRegistry() {
 }
 
 /**
+ * The registry file's own `_readme` key — the single source of truth for
+ * what this file is and how to read a "date" value, kept here (not
+ * retyped at the top of the JSON by hand) so the file this tool writes and
+ * the docs a human reads by opening it can never drift apart the way the
+ * false "WordPress never resets post_date" claim once did (see the
+ * now-corrected comment on resolvePublishRegistry, and the 2026-09-14
+ * wave-1 date correction that this text documents).
+ */
+const REGISTRY_README =
+  'URL -> { date, title, filePath } recorded the first time that URL was ever emitted into a ' +
+  'WXR file. WordPress recognizes an already-imported page by matching its TITLE AND its DATE ' +
+  'together (see "How WordPress decides..." in tools/wxr/README.md). "date" holds ONE OF TWO ' +
+  'shapes, and the shape itself is the signal for which one you have: ' +
+  '(1) a bare calendar date, "YYYY-MM-DD" — a RESERVATION, not a record. This URL has never been ' +
+  'confirmed against a live WordPress post; generate.js will emit it at midnight UTC, which is ' +
+  'fine because nobody has published this page yet, so no live timestamp exists yet to disagree ' +
+  'with it. (2) a full ISO-8601 datetime with a UTC offset, e.g. "2026-09-10T20:03:42+00:00" — a ' +
+  'HARVESTED value, copied verbatim (including the offset) from that exact page\'s live RankMath ' +
+  'JSON-LD "datePublished" field. Every wave-1 URL (see tools/wxr/waves.json wave "1") was ' +
+  'corrected to this shape on 2026-09-14 after the bare-midnight dates were found to have drifted ' +
+  'from what WordPress actually put on the live pages once they were published — the fix that ' +
+  'shape (2) exists to make permanent. generate.js reads either shape the same way: a bare date ' +
+  'gets "T00:00:00Z" appended, a full ISO string is parsed as-is (see parseRegistryDateString). ' +
+  'IMPORTANT — why bare dates drift and full ones don\'t: this tool always imports pages as ' +
+  '`<wp:status>draft</wp:status>` (see tools/wxr/lib/wxr-xml.js and the README\'s "What it does"). ' +
+  'A WordPress draft does not keep the wp:post_date this tool wrote as its real "this is when it ' +
+  'went live" date — internally a draft\'s post_date is treated as unset, and the moment a human ' +
+  'clicks Publish on it, WordPress stamps that literal moment as the post\'s real post_date/ ' +
+  'post_date_gmt, overwriting whatever this tool imported it with. So a date recorded here is ' +
+  'only ever guaranteed to still be accurate for a URL that has NEVER been published in ' +
+  'WordPress yet (shape 1, correctly). The instant a human publishes it, this tool\'s stamped ' +
+  'date silently goes stale — it is still remembered here, but it no longer matches the live ' +
+  'page, exactly the drift that hit all 17 wave-1 URLs (16 of them share 2026-09-10T20:03:42+00:00; ' +
+  'one, /pet-guides/pet-travel/, was republished separately at 2026-09-10T20:20:17+00:00 — always ' +
+  'harvest per-URL, never assume one page\'s value for another). If this happens again for a URL ' +
+  'already in this file: open the live page, read `datePublished` out of its RankMath JSON-LD ' +
+  '(view source or a console `document.querySelectorAll(\'script[type="application/ld+json"]\')` ' +
+  'search — the same way the 2026-09-14 correction was harvested), and hand-edit just that entry\'s ' +
+  '"date" to the exact live string, offset included; generate.js also now warns automatically the ' +
+  'moment a run re-emits a URL whose registry date is still bare (see warnAboutUnharvestedDates in ' +
+  'generate.js and "Re-harvesting a drifted date" in tools/wxr/README.md) so this cannot rot ' +
+  'silently again. generate.js appends one new bare-date entry automatically (via --date) the ' +
+  'first time a URL needs one; it never rewrites an entry that already exists on its own — if the ' +
+  'current H1 for a URL no longer matches the recorded title, generate.js stops with an error ' +
+  'instead of guessing which one is right (silently picking either one reopens the exact ' +
+  'duplicate-page bug this file exists to prevent). "filePath" is only used to notice when a URL ' +
+  'itself has been renamed in content/ (the same file now defines a different URL) — see "A ' +
+  'page\'s URL changing" in tools/wxr/README.md. Commit this file whenever generate.js reports it ' +
+  'added new entries, or whenever you hand-correct a drifted date. To correct a mistake before ' +
+  'anything has actually been imported into WordPress, it is safe to hand-edit an entry directly ' +
+  '— it is plain JSON; correcting a drifted live date is exactly as safe, since this file is a ' +
+  'record of fact for WordPress\'s benefit, not an input WordPress reads live.';
+
+/**
  * Rewrites the registry, sorted by URL so a maintainer's `git diff` after
  * committing only ever shows the genuinely new line(s) that were added —
  * never a reshuffle of everything else.
  */
 function savePublishRegistry(registry) {
-  const out = {
-    _readme:
-      'URL -> { date, title, filePath } recorded the first time that URL was ever emitted ' +
-      'into a WXR file. WordPress recognizes an already-imported page by matching its TITLE ' +
-      'AND its DATE together (see "How WordPress decides..." in tools/wxr/README.md), and it ' +
-      'keeps both even after a human later publishes the imported Draft by hand — so this file ' +
-      "is what makes a page's title+date pair both believable on the live site AND permanently " +
-      'stable no matter how many more times it gets regenerated, or how much later. ' +
-      'generate.js appends one new entry automatically (via --date) the first time a URL needs ' +
-      'one; it never rewrites an entry that already exists — if the current H1 for a URL no ' +
-      'longer matches the recorded title, generate.js stops with an error instead of guessing ' +
-      'which one is right (silently picking either one reopens the exact duplicate-page bug ' +
-      'this file exists to prevent). "filePath" is only used to notice when a URL itself has ' +
-      'been renamed in content/ (the same file now defines a different URL) — see ' +
-      '"A page\'s URL changing" in tools/wxr/README.md. Commit this file whenever generate.js ' +
-      'reports it added new entries. To correct a mistake before anything has actually been ' +
-      'imported into WordPress, it is safe to hand-edit an entry directly — it is plain JSON.',
-  };
+  const out = { _readme: REGISTRY_README };
   for (const url of [...registry.keys()].sort()) out[url] = registry.get(url);
   fs.writeFileSync(PUBLISH_REGISTRY_PATH, JSON.stringify(out, null, 2) + '\n', 'utf8');
 }
@@ -238,6 +275,76 @@ function savePublishRegistry(registry) {
 function formatDateOnly(date) {
   const pad = (n) => String(n).padStart(2, '0');
   return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}`;
+}
+
+// A registry "date" value is a bare calendar date ("2026-08-14") for a URL
+// that's never been confirmed against a live WordPress post, or a full
+// ISO-8601 datetime with a UTC offset ("2026-09-10T20:03:42+00:00") for one
+// that has — see REGISTRY_README for why both shapes exist and are safe to
+// mix in the same file.
+const BARE_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Turns a registry "date" string into a Date, honoring whichever of the two
+ * shapes above it is: a bare date is midnight UTC (unchanged from before —
+ * exactly right for a URL nothing live exists to disagree with yet); a full
+ * ISO string (with its own offset) is parsed as-is, so a harvested value
+ * like "2026-09-10T20:20:17+00:00" round-trips through formatWpDate
+ * (tools/wxr/lib/wxr-xml.js) to the exact live wp:post_date, not midnight.
+ */
+function parseRegistryDateString(dateStr) {
+  const date = BARE_DATE_RE.test(dateStr) ? new Date(`${dateStr}T00:00:00Z`) : new Date(dateStr);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(
+      `Registry date "${dateStr}" isn't a date Node.js understands. Expected "YYYY-MM-DD" or a ` +
+        `full ISO-8601 datetime like "2026-09-10T20:03:42+00:00" (see REGISTRY_README in ` +
+        `generate.js).`
+    );
+  }
+  return date;
+}
+
+/**
+ * Warns (doesn't throw — see the call site) when a run is about to re-emit
+ * a URL whose registry date is still a bare, never-harvested placeholder
+ * AND that entry already existed on disk before this run started, i.e. a
+ * URL a human may already have imported — and possibly published — into
+ * WordPress. A URL freshly registered by *this* run can't trigger it: it
+ * obviously hasn't been imported by anyone yet, so `registryBeforeThisRun`
+ * must be the Map as loaded from disk, read before resolvePublishRegistry
+ * mutates it for any newly-registered URL in this same run.
+ *
+ * This is deliberately a nudge, not a gate (see resolvePublishRegistry's
+ * title-drift check for the *blocking* version of a similar problem): there
+ * is no way for this script to see live WordPress state itself (no network
+ * access, and the production site sits behind a WAF — see the README), so
+ * it cannot know FOR CERTAIN whether a given bare-dated URL has actually
+ * been published yet or is still sitting untouched in Drafts. Blocking on
+ * a maybe would stop ordinary, safe re-generations of pages nobody has
+ * touched in WordPress yet. Surfacing the possibility and asking a human to
+ * check is what fixed wave 1 on 2026-09-14, and is what's meant to catch
+ * the next one before it ships instead of after.
+ */
+function warnAboutUnharvestedDates(urls, registryBeforeThisRun, warn) {
+  for (const url of urls) {
+    const entry = registryBeforeThisRun.get(url);
+    if (entry && BARE_DATE_RE.test(entry.date)) {
+      warn(
+        `${url} still has a bare registry date ("${entry.date}", no time-of-day) from an earlier ` +
+          `run. If this page has already been imported into WordPress and a human has clicked ` +
+          `Publish on it, its live post_date has almost certainly drifted away from this ` +
+          `placeholder (WordPress stamps the real publish moment on Publish — see the corrected ` +
+          `comment on resolvePublishRegistry in generate.js) and this run's WXR will NOT match the ` +
+          `live page. Before trusting a re-import of ${url} as a safe no-op: open the live page, ` +
+          `read "datePublished" out of its RankMath JSON-LD, and compare it to "${entry.date}". If ` +
+          `they disagree, hand-edit this URL's "date" in publish-registry.json to the live value ` +
+          `(full ISO string, offset included) before regenerating. See "Re-harvesting a drifted ` +
+          `date" in tools/wxr/README.md. (If this URL is genuinely still an unpublished Draft or ` +
+          `has never been imported at all, there's nothing to do — this warning is a reminder to ` +
+          `check, not a sign anything is wrong.)`
+      );
+    }
+  }
 }
 
 // More new registrations in one run than this is refused unless the human
@@ -299,45 +406,74 @@ function warnAboutRenamedUrls(allPages, registry) {
  * bug this file exists to fix, just from the other side.
  *
  * Why a registry and not something computed, the way ids are (idForUrl):
- * WordPress does NOT reset a page's post_date when a human later clicks
- * Publish on the imported Draft — whatever date this tool stamps into the
- * WXR file is the date that stays on the live page, forever (confirmed:
- * that is the defect this replaces — a fixed placeholder date, 1970-01-01,
- * was showing up on published pages via
- * template-parts/content/last-updated.php). That rules out both simpler
- * options a hash-style pure function would give:
- *   - A fixed placeholder is reproducible and URL-stable, but ends up on
- *     the live page as a nonsense date — not plausible.
- *   - Leaving the date out and letting WordPress fill one in at publish
- *     time IS plausible, but reopens the original bug: the next wave that
- *     re-includes this URL as an ancestor hub (see README) would need
- *     *some* date to put in wp:post_date, and if that's "whatever moment
- *     this run happens to be," it won't match the date WordPress already
- *     recorded for the live page, the title+date check fails, and the hub
- *     gets duplicated all over again.
- * The exact same argument applies to title, which is why title is stored
- * and checked here too — it can't be recomputed from the URL the way an id
- * can, and re-deriving it fresh from the markdown's current H1 every run
- * (the previous version of this tool did exactly that) silently breaks the
- * same matching the moment someone edits a heading, weeks before anyone
- * notices.
+ * a registry is the only way to give a URL a date that survives WordPress
+ * actually publishing the page — CORRECTED 2026-09-14, this section used
+ * to assert the opposite ("WordPress does NOT reset a page's post_date
+ * when a human later clicks Publish... the date stays on the live page,
+ * forever"). That claim was false, and it is exactly what let this whole
+ * mechanism drift silently: this tool always imports every page as
+ * `<wp:status>draft</wp:status>` (tools/wxr/lib/wxr-xml.js) — nothing goes
+ * live automatically, by design (README, "What it does"). A freshly
+ * imported WordPress draft does NOT keep the wp:post_date this tool wrote
+ * as its real "this went live" timestamp; internally a draft's post_date
+ * is treated as unset, and the instant a human clicks Publish on it in
+ * wp-admin, WordPress stamps that literal moment as the post's real
+ * post_date/post_date_gmt — overwriting whatever this tool imported it
+ * with. Proof: every one of wave 1's 17 URLs was registered here at
+ * "2026-08-14" (midnight, no time-of-day), and by the time the live site
+ * was checked on 2026-09-14, their actual RankMath `datePublished` was
+ * "2026-09-10T20:03:42+00:00" (16 of them) or "2026-09-10T20:20:17+00:00"
+ * (/pet-guides/pet-travel/, republished separately) — not 2026-08-14 at
+ * all. See publish-registry.json's own `_readme` (REGISTRY_README, above
+ * in this file) for the two date shapes this drift is why the registry
+ * now supports, and warnAboutUnharvestedDates (below) for the guard added
+ * so a URL sitting on a stale bare date doesn't rot here unnoticed after
+ * a human publishes it.
  *
- * A committed per-URL registry is the only option that is both URL-stable
- * forever AND plausible: the date and title are real — whatever the
- * maintainer actually had at the moment they ran the tool for that URL,
- * not an arbitrary placeholder — but captured exactly once, on purpose,
- * and never silently recomputed. Every later run, for any wave, in any
- * order, alongside any other URLs that do or don't exist, reads the same
- * fixed values out of this file instead of ever asking the system clock or
- * re-reading a heading that might have moved — which is also why
- * generate.js never calls `new Date()` as an implicit default, and why a
- * drifted title stops the run instead of being silently re-derived.
+ * What's still true, and still the actual reason a *committed* registry
+ * (rather than something computed, like idForUrl) is unavoidable: a
+ * plausible, real date for a URL that HASN'T been published yet — the
+ * common case, ~108 of ~126 URLs at the time of writing — has no pure,
+ * computable source at all. Two simpler options were tried and rejected:
+ *   - A fixed placeholder (1970-01-01) is reproducible and URL-stable, but
+ *     is a nonsense date if it ever ends up on a live page — this was a
+ *     real, shipped defect (template-parts/content/last-updated.php was
+ *     showing "January 1970" on published pages) that this registry
+ *     replaced.
+ *   - Leaving the date out and letting WordPress fill one in at import
+ *     time doesn't work either, now for the opposite reason from the
+ *     "corrected" paragraph above: a wp:post_date IS required in the WXR
+ *     file for the ancestor-hub matching (title+date) to have anything
+ *     stable to compare against BEFORE a page is published — without a
+ *     registry, every re-generation of an unpublished URL would use
+ *     "whatever moment this run happens to be," and the same URL
+ *     generated twice, days apart, would carry two different dates.
+ * So the registry's job, precisely stated, is: give every unpublished URL
+ * one fixed, reusable placeholder date (good enough — nothing live exists
+ * yet to contradict it), and give every ALREADY-PUBLISHED URL its real
+ * harvested live date (required — something live already exists, and it
+ * disagrees with any placeholder). Distinguishing the two is now the
+ * bare-date-vs-full-ISO-string shape (REGISTRY_README), not an assumption
+ * that dates never change once written.
+ *
+ * The exact same "can't be computed, must be remembered" argument applies
+ * to title, which is why title is stored and checked here too — it can't
+ * be recomputed from the URL the way an id can, and re-deriving it fresh
+ * from the markdown's current H1 every run (the previous version of this
+ * tool did exactly that) silently breaks the same matching the moment
+ * someone edits a heading, weeks before anyone notices. Unlike date,
+ * WordPress does NOT appear to touch a page's title on publish — this is
+ * why only date needed the two-shape fix above.
  *
  * Adding a new content file only ever adds one new key to this file (via
  * --date, the next time that URL is generated); it never touches an
- * existing key, so no existing page's date or title can shift on its own —
- * only a human, editing the registry or the source H1 by hand, can do
- * that, and editing the H1 is exactly what the title check is watching for.
+ * existing key on its own, so no existing page's date or title can shift
+ * by itself — only a human can do that, either by editing the H1 (which
+ * the title check is watching for) or by hand-correcting a date after
+ * re-harvesting it from a live, already-published page (which is exactly
+ * what the 2026-09-14 fix did for wave 1, and what
+ * warnAboutUnharvestedDates now nudges toward doing again if it's ever
+ * needed).
  */
 function resolvePublishRegistry(urls, allPages, registry, dateArg, allowBulk) {
   // Title check first: this can't be worked around by --date the way a
@@ -428,7 +564,7 @@ function resolvePublishRegistry(urls, allPages, registry, dateArg, allowBulk) {
 
   const dateByUrl = new Map();
   for (const url of urls) {
-    dateByUrl.set(url, new Date(`${registry.get(url).date}T00:00:00Z`));
+    dateByUrl.set(url, parseRegistryDateString(registry.get(url).date));
   }
   return dateByUrl;
 }
@@ -558,6 +694,13 @@ function main() {
   // happens to generate a wave that touches it.
   const registry = loadPublishRegistry();
   warnAboutRenamedUrls(allPages, registry);
+
+  // Read BEFORE resolvePublishRegistry mutates `registry` below (which adds
+  // an entry for any URL this run registers for the first time) — a URL
+  // this run is registering for the first time cannot have been published
+  // by anyone yet, so it must never trigger this warning; only a URL that
+  // already had a bare-date entry on disk, from some earlier run, can have.
+  warnAboutUnharvestedDates(orderedUrls, registry, warn);
 
   // Every URL in this run needs a date and a title; resolvePublishRegistry
   // registers both (via --date) for any URL that's never been generated
