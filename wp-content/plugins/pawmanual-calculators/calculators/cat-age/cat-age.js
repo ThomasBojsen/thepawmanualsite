@@ -50,10 +50,10 @@
 	 */
 	function lifeStageNote( age ) {
 		if ( age < 1 ) {
-			return 'Still a kitten — a stage of rapid growth and learning.';
+			return 'Still a kitten: a stage of rapid growth and learning.';
 		}
 		if ( age >= SENIOR_AGE ) {
-			return 'Now a senior cat — more frequent vet check-ups are a good idea.';
+			return 'Now a senior cat: more frequent vet check-ups are a good idea.';
 		}
 		return 'In the prime adult years.';
 	}

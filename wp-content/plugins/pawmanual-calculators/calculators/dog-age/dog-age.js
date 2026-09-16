@@ -72,11 +72,11 @@
 	 */
 	function lifeStageNote( age, size ) {
 		if ( age < 1 ) {
-			return 'Still a puppy — a stage of fast growth, training and socialisation.';
+			return 'Still a puppy: a stage of fast growth, training and socialisation.';
 		}
 		var seniorAt = SENIOR_AGE[ size ] || SENIOR_AGE.medium;
 		if ( age >= seniorAt ) {
-			return 'Now a senior for this breed size — more frequent vet check-ups are a good idea.';
+			return 'Now a senior for this breed size: more frequent vet check-ups are a good idea.';
 		}
 		return 'In the prime adult years.';
 	}

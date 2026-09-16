@@ -283,7 +283,7 @@
 			if ( result && result.headline ) {
 				showResult( resultEl, result );
 			} else {
-				showResultError( resultEl, 'Sorry — we could not calculate a result. Please check your input.' );
+				showResultError( resultEl, 'Sorry, we could not calculate a result. Please check your input.' );
 			}
 		} );
 
