@@ -2,19 +2,19 @@
 url: /tools/cat-age-calculator/
 page: Cat Age Calculator
 seo-title: "Cat Age Calculator: Cat Years to Human Years"   # 44 chars
-meta-description: "Free cat age calculator based on the standard feline aging model. Enter your cat's age for a real human-year estimate — no 'multiply by 7' myths."   # 145 chars
+meta-description: "Free cat age calculator based on the standard feline aging model. Enter your cat's age for a real human-year estimate: no 'multiply by 7' myths."   # 144 chars
 status: draft-v1
 ---
 
 # Cat Age Calculator: How Old Is Your Cat in Human Years?
 
-**A cat's first year of life equals about 15 human years, the second year brings the total to 24, and every year after that adds roughly 4 more.** That means a 5-year-old cat is closer to 36 in human terms, not 35 (the "multiply by 7" number) — close by coincidence at that particular age, but the two methods diverge fast on either side of it. Unlike dogs, breed size doesn't meaningfully change a cat's aging pace, so this calculator needs just one input. Enter your cat's age below for an instant estimate.
+**A cat's first year of life equals about 15 human years, the second year brings the total to 24, and every year after that adds roughly 4 more.** That means a 5-year-old cat is closer to 36 in human terms, not 35 (the "multiply by 7" number): close by coincidence at that particular age, but the two methods diverge fast on either side of it. Unlike dogs, breed size doesn't meaningfully change a cat's aging pace, so this calculator needs just one input. Enter your cat's age below for an instant estimate.
 
 [pawmanual_calculator id="cat-age"]
 
 ## How the math works
 
-The formula runs in three stages:
+A cat's age converts to human years in three stages: year one is worth about 15 human years, year two brings the total to 24, and every year after that adds roughly 4 more.
 
 | Cat's age | Human years |
 |---|---|
@@ -25,13 +25,15 @@ The formula runs in three stages:
 | 10 years | 56 |
 | 15 years | 76 |
 
-The jump is steepest in the first two years — a kitten reaches the rough equivalent of human adolescence and early adulthood by its first birthday — then settles into a steady +4 human years for every additional cat-year. Because cats don't have the dramatic size range dogs do, one formula covers a 6 lb cat and a 15 lb cat about equally well; this is also why the [cat breed guides](/cats/breeds/) don't organize by size the way our [dog breed guides](/dogs/breeds/) do.
+The jump is steepest in the first two years (a kitten reaches the rough equivalent of human adolescence and early adulthood by its first birthday), then settles into a steady +4 human years for every additional cat-year. Because cats don't have the dramatic size range dogs do, one formula covers a 6 lb cat and a 15 lb cat about equally well; this is also why the [cat breed guides](/cats/breeds/) don't organize by size the way our [dog breed guides](/dogs/breeds/) do.
 
-## Senior cats: what changes around 11
+## What happens once a cat turns 11?
 
-By around age 11, a cat is generally considered a senior — worth knowing because cats are notorious for hiding illness until it's advanced, which makes routine monitoring matter more, not less, as the numbers climb. Two places to go next: the [senior cat food guide](/cats/food/senior-cat-food/) for how feeding needs shift with age, and [signs your cat needs a vet](/cats/health/signs-your-cat-needs-a-vet/) for the warning signs worth acting on rather than waiting out. If you're budgeting ahead for the senior years — more frequent bloodwork, possible chronic-condition management — our [pet cost guide](/pet-guides/pet-costs/) breaks down what that tends to run.
+By around age 11, a cat is generally considered a senior. The main practical change is increased vigilance: cats are notorious for hiding illness until it's advanced, so routine veterinary monitoring matters more, not less, as the numbers climb.
 
-> **Veterinary disclaimer:** This calculator gives a general estimate for a healthy cat, not a medical assessment. Individual aging varies with genetics, health history, and indoor/outdoor lifestyle — a veterinarian is the only reliable source for how your specific cat is aging.
+Two places to go next: the [senior cat food guide](/cats/food/senior-cat-food/) for how feeding needs shift with age, and [signs your cat needs a vet](/cats/health/signs-your-cat-needs-a-vet/) for the warning signs worth acting on rather than waiting out. If you're budgeting ahead for the senior years (more frequent bloodwork, possible chronic-condition management), our [pet cost guide](/pet-guides/pet-costs/) breaks down what that tends to run.
+
+> **Veterinary disclaimer:** This calculator gives a general estimate for a healthy cat, not a medical assessment. Individual aging varies with genetics, health history, and indoor/outdoor lifestyle: a veterinarian is the only reliable source for how your specific cat is aging.
 
 ## Frequently asked questions
 
@@ -41,11 +43,7 @@ The first year of a cat's life equals about 15 human years, the second year brin
 
 ### Is the "multiply by 7" rule accurate for cats?
 
-Not really — it happens to land close for a handful of ages in the middle of a cat's life, but it overstates how old kittens and young cats are and understates how the aging pace actually changes over a cat's life, since real feline aging isn't a flat rate.
-
-### At what age is a cat considered a senior?
-
-Around 11 years old. From that point, routine veterinary monitoring becomes more important, since cats are skilled at hiding illness until it's fairly advanced.
+Not really: it happens to land close for a handful of ages in the middle of a cat's life, but it overstates how old kittens and young cats are and understates how the aging pace actually changes over a cat's life, since real feline aging isn't a flat rate.
 
 ### Does breed affect how fast a cat ages?
 
@@ -70,15 +68,7 @@ Not meaningfully, unlike dogs. Cats don't have the extreme size range dog breeds
       "name": "Is the \"multiply by 7\" rule accurate for cats?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not really — it happens to land close for a handful of ages in the middle of a cat's life, but it overstates how old kittens and young cats are and understates how the aging pace actually changes over a cat's life, since real feline aging isn't a flat rate."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "At what age is a cat considered a senior?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Around 11 years old. From that point, routine veterinary monitoring becomes more important, since cats are skilled at hiding illness until it's fairly advanced."
+        "text": "Not really: it happens to land close for a handful of ages in the middle of a cat's life, but it overstates how old kittens and young cats are and understates how the aging pace actually changes over a cat's life, since real feline aging isn't a flat rate."
       }
     },
     {
@@ -87,6 +77,14 @@ Not meaningfully, unlike dogs. Cats don't have the extreme size range dog breeds
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Not meaningfully, unlike dogs. Cats don't have the extreme size range dog breeds do, so this calculator uses a single formula for every cat rather than adjusting by breed or size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens once a cat turns 11?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By around age 11, a cat is generally considered a senior. The main practical change is increased vigilance: cats are notorious for hiding illness until it's advanced, so routine veterinary monitoring matters more, not less, as the numbers climb."
       }
     }
   ]

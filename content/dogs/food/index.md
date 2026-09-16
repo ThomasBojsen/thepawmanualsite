@@ -2,37 +2,37 @@
 url: /dogs/food/
 page: Dog Food hub
 seo-title: "Dog Food & Nutrition Guides | ThePawManual"   # 42 chars
-meta-description: "How to choose a dog food, how much to feed, and which human foods are safe — practical guides based on AAFCO standards and veterinary advice."   # 141 chars
+meta-description: "How to choose a dog food, how much to feed, and which human foods are safe: practical guides based on AAFCO standards and veterinary advice."   # 140 chars
 status: draft-v1
 ---
 
 # Dog Food & Nutrition, Without the Marketing Noise
 
-Choosing a dog food comes down to three checks: an AAFCO nutritional adequacy statement for your dog's life stage, a formula matched to age and size, and a portion based on calories — not the bag's scoop chart alone. Get those right and brand matters far less than the marketing suggests. The bigger risk is quantity: an estimated 59% of U.S. dogs are overweight or obese (Association for Pet Obesity Prevention), and overfeeding — not "bad" food — is usually the cause.
+Choosing a dog food comes down to three checks: an AAFCO nutritional adequacy statement for your dog's life stage, a formula matched to age and size, and a portion based on calories, not the bag's scoop chart alone. Get those right and brand matters far less than the marketing suggests. The bigger risk is quantity: an estimated 59% of U.S. dogs are overweight or obese (APOP's 2022 clinical survey), and overfeeding, not "bad" food, is usually the cause.
 
 ## Choosing a food
 
-- **[How to choose the best dog food](/dogs/food/best-dog-food/)** — decoding labels, what the AAFCO statement means, wet vs. dry, and when premium is worth it
-- **[Dog food for allergies](/dogs/food/dog-food-for-allergies/)** — limited-ingredient and hydrolyzed diets, and why food allergies are rarer than owners think (environmental [allergies](/dogs/health/allergies/) are far more common)
+- **[How to choose the best dog food](/dogs/food/best-dog-food/)**: decoding labels, what the AAFCO statement means, wet vs. dry, and when premium is worth it
+- **[Dog food for allergies](/dogs/food/dog-food-for-allergies/)**: limited-ingredient and hydrolyzed diets, and why food allergies are rarer than owners think (environmental [allergies](/dogs/health/allergies/) are far more common)
 
 ## Feeding by life stage
 
-Puppies, adults, and seniors have genuinely different nutritional needs — this is the one area where "life stage" labels matter:
+Puppies, adults, and seniors have genuinely different nutritional needs; this is the one area where "life stage" labels matter:
 
-- **[Puppy food](/dogs/food/puppy-food/)** — growth formulas, large-breed puppy food (it's not a gimmick), and when to switch to adult food
-- **[Senior dog food](/dogs/food/senior-dog-food/)** — calories down, joint support up, and what actually changes in an older dog's metabolism
+- **[Puppy food](/dogs/food/puppy-food/)**: growth formulas, large-breed puppy food (it's not a gimmick), and when to switch to adult food
+- **[Senior dog food](/dogs/food/senior-dog-food/)**: calories down, joint support up, and what actually changes in an older dog's metabolism
 
 ## How much to feed
 
-The question every owner searches eventually: **[How much should I feed my dog?](/dogs/food/how-much-should-i-feed-my-dog/)** covers calorie needs by weight and activity, how to read body condition, and why the scoop chart on the bag overshoots for neutered indoor dogs. For an instant answer, the [dog food calculator](/tools/dog-food-calculator/) does the math from your dog's weight, age, and activity level.
+A typical neutered adult dog needs roughly 25–30 calories per pound of body weight per day, about 700–900 kcal for a 30 lb dog, adjusted from there for age and activity. The **[How much should I feed my dog?](/dogs/food/how-much-should-i-feed-my-dog/)** guide covers the full calorie chart and body condition scoring, and the [dog food calculator](/tools/dog-food-calculator/) does the math for you from weight, age, and activity level.
 
 ## Human foods: safe or not?
 
-Our "can dogs eat" series answers the exact questions owners google from the kitchen, starting with [rice](/dogs/food/can-dogs-eat-rice/) (yes — plain, cooked) and [chicken](/dogs/food/can-dogs-eat-chicken/) (yes — cooked, boneless). Memorize the never-list, though: **grapes and raisins, chocolate, onions, garlic, macadamia nuts, and anything with xylitol are toxic to dogs.** If your dog eats any of them, call your vet or the ASPCA Animal Poison Control Center at (888) 426-4435.
+**Rice (plain, cooked) and chicken (cooked, boneless) are safe. Grapes, raisins, chocolate, onions, garlic, macadamia nuts, and anything with xylitol are toxic to dogs** and warrant an immediate call to your vet or the ASPCA Animal Poison Control Center at (888) 426-4435. Our "can dogs eat" series covers the exact questions owners search from the kitchen, starting with [rice](/dogs/food/can-dogs-eat-rice/) and [chicken](/dogs/food/can-dogs-eat-chicken/).
 
 ## When diet meets health
 
-Recurring stomach trouble, itching, or dull coat can be food-related — or something else entirely. Start with [why is my dog throwing up?](/dogs/health/why-is-my-dog-throwing-up/) and [why is my dog itching?](/dogs/health/why-is-my-dog-itching/), and know the [signs that mean a vet visit](/dogs/health/signs-your-dog-needs-a-vet/). Diet changes for medical reasons belong in a conversation with your veterinarian.
+Recurring stomach trouble, itching, or dull coat can be food-related, or something else entirely. Start with [why is my dog throwing up?](/dogs/health/why-is-my-dog-throwing-up/) and [why is my dog itching?](/dogs/health/why-is-my-dog-itching/), and know the [signs that mean a vet visit](/dogs/health/signs-your-dog-needs-a-vet/). Diet changes for medical reasons belong in a conversation with your veterinarian.
 
 > **Veterinary disclaimer:** Nutrition guidance on ThePawManual is general education, not a prescription. Dogs with health conditions, and all diet changes for medical reasons, should be managed with a licensed veterinarian.
 
@@ -44,7 +44,7 @@ Look for the AAFCO nutritional adequacy statement ("complete and balanced for [l
 
 ### How much should I feed my dog per day?
 
-It depends on weight, age, activity, and whether your dog is neutered — as a rough frame, a typical 30 lb adult dog needs around 700–900 calories a day. Use the [dog food calculator](/tools/dog-food-calculator/) for a number, and adjust based on body condition rather than the bowl.
+It depends on weight, age, activity, and whether your dog is neutered: as a rough frame, a typical 30 lb adult dog needs around 700–900 calories a day. Use the [dog food calculator](/tools/dog-food-calculator/) for a number, and adjust based on body condition rather than the bowl.
 
 ### What human foods are toxic to dogs?
 
@@ -52,7 +52,7 @@ Grapes, raisins, chocolate, onions, garlic, macadamia nuts, alcohol, and xylitol
 
 ### Is grain-free dog food better?
 
-Not for most dogs — grain allergies are rare, and the FDA has investigated a possible link between some grain-free diets and canine heart disease (DCM). Unless your vet recommends it for a diagnosed condition, a standard AAFCO-compliant diet is the safer default.
+Not for most dogs: grain allergies are rare, and the FDA has investigated a possible link between some grain-free diets and canine heart disease (DCM). Unless your vet recommends it for a diagnosed condition, a standard AAFCO-compliant diet is the safer default.
 
 ```html
 <script type="application/ld+json">
@@ -73,7 +73,7 @@ Not for most dogs — grain allergies are rare, and the FDA has investigated a p
       "name": "How much should I feed my dog per day?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It depends on weight, age, activity, and neuter status — a typical 30 lb adult dog needs around 700–900 calories a day. Adjust based on body condition, not the scoop chart."
+        "text": "It depends on weight, age, activity, and neuter status: a typical 30 lb adult dog needs around 700–900 calories a day. Adjust based on body condition, not the scoop chart."
       }
     },
     {
@@ -89,7 +89,7 @@ Not for most dogs — grain allergies are rare, and the FDA has investigated a p
       "name": "Is grain-free dog food better?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not for most dogs — grain allergies are rare, and the FDA has investigated a possible link between some grain-free diets and canine heart disease (DCM). A standard AAFCO-compliant diet is the safer default unless your vet advises otherwise."
+        "text": "Not for most dogs: grain allergies are rare, and the FDA has investigated a possible link between some grain-free diets and canine heart disease (DCM). A standard AAFCO-compliant diet is the safer default unless your vet advises otherwise."
       }
     }
   ]

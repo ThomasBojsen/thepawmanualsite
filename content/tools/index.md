@@ -2,19 +2,19 @@
 url: /tools/
 page: Tools hub
 seo-title: "Free Pet Calculators & Tools | ThePawManual"   # 43 chars
-meta-description: "Free dog and cat calculators that run right in your browser — no signup. Age calculators live now; food, cost, and breed tools are in development."   # 146 chars
+meta-description: "Free dog and cat calculators that run right in your browser: no signup. Age calculators live now; food, cost, and breed tools are in development."   # 145 chars
 status: draft-v1
 ---
 
 # Tools: Free Pet Calculators
 
-ThePawManual's tools are free calculators that run entirely in your browser — no account, no email gate, just numbers you can trust matched to your dog or cat. Two are live today: the [dog age calculator](/tools/dog-age-calculator/) and the [cat age calculator](/tools/cat-age-calculator/), both built on veterinary-informed aging models instead of the flat "multiply by 7" myth. Six more are in development and paired to guides you can already read in full.
+ThePawManual's tools are free calculators that run entirely in your browser: no account, no email gate, just numbers you can trust matched to your dog or cat. Two are live today: the [dog age calculator](/tools/dog-age-calculator/) and the [cat age calculator](/tools/cat-age-calculator/), both built on veterinary-informed aging models instead of the flat "multiply by 7" myth. Six more are in development and paired to guides you can already read in full.
 
 ## Live now
 
 ### [Dog Age Calculator](/tools/dog-age-calculator/)
 
-Enter your dog's age and breed size to get their age in human years, using a size-aware model — small breeds age slower in their later years, giant breeds faster. [Open the calculator →](/tools/dog-age-calculator/)
+Enter your dog's age and breed size to get their age in human years, using a size-aware model: small breeds age slower in their later years, giant breeds faster. [Open the calculator →](/tools/dog-age-calculator/)
 
 ### [Cat Age Calculator](/tools/cat-age-calculator/)
 
@@ -24,20 +24,20 @@ Enter your cat's age for an instant human-year equivalent, based on the standard
 
 We're building the rest of the toolkit deliberately, one working calculator at a time, rather than shipping placeholder tools. Here's what's next, paired with the guides that already cover the same ground by hand:
 
-- **Dog Food Calculator** — until it ships, work the math yourself with [how much should I feed my dog?](/dogs/food/how-much-should-i-feed-my-dog/)
-- **Cat Food Calculator** — see [how much should I feed my cat?](/cats/food/how-much-should-i-feed-my-cat/) in the meantime
-- **Pet Cost Calculator** — the full itemized numbers are already in [how much does a pet cost?](/pet-guides/pet-costs/)
-- **Dog Breed Selector** — browse by lifestyle now in the [dog breed guides](/dogs/breeds/)
-- **Cat Breed Selector** — browse by lifestyle now in the [cat breed guides](/cats/breeds/)
+- **Dog Food Calculator**: until it ships, work the math yourself with [how much should I feed my dog?](/dogs/food/how-much-should-i-feed-my-dog/)
+- **Cat Food Calculator**: see [how much should I feed my cat?](/cats/food/how-much-should-i-feed-my-cat/) in the meantime
+- **Pet Cost Calculator**: the full itemized numbers are already in [how much does a pet cost?](/pet-guides/pet-costs/)
+- **Dog Breed Selector**: browse by lifestyle now in the [dog breed guides](/dogs/breeds/)
+- **Cat Breed Selector**: browse by lifestyle now in the [cat breed guides](/cats/breeds/)
 - **Pet Name Generator**
 
-No timeline promises here — each tool ships when it's actually built, matching how the two live calculators were done.
+No timeline promises here: each tool ships when it's actually built, matching how the two live calculators were done.
 
 ## Frequently asked questions
 
 ### What tools does ThePawManual offer?
 
-Two free calculators are live: a [dog age calculator](/tools/dog-age-calculator/) and a [cat age calculator](/tools/cat-age-calculator/), both converting your pet's age into human years using veterinary-informed models. Six more tools — covering food portions, pet costs, breed selection, and pet names — are in development.
+Two free calculators are live: a [dog age calculator](/tools/dog-age-calculator/) and a [cat age calculator](/tools/cat-age-calculator/), both converting your pet's age into human years using veterinary-informed models. Six more tools, covering food portions, pet costs, breed selection, and pet names, are in development.
 
 ### Are the calculators free to use?
 
@@ -45,7 +45,7 @@ Yes. Every calculator on ThePawManual is free, runs in your browser, and doesn't
 
 ### How accurate are the calculators?
 
-They're built on established aging models — a size-aware formula for dogs and the standard feline model for cats — not the outdated "multiply by 7" rule. They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related.
+They're built on established aging models, a size-aware formula for dogs and the standard feline model for cats, not the outdated "multiply by 7" rule. They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related.
 
 ### What tools are coming next?
 
@@ -62,7 +62,7 @@ Food portion calculators for dogs and cats, a pet cost calculator, breed selecto
       "name": "What tools does ThePawManual offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Two free calculators are live: a dog age calculator and a cat age calculator, both converting your pet's age into human years using veterinary-informed models. Six more tools — covering food portions, pet costs, breed selection, and pet names — are in development."
+        "text": "Two free calculators are live: a dog age calculator and a cat age calculator, both converting your pet's age into human years using veterinary-informed models. Six more tools, covering food portions, pet costs, breed selection, and pet names, are in development."
       }
     },
     {
@@ -78,7 +78,7 @@ Food portion calculators for dogs and cats, a pet cost calculator, breed selecto
       "name": "How accurate are the calculators?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "They're built on established aging models — a size-aware formula for dogs and the standard feline model for cats — not the outdated \"multiply by 7\" rule. They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related."
+        "text": "They're built on established aging models, a size-aware formula for dogs and the standard feline model for cats, not the outdated \"multiply by 7\" rule. They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related."
       }
     },
     {

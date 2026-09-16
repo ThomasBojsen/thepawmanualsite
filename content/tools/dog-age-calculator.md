@@ -8,24 +8,26 @@ status: draft-v1
 
 # Dog Age Calculator: How Old Is Your Dog in Human Years?
 
-**A dog's first year is worth about 15 human years, and the second year adds roughly 9 more — putting a 2-year-old dog at about 24, not 14.** After that, the old "multiply by 7" rule doesn't hold up: each additional dog-year adds somewhere between 4 and 5.5 human years depending on breed size, because larger breeds age faster in their later years while smaller breeds age more slowly. Enter your dog's age and size below for an estimate built on that model instead of the myth.
+**A dog's first year is worth about 15 human years, and the second year adds roughly 9 more: putting a 2-year-old dog at about 24, not 14.** After that, the old "multiply by 7" rule doesn't hold up: each additional dog-year adds somewhere between 4 and 5.5 human years depending on breed size, because larger breeds age faster in their later years while smaller breeds age more slowly. Enter your dog's age and size below for an estimate built on that model instead of the myth.
 
 [pawmanual_calculator id="dog-age"]
 
-## Why "multiply by 7" is wrong
+## Is one dog year really seven human years?
 
-The 7-year rule treats dog aging as a flat, straight line — one human year for every seven a dog lives, at every age. Real dog aging isn't linear: a 1-year-old dog is already sexually mature and physically close to adult size, which is nowhere near "7 human years old." It's also not size-blind — a 10-year-old Chihuahua and a 10-year-old Great Dane are not the same dog, biologically. Giant breeds are typically considered senior by 6, while small breeds often aren't senior until 9. This is one of the most persistent pet-care myths still repeated online, which is exactly why it belongs in the first paragraph, not buried at the bottom.
+No: a dog's aging rate isn't a flat 7-to-1 ratio at any age. The first two years alone are worth about 24 human years, not 14, and every year after that adds somewhere between 4 and 5.5 human years depending on breed size, not a fixed 7.
+
+The 7-year rule treats dog aging as though it were a flat, straight line: the same ratio at every age. Real dog aging isn't linear: a 1-year-old dog is already sexually mature and physically close to adult size, nowhere near "7 human years old." It's also not size-blind: a 10-year-old Chihuahua and a 10-year-old Great Dane are not the same dog, biologically. Giant breeds are typically considered senior by 6, while small breeds often aren't senior until 9. This is one of the most persistent pet-care myths still repeated online, which is exactly why it belongs in the first paragraph, not buried at the bottom.
 
 ## How this calculator works
 
-The formula runs in two stages. Years one and two are the same for every dog, regardless of size:
+The formula works in two stages: the first two years follow a fixed scale that's the same for every dog, and every year after that adds a size-dependent amount. Year one is worth about 15 human years; year two brings the total to 24.
 
 | Dog's age | Human years |
 |---|---|
 | 1 year | 15 |
 | 2 years | 24 |
 
-From age 2 onward, each additional year adds a fixed amount that depends on breed size — this is where size starts to matter:
+From age 2 onward, each additional year adds a fixed amount that depends on breed size; this is where size starts to matter:
 
 | Breed size | Approx. weight | Added per year after age 2 | Typically senior at |
 |---|---|---|---|
@@ -34,25 +36,23 @@ From age 2 onward, each additional year adds a fixed amount that depends on bree
 | Large | 23–40 kg (roughly 50–88 lb) | +5 | 7 years |
 | Giant | 40+ kg (roughly 88+ lb) | +5.5 | 6 years |
 
-Worked example: a 10-year-old dog comes out to about 56 human years if small, 60 if medium, 64 if large, or 68 if giant — the same age in dog-years, four different ages in human terms, purely from the size split.
+Worked example: a 10-year-old dog comes out to about 56 human years if small, 60 if medium, 64 if large, or 68 if giant: the same age in dog-years, four different ages in human terms, purely from the size split.
 
 Not sure which size band your dog falls into? Our [dog breed guides](/dogs/breeds/) list typical adult weights, and the [small dog breeds](/dogs/breeds/small-dogs/) and [large dogs](/dogs/breeds/large-dogs/) lists cover the ends of the range.
 
-## What life stage means for care
+## What changes once your dog becomes a senior?
 
-Crossing into "senior" isn't a birthday — it's a cue to adjust care. Senior dogs generally benefit from twice-yearly vet visits instead of annual ones, a feeding adjustment (see the [senior dog food guide](/dogs/food/senior-dog-food/)), and closer attention to the kind of changes that are easy to write off as "just getting older." If you're weighing whether something is normal aging or worth a call, [signs your dog needs a vet](/dogs/health/signs-your-dog-needs-a-vet/) walks through the difference. Budgeting for the senior years — bloodwork, chronic medications, more frequent visits — is covered in our [pet cost guide](/pet-guides/pet-costs/).
+Crossing into "senior" isn't a birthday: it's a cue to adjust care. Senior dogs generally benefit from twice-yearly vet visits instead of annual ones, a feeding adjustment, and closer attention to changes that are easy to write off as "just getting older."
 
-> **Veterinary disclaimer:** This calculator gives a general estimate for a healthy dog, not a medical assessment. Individual aging varies with genetics, health history, and care — a veterinarian is the only reliable source for how your specific dog is aging.
+See the [senior dog food guide](/dogs/food/senior-dog-food/) for how feeding needs shift, and [signs your dog needs a vet](/dogs/health/signs-your-dog-needs-a-vet/) for the difference between normal aging and something worth a call. Budgeting for the senior years (bloodwork, chronic medications, more frequent visits) is covered in our [pet cost guide](/pet-guides/pet-costs/).
+
+> **Veterinary disclaimer:** This calculator gives a general estimate for a healthy dog, not a medical assessment. Individual aging varies with genetics, health history, and care: a veterinarian is the only reliable source for how your specific dog is aging.
 
 ## Frequently asked questions
 
-### Is the "multiply by 7" rule accurate?
-
-No. It treats dog aging as a flat rate at every age, when in reality the first two years age a dog far faster than 7-to-1 (a 2-year-old is closer to 24 human years than 14), and the pace after that depends heavily on breed size rather than being fixed at 7-to-1 for every dog.
-
 ### How is dog age in human years actually calculated?
 
-The first year of a dog's life equals about 15 human years, the second year adds about 9 more (bringing the total to 24), and every year after that adds 4 to 5.5 human years depending on breed size — small breeds on the low end, giant breeds on the high end.
+The first year of a dog's life equals about 15 human years, the second year adds about 9 more (bringing the total to 24), and every year after that adds 4 to 5.5 human years depending on breed size: small breeds on the low end, giant breeds on the high end.
 
 ### At what age is a dog considered a senior?
 
@@ -60,7 +60,7 @@ It depends on size: roughly 9 years for small breeds, 8 for medium, 7 for large,
 
 ### Do small dogs really age more slowly than large dogs?
 
-Yes, in their later years specifically — small breeds tend to add fewer human years per dog-year after age 2, which is a well-documented pattern behind why small breeds generally live longer than giant breeds.
+Yes, in their later years specifically: small breeds tend to add fewer human years per dog-year after age 2, which is a well-documented pattern behind why small breeds generally live longer than giant breeds.
 
 ```html
 <script type="application/ld+json">
@@ -70,18 +70,10 @@ Yes, in their later years specifically — small breeds tend to add fewer human 
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the \"multiply by 7\" rule accurate?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. It treats dog aging as a flat rate at every age, when in reality the first two years age a dog far faster than 7-to-1 (a 2-year-old is closer to 24 human years than 14), and the pace after that depends heavily on breed size rather than being fixed at 7-to-1 for every dog."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "How is dog age in human years actually calculated?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The first year of a dog's life equals about 15 human years, the second year adds about 9 more (bringing the total to 24), and every year after that adds 4 to 5.5 human years depending on breed size — small breeds on the low end, giant breeds on the high end."
+        "text": "The first year of a dog's life equals about 15 human years, the second year adds about 9 more (bringing the total to 24), and every year after that adds 4 to 5.5 human years depending on breed size: small breeds on the low end, giant breeds on the high end."
       }
     },
     {
@@ -97,7 +89,15 @@ Yes, in their later years specifically — small breeds tend to add fewer human 
       "name": "Do small dogs really age more slowly than large dogs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, in their later years specifically — small breeds tend to add fewer human years per dog-year after age 2, which is a well-documented pattern behind why small breeds generally live longer than giant breeds."
+        "text": "Yes, in their later years specifically: small breeds tend to add fewer human years per dog-year after age 2, which is a well-documented pattern behind why small breeds generally live longer than giant breeds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What changes once your dog becomes a senior?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Crossing into \"senior\" isn't a birthday: it's a cue to adjust care. Senior dogs generally benefit from twice-yearly vet visits instead of annual ones, a feeding adjustment, and closer attention to changes that are easy to write off as \"just getting older.\""
       }
     }
   ]

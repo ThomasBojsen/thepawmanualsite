@@ -3,16 +3,16 @@ url: /terms/
 page: Terms of Use
 seo-title: "Terms of Use | ThePawManual"   # 27 chars
 meta-description: "The terms governing use of ThePawManual: educational content, not veterinary advice; liability limits; and usage rules."   # 118 chars
-status: draft-v1 — ⚠️ TEMPLATE: REQUIRES LEGAL REVIEW BEFORE PUBLISH
+status: published, live since 2026-09-10; synced from live 2026-09-14
 ---
 
 # Terms of Use
 
-**Effective date: [DATE]** · By using thepawmanual.com ("the Site"), operated by [LEGAL ENTITY NAME], you agree to these terms. If you don't agree, please don't use the Site.
+**Effective date: 2026-09-10** · By using thepawmanual.com ("the Site"), operated by Mikkel Werner Jansen and Thomas Hjalte Bojsen (together, "we" or "us"), you agree to these terms. If you don't agree, please don't use the Site.
 
-## 1. Educational content — not veterinary advice
+## 1. Educational content: not veterinary advice
 
-Everything on this Site — articles, guides, calculators, and tools — is **general educational information, not veterinary advice, diagnosis, or treatment.** No veterinarian-client-patient relationship is created by using the Site. Always consult a licensed veterinarian for your pet's health decisions, and seek immediate veterinary care in emergencies. Calculator results (age, feeding, cost estimates) are informational estimates based on general models, not prescriptions for your individual animal.
+**Everything on this Site, including articles, guides, calculators, and tools, is general educational information, not veterinary advice, diagnosis, or treatment.** No veterinarian-client-patient relationship is created by using the Site. Always consult a licensed veterinarian for your pet's health decisions, and seek immediate veterinary care in emergencies. Calculator results (age, feeding, cost estimates) are informational estimates based on general models, not prescriptions for your individual animal.
 
 ## 2. Use of the Site
 
@@ -20,25 +20,33 @@ You may use the Site for personal, non-commercial purposes. You may not: scrape 
 
 ## 3. Intellectual property
 
-Site content — text, original graphics, tools, and code — is owned by [LEGAL ENTITY NAME] or its licensors and protected by copyright. Trademarks and cited organizations (AVMA, AKC, etc.) belong to their respective owners; citation does not imply endorsement of this Site by them.
+Site content, including text, original graphics, tools, and code, is owned by us or our licensors and protected by copyright. Trademarks and cited organizations (AVMA, AKC, etc.) belong to their respective owners; citation does not imply endorsement of this Site by them.
 
 ## 4. Advertising and affiliate links
 
-The Site displays advertising and contains affiliate links, described in our [affiliate disclosure](/affiliate-disclosure/). Third-party ads, products, and linked sites are their operators' responsibility — we don't control and aren't liable for external content, and a link is not an endorsement of everything at its destination.
+The Site does not currently display advertising or contain affiliate links. If it does in future, they will be described in our [affiliate disclosure](/affiliate-disclosure/). Third-party ads, products, and linked sites are their operators' responsibility: we don't control and aren't liable for external content, and a link is not an endorsement of everything at its destination.
 
 ## 5. Disclaimers and limitation of liability
 
-The Site is provided **"as is," without warranties** of any kind, express or implied — including accuracy, completeness, fitness for a particular purpose, or uninterrupted availability. While we work to keep content accurate and current (see our [editorial process](/editorial-process/)), animal health knowledge evolves and errors are possible. **To the fullest extent permitted by law, [LEGAL ENTITY NAME] shall not be liable for any damages arising from use of the Site or reliance on its content** — including decisions made about animal care. Your sole remedy for dissatisfaction is to stop using the Site. Some jurisdictions don't allow certain liability limits, so parts of this section may not apply to you.
+**The Site is provided "as is," without warranties of any kind, express or implied, including accuracy, completeness, fitness for a particular purpose, or uninterrupted availability.** While we work to keep content accurate and current (see our [editorial process](/editorial-process/)), animal health knowledge evolves and errors are possible. **To the fullest extent permitted by law, we are not liable for any damages arising from use of the Site or reliance on its content, including decisions made about animal care.** Your sole remedy for dissatisfaction is to stop using the Site. Some jurisdictions don't allow certain liability limits, so parts of this section may not apply to you.
 
 ## 6. Indemnification
 
-You agree to indemnify [LEGAL ENTITY NAME] against claims arising from your misuse of the Site or violation of these terms.
+You agree to indemnify us against claims arising from your misuse of the Site or violation of these terms.
 
 ## 7. Governing law and changes
 
-These terms are governed by the laws of [STATE], without regard to conflict-of-law rules. We may update these terms; continued use after posted changes constitutes acceptance. Material changes get a new effective date above.
+These terms are governed by Danish law. Any dispute arising from these terms or your use of the Site that we can't resolve directly may be brought before the Danish courts.
 
-**Questions:** [CONTACT EMAIL] or the [contact page](/contact/).
+If you're a consumer resident in another country, this choice of law doesn't take away any protection you're entitled to under the mandatory consumer-protection law of your own country of residence, and it doesn't limit any right you otherwise have to bring a claim before the courts of that country.
+
+We may update these terms; continued use after posted changes constitutes acceptance. Material changes get a new effective date above.
+
+## 8. Mandatory rights this agreement doesn't override
+
+Nothing in sections 5 and 6 limits or excludes any right you have under mandatory law that cannot be limited or excluded by agreement.
+
+**Questions:** [info@thepawmanual.com](mailto:info@thepawmanual.com) or the [contact page](/contact/).
 
 ---
 

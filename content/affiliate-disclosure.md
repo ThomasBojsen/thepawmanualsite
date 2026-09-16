@@ -2,32 +2,34 @@
 url: /affiliate-disclosure/
 page: Affiliate Disclosure
 seo-title: "Affiliate Disclosure | ThePawManual"   # 35 chars
-meta-description: "How ThePawManual earns money: display ads and affiliate commissions — and why they never change what we recommend."   # 114 chars
-status: draft-v1 — ⚠️ CONFIRM AFFILIATE PROGRAMS BEFORE PUBLISH
+meta-description: "How ThePawManual's affiliate disclosure works: we're in no affiliate program today, run no ads, and update this page the moment that changes."   # 141 chars
+status: published, live since 2026-09-10; synced from live 2026-09-14
 ---
 
 # Affiliate Disclosure
 
-**The plain-English version:** ThePawManual is free to read and costs money to run. We earn income two ways — display advertising, and affiliate commissions when you buy something through certain links on this site. Affiliate links cost you nothing extra, and they never change what we recommend. This page explains exactly how that works, in compliance with the FTC's endorsement guidelines (16 CFR Part 255).
+**The plain-English version:** ThePawManual is free to read. Right now, we're in no affiliate program and we run no ads. We earn nothing from anything you click on this site. We expect that to change: this page explains exactly how affiliate links will work once we join a program, and it will be updated the day that happens, in line with the FTC's endorsement guidelines (16 CFR Part 255).
 
 ## What an affiliate link is
 
-When you click a product link in one of our [buying guides](/dogs/products/) and make a purchase, the retailer may pay us a small commission. The price you pay is identical either way — the commission comes from the retailer's side. We participate in affiliate programs including [LIST ACTUAL PROGRAMS BEFORE PUBLISH — e.g., the Amazon Services LLC Associates Program, and others]. [If Amazon: the FTC-and-Amazon-required sentence goes here verbatim: "As an Amazon Associate, we earn from qualifying purchases."]
+An affiliate link is a product link that pays the site a small commission if you buy after clicking it. The price you pay is identical either way: the commission comes from the retailer's side, not yours. We don't have any affiliate links live yet. When we join a program, we'll name it here specifically, and if that program requires a particular disclosure sentence, we'll include it verbatim.
 
-## Our rules for affiliate content
+## Our commitments, starting now
 
-1. **Recommendations come first, links come second.** Guides are researched and written on selection criteria — the specs that matter, the designs that fit which dogs — and monetized afterward. Commission rates never rank a product.
-2. **We tell you what we haven't done.** Where we haven't hands-on tested products, our guides teach you *how to choose* rather than pretending firsthand testing — our [editorial process](/editorial-process/) covers this honesty rule.
-3. **We recommend against purchases when that's the truth.** Our guides tell you when the cheap option is fine, when a product class is a bad idea entirely, and when a purchase won't fix a [behavior problem](/dogs/training/separation-anxiety-in-dogs/). If that costs commissions, so be it.
-4. **Disclosure appears where the links are** — each affiliate-containing page notes it near the top and links here — not buried in a footer you'd never read.
+These hold whether or not we're earning anything yet, and they don't change once we are:
+
+1. **Recommendations come first, links come second.** Our buying guides are researched and written on selection criteria (the specs that matter, the designs that fit which dogs). If we add affiliate links to them later, that order doesn't reverse: commission rates will never rank a product.
+2. **We tell you what we haven't done.** Where we haven't hands-on tested a product, our guides teach you *how to choose* instead, a distinction our [editorial process](/editorial-process/) covers in more detail.
+3. **We'll recommend against a purchase when that's the truth.** That means telling you when the cheap option is fine, when a product class is a bad idea entirely, and when a purchase won't fix a [behavior problem](/dogs/training/separation-anxiety-in-dogs/). We'll say so even when it costs us a commission we'd otherwise earn.
+4. **Disclosure will appear where the links are.** Any page that carries affiliate links will note it near the top and link here, not buried in a footer you'd never read.
 
 ## Display advertising
 
-Ads on this site are served by [AD NETWORK — when joined]; advertisers don't see your personal information from us, and ad placements are visually separated from editorial content. Cookie and data details live in the [privacy policy](/privacy-policy/). Sponsored posts and paid placements in editorial content: we don't do them ([editorial process](/editorial-process/)).
+No ads run on this site today. If that changes, this section will name the network, and cookie and data details will live in the [privacy policy](/privacy-policy/) as usual. One thing that won't change either way: sponsored posts and paid placements dressed up as editorial. We don't do them ([editorial process](/editorial-process/)).
 
 ## Why tell you all this
 
-Because recommendations you can't audit are worthless. You now know exactly how we're paid — judge our [product guides](/dogs/products/) with that knowledge in hand, and [call us out](/contact/) if we ever fall short of these rules.
+Because a recommendation you can't audit is worthless, and that's as true before the first commission as after it. Judge our [product guides](/dogs/products/) with this in hand, and [call us out](/contact/) if we ever fall short of these commitments.
 
 ---
 

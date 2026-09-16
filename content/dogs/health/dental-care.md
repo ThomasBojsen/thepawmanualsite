@@ -8,38 +8,38 @@ status: draft-v1
 
 # Dog Dental Care: The Most Ignored Health Problem in Dogs
 
-Most dogs show signs of periodontal disease by age three (AVMA) — making it the most common medical condition vets see, and the most undertreated. It isn't cosmetic: dental disease means chronic pain dogs are experts at hiding, tooth loss, and bacteria showering into the bloodstream with links to heart, kidney, and liver strain. The fix stack, in order of effectiveness: daily brushing, proven chews, and professional cleanings — and one popular option you should skip entirely.
+Most dogs show signs of periodontal disease by age three (AVMA), making it the most common medical condition vets see, and the most undertreated. It isn't cosmetic: dental disease means chronic pain dogs are experts at hiding, tooth loss, and bacteria showering into the bloodstream with links to heart, kidney, and liver strain. The fix stack, in order of effectiveness: daily brushing, proven chews, and professional cleanings. And one popular option you should skip entirely.
 
-## The signs your dog's mouth needs attention
+## What are the signs of dental disease in dogs?
 
-Bad breath is a medical sign, not a personality trait. Add: yellow-brown tartar at the gumline, red or bleeding gums, drooling, dropping food, chewing on one side, pawing at the mouth, or a new reluctance to have the head touched. A dog that suddenly prefers soft food isn't picky — it hurts. Any of these earn a vet exam ([full symptom triage here](/dogs/health/symptoms/)).
+Bad breath is a medical sign, not a personality trait. Add: yellow-brown tartar at the gumline, red or bleeding gums, drooling, dropping food, chewing on one side, pawing at the mouth, or a new reluctance to have the head touched. A dog that suddenly prefers soft food isn't picky; it hurts. Any of these earn a vet exam ([the full symptom triage guide](/dogs/health/symptoms/)).
 
 ## Brushing: the gold standard, made realistic
 
 Daily is the goal; three times a week is the honest minimum for meaningful effect. The build-up routine that works:
 
-1. **Days 1–3:** let your dog lick dog toothpaste off your finger. **Dog toothpaste only** — human toothpaste can contain xylitol, which is **toxic to dogs**, and fluoride isn't for swallowing either.
-2. **Days 4–7:** rub a finger (then a finger brush) along the outer surfaces of the teeth. Outer surfaces are where most tartar forms — you never need to brush the inside.
+1. **Days 1–3:** let your dog lick dog toothpaste off your finger. **Dog toothpaste only**: human toothpaste can contain xylitol, which is **toxic to dogs**, and fluoride isn't for swallowing either.
+2. **Days 4–7:** rub a finger (then a finger brush) along the outer surfaces of the teeth. Outer surfaces are where most tartar forms; you never need to brush the inside.
 3. **Week 2+:** graduate to a soft dog toothbrush, 30–60 seconds per side, treat afterward.
 
-Start puppies early — a [teething-age puppy](/dogs/puppy-care/puppy-teething-guide/) taught to accept mouth handling becomes an adult who tolerates brushing for life ([handling exercises](/dogs/training/puppy-training/) help).
+Start puppies early: a [teething-age puppy](/dogs/puppy-care/puppy-teething-guide/) taught to accept mouth handling becomes an adult who tolerates brushing for life ([handling exercises](/dogs/training/puppy-training/) help).
 
 ## Chews, diets, and additives: check for the VOHC seal
 
-The market is 95% marketing. The filter: the **Veterinary Oral Health Council (VOHC) seal** — products that have actually demonstrated plaque/tartar reduction. Ranked honestly:
+The market is 95% marketing. The filter: the **Veterinary Oral Health Council (VOHC) seal** (products that have actually demonstrated plaque/tartar reduction). Ranked honestly:
 
-- **VOHC-accepted dental chews** — genuinely helpful as a *supplement* to brushing; count the calories against the [10% treat budget](/dogs/food/how-much-should-i-feed-my-dog/)
-- **VOHC-accepted dental diets** — kibble engineered to scrub; useful for committed non-brushers
-- **Water additives** — weak evidence outside VOHC-accepted ones; harmless, mostly
-- **Hard nylon bones, antlers, hooves** — the opposite of dental care: they *break teeth* (vets follow a "kneecap rule" — if you wouldn't want it hitting your knee, it's too hard). Choose appropriate [chew toys](/dogs/products/best-dog-toys-for-chewers/) instead.
+- **VOHC-accepted dental chews**: genuinely helpful as a *supplement* to brushing; count the calories against the [10% treat budget](/dogs/food/how-much-should-i-feed-my-dog/)
+- **VOHC-accepted dental diets**: kibble engineered to scrub; useful for committed non-brushers
+- **Water additives**: weak evidence outside VOHC-accepted ones; harmless, mostly
+- **Hard nylon bones, antlers, hooves**: the opposite of dental care: they *break teeth* (vets follow a "kneecap rule": if you wouldn't want it hitting your knee, it's too hard). Choose appropriate [chew toys](/dogs/products/best-dog-toys-for-chewers/) instead.
 
-## Professional cleanings — and the anesthesia question
+## Professional cleanings, and the anesthesia question
 
-A proper dental cleaning happens under anesthesia: scaling above and *below* the gumline (where periodontal disease actually lives), probing, and dental X-rays — most dental disease hides below the visible tooth. Typical U.S. cost runs roughly $300–$800, more with extractions; [small breeds](/dogs/breeds/small-dogs/) typically need them earlier and more often due to crowded teeth.
+A proper dental cleaning happens under anesthesia: scaling above and *below* the gumline (where periodontal disease actually lives), probing, and dental X-rays: most dental disease hides below the visible tooth. Typical U.S. cost runs roughly $300–$800, more with extractions; [small breeds](/dogs/breeds/small-dogs/) typically need them earlier and more often due to crowded teeth.
 
-**"Anesthesia-free dental cleaning" is cosmetic, not medical** — scraping visible tartar off an awake dog does nothing below the gumline, misses X-rays, and the American Veterinary Dental College advises against it. If anesthesia worries you (fair, especially for [seniors](/dogs/food/senior-dog-food/)), the answer is pre-anesthetic bloodwork and a vet conversation — not a storefront scrape that polishes the problem invisible.
+**"Anesthesia-free dental cleaning" is cosmetic, not medical**: scraping visible tartar off an awake dog does nothing below the gumline, misses X-rays, and the American Veterinary Dental College advises against it. If anesthesia worries you (fair, especially for [seniors](/dogs/food/senior-dog-food/)), the answer is pre-anesthetic bloodwork and a vet conversation, not a storefront scrape that polishes the problem invisible.
 
-> **Veterinary disclaimer:** This guide is educational. Dental pain, broken teeth, and bleeding gums need a veterinarian — dogs hide oral pain until it's severe.
+> **Veterinary disclaimer:** This guide is educational. Dental pain, broken teeth, and bleeding gums need a veterinarian: dogs hide oral pain until it's severe.
 
 ## Frequently asked questions
 
@@ -49,15 +49,15 @@ Daily is ideal; three times a week is the minimum that meaningfully slows plaque
 
 ### Do dental chews actually work?
 
-The VOHC-accepted ones do — as a supplement, not a substitute for brushing. Unproven chews are treats with better marketing, and rock-hard chews (antlers, hooves) actively break teeth.
+The VOHC-accepted ones do, as a supplement, not a substitute for brushing. Unproven chews are treats with better marketing, and rock-hard chews (antlers, hooves) actively break teeth.
 
 ### Is anesthesia-free dog teeth cleaning safe?
 
-It's cosmetic — scraping visible tartar while disease continues below the gumline, without X-rays. The American Veterinary Dental College advises against it; discuss anesthesia concerns with your vet instead.
+It's cosmetic: scraping visible tartar while disease continues below the gumline, without X-rays. The American Veterinary Dental College advises against it; discuss anesthesia concerns with your vet instead.
 
 ### How much does a dog dental cleaning cost?
 
-Typically $300–$800 in the U.S. for a routine anesthetic cleaning with X-rays, climbing with extractions. Daily brushing is what pushes that bill years down the road — and [pet insurance](/pet-guides/pet-insurance/) rarely covers routine dental, so prevention is the budget plan.
+Typically $300–$800 in the U.S. for a routine anesthetic cleaning with X-rays, climbing with extractions. Daily brushing is what pushes that bill years down the road, and [pet insurance](/pet-guides/pet-insurance/) rarely covers routine dental, so prevention is the budget plan.
 
 ```html
 <script type="application/ld+json">
@@ -67,10 +67,18 @@ Typically $300–$800 in the U.S. for a routine anesthetic cleaning with X-rays,
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "What are the signs of dental disease in dogs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bad breath is a medical sign, not a personality trait. Add: yellow-brown tartar at the gumline, red or bleeding gums, drooling, dropping food, chewing on one side, pawing at the mouth, or a new reluctance to have the head touched. A dog that suddenly prefers soft food isn't picky; it hurts. Any of these earn a vet exam (the full symptom triage guide)."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "How often should I brush my dog's teeth?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Daily is ideal; three times a week is the minimum for meaningful plaque control. Use dog toothpaste only — human toothpaste can contain xylitol, which is toxic to dogs."
+        "text": "Daily is ideal; three times a week is the minimum for meaningful plaque control. Use dog toothpaste only: human toothpaste can contain xylitol, which is toxic to dogs."
       }
     },
     {
@@ -86,7 +94,7 @@ Typically $300–$800 in the U.S. for a routine anesthetic cleaning with X-rays,
       "name": "Is anesthesia-free dog teeth cleaning safe?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's cosmetic rather than medical — it misses disease below the gumline and skips X-rays. The American Veterinary Dental College advises against it."
+        "text": "It's cosmetic rather than medical; it misses disease below the gumline and skips X-rays. The American Veterinary Dental College advises against it."
       }
     },
     {

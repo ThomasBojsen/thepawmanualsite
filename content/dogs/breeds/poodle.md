@@ -8,9 +8,11 @@ status: draft-v1
 
 # Poodle: The Smartest Dog You're Underestimating
 
-Forget the show-ring haircut — the Poodle is a working water retriever, routinely ranked among the two or three most intelligent dog breeds, and the rare dog that comes in three sizes (Standard, Miniature, Toy) without changing personality. Add a low-shedding coat, and the Poodle is arguably the most versatile family dog available. The honest price: professional grooming every 4–6 weeks, forever, and a brain that demands employment.
+Forget the show-ring haircut: the Poodle is a working water retriever, routinely ranked among the two or three most intelligent dog breeds, and the rare dog that comes in three sizes (Standard, Miniature, Toy) without changing personality. Add a low-shedding coat, and the Poodle is arguably the most versatile family dog available. The honest price: professional grooming every 4–6 weeks, forever, and a brain that demands employment.
 
 ## Poodle quick facts
+
+The Poodle comes in three sizes, Standard, Miniature, and Toy, ranging from 4 to 70 pounds, with lifespans up to 18 years in the smallest size and energy needs that scale down with size.
 
 | Trait | Standard | Miniature | Toy |
 |---|---|---|---|
@@ -24,25 +26,27 @@ All three: minimal shedding, curly continuously-growing coat, AKC Non-Sporting g
 
 ## Temperament: an athlete with a sense of humor
 
-Poodles are alert, playful, deeply people-oriented, and startlingly quick to learn — trainability that rivals any breed. They bond hard to their household and want to be involved in everything; a Poodle shut out of family life becomes anxious and vocal. Standards are confident and sporty; Toys and Minis are more delicate physically but carry the same brain. With early socialization all sizes do well with kids — for toddler households, Standards and Minis handle the chaos better than 5 lb Toys ([small-dog realities here](/dogs/breeds/small-dogs/)).
+Poodles are alert, playful, deeply people-oriented, and startlingly quick to learn: trainability that rivals any breed. They bond hard to their household and want to be involved in everything; a Poodle shut out of family life becomes anxious and vocal. Standards are confident and sporty; Toys and Minis are more delicate physically but carry the same brain. With early socialization all sizes do well with kids: for toddler households, Standards and Minis handle the chaos better than 5 lb Toys ([small-dog realities here](/dogs/breeds/small-dogs/)).
 
-## Exercise and training
+## How much exercise does a Poodle need?
 
-Standards need 60+ minutes daily (they're genuine athletes — swimming, fetch, running); Minis and Toys are content with good walks plus play. All sizes need mental work more than mileage: [training games](/dogs/training/puppy-training/), puzzle feeding, trick training. A Poodle learns a routine in three repetitions — including routines you didn't mean to teach. That intelligence makes them a joy for [positive-reinforcement training](/dogs/training/leash-training/) and a menace when bored — unwanted [barking](/dogs/training/how-to-stop-dog-barking/) is the classic understimulated-Poodle symptom.
+Standards need 60+ minutes daily (they're genuine athletes: swimming, fetch, running); Minis and Toys are content with good walks plus play.
+
+All sizes need mental work more than mileage: [training games](/dogs/training/puppy-training/), puzzle feeding, trick training. A Poodle learns a routine in three repetitions, including routines you didn't mean to teach. That intelligence makes them a joy for [positive-reinforcement training](/dogs/training/leash-training/) and a menace when bored: unwanted [barking](/dogs/training/how-to-stop-dog-barking/) is the classic understimulated-Poodle symptom.
 
 ## Grooming: the real cost of the coat
 
-The coat barely sheds — loose hair stays in the curls, which is why Poodles suit many allergy-conscious homes (though **no dog is truly hypoallergenic** — allergens live in dander and saliva, not hair; more in our [low-shedding breeds guide](/dogs/breeds/low-shedding-dogs/)). The trade: that coat grows continuously and mats without maintenance. Budget professional grooming every 4–6 weeks ($60–$120+ per visit by size and region — factor it into [ownership costs](/pet-guides/pet-costs/)) plus brushing at home several times weekly. Skip a "puppy clip" appointment or two and matting becomes a shave-down.
+The coat barely sheds: loose hair stays in the curls, which is why Poodles suit many allergy-conscious homes (though **no dog is truly hypoallergenic**: allergens live in dander and saliva, not hair; more in our [low-shedding breeds guide](/dogs/breeds/low-shedding-dogs/)). The trade: that coat grows continuously and mats without maintenance. Budget professional grooming every 4–6 weeks ($60–$120+ per visit by size and region: factor it into [ownership costs](/pet-guides/pet-costs/)) plus brushing at home several times weekly. Skip a "puppy clip" appointment or two and matting becomes a shave-down.
 
-## Health
+## What health problems do Poodles have?
 
-Poodles are long-lived, with size-specific watchpoints:
+Poodles are generally long-lived and healthy, but the risk profile is size-specific: Standards face hip dysplasia and bloat, while Miniatures and Toys are more prone to patellar luxation and dental crowding.
 
-- **Standards:** hip dysplasia, **bloat (GDV)** — deep chest; learn the emergency signs in our [vet warning signs guide](/dogs/health/signs-your-dog-needs-a-vet/) — Addison's disease, sebaceous adenitis
-- **Miniatures/Toys:** patellar luxation (kneecaps), dental crowding — [dental care](/dogs/health/dental-care/) matters extra in small mouths — and progressive retinal atrophy (PRA; genetic test exists)
-- **All sizes:** ear infections — hair grows in the ear canal; make ear checks part of grooming
+- **Standards:** hip dysplasia, **bloat (GDV)**: deep chest; learn the emergency signs in our [vet warning signs guide](/dogs/health/signs-your-dog-needs-a-vet/); Addison's disease, sebaceous adenitis
+- **Miniatures/Toys:** patellar luxation (kneecaps), dental crowding ([dental care](/dogs/health/dental-care/) matters extra in small mouths), and progressive retinal atrophy (PRA; genetic test exists)
+- **All sizes:** ear infections: hair grows in the ear canal; make ear checks part of grooming
 
-Feed to size and life stage — a Toy and a Standard have very different needs; see the [feeding guide](/dogs/food/how-much-should-i-feed-my-dog/) and [senior dog food](/dogs/food/senior-dog-food/) as they age (which they do slowly — check the [dog age calculator](/tools/dog-age-calculator/)).
+Feed to size and life stage: a Toy and a Standard have very different needs; see the [feeding guide](/dogs/food/how-much-should-i-feed-my-dog/) and [senior dog food](/dogs/food/senior-dog-food/) as they age (which they do slowly: check the [dog age calculator](/tools/dog-age-calculator/)).
 
 > **Veterinary disclaimer:** This profile is general breed information, not veterinary advice. Health decisions for an individual dog belong with a licensed veterinarian.
 
@@ -52,13 +56,13 @@ Feed to size and life stage — a Toy and a Standard have very different needs; 
 
 **Look elsewhere if you:** won't sustain the grooming budget; want an independent, low-interaction dog; want a guard dog (Poodles alert-bark, then negotiate).
 
-The Poodle is also the honest answer behind every "doodle" — if you're considering a Poodle mix for the coat, know that mixed coats are unpredictable; the purebred Poodle is the coat guarantee. Compare with the [Golden](/dogs/breeds/golden-retriever/) or [Lab](/dogs/breeds/labrador-retriever/), or run the [dog breed selector](/tools/dog-breed-selector/). Puppy incoming? [Checklist here](/dogs/puppy-care/new-puppy-checklist/).
+The Poodle is also the honest answer behind every "doodle": if you're considering a Poodle mix for the coat, know that mixed coats are unpredictable; the purebred Poodle is the coat guarantee. Compare with the [Golden](/dogs/breeds/golden-retriever/) or [Lab](/dogs/breeds/labrador-retriever/), or run the [dog breed selector](/tools/dog-breed-selector/). Puppy incoming? [Checklist here](/dogs/puppy-care/new-puppy-checklist/).
 
 ## Frequently asked questions
 
 ### Are Poodles hypoallergenic?
 
-No dog is truly hypoallergenic — allergens come from dander and saliva, not hair — but the Poodle's non-shedding coat releases far less into the home, and many allergy sufferers do noticeably better with one. Details in our [low-shedding guide](/dogs/breeds/low-shedding-dogs/).
+No dog is truly hypoallergenic: allergens come from dander and saliva, not hair, but the Poodle's non-shedding coat releases far less into the home, and many allergy sufferers do noticeably better with one. Details in our [low-shedding guide](/dogs/breeds/low-shedding-dogs/).
 
 ### Which Poodle size is best?
 
@@ -83,7 +87,7 @@ Consistently ranked among the top two or three breeds for working intelligence. 
       "name": "Are Poodles hypoallergenic?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No dog is truly hypoallergenic — allergens come from dander and saliva, not hair — but the Poodle's non-shedding coat releases far less into the home, and many allergy sufferers do noticeably better with one."
+        "text": "No dog is truly hypoallergenic: allergens come from dander and saliva, not hair, but the Poodle's non-shedding coat releases far less into the home, and many allergy sufferers do noticeably better with one."
       }
     },
     {
@@ -91,7 +95,7 @@ Consistently ranked among the top two or three breeds for working intelligence. 
       "name": "Which Poodle size is best?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All three sizes share the same temperament. Standards suit active families, Miniatures fit most households, and Toys suit apartments and gentler homes — though Toys are too fragile for rough toddler play."
+        "text": "All three sizes share the same temperament. Standards suit active families, Miniatures fit most households, and Toys suit apartments and gentler homes, though Toys are too fragile for rough toddler play."
       }
     },
     {
@@ -107,7 +111,31 @@ Consistently ranked among the top two or three breeds for working intelligence. 
       "name": "Are Poodles smart?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — Poodles are consistently ranked among the top two or three breeds for working intelligence, which means they need daily mental stimulation to stay well-behaved."
+        "text": "Yes: Poodles are consistently ranked among the top two or three breeds for working intelligence, which means they need daily mental stimulation to stay well-behaved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much exercise does a Poodle need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standards need 60+ minutes daily (they're genuine athletes: swimming, fetch, running); Minis and Toys are content with good walks plus play."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What health problems do Poodles have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Poodles are generally long-lived and healthy, but the risk profile is size-specific: Standards face hip dysplasia and bloat, while Miniatures and Toys are more prone to patellar luxation and dental crowding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a Poodle right for you?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Poodle fits if you: want top-tier trainability; need low shedding; want to pick your size class; enjoy an engaged, slightly comedic dog."
       }
     }
   ]

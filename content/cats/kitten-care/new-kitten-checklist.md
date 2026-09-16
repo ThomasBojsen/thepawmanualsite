@@ -8,43 +8,43 @@ status: draft-v1
 
 # New Kitten Checklist: What You Need Before Pickup Day
 
-Kitten prep is smaller than puppy prep but has sharper edges: the shopping list fits one basket, while the **kitten-proofing list contains actual surgical emergencies** — string, hair ties, and lilies chief among them. Work through the four lists below the week before pickup, set up one safe room rather than a whole house, and your first days become bonding instead of emergency shopping. Budget context first? The [pet cost guide](/pet-guides/pet-costs/) covers what year one really runs.
+Kitten prep is smaller than puppy prep but has sharper edges: the shopping list fits one basket, while the **kitten-proofing list contains actual surgical emergencies**: string, hair ties, and lilies chief among them. Work through the four lists below the week before pickup, set up one safe room rather than a whole house, and your first days become bonding instead of emergency shopping. Budget context first? The [pet cost guide](/pet-guides/pet-costs/) covers what year one really runs.
 
 ## Gear: the day-one essentials
 
 | Item | The buying note |
 |---|---|
-| Litter box, **low-entry and kitten-sized** | Adult boxes have walls a kitten can't scale; upgrade later — [box rules](/cats/products/best-litter-boxes/) |
-| Litter, **unscented** (non-clumping under ~8–10 weeks) | Very young kittens taste-test litter; clumping ingested is a problem — switch to clumping later ([litter guide](/cats/products/best-cat-litter/)) |
-| Kitten food — **the same food the shelter/breeder fed** | Moving day + gut change is a bad combo; [transition after 1–2 weeks](/cats/food/kitten-food/) |
-| Bowls (food + water) | Shallow — whisker-friendly; skip the double-diner (food next to water is a feline dislike) |
-| **Carrier, from day one** | Non-negotiable — the loose-kitten-in-car plan fails at the first [vet visit](/cats/kitten-care/kitten-vaccination-schedule/); [choosing one](/cats/products/best-cat-carriers/) |
-| Scratching post (sisal, stable) | The furniture-insurance policy starts now — [why](/cats/behavior/) |
-| Wand toys + solo toys | **Hands are never toys** — the rule that prevents adult [play-biting](/cats/behavior/why-does-my-cat-bite-me/) |
-| Bed or soft blanket | A washable one — near your living space, not isolated |
-| Enzymatic cleaner | For the rare accident — [never punish, always enzyme](/cats/kitten-care/how-to-litter-train-a-kitten/) |
+| Litter box, **low-entry and kitten-sized** | Adult boxes have walls a kitten can't scale; upgrade later: [box rules](/cats/products/best-litter-boxes/) |
+| Litter, **unscented** (non-clumping until about 4 months) | Very young kittens taste-test litter; clumping ingested is a problem: switch to clumping later ([litter guide](/cats/products/best-cat-litter/)) |
+| Kitten food: **the same food the shelter/breeder fed** | Moving day + gut change is a bad combo; [transition after 1–2 weeks](/cats/food/kitten-food/) |
+| Bowls (food + water) | Shallow: whisker-friendly; skip the double-diner (food next to water is a feline dislike) |
+| **Carrier, from day one** | Non-negotiable: the loose-kitten-in-car plan fails at the first [vet visit](/cats/kitten-care/kitten-vaccination-schedule/); [choosing one](/cats/products/best-cat-carriers/) |
+| Scratching post (sisal, stable) | The furniture-insurance policy starts now: [why](/cats/behavior/) |
+| Wand toys + solo toys | **Hands are never toys**: the rule that prevents adult [play-biting](/cats/behavior/why-does-my-cat-bite-me/) |
+| Bed or soft blanket | A washable one: near your living space, not isolated |
+| Enzymatic cleaner | For the rare accident: [never punish, always enzyme](/cats/kitten-care/how-to-litter-train-a-kitten/) |
 
-## The safe room (start small on purpose)
+## How do I set up a safe room for a new kitten?
 
-One quiet room — office, spare bedroom, large bathroom — holding everything: litter box in one corner, food and water in another (cats dislike dining next to the toilet), bed, scratching post, toys, and a hiding option (a box on its side counts). A whole house overwhelms a kitten; [territory grows in stages](/cats/kitten-care/8-week-old-kitten-care/), and [hiding for the first days is normal](/cats/behavior/why-is-my-cat-hiding/) — let the kitten expand at its own pace.
+One quiet room (office, spare bedroom, large bathroom) holding everything: litter box in one corner, food and water in another (cats dislike dining next to the toilet), bed, scratching post, toys, and a hiding option (a box on its side counts). A whole house overwhelms a kitten; [territory grows in stages](/cats/kitten-care/8-week-old-kitten-care/), and [hiding for the first days is normal](/cats/behavior/why-is-my-cat-hiding/); let the kitten expand at its own pace.
 
 ## Kitten-proofing: the list with teeth
 
-- **String, thread, ribbon, yarn, hair ties, rubber bands, tinsel, dental floss** — swallowed linear objects saw through intestine and mean surgery; sweep every room at floor level and treat sewing kits like weapons lockers. If you ever see string trailing from either end: **don't pull — [vet, now](/cats/health/signs-your-cat-needs-a-vet/).**
-- **Lilies are lethal** — every part, even pollen groomed off fur. No lilies in the house, full stop, and check bouquets ([toxin list](/cats/food/); ASPCA Poison Control: 888-426-4435).
+- **String, thread, ribbon, yarn, hair ties, rubber bands, tinsel, dental floss**: swallowed linear objects saw through intestine and mean surgery; sweep every room at floor level and treat sewing kits like weapons lockers. If you ever see string trailing from either end: **don't pull; [vet, now](/cats/health/signs-your-cat-needs-a-vet/).**
+- **Small amounts of lily can cause fatal kidney injury in cats**; treat any exposure, including pollen groomed off fur or vase water, as an emergency. No lilies in the house, full stop, and check bouquets ([toxin list](/cats/food/); ASPCA Poison Control: 888-426-4435).
 - **Electrical cords** (chewing phase applies to kittens too), **toilet lids down**, **washer/dryer doors closed and checked** (warm dark boxes attract naps), **recliners and rocking chairs** (check before mechanism use), **window screens secured** (high-rise syndrome is real), and small swallowables off the floor.
 
 ## Admin: the unsexy critical list
 
-**Vet appointment booked for the first week** — health check, [vaccine plan](/cats/kitten-care/kitten-vaccination-schedule/), parasite check, and bring the shelter/breeder paperwork. **Microchip registered to you** — a chip pointing at the shelter is a decoration; update it week one. **[Insurance quote now](/pet-guides/pet-insurance/)** — premiums are lowest and coverage cleanest before anything becomes pre-existing. **Ask the source:** current food and amounts, deworming and vaccine dates, litter type used (matching it speeds [litter training](/cats/kitten-care/how-to-litter-train-a-kitten/)), and any quirks.
+**Vet appointment booked for the first week**: health check, [vaccine plan](/cats/kitten-care/kitten-vaccination-schedule/), parasite check, and bring the shelter/breeder paperwork. **Microchip registered to you**: a chip pointing at the shelter is a decoration; update it week one. **[Insurance quote now](/pet-guides/pet-insurance/)**: premiums are lowest and coverage cleanest before anything becomes pre-existing. **Ask the source:** current food and amounts, deworming and vaccine dates, litter type used (matching it speeds [litter training](/cats/kitten-care/how-to-litter-train-a-kitten/)), and any quirks.
 
-**Can wait a month:** the deluxe [cat tree](/cats/products/best-cat-trees/) (buy once you know the cat), water fountain, harness experiments, and most of the toy aisle — kittens famously prefer the box anyway.
+**Can wait a month:** the deluxe [cat tree](/cats/products/best-cat-trees/) (buy once you know the cat), water fountain, harness experiments, and most of the toy aisle, kittens famously prefer the box anyway.
 
 ## Frequently asked questions
 
 ### What do I need for a new kitten on day one?
 
-A kitten-sized litter box with unscented litter, the shelter's current food, shallow bowls, a carrier, a scratching post, wand toys, a washable bed, and one prepared safe room — plus a vet appointment booked for the first week.
+A kitten-sized litter box with unscented litter, the shelter's current food, shallow bowls, a carrier, a scratching post, wand toys, a washable bed, and one prepared safe room, plus a vet appointment booked for the first week.
 
 ### How do I kitten-proof my home?
 
@@ -52,11 +52,11 @@ Sweep for string, hair ties, and rubber bands (swallowed = surgery), ban lilies 
 
 ### How much does a kitten cost to set up?
 
-Roughly $150–$400 in initial supplies, plus first-year veterinary costs (vaccine series, spay/neuter, parasite prevention) that make year one pricier than a normal year — the [full breakdown here](/pet-guides/pet-costs/).
+Roughly $150–$400 in initial supplies, plus first-year veterinary costs (vaccine series, spay/neuter, parasite prevention) that make year one pricier than a normal year: the [full breakdown here](/pet-guides/pet-costs/).
 
 ### Should I keep feeding what the shelter fed?
 
-Yes, for the first 1–2 weeks — then [transition over 7–10 days](/cats/food/kitten-food/) if switching. A gut change on top of moving-day stress invites diarrhea, which in a kitten is a [vet call](/cats/health/signs-your-cat-needs-a-vet/), not a wait-and-see.
+Yes, for the first 1–2 weeks: then [transition over 7–10 days](/cats/food/kitten-food/) if switching. A gut change on top of moving-day stress invites diarrhea, which in a kitten is a [vet call](/cats/health/signs-your-cat-needs-a-vet/), not a wait-and-see.
 
 ```html
 <script type="application/ld+json">
@@ -93,7 +93,15 @@ Yes, for the first 1–2 weeks — then [transition over 7–10 days](/cats/food
       "name": "Should I keep feeding what the shelter fed?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, for the first one to two weeks — then transition gradually over 7–10 days. Diet changes on top of moving stress invite diarrhea, which is serious in kittens."
+        "text": "Yes, for the first one to two weeks: then transition gradually over 7–10 days. Diet changes on top of moving stress invite diarrhea, which is serious in kittens."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I set up a safe room for a new kitten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One quiet room (office, spare bedroom, large bathroom) holding everything: litter box in one corner, food and water in another (cats dislike dining next to the toilet), bed, scratching post, toys, and a hiding option (a box on its side counts). A whole house overwhelms a kitten; territory grows in stages, and hiding for the first days is normal; let the kitten expand at its own pace."
       }
     }
   ]
@@ -105,4 +113,4 @@ Yes, for the first 1–2 weeks — then [transition over 7–10 days](/cats/food
 
 ## Notes (not page copy)
 
-- Printable-PDF candidate like the puppy checklist. The string/lily/washer trio is the safety payload; the non-clumping-litter-under-8-weeks detail is the item competitors miss most.
+- Printable-PDF candidate like the puppy checklist. The string/lily/washer trio is the safety payload; the non-clumping-litter-until-about-4-months detail is the item competitors miss most.
