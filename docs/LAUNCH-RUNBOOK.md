@@ -1,369 +1,227 @@
-# ThePawManual — Launch Runbook
+# ThePawManual — Redeploy Runbook
 
-> **What this is:** an executable, top-to-bottom checklist for taking ThePawManual from
-> "password-protected preview" to "publicly live, wave 1 indexed, Google Search Console
-> connected." It operationalizes [`content/SEO-STRATEGY.md`](../content/SEO-STRATEGY.md) —
-> read that document for the *why*; read this one on launch day for the *what, in what order*.
-> Companion docs: [`content/README.md`](../content/README.md) (content system),
-> [`content/SITEMAP.md`](../content/SITEMAP.md) (every URL, status), and
-> [`CLAUDE.md`](../CLAUDE.md) §8 (LocalWP) and §12 (the simply.com deploy procedure this
-> runbook picks up from).
->
-> Nothing in this file invents facts. Every checklist item cites its source in
-> SEO-STRATEGY.md; where this repo hasn't caught up to the strategy yet, that's called out
-> explicitly rather than assumed.
-
----
-
-## 1. Current state → target state
-
-**Current state (as of this writing):**
-- The WordPress POC (theme + `pawmanual-calculators` plugin) runs locally in LocalWP and is
-  deployed to `thepawmanual.com` on simply.com (CLAUDE.md §12).
-- The production site is **password-protected** (the "Password Protected" plugin) and has
-  **"Discourage search engines" ticked** in Settings → Reading.
-- 110 of 119 planned content pages are drafted in `content/` as markdown; the 9 Tools pages
-  are on hold except the tools hub + the 2 pages for calculators that already exist
-  (dog-age, cat-age) — see SEO-STRATEGY.md §0.
-
-**Target state (end of this runbook):**
-- Wave 1 — the 17 WXR-imported Pages listed in §2 below, plus the homepage (already live via
-  `front-page.php`, never a WXR Page — see the note in §2) — is published and publicly
-  reachable, with the password gate and the noindex flag both removed.
-- Google Search Console has a verified **Domain property** for `thepawmanual.com`, the
-  RankMath sitemap is submitted, and the wave-1 pages have been individually requested for
-  indexing.
-- Bing Webmaster Tools is connected the same day.
-
-**The one rule that matters most here: the password gate and "Discourage search engines"
-come off together, at one single moment — not gradually, not one before the other.**
-Removing the noindex flag while the password gate is still up is pointless (nothing is
-reachable to index). Removing the password gate while noindex is still ticked invites Google
-to crawl a site that is explicitly telling it not to be indexed, which can delay indexing
-after you *do* flip the flag. Both flips happen in the same launch-day window, after
-everything in §3 is checked off — see SEO-STRATEGY.md §1, "Launch-moment flips."
+> **Rewritten 2026-09-16. The previous version of this file described a
+> pre-launch state that is no longer true**: it assumed the site was still
+> password-protected with "Discourage search engines" ticked, content
+> un-imported, and the trust pages carrying `[PLACEHOLDER]` text. None of
+> that is current. The site is **live at `thepawmanual.com`** and **already
+> being indexed by Google Search Console** (per the owner, 2026-09-16); the
+> 18 wave-1 pages published on 2026-09-10 and the trust-page placeholders
+> were filled directly in WordPress before that. Since then, an extensive
+> pass reworked the theme's design/SEO rendering, applied a full fact-check
+> against primary sources, rebranded to the Terracotta palette, purged every
+> em dash, and rewrote all 126 drafted pages for GEO (question-form H2s,
+> answer-first paragraphs, FAQ schema). **None of that work is live yet.**
+> This document is the step-by-step for getting it there.
 
 ---
 
-## 2. Wave 1 — the exact page list
+## 1. Why delete-and-reimport, not a live edit
 
-Derived from SEO-STRATEGY.md §4 (wave 1 definition) and cross-checked against
-`content/SITEMAP.md` and `tools/wxr/waves.json` (the generator's own wave-1 URL list —
-running `node tools/wxr/generate.js --wave 1` prints "Wrote 17 page(s)", matching this list
-exactly). **17 pages import via WXR**, enumerated:
+**Decision, made by the owner 2026-09-16:** the 18 live pages are deleted
+permanently and reimported fresh from `content/`, rather than patched in
+place via a REST API script, **because they aren't indexed yet** — there is
+no indexing history or backlink equity tied to their current post IDs worth
+protecting. Reimporting is also simpler: `tools/wxr/generate.js` already
+produces a correct, hierarchy-aware import file from the current
+`content/` state; a live-patch script would have to be built and verified
+from scratch for a one-time operation.
 
-**Trust set (6)** — SITEMAP.md "Trust & E-E-A-T pages":
-1. `/about/`
-2. `/editorial-process/`
-3. `/contact/`
-4. `/privacy-policy/`
-5. `/terms/`
-6. `/affiliate-disclosure/`
-
-**Pillar hubs (2):**
-7. `/dogs/`
-8. `/cats/`
-
-**Pet Guides cluster (6)** — SITEMAP.md "Pet Guides":
-9. `/pet-guides/`
-10. `/pet-guides/pet-insurance/`
-11. `/pet-guides/pet-costs/`
-12. `/pet-guides/pet-safety/`
-13. `/pet-guides/pet-travel/`
-14. `/pet-guides/new-pet-checklist/`
-
-**Tools (3)** — the hub plus the two calculators that are actually built (SITEMAP.md "Tools"
-row notes "calculator built ✓ — page needs SEO copy" for both):
-15. `/tools/`
-16. `/tools/dog-age-calculator/`
-17. `/tools/cat-age-calculator/`
-
-**Plus the homepage (`/`) — not one of the 17.** It's a theme template (`front-page.php`),
-never a WordPress Page and never part of the WXR import — see `content/README.md` and
-`tools/wxr/README.md`'s "Why isn't the homepage in here?" section. It's already live the
-moment the theme is active, so there's no "publish" action for it in §3 or §7; it just needs
-the password gate removed like everything else. **Don't go looking for an 18th draft Page in
-WP Admin after importing wave 1** — 17 is the correct count, matching both
-`content/SEO-STRATEGY.md` §4's "~17" and the generator's own printed output.
-
-**Not in wave 1:** the other 6 tools pages (calculators not built yet), all 13 sub-hubs, and
-every article page — those arrive in waves 2–9 (§7).
+**This will not lose anything.** The six trust pages
+(`/about/`, `/contact/`, `/affiliate-disclosure/`, `/terms/`,
+`/privacy-policy/`, `/editorial-process/`) had their placeholder text filled
+directly in WordPress after the original import; `content/` was re-synced to
+match that live state before this pass started (CLAUDE.md §13, "The two
+things that block launch," item 1), so reimporting from `content/` reproduces
+the real, filled-in trust pages, not stale placeholders. The other 11 live
+pages differ from `content/` on purpose: `content/` now carries the reviewed,
+corrected, GEO-rewritten version, and replacing the live pages with it is the
+entire point of this operation.
 
 ---
 
-## 3. Pre-launch blockers
+## 2. What was built for this (deploy artifacts)
 
-Nothing in §2 goes live before every box below is checked. Source: SEO-STRATEGY.md §1.
+Built and verified in this session, at `~/Desktop/thepawmanual-deploy/`:
 
-- [ ] **0.1 — Commit `content/` to the real repo.** *Owner: Dev.* Done when: `content/` is
-  tracked in `git log` on the actual project repo, not living only in a ZIP export.
-- [ ] **0.2 — Fill trust-page placeholders.** *Owner: Owner.* Done when: `content/about.md`
-  has a real founder/team section (real name, real background — no fabricated credentials,
-  no implied veterinary review that isn't happening); `content/contact.md` has a real
-  domain email (not a placeholder like `hello@thepawmanual.com` left unconfirmed); privacy
-  and terms have had a legal review pass; the affiliate program list is confirmed and
-  Amazon's required disclosure sentence is reproduced verbatim. **See the callout below —
-  this can block launch on its own.**
-- [ ] **0.3 — Fact-check pass on flagged items.** *Owner: SEO specialist.* Done when: every
-  item flagged in each page's "Notes (not page copy)" section has been checked against a
-  primary source. The big ones named in the strategy: AAHA/AAFP vaccine guidelines, calorie
-  tables, vital-sign ranges, cost/insurance premium ranges, Bengal legality by state, CDC
-  import rules, the grass-eating study figures, tooth-resorption prevalence, cat-bite
-  infection rate, the Ragdoll CFA popularity ranking, and the catnip non-responder share.
-  **See the callout below — this can block launch on its own.**
-- [ ] **0.4 — Homepage template part.** *Owner: Dev.* Done when:
-  `template-parts/home/seo-content.php` exists and renders the copy from `content/home.md`
-  (implementation notes are inside that file) — `front-page.php` currently has almost no
-  indexable text.
-- [ ] **0.5 — RankMath install + configuration.** *Owner: SEO specialist.* Done when: every
-  field in §5 below is set. RankMath must be installed before pages are imported so
-  postmeta (title/description) attaches correctly.
-- [ ] **0.6 — GA4 + consent.** *Owner: Dev/SEO.* Done when: a GA4 property is receiving
-  data and a consent solution appropriate for US traffic is live (a CMP will be required
-  once ad networks are added, per SEO-STRATEGY.md §9's monetization roadmap).
-- [ ] **0.7 — WordPress import.** *Owner: Dev (+ the WXR generator — see §8).* Done when:
-  a WXR file has been generated from the markdown, imported with every page as a **draft**,
-  correct parent/child hierarchy, and RankMath title/description set from frontmatter as
-  postmeta. FAQ JSON-LD blocks are placed via HTML block or RankMath schema per page.
-  Nobody hand-pastes 110 pages.
-- [ ] **0.8 — Menus & footer.** *Owner: Dev.* Done when: the main nav reads Dogs · Cats ·
-  Pet Guides · Tools, and the footer has About, Editorial Process, Contact, Privacy, Terms,
-  Affiliate Disclosure, plus a "Pet Emergency?" link to both vet-signs pages
-  (`/dogs/health/signs-your-dog-needs-a-vet/` and `/cats/health/signs-your-cat-needs-a-vet/`).
-- [ ] **0.9 — Visible last-updated dates.** *Owner: Dev.* Done when: health pages especially
-  display a visible last-updated date, via theme or plugin support.
+| File | What it is | Verified |
+|---|---|---|
+| `thepawmanual-theme.zip` | The full `thepawmanual` theme, zipped from the working tree (not git — 8 required theme PHP files are new and untracked in git). | 38 PHP files in the zip, matching the working tree's 38 exactly. `theme.css` freshly rebuilt; a second independent build is byte-identical. `php -l` clean on all theme+plugin PHP. |
+| `pawmanual-calculators.zip` | The `pawmanual-calculators` plugin, zipped the same way. | 5 PHP files, matching the working tree exactly. |
+| `thepawmanual-wave-1.xml` | The final wave-1 WXR export: `node tools/wxr/generate.js --wave 1`. | 17 pages, 11 carrying FAQ JSON-LD. All 126 registry titles verified to match their files' current H1 (not just these 17). All 121 pages' FAQ JSON-LD blocks parse as valid JSON. Zero em dashes anywhere in `content/` outside the documented, non-publishing exemptions. The full `php tools/tests/run.php` suite: 94/94 passing. |
 
-### The two that can genuinely stop a launch
-
-Everything above is dev-fixable on a normal engineering timeline. **These two are not —
-they need a human decision, and no amount of developer effort substitutes for them:**
-
-- **0.2, the trust-page placeholders.** An anonymous site publishing pet-health content caps
-  its own rankings — Google treats pet health/nutrition as YMYL-adjacent, and E-E-A-T
-  guidelines explicitly weight identifiable authorship. Shipping `/about/` and `/contact/`
-  with bracketed placeholders instead of a real name and a real domain email isn't a cosmetic
-  gap; it's the single biggest lever the strategy identifies (SEO-STRATEGY.md §10, risk #2:
-  "a real veterinary reviewer, when affordable, is the single biggest E-E-A-T upgrade
-  available"). Wait for the owner, not the dev team, to close this one.
-- **0.3, the fact-check pass.** Publishing unverified veterinary claims — vaccine schedules,
-  calorie tables, cost ranges, medical prevalence figures — is the one mistake on this whole
-  launch that is expensive to undo: it's the difference between "conservative estimate,
-  correct" and "a pet site told someone wrong information about their animal's health," and
-  once a page has been indexed and shared, a quiet correction doesn't undo the exposure. This
-  is a domain-expert review, not a proofread — don't let it be scheduled like one.
-
-**Launch-moment flips (same day, same window, after every box above is checked):** remove
-the Password Protected plugin, untick "Discourage search engines," confirm SSL, then proceed
-to §4 and §5.
+The previous deploy artifacts (from the 2026-09-10 launch and an earlier
+2026-08-14 pass) are archived, not deleted, at
+`~/Desktop/thepawmanual-deploy/_gammelt-sep10/` and `_gammelt-aug14/` — see
+§6, Rollback.
 
 ---
 
-## 4. Google Search Console — literal steps
+## 3. The exact page list
 
-Source: SEO-STRATEGY.md §2.
+**17 pages reimport via the WXR file**, identical URLs to what's live today:
 
-1. **Verify a Domain property for `thepawmanual.com`.**
-   - In GSC, choose **Domain property** (not URL-prefix) and enter `thepawmanual.com`.
-   - GSC gives you a DNS TXT record. Add it at the domain **registrar** (not simply.com's
-     hosting panel, unless the registrar and host are the same account).
-   - Wait for DNS propagation, then click Verify in GSC.
-   - **Why Domain, not URL-prefix:** a Domain property automatically covers `www` and
-     non-`www`, and `http` and `https`, in a single property. A URL-prefix property only
-     covers the exact URL form you enter — you'd need up to four separate properties to get
-     the same coverage. One DNS record beats four verification methods.
-2. **Add Bing Webmaster Tools the same day.** It's free, it can import settings directly from
-   a verified GSC property, and it feeds Microsoft Copilot's answer engine — relevant given
-   the GEO strategy in §6 below.
-3. **Submit the sitemap.**
-   - RankMath auto-generates `https://thepawmanual.com/sitemap_index.xml` once configured
-     (§5). Submit that single URL in GSC → Sitemaps.
-   - **Before submitting, open the sitemap URL and confirm it lists only real, published
-     wave-1 content** — no placeholder pages, no draft leakage, no excluded content types
-     (search results, author archives, tag/category archives, attachment pages — see §5's
-     sitemap exclusions). Submitting a sitemap full of thin or placeholder pages on a fresh
-     domain works against you.
-4. **URL-inspect and Request Indexing, by hand, on launch day, for:**
-   - the homepage (`/`)
-   - `/dogs/`
-   - `/cats/`
-   - all 6 trust pages (`/about/`, `/editorial-process/`, `/contact/`, `/privacy-policy/`,
-     `/terms/`, `/affiliate-disclosure/`)
-   - Everything else in wave 1 follows via the submitted sitemap — you don't need to
-     hand-request all 17 WXR pages plus the homepage, just these 9 highest-priority ones.
-5. **Weekly during rollout, check the Pages report** (Search → Indexing → Pages):
-   - **"Discovered, not indexed"** is normal in the first few weeks on a fresh domain. Don't
-     react to it.
-   - **"Crawled, not indexed" at scale** is a quality signal, not a crawl-budget problem —
-     it means Google looked at the pages and decided not to index them. If a meaningful
-     share of a wave lands here, pause the next wave and investigate content quality before
-     publishing more (this is the wave-calendar go/no-go gate in §7).
-   - Also check the Performance report per content cluster, and Core Web Vitals once enough
-     field data accumulates.
+**Trust set (6):** `/about/`, `/editorial-process/`, `/contact/`,
+`/privacy-policy/`, `/terms/`, `/affiliate-disclosure/`
 
-### Honest expectation-setting (SEO-STRATEGY.md §9)
+**Pillar hubs (2):** `/dogs/`, `/cats/`
 
-Set this expectation with the owner *before* launch, not three months in:
+**Pet Guides cluster (6):** `/pet-guides/`, `/pet-guides/pet-insurance/`,
+`/pet-guides/pet-costs/`, `/pet-guides/pet-safety/`,
+`/pet-guides/pet-travel/`, `/pet-guides/new-pet-checklist/`
 
-- **Months 1–3:** indexing and impressions, near-zero clicks. This is normal — a fresh
-  domain earns trust slowly, and long-tail question pages ("why does my dog shake") tend to
-  move first.
-- **Months 3–6:** long-tail rankings and the first meaningful clicks; hubs start ranking for
-  mid-tail terms. A cluster that indexes but never gets impressions is a content-quality
-  signal worth investigating, not something to wait out.
-- **Months 6–12:** if the trajectory is healthy, "best dog food"-class head terms become
-  realistic page-2 targets, and the calculators start accumulating links.
-- **KPIs that matter:** indexed-page share, clicks per cluster, position on the 10 tracked
-  pillar terms, links earned per quarter.
-- **Vanity metrics to ignore:** raw total impressions on their own, DA-style third-party
-  "authority" scores.
+**Tools (3):** `/tools/`, `/tools/dog-age-calculator/`,
+`/tools/cat-age-calculator/`
 
-If month 2 looks like "nothing is happening," that's the plan working, not failing.
+**Plus the homepage (`/`) — not a WordPress Page, don't delete it.** It's
+rendered by the theme's `front-page.php` from a single, otherwise-empty
+"Home" Page that only exists to anchor Settings → Reading's "homepage
+displays" setting. It is **not** one of the 17 WXR pages and does not go
+through the WXR import. Deleting the 17 content pages and leaving "Home" in
+place is correct; do not delete "Home" in step 2 below.
 
 ---
 
-## 5. RankMath configuration
+## 4. Already done — do not redo
 
-Source: SEO-STRATEGY.md §3. Set these before the WXR import (0.7) so postmeta attaches
-correctly, and don't deviate from any of these without checking why the content was written
-this way first.
+Carried over from the original launch; still true, not part of this
+operation:
 
-- **Title template: `%title%` only — no site-name suffix.** Every page's frontmatter already
-  carries its final `seo-title`, and several of those titles already end in
-  "| ThePawManual." If RankMath's global title template *also* appends a site-name suffix,
-  those titles double-brand ("Dog Age Calculator | ThePawManual | ThePawManual"). Paste each
-  page's `seo-title` and `meta-description` from frontmatter as-is; don't let a template
-  override them.
-- **Sitemap: Pages only.** Explicitly exclude/noindex: search results, author archives,
-  tag/category archives (the site is built entirely from WP Pages, so these archive types
-  are pure noise here), and attachment pages (they should redirect to the file, not appear
-  in the sitemap).
-- **Schema:**
-  - **Organization + WebSite schema on the homepage**, with the Organization entity pointing
-    at `/about/`.
-  - **Article or WebPage schema** on content pages.
-  - **FAQ schema** ships per-page in an HTML block already in the content — when editing a
-    page's FAQ section, the visible FAQ text and the JSON-LD must be edited together; they
-    are a hard-sync requirement, not a nice-to-have (content/README.md rule 3 in the
-    editorial constitution).
-  - The calculator plugin may add its own **WebApplication schema** per CLAUDE.md — that's
-    the plugin's responsibility, not RankMath's; don't duplicate it here.
-- **Breadcrumbs: enabled.** The URL hierarchy *is* the site's information architecture —
-  show it.
-- **External links: `rel="nofollow"` applied per-link on authority citations** (AVMA, AAHA,
-  AAFP, AAFCO, WSAVA, etc.) — set manually per link during import-cleanup.
-  **Do not turn on a blanket auto-nofollow setting.** A global auto-nofollow would also
-  nofollow the site's own internal links, which need to stay followed for the internal-link
-  architecture (dense hub→article linking) to actually pass authority around the site.
+- Password gate removed, "Discourage search engines" unticked (the site is
+  live and being crawled).
+- SSL / canonical host.
+- RankMath installed and configured (title template, sitemap scope, schema
+  settings, breadcrumbs) — CLAUDE.md's render pipeline defers to RankMath for
+  breadcrumbs already (§13).
+- A Google Search Console property exists and is receiving data (per the
+  owner, 2026-09-16).
+- `docs/robots.txt` exists as a reference file; whether it's actually
+  deployed to the live `robots.txt` wasn't re-verified this session — check
+  it while you're in there (step 9 below).
 
 ---
 
-## 6. Technical checklist
+## 5. Step-by-step
 
-Source: SEO-STRATEGY.md §5.
+**[You]** = you, in WP Admin or simply.com's panel. **[Claude]** = already
+done, in this repo, described in §2. I do not perform the deletion step
+myself — permanently deleting live data is outside what I do regardless of
+authorization; that one is yours.
 
-**One-time, at launch:**
-- [ ] SSL forced; single canonical host chosen (https + one of www/non-www) with the other
-      redirected
-- [ ] Permalinks set to "Post name" (already done per CLAUDE.md §8 Step 7); trailing-slash
-      consistency confirmed — every internal link in the content assumes the `/path/` form
-- [ ] Page hierarchy correct in WordPress (e.g. `/dogs/breeds/golden-retriever/` requires
-      parent pages `dogs` → `breeds` to exist first) — the WXR import (0.7) sets this up;
-      spot-check slugs post-import
-- [ ] 404-crawl the site (Screaming Frog's free tier covers 500 URLs) to catch typo'd
-      internal links introduced during import
-- [ ] Rich Results Test run on 3–4 FAQ pages; fix the schema JSON if the HTML-block route
-      mangles quotes
-- [ ] Images: WebP format, lazy-loaded (native WP), descriptive alt text as images get added
-      — the content shipped text-first, images are an enhancement pass, not a blocker
-- [ ] Fonts self-hosted (already planned per CLAUDE.md §10), no external font CDNs — this is
-      a Core Web Vitals protection, not a nice-to-have
-- [ ] Favicon + a default Open Graph image set
+**Step 1 — [You] Back up first.** Before deleting anything, take a full
+database backup via simply.com's hosting panel (or WP Admin → Tools →
+Export → All content, as a lighter-weight fallback). Cheap insurance against
+anything going wrong in step 2.
 
-**Decide deliberately — the robots.txt / AI crawler policy:**
+**Step 2 — [You] Permanently delete the 18 live pages.** WP Admin → Pages →
+select the 17 URLs listed in §3 (not "Home," see §3's note) → Move to Trash
+→ Trash → Empty Trash (or delete permanently one at a time). This is the one
+step I cannot perform for you.
 
-> **Recommendation (yours to confirm, not a default we've already applied): allow the named
-> AI crawlers.** GPTBot, PerplexityBot, ClaudeBot, Google-Extended, and CCBot are allowed in
-> the reference file at [`docs/robots.txt`](robots.txt). The content was deliberately
-> GEO-optimized — BLUF answers, FAQ schema mirroring visible text, explicit myth-corrections
-> — specifically so AI answer engines can quote it. Blocking these crawlers throws that
-> investment away for no compensating benefit. This is presented as a decision for the owner
-> to sign off on, not something already locked in — see SEO-STRATEGY.md §5 and §7 for the
-> full reasoning, and deploy `docs/robots.txt` (or paste its contents into RankMath's
-> robots.txt editor) once confirmed.
+**Step 3 — [You] Upload and activate the new theme.** WP Admin → Appearance
+→ Themes → Add New → Upload Theme → `thepawmanual-theme.zip` → Install. If
+WordPress reports the theme folder already exists, use the "Replace current
+with uploaded" option it offers (or delete the old theme first via Theme
+Details → Delete, then upload again) — either way, don't leave two versions
+installed. Activate it.
 
-**Recurring:** the ops calendar in SEO-STRATEGY.md §8 (weekly/monthly/quarterly/annual tasks)
-takes over once launch is stable — see §9 of this runbook for the compressed risk list that
-calendar exists to manage.
+**Step 4 — [You] Upload and activate the new plugin.** Plugins → Add New →
+Upload Plugin → `pawmanual-calculators.zip`. Same folder-exists handling as
+step 3: deactivate and delete the old version first if WordPress won't
+overwrite it directly. Activate.
+
+**Step 5 — [You] Resave permalinks.** Settings → Permalinks → Save (no
+change needed — this just flushes WordPress's rewrite rules after the theme
+swap, good practice, cheap).
+
+**Step 6 — [You] Import the fresh wave-1 WXR.** Tools → Import → WordPress
+(install the importer plugin if prompted) → Upload `thepawmanual-wave-1.xml`
+→ assign the author → leave "Download and import file attachments" unchecked
+(there's no media in this content) → Submit. This creates all 17 pages as
+**drafts**, with parent/child hierarchy already correct from the file.
+
+**Step 7 — [You] Publish all 17 imported drafts.** Pages → filter by Draft →
+select all 17 → Bulk actions → Edit → Status: Published → Update. If you'd
+rather be careful about hierarchy, publish the four parents first
+(`/dogs/`, `/cats/`, `/pet-guides/`, `/tools/`) then the rest, though the
+import already resolved `post_parent` correctly regardless of order.
+
+**Step 8 — [You] Re-link the primary navigation menu.** The reimport gives
+every page a **new** post ID, so the existing menu (Appearance → Menus) now
+points at deleted pages and will show broken links. Remove the stale items
+and re-add the same set from the "Pages" panel, which now lists the freshly
+imported ones. Menu structure per CLAUDE.md §12/§13: header nav **Dogs ·
+Cats · Pet Guides · Tools**; footer **About, Editorial Process, Contact,
+Privacy Policy, Terms, Affiliate Disclosure**, plus a **"Pet Emergency?"**
+link pointing at both `/dogs/health/signs-your-dog-needs-a-vet/` and
+`/cats/health/signs-your-cat-needs-a-vet/` (that page pair isn't in wave 1,
+so this link will 404 until whichever wave publishes it — see §7).
+
+**Step 9 — [You] Confirm the homepage is still set.** Settings → Reading →
+"A static page" → Homepage should still read "Home" (you didn't delete that
+page in step 2). If it was somehow deleted, recreate it: Pages → Add New →
+title "Home" → Publish, leave content empty → reselect it here.
+
+**Step 10 — [You] Verify, in a private/incognito window** (so nothing is
+served from your own logged-in cache):
+- Homepage renders with the Terracotta palette: hero, filter bar, tools
+  grid, gallery, statement band, promo, footer.
+- Header search: click the icon, type a query, confirm results render, at
+  every viewport width (this was previously desktop-only — confirm on a
+  phone-width window too).
+- Both calculator pages (`/tools/dog-age-calculator/`,
+  `/tools/cat-age-calculator/`): enter values, Calculate, confirm a correct
+  result, try Reset, try invalid input.
+- `/tools/` renders `<h1>Free Pet Calculators</h1>` — not "Tools."
+- Pick 2–3 article pages (e.g. `/pet-guides/pet-costs/`) and confirm: the
+  key-takeaway box under the H1, the FAQ accordion, the table of contents,
+  the related-reading block at the bottom, and — where topically relevant —
+  an inline tool CTA (most wave-1 articles won't show one; that's correct,
+  see CLAUDE.md §13's "no CTA beats an irrelevant CTA" note).
+- Pick a hub page (`/dogs/` or `/cats/`) and confirm the child-page grid
+  renders and its own related-reading block shows the other top-level hubs.
+- The "Pet Emergency?" callout renders in the rose/caution color, visibly
+  distinct from the terracotta brand color, not blended into it.
+- Run Google's Rich Results Test against 2–3 FAQ-carrying pages to confirm
+  the JSON-LD is recognized and matches the visible FAQ text.
+- Check `robots.txt` on the live site against `docs/robots.txt` (§4) — copy
+  it in via RankMath's robots.txt editor if it isn't already there.
+- No PHP notices or warnings on any page (check `WP_DEBUG` output or the
+  host's PHP error log if anything looks off).
+
+**Step 11 — [You] Re-request indexing.** Search Console → URL Inspection →
+Request Indexing for the homepage, `/dogs/`, `/cats/`, and the 6 trust
+pages — the content changed materially from whatever Google saw before.
+Everything else in wave 1 follows via the sitemap.
 
 ---
 
-## 7. The wave calendar
+## 6. Rollback
 
-**The rule, worth repeating because it's the whole publishing strategy in one sentence:
-never publish all ~119 pages at once on a fresh domain.** Google's scaled-content policies
-flag single-shot templated dumps; waves of 10–20 pages every 2–3 weeks read as an ordinary
-publishing operation instead. Source: SEO-STRATEGY.md §4.
-
-| Wave | Target date | Pages (~count) | Contents |
-|---|---|---|---|
-| 1 — Launch | Day 0 | 17 WXR pages + homepage (see §2) | Trust set + homepage + `/dogs/` + `/cats/` + Pet Guides cluster + tools hub & the 2 live calculator pages |
-| 2 | +2–3 wks after wave 1 | 13 | All sub-hubs (7 dog + 6 cat) — completes the skeleton every article hangs on |
-| 3 | +2–3 wks after wave 2 | 12 | Dog health (7) + puppy care (5) — highest-intent informational content, the E-E-A-T flagship cluster |
-| 4 | +2–3 wks after wave 3 | 13 | Dog food (7) + training (6) |
-| 5 | +2–3 wks after wave 4 | 13 | Dog breeds (9) + behavior (4) |
-| 6 | +2–3 wks after wave 5 | 12 | Cat health (7) + kitten care (5) |
-| 7 | +2–3 wks after wave 6 | 13 | Cat food (8) + behavior (5) |
-| 8 | +2–3 wks after wave 7 | 9 | Cat breeds (9) |
-| 9 | Last (no fixed offset) | 10 | All products — deliberately after informational authority exists (post-"Reviews update" logic), and only once `/affiliate-disclosure/` is already live |
-
-**Go/no-go gate before every wave:** check the GSC Pages report for the previous wave (§4).
-If that wave is indexing normally, proceed. **If it has stalled at "crawled, not indexed,"
-pause and investigate content quality before publishing the next wave** — publishing more
-pages on top of an unresolved quality signal compounds the problem instead of diluting it.
-
-**Internal-link check before each wave:** links to pages that haven't published yet will
-404. The wave order above was deliberately chosen to keep most hub→article links inside the
-same wave, but where a link does cross a wave boundary, either publish the linked target
-alongside its source, or accept the brief in-wave 404 and fix it once the target's wave
-ships.
+If something goes wrong mid-operation, the artifacts from immediately before
+this pass are archived, not deleted:
+`~/Desktop/thepawmanual-deploy/_gammelt-sep10/` has the theme zip, plugin
+zip, and a WXR export **for all 126 drafted pages** (`thepawmanual-all.xml`,
+not wave-1-only) as they stood at the 2026-09-10 launch, before the
+Terracotta rebrand, the em-dash purge, and the fact-check/GEO passes.
+Re-uploading that theme/plugin and reimporting that XML returns the site to
+its 2026-09-10 state; because it's the `--all` export, remember to publish
+only the same 17 URLs listed in §3 afterward, not all 126, or you'll
+publish wave 2–9 content early. `_gammelt-aug14/` is one generation further
+back if that's ever needed instead.
 
 ---
 
-## 8. What this repo gives you
+## 7. What comes after this
 
-The dev workstream (a separate effort from this runbook) is building three things that
-directly satisfy specific pre-launch blockers from §3. This runbook doesn't own their
-implementation — check with that workstream for current status — but here's what they map
-to:
-
-- **The WXR importer** (`tools/wxr/` — generates a WordPress import file from the `content/`
-  markdown, filterable by wave, imports every page as a **draft**) → satisfies **0.7**
-  (WordPress import), and is what makes the wave calendar in §7 operationally realistic —
-  without it, "10–20 pages per wave" means hand-pasting content into WordPress by hand.
-- **The homepage SEO block** (a `template-parts/home/seo-content.php`-style template part
-  rendering `content/home.md`'s copy) → satisfies **0.4** (the homepage currently has almost
-  no indexable text).
-- **The internal-linking templates** (reusable partials for navigation and cross-linking) →
-  satisfy **0.8** (menus & footer) and support **0.9** (visible last-updated dates), by
-  giving those recurring UI elements one shared implementation instead of one per page.
-
----
-
-## 9. Standing risks
-
-Compressed from SEO-STRATEGY.md §10 — so nobody has to relearn these the hard way:
-
-1. **Scaled-content flag.** Respect the wave plan (§7). Never bulk-publish.
-2. **YMYL without humans.** The trust-set placeholders (§3, 0.2) are load-bearing, not
-   cosmetic. An anonymous pet-health site caps its own rankings. A real veterinary reviewer,
-   when affordable, is the single biggest E-E-A-T upgrade available.
-3. **Product content without first-hand evidence.** Wave 9's product pages are honest buying
-   guides with empty "tested picks" slots. Adding fake "we tested" claims later would turn
-   the safest content on the site into the riskiest (Google's Reviews-update logic treats
-   fabricated testing harshly). Real testing → fill the slots → then it becomes the good kind
-   of review content.
-4. **Dated facts.** The annual ops-calendar pass exists because vaccine guidelines, cost
-   figures, and travel rules go stale. Each page's fact-check flags (§3, 0.3) are the
-   checklist for that pass.
-5. **FAQ drift.** Visible FAQ text and its JSON-LD schema must stay synchronized through
-   every edit, forever — not just at launch.
+Waves 2–9 (the remaining ~109 pages, per `content/SEO-STRATEGY.md` §4's
+publishing calendar) are **content-ready ahead of schedule**: every page in
+`content/` has already been through the same fact-check and GEO passes as
+wave 1, not just the 18 going live now. What's left for waves 2–9 is a
+publishing-pace decision, not a content-readiness one — keep following the
+"10–20 pages every 2–3 weeks, never a bulk dump" rule in
+`content/SEO-STRATEGY.md` §4 and the go/no-go gate there (check the previous
+wave's GSC Pages report before publishing the next one). `content/README.md`
+item 2 ("What remains") also documents an open, honestly-caveated FAQ
+visible/JSON-LD drift figure across the corpus that's independent of this
+redeploy and worth a maintenance pass at some point, not a blocker for it.
