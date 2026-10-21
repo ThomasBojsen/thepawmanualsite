@@ -543,7 +543,33 @@ action for each: **please confirm or adjust when you approve this plan.**
 
 ## 11. Current Status
 
-- **Last updated:** 2026-09-16.
+- **Last updated:** 2026-10-06.
+- **Where the live theme comes from (read before zipping anything).** The
+  theme running on `thepawmanual.com` is **not** `main`. It is the branch
+  `claude/seo-optimization-design-4519ad` (the Terracotta redesign, the
+  key-takeaway box, search, the tools strip) **plus three files that were
+  never committed there**: `header.php` (menu `depth` 2), `src/tailwind.css`
+  (nav dropdown CSS, and the `blur` removed from the `fadeSlideIn` keyframes)
+  and `assets/css/theme.css`. `main` is a strict ancestor of that branch and
+  differs from it in 171 files (29 of them theme files). A theme zip built from
+  `main` would replace the live theme through WordPress's "Replace installed
+  with uploaded" (which deletes the old theme folder first) and silently roll
+  the site back to the old design, and one built from the branch's committed
+  files would still lose the three live-only ones. Before building a zip,
+  compare it with the previous `~/Desktop/thepawmanual-deploy/thepawmanual-theme.zip`
+  by file name **and size** (`unzip -l`) and expect only the differences you
+  made on purpose; `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"`
+  must print `2` twice. Keep the previous zip as the rollback copy and write new
+  zips under a new name. Committing those three files would make git match what
+  is live; until then the tree that matches live is the branch
+  `claude/page-images-live-base` (the redesign branch's tip, plus the three
+  files taken from the deployed zip, plus the page-image change).
+- **Page images (2026-10-06).** A page's Featured image now prints under the
+  title and deck and above the key-takeaway box (`inc/page-image.php`,
+  `template-parts/content/page-image.php`, called from `article-header.php`).
+  No CSS change was needed. Which image belongs to which page is stored only in
+  the database: see `docs/PAGE-IMAGES.md`, which also holds the owner's
+  shipping steps and a content flag on `Pet-Safety.webp` and `New-Pet-Checklist.webp`.
 - **Phase:** **Redeploy-ready.** Every workstream this file and §13 track is
   now closed: the SEO/design render pipeline (three review rounds,
   2026-09-14), the Terracotta rebrand, the em-dash purge (2026-09-15), the
@@ -557,7 +583,9 @@ action for each: **please confirm or adjust when you approve this plan.**
   actual next operation: **the owner permanently deletes the 18 live pages
   and reimports fresh**, since they aren't indexed yet. See
   `docs/LAUNCH-RUNBOOK.md` for the step-by-step; nothing in this repo blocks
-  it any longer.
+  it any longer. *(Superseded 2026-10-06: that redeploy has since happened. The
+  theme zip of 2026-09-18 is what is live, see the first note above. Do not
+  repeat the delete-and-reimport for a theme change.)*
 
 **Final whole-diff gate, 2026-09-16: what it checked, run directly rather
 than delegated, since every prior round had reviewed theme, content, or the
@@ -713,6 +741,7 @@ source of truth, deliberately separate from this file.
 | `content/SITEMAP.md` | Page-by-page tracker: every URL, its status, its file, plus the backlog of unwritten pages. |
 | `content/SEO-STRATEGY.md` | Launch checklist, GSC setup, the **wave publishing plan**, link building, ops calendar. |
 | `docs/LAUNCH-RUNBOOK.md` | The executable version of the above: what to do, in order, on launch day. |
+| `docs/PAGE-IMAGES.md` | Which Media Library image is each page's Featured image, with alt text, plus the shipping steps. That assignment lives only in the database, so this table is the record to re-apply after a delete-and-reimport. (Not in `content/`: the WXR generator would try to import it as a page.) |
 
 **`content/` mirrors the URL structure.** `content/dogs/food/puppy-food.md` →
 `/dogs/food/puppy-food/`; a folder's `index.md` is that folder's hub page.
@@ -883,12 +912,20 @@ markdown edits at all.
   than rendering nothing.
 - `template-parts/content/{article-header,key-takeaway,tools-strip}.php`,
   the corresponding display partials for the pieces above.
+- `inc/page-image.php` + `template-parts/content/page-image.php` (added
+  2026-10-06): a Page's Featured image, rendered by `article-header.php`
+  between the deck and the key-takeaway box. The helper builds the markup with
+  a capped srcset so a phone does not fetch the multi-megabyte original (as
+  long as WordPress's 768px size exists), and a width that follows the image's
+  shape (at most 448px tall; a square is 448px wide, a 16:9 picture about
+  800px).
 
 **The shared class/ID contract** (used across the templates above, treat as
 fixed, several partials depend on it): table of contents `nav.tpm-toc` /
 `a.tpm-toc__link` / `ol.tpm-toc__list`; FAQ `div.tpm-faq` /
 `details.tpm-faq__item` / `summary.tpm-faq__q` / `div.tpm-faq__a`; key
-takeaway `aside.tpm-key-takeaway` / `div.tpm-key-takeaway__body`; search
+takeaway `aside.tpm-key-takeaway` / `div.tpm-key-takeaway__body`; page image
+`figure.tpm-page-image`; search
 `button[data-tpm-search-toggle]` / `#tpm-search-panel` (ships `hidden`) /
 `#tpm-search-field` / `form.tpm-search-form`; tools strip
 `section.tpm-tools-strip`, inline CTA `aside.tpm-tool-cta`; related reading

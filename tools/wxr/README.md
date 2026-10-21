@@ -233,8 +233,10 @@ of the 9 waves — nothing is missing and nothing is duplicated across waves
 4. On the "Assign Authors" screen, map the import's author (`admin`) to
    whichever real WordPress user should own these pages, or leave it — it
    creates an `admin` user if none exists.
-5. Leave "Download and import file attachments" — there are none (this
-   content has no images yet).
+5. Leave "Download and import file attachments" — there are none in the
+   file. Note that the import does not carry Featured images either: a page
+   that is deleted and re-imported loses its image, so set it again from the
+   table in `docs/PAGE-IMAGES.md`.
 6. Click **Submit**. WordPress imports every page as a **Draft**.
 7. Go to **Pages** and confirm the count matches what the tool printed (e.g.
    "Wrote 17 page(s)" → 17 new draft Pages) and that the **parent** column

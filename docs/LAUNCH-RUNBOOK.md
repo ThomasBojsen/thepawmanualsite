@@ -13,6 +13,14 @@
 > em dash, and rewrote all 126 drafted pages for GEO (question-form H2s,
 > answer-first paragraphs, FAQ schema). **None of that work is live yet.**
 > This document is the step-by-step for getting it there.
+>
+> **Update 2026-10-06:** that redesign has since gone live. The theme zip built
+> on 2026-09-18 (`~/Desktop/thepawmanual-deploy/thepawmanual-theme.zip`) is what
+> is running, so read the rest of this file as the record of that operation, not
+> as the next one. For a later theme change, build a new zip from the tree that
+> matches that one (see CLAUDE.md §11) and do **not** repeat the
+> delete-and-reimport. The first such change is the page images:
+> `docs/PAGE-IMAGES.md`.
 
 ---
 
@@ -120,8 +128,9 @@ step I cannot perform for you.
 
 **Step 3 — [You] Upload and activate the new theme.** WP Admin → Appearance
 → Themes → Add New → Upload Theme → `thepawmanual-theme.zip` → Install. If
-WordPress reports the theme folder already exists, use the "Replace current
-with uploaded" option it offers (or delete the old theme first via Theme
+WordPress reports the theme folder already exists, use the "Replace installed
+with uploaded" option it offers (older WordPress: "Replace current with
+uploaded"; or delete the old theme first via Theme
 Details → Delete, then upload again) — either way, don't leave two versions
 installed. Activate it.
 
@@ -145,6 +154,12 @@ select all 17 → Bulk actions → Edit → Status: Published → Update. If you
 rather be careful about hierarchy, publish the four parents first
 (`/dogs/`, `/cats/`, `/pet-guides/`, `/tools/`) then the rest, though the
 import already resolved `post_parent` correctly regardless of order.
+
+**Step 7a — [You] Set the Featured images again.** The import does not carry
+Featured images, and deleting a page in step 2 deleted its image assignment
+with it (the images themselves stay in the Media Library). Set each one again
+from the table in `docs/PAGE-IMAGES.md`, with its Alternative Text (read the
+flag on `Pet-Safety.webp` there first).
 
 **Step 8 — [You] Re-link the primary navigation menu.** The reimport gives
 every page a **new** post ID, so the existing menu (Appearance → Menus) now
@@ -178,6 +193,8 @@ served from your own logged-in cache):
   the related-reading block at the bottom, and — where topically relevant —
   an inline tool CTA (most wave-1 articles won't show one; that's correct,
   see CLAUDE.md §13's "no CTA beats an irrelevant CTA" note).
+- Every page in the table in `docs/PAGE-IMAGES.md` shows its image between the
+  title and the key-takeaway box, on a phone-width window too.
 - Pick a hub page (`/dogs/` or `/cats/`) and confirm the child-page grid
   renders and its own related-reading block shows the other top-level hubs.
 - The "Pet Emergency?" callout renders in the rose/caution color, visibly

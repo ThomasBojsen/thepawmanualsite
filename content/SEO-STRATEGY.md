@@ -81,7 +81,7 @@ the next wave; the wave design above keeps hub→article links mostly intra-wave
 - [ ] Page hierarchy correct in WP (`/dogs/breeds/golden-retriever/` requires parent pages `dogs` → `breeds`: the WXR import handles this; verify slugs post-import)
 - [ ] 404-crawl the site (Screaming Frog free tier covers 500 URLs): catch typo'd internal links from import
 - [ ] Rich Results test on 3–4 FAQ pages; fix schema JSON if the HTML-block route mangles quotes
-- [ ] Images: WebP, lazy-load (native WP), descriptive alt text as images get added: the content shipped text-first; images are an enhancement pass
+- [ ] Images: WebP, descriptive alt text as images get added: the content shipped text-first; images are an enhancement pass. The page image (Featured image, `docs/PAGE-IMAGES.md`) is deliberately eager with `fetchpriority="high"`, not lazy-loaded, because it is the likely Largest Contentful Paint; lazy-load (native WP) applies to any other image.
 - [ ] Fonts self-hosted (CLAUDE.md §10 already plans this), no external CDNs: Core Web Vitals protection
 - [ ] robots.txt: allow all by default; **decide AI crawler policy deliberately** (GPTBot, PerplexityBot, ClaudeBot etc.): the content is GEO-optimized on purpose; blocking AI crawlers would waste that investment. Recommendation: allow.
 - [ ] Favicon + default OG image
