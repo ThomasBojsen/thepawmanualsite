@@ -169,3 +169,90 @@ function tpm_get_page_image( $post_id ) {
 		'slot' => $slot,
 	);
 }
+
+/**
+ * A page's Featured Image as a card thumbnail, for the Related Reading cards
+ * (template-parts/content/related-reading.php) and the hub child grid
+ * (template-parts/content/child-grid.php). Empty string when the page has
+ * none, so the card can show its placeholder instead.
+ *
+ * Unlike the page image above, this is never the page's main picture:
+ * - `loading="lazy"`: the cards sit at the foot of the page, far below the
+ *   fold, and must not compete with the page image for bandwidth.
+ * - `alt=""`: the card's own title already names the link, so describing the
+ *   picture too would make a screen reader announce every card twice.
+ * - `sizes` matches the card layouts: an 80px thumbnail beside the text on
+ *   phones, about half the column on tablets, and at most 260px in the three-
+ *   and four-column desktop grids.
+ * - The srcset is capped at 768px, which covers a 2x tablet card and keeps
+ *   the large masters out.
+ *
+ * The wrapper in card-image.php is square and the image covers it, so a
+ * square upload (all of them so far) is shown whole; a 16:9 one loses a
+ * little at the sides.
+ *
+ * @param int $post_id Page ID.
+ * @return string Core's escaped <img> markup, or ''.
+ */
+function tpm_get_card_image( $post_id ) {
+	if ( ! get_post_thumbnail_id( $post_id ) ) {
+		return '';
+	}
+
+	$cap_srcset = static function ( $max_width ) {
+		return $max_width ? min( (int) $max_width, 768 ) : 768;
+	};
+
+	add_filter( 'max_srcset_image_width', $cap_srcset );
+	try {
+		$html = get_the_post_thumbnail(
+			$post_id,
+			'medium',
+			array(
+				'class'   => 'h-full w-full object-cover',
+				'alt'     => '',
+				'sizes'   => '(min-width: 1024px) 260px, (min-width: 640px) 45vw, 80px',
+				'loading' => 'lazy',
+			)
+		);
+	} finally {
+		remove_filter( 'max_srcset_image_width', $cap_srcset );
+	}
+
+	return (string) $html;
+}
+
+/**
+ * Load the Featured Image data for a whole card grid in two queries, before
+ * the cards render.
+ *
+ * Without this every card looks up its own thumbnail ID, attachment and
+ * attachment metadata one by one: three queries per card, which on a hub
+ * with twenty children is sixty queries for pictures.
+ *
+ * @param WP_Post[] $posts The pages about to be shown as cards.
+ */
+function tpm_prime_card_images( $posts ) {
+	$ids = array();
+	foreach ( (array) $posts as $post ) {
+		if ( $post instanceof WP_Post ) {
+			$ids[] = (int) $post->ID;
+		}
+	}
+	if ( empty( $ids ) || ! function_exists( 'update_meta_cache' ) ) {
+		return;
+	}
+
+	update_meta_cache( 'post', $ids );
+
+	$thumb_ids = array();
+	foreach ( $ids as $id ) {
+		$thumb_id = (int) get_post_thumbnail_id( $id );
+		if ( $thumb_id ) {
+			$thumb_ids[] = $thumb_id;
+		}
+	}
+	if ( $thumb_ids && function_exists( '_prime_post_caches' ) ) {
+		_prime_post_caches( $thumb_ids, false, true );
+	}
+}

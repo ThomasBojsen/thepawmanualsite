@@ -914,6 +914,47 @@ $GLOBALS['tpm_test_thumb_id'] = 0;
 $header_without_image         = tpm_test_render_part( $article_header_path, $header_args );
 tpm_assert_not_contains( 'lg:grid', $header_without_image, 'article-header.php: without an image there is no two-column grid (no empty right-hand column)' );
 
+echo "== CARD IMAGE: Related Reading and hub cards ==\n";
+
+// The card thumbnail: the same Featured image, but lazy, decorative and small.
+$GLOBALS['tpm_test_thumb_id']   = 0;
+$GLOBALS['tpm_test_thumb_call'] = null;
+tpm_assert_same( '', tpm_get_card_image( 7 ), 'tpm_get_card_image(): a page without a Featured image returns an empty string' );
+tpm_assert_same( null, $GLOBALS['tpm_test_thumb_call'], 'tpm_get_card_image(): without a Featured image core is never asked for markup' );
+
+$GLOBALS['tpm_test_thumb_id'] = 11;
+$card_html                    = tpm_get_card_image( 7 );
+$card_call                    = $GLOBALS['tpm_test_thumb_call'];
+tpm_assert_contains( '<img', $card_html, 'tpm_get_card_image(): with a Featured image, returns core\'s markup' );
+tpm_assert_same( 'medium', $card_call['size'], 'tpm_get_card_image(): asks for the 300px size as the plain src' );
+tpm_assert_same( 'lazy', $card_call['attr']['loading'], 'tpm_get_card_image(): lazy-loaded (the cards are far below the fold and must not compete with the page image)' );
+tpm_assert_same( '', $card_call['attr']['alt'], 'tpm_get_card_image(): alt="" (the card title already names the link)' );
+tpm_assert_contains( 'object-cover', $card_call['attr']['class'], 'tpm_get_card_image(): covers its square box' );
+tpm_assert_same( '(min-width: 1024px) 260px, (min-width: 640px) 45vw, 80px', $card_call['attr']['sizes'], 'tpm_get_card_image(): sizes matches the card layouts (80px thumb on phones)' );
+tpm_assert_same( 768, $card_call['cap'], 'tpm_get_card_image(): srcset capped at 768px while core builds it' );
+tpm_assert( empty( $GLOBALS['tpm_test_filters']['max_srcset_image_width'] ), 'tpm_get_card_image(): the srcset cap is removed again afterwards' );
+
+$card_part_path = __DIR__ . '/../../wp-content/themes/thepawmanual/template-parts/content/card-image.php';
+$card_with      = tpm_test_render_part( $card_part_path, array( 'post_id' => 7 ) );
+tpm_assert_contains( 'tpm-card-image aspect-square', $card_with, 'card-image.php: a square box' );
+tpm_assert_contains( 'w-20', $card_with, 'card-image.php: an 80px thumbnail below sm' );
+tpm_assert_contains( 'sm:w-full', $card_with, 'card-image.php: full card width from sm up' );
+tpm_assert_contains( 'x-768x768.webp', $card_with, 'card-image.php: holds the image when there is one' );
+tpm_assert_not_contains( '<ellipse', $card_with, 'card-image.php: no paw placeholder when there is an image' );
+
+$GLOBALS['tpm_test_thumb_id'] = 0;
+$card_without                 = tpm_test_render_part( $card_part_path, array( 'post_id' => 7 ) );
+tpm_assert_contains( 'tpm-card-image aspect-square', $card_without, 'card-image.php: without an image the box is still there, so cards in a row stay the same height' );
+tpm_assert_contains( '<ellipse', $card_without, 'card-image.php: without an image it shows the paw placeholder' );
+tpm_assert_same( '', trim( tpm_test_render_part( $card_part_path, array() ) ), 'card-image.php: prints nothing without a post_id' );
+
+// Both card grids ask for the shared partial, so they stay identical.
+foreach ( array( 'related-reading', 'child-grid' ) as $grid ) {
+	$grid_src = (string) file_get_contents( __DIR__ . "/../../wp-content/themes/thepawmanual/template-parts/content/{$grid}.php" );
+	tpm_assert_contains( "'template-parts/content/card-image'", $grid_src, "{$grid}.php: each card renders the shared card image" );
+	tpm_assert_contains( 'tpm_prime_card_images(', $grid_src, "{$grid}.php: primes the thumbnail caches once before the loop" );
+}
+
 // The partial degrades to "no image" if the helper is missing, so a dropped
 // require_once would fail silently. The suite never loads functions.php, so
 // pin the wiring here.

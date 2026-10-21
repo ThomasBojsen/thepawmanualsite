@@ -105,6 +105,17 @@ the page's default share picture too. The Media Library slugs (`pet-safety-2`,
 RankMath's "Redirect attachments" setting should be on so those thin pages are
 not indexed. Worth a look by the SEO specialist; neither was checked here.
 
+## Where else the image shows
+
+Since 2026-10-21 the same Featured image is also the picture on that page's
+card wherever it is linked as a card: the Related Reading block at the foot of
+every page, and the child-page grid on hub pages
+(`template-parts/content/card-image.php`, `tpm_get_card_image()`). It is shown
+square, lazy-loaded and small, so it costs nothing above the fold. A page
+without a Featured image gets a pale paw placeholder in its cards, and the
+placeholder disappears the moment an image is set: one field fills both the
+page and every card that points to it.
+
 ## Preparing new images
 
 - Any shape works, and the image is shown whole, never cropped. On desktop

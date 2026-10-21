@@ -10,7 +10,9 @@
  * the hub. Rewritten 2026-09-14 (user requirement 2) from a plain link list
  * to the V3 "Related Reading" card grid: each card carries a category chip
  * (the card's own parent hub's SHORT title — see tpm_split_title()), the
- * linked page's own SHORT title, and a "Read guide" line. Titles go through
+ * linked page's own SHORT title, and a "Read guide" line. Since 2026-10-21
+ * each card also opens with the linked page's Featured Image, or a paw
+ * placeholder (template-parts/content/card-image.php). Titles go through
  * tpm_split_title() rather than the raw post title for the same reason user
  * requirement 5 exists at all: several page titles are one over-long H1
  * ("Hook: Subtitle clause"), and the full string wrecks a card's layout as
@@ -82,6 +84,11 @@ if ( $parent ) {
 	</div>
 
 	<?php if ( ! empty( $siblings ) ) : ?>
+		<?php
+		if ( function_exists( 'tpm_prime_card_images' ) ) {
+			tpm_prime_card_images( $siblings );
+		}
+		?>
 		<div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			<?php foreach ( $siblings as $sibling ) : ?>
 				<?php
@@ -93,20 +100,23 @@ if ( $parent ) {
 				?>
 				<a
 					href="<?php echo esc_url( get_permalink( $sibling ) ); ?>"
-					class="tpm-card group flex flex-col rounded-2xl border border-neutral-200 bg-white p-5 transition hover:border-brand-200 hover:shadow-sm"
+					class="tpm-card group flex flex-row items-start gap-4 rounded-2xl border border-neutral-200 bg-white p-5 transition hover:border-brand-200 hover:shadow-sm sm:flex-col sm:items-stretch sm:gap-0"
 				>
-					<?php if ( $chip_label ) : ?>
-						<span class="inline-flex w-fit items-center rounded-full bg-accent-50 px-2.5 py-1 font-geist text-[11px] font-semibold uppercase tracking-wide text-accent-700">
-							<?php echo esc_html( $chip_label ); ?>
+					<?php get_template_part( 'template-parts/content/card-image', null, array( 'post_id' => $sibling->ID ) ); ?>
+					<div class="flex min-w-0 flex-1 flex-col sm:mt-4">
+						<?php if ( $chip_label ) : ?>
+							<span class="inline-flex w-fit items-center rounded-full bg-accent-50 px-2.5 py-1 font-geist text-[11px] font-semibold uppercase tracking-wide text-accent-700">
+								<?php echo esc_html( $chip_label ); ?>
+							</span>
+						<?php endif; ?>
+						<h3 class="mt-3 font-geist text-base font-semibold tracking-tight text-neutral-900 group-hover:underline">
+							<?php echo esc_html( $sibling_title ); ?>
+						</h3>
+						<span class="mt-4 inline-flex items-center gap-1.5 font-geist text-sm font-medium text-brand-700">
+							<?php esc_html_e( 'Read guide', 'thepawmanual' ); ?>
+							<?php tpm_icon( 'arrow-right', 'h-4 w-4 transition-transform group-hover:translate-x-0.5' ); ?>
 						</span>
-					<?php endif; ?>
-					<h3 class="mt-3 font-geist text-base font-semibold tracking-tight text-neutral-900 group-hover:underline">
-						<?php echo esc_html( $sibling_title ); ?>
-					</h3>
-					<span class="mt-4 inline-flex items-center gap-1.5 font-geist text-sm font-medium text-brand-700">
-						<?php esc_html_e( 'Read guide', 'thepawmanual' ); ?>
-						<?php tpm_icon( 'arrow-right', 'h-4 w-4 transition-transform group-hover:translate-x-0.5' ); ?>
-					</span>
+					</div>
 				</a>
 			<?php endforeach; ?>
 		</div>

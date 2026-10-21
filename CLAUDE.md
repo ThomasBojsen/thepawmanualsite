@@ -919,13 +919,17 @@ markdown edits at all.
   400px column beside the title and deck, whole and never cropped (the
   owner's choice, 2026-10-21); below that it sits under them with a width that
   follows its shape (at most 448px tall).
+- `template-parts/content/card-image.php` + `tpm_get_card_image()` /
+  `tpm_prime_card_images()` (`inc/page-image.php`, added 2026-10-21): the same
+  Featured image as a square, lazy thumbnail on every Related Reading and hub
+  child-grid card, with a paw placeholder for pages that have none yet.
 
 **The shared class/ID contract** (used across the templates above, treat as
 fixed, several partials depend on it): table of contents `nav.tpm-toc` /
 `a.tpm-toc__link` / `ol.tpm-toc__list`; FAQ `div.tpm-faq` /
 `details.tpm-faq__item` / `summary.tpm-faq__q` / `div.tpm-faq__a`; key
 takeaway `aside.tpm-key-takeaway` / `div.tpm-key-takeaway__body`; page image
-`figure.tpm-page-image`; search
+`figure.tpm-page-image`; card thumbnail `div.tpm-card-image`; search
 `button[data-tpm-search-toggle]` / `#tpm-search-panel` (ships `hidden`) /
 `#tpm-search-field` / `form.tpm-search-form`; tools strip
 `section.tpm-tools-strip`, inline CTA `aside.tpm-tool-cta`; related reading
