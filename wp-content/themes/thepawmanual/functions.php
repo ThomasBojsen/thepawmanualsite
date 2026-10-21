@@ -40,3 +40,4 @@ require_once TPM_THEME_DIR . 'inc/script-protection.php';
 require_once TPM_THEME_DIR . 'inc/content-nav.php';
 require_once TPM_THEME_DIR . 'inc/internal-links.php';
 require_once TPM_THEME_DIR . 'inc/content-blocks.php';
+require_once TPM_THEME_DIR . 'inc/page-image.php';

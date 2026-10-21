@@ -5,8 +5,10 @@
  *
  *   php tools/tests/run.php
  *
- * Scope is narrow on purpose: the four files below (inc/article-meta.php,
- * inc/script-protection.php, inc/content-blocks.php, inc/content-nav.php) do
+ * Scope is narrow on purpose: the files below (inc/article-meta.php,
+ * inc/script-protection.php, inc/content-blocks.php, inc/content-nav.php, and
+ * the page-image helper plus its template parts, whose WP calls get their own
+ * stubs in the page-image section at the bottom) do
  * real work — title splitting, FAQ restructuring, the CLAUDE.md §13
  * `<script>`-block bug, heading-id/TOC collection — with pure functions over
  * strings and DOM trees, not WordPress state. That's what makes them
@@ -71,7 +73,20 @@ function strip_shortcodes( $content ) {
 // add_filter() defined is a fatal error, not a skippable code path. A no-op
 // is correct — this harness calls the tested functions directly, it never
 // dispatches WP hooks.
-function add_filter( ...$args ) {}
+// The registrations are RECORDED (never dispatched) so the page-image section
+// at the bottom can prove a temporary filter is removed again.
+function add_filter( $hook, $callback, ...$args ) {
+	$GLOBALS['tpm_test_filters'][ $hook ][] = $callback;
+}
+function remove_filter( $hook, $callback, ...$args ) {
+	foreach ( $GLOBALS['tpm_test_filters'][ $hook ] ?? array() as $i => $registered ) {
+		if ( $registered === $callback ) {
+			unset( $GLOBALS['tpm_test_filters'][ $hook ][ $i ] );
+			return true;
+		}
+	}
+	return false;
+}
 // tpm_get_title_part_overrides() (article-meta.php) runs its map through
 // apply_filters() — unused until a test actually calls tpm_get_title_parts()
 // (round 3, Finding 1, below), but load-bearing the moment one does. Passes
@@ -125,6 +140,10 @@ require $theme_inc . '/content-nav.php';
 // dedup it away before that point — see ROUND 4, FINDING 1 below, whose
 // mutation-proof case is the first fixture in this suite that reaches it.
 require $theme_inc . '/icons.php';
+// tpm_get_page_image(): its WP calls (get_post_thumbnail_id(),
+// wp_get_attachment_metadata(), get_the_post_thumbnail()) are stubbed in the
+// page-image section below.
+require $theme_inc . '/page-image.php';
 
 /* =========================== tpm_split_title() ========================= */
 
@@ -559,7 +578,12 @@ function get_the_modified_date( $format = '', $post = null ) {
 function get_option( $option, $default = false ) {
 	return 'F j, Y';
 }
-function get_template_part( $slug, $name = null, $part_args = array() ) {} // The key-takeaway partial: irrelevant to this test's assertion (takeaway is '').
+function get_template_part( $slug, $name = null, $part_args = array() ) {
+	// Only RECORDS which partials the header asks for, in order: the h1
+	// assertions here don't need their output (takeaway is ''), and the
+	// page-image section below reads this to prove the image comes first.
+	$GLOBALS['tpm_test_template_parts'][] = $slug;
+}
 if ( ! defined( 'DAY_IN_SECONDS' ) ) {
 	define( 'DAY_IN_SECONDS', 86400 );
 }
@@ -711,6 +735,169 @@ $dedup_result = tpm_prepare_article_content( $dedup_html, 9001 );
 
 tpm_assert_contains( 'pet cost calculator', $dedup_result['takeaway'], "inline CTA dedup: the lead paragraph's own tool link survives into the takeaway" );
 tpm_assert_not_contains( 'tpm-tool-cta', $dedup_result['content'], 'inline CTA dedup: NO second CTA injected for a tool the lead paragraph already links (the regression this guards: pre-fix, the dedup check ran against $root AFTER the lead paragraph was already detached from it, so it never saw this link and injected a duplicate CTA)' );
+
+/* ================= The page image (a Page's Featured image) ================ */
+
+echo "== PAGE IMAGE: sits under the title and above the key takeaway ==\n";
+
+// The ordering requirement: image between the title/deck and the answer box.
+// article-header.php was rendered above with get_template_part() recording
+// the partials it asks for, in order; the h1/deck are echoed inline, so their
+// position relative to the image is checked against the template's source.
+$header_parts = $GLOBALS['tpm_test_template_parts'];
+$image_at     = array_search( 'template-parts/content/page-image', $header_parts, true );
+$takeaway_at  = array_search( 'template-parts/content/key-takeaway', $header_parts, true );
+tpm_assert( false !== $image_at && false !== $takeaway_at, 'article-header.php asks for both the page image and the key takeaway', 'saw: ' . implode( ', ', $header_parts ) );
+tpm_assert( false !== $image_at && false !== $takeaway_at && $image_at < $takeaway_at, 'article-header.php: the page image is requested BEFORE the key takeaway (fails if the image is moved below the answer box)' );
+$header_src = (string) file_get_contents( $article_header_path );
+$h1_at    = strpos( $header_src, '</h1>' );
+$deck_at  = strpos( $header_src, 'tpm-article-deck' );
+$image_in = strpos( $header_src, 'content/page-image' );
+tpm_assert( false !== $h1_at && false !== $image_in && $h1_at < $image_in, 'article-header.php: the page image comes after the h1' );
+tpm_assert( false !== $deck_at && false !== $image_in && $deck_at < $image_in, 'article-header.php: the page image comes after the deck' );
+
+echo "== PAGE IMAGE: tpm_get_page_image_slot() ==\n";
+
+// Dimensions the helper reads from the attachment's metadata. WordPress stores
+// the scaled copy's size there, so 2560x1429 is what a 4 MB 16:9 upload looks
+// like once core has scaled it down.
+function wp_get_attachment_metadata( $attachment_id = 0 ) {
+	return $GLOBALS['tpm_test_attachment_meta'][ $attachment_id ] ?? false;
+}
+$GLOBALS['tpm_test_attachment_meta'] = array(
+	11 => array( 'width' => 1024, 'height' => 1024 ),
+	12 => array( 'width' => 2560, 'height' => 1429 ),
+	13 => array( 'width' => 4000, 'height' => 1000 ),
+	14 => array( 'width' => 1000, 'height' => 3000 ),
+	15 => array(),
+	16 => array( 'width' => 300, 'height' => 300 ),
+	17 => array( 'width' => 100, 'height' => 100 ),
+);
+tpm_assert_same( 448, tpm_get_page_image_slot( 11 ), 'slot: a square image is drawn 448px wide, so 448px tall (what the first three images got)' );
+tpm_assert_same( 803, tpm_get_page_image_slot( 12 ), 'slot: a 2560x1429 image is drawn 803px wide, still 448px tall (a fixed 448px width would leave it a 250px sliver)' );
+tpm_assert_same( 960, tpm_get_page_image_slot( 13 ), 'slot: a very wide image is held to the 960px column' );
+tpm_assert_same( 240, tpm_get_page_image_slot( 14 ), 'slot: a very tall image is not drawn narrower than 240px' );
+tpm_assert_same( 448, tpm_get_page_image_slot( 15 ), 'slot: an attachment with empty dimensions is treated as a square, not guessed wider' );
+tpm_assert_same( 448, tpm_get_page_image_slot( 99 ), 'slot: an attachment with no metadata at all is treated as a square' );
+tpm_assert_same( 300, tpm_get_page_image_slot( 16 ), 'slot: a 300px upload is drawn 300px wide, not stretched to 448px' );
+tpm_assert_same( 240, tpm_get_page_image_slot( 17 ), 'slot: a tiny upload still gets the 240px minimum rather than a postage stamp' );
+
+echo "== PAGE IMAGE: tpm_get_page_image() ==\n";
+
+// Stubs for the WP calls the helper makes. get_the_post_thumbnail() reports
+// what the srcset-cap filter would have returned at the moment core builds the
+// srcset, which is the one thing worth observing, and can be told to return
+// nothing (a deleted attachment) or to throw.
+function get_post_thumbnail_id( $post = null ) {
+	return $GLOBALS['tpm_test_thumb_id'] ?? 0;
+}
+function get_the_post_thumbnail( $post = null, $size = 'post-thumbnail', $attr = '' ) {
+	$cap = null;
+	foreach ( $GLOBALS['tpm_test_filters']['max_srcset_image_width'] ?? array() as $callback ) {
+		$cap = $callback( 2048, array( 768, 768 ) );
+		foreach ( $GLOBALS['tpm_test_observe_incoming'] ?? array() as $incoming ) {
+			$GLOBALS['tpm_test_observed'][] = $callback( $incoming, array( 768, 768 ) );
+		}
+	}
+	$GLOBALS['tpm_test_thumb_call'] = array(
+		'size' => $size,
+		'attr' => $attr,
+		'cap'  => $cap,
+	);
+	if ( ! empty( $GLOBALS['tpm_test_thumb_throws'] ) ) {
+		throw new RuntimeException( 'boom' );
+	}
+	return $GLOBALS['tpm_test_thumb_html'] ?? '<img src="x-768x768.webp" alt="">';
+}
+
+$GLOBALS['tpm_test_thumb_id']     = 0;
+$GLOBALS['tpm_test_thumb_call']   = null;
+$GLOBALS['tpm_test_thumb_throws'] = false;
+tpm_assert_same( array(), tpm_get_page_image( 7 ), 'tpm_get_page_image(): a Page without a Featured image returns an empty array' );
+tpm_assert_same( null, $GLOBALS['tpm_test_thumb_call'], 'tpm_get_page_image(): without a Featured image core is never even asked for markup' );
+
+$GLOBALS['tpm_test_thumb_id'] = 11;
+$image                        = tpm_get_page_image( 7 );
+$call                         = $GLOBALS['tpm_test_thumb_call'];
+tpm_assert_contains( '<img', $image['html'], 'tpm_get_page_image(): with a Featured image, returns core\'s markup' );
+tpm_assert_same( 448, $image['slot'], 'tpm_get_page_image(): a square image gets a 448px slot' );
+tpm_assert_same( 'medium_large', $call['size'], 'tpm_get_page_image(): asks for the 768px size, so the plain src is a light file, not the master' );
+tpm_assert_same( 896, $call['cap'], 'tpm_get_page_image(): the srcset is capped at twice the slot (896px) while core builds it, which keeps the multi-MB original out' );
+tpm_assert_same( 'eager', $call['attr']['loading'], 'tpm_get_page_image(): loading="eager" (the image is the likely LCP element)' );
+tpm_assert_same( 'high', $call['attr']['fetchpriority'], 'tpm_get_page_image(): fetchpriority="high"' );
+tpm_assert_contains( 'w-full', $call['attr']['class'], 'tpm_get_page_image(): fills its figure' );
+tpm_assert_same( '(min-width: 480px) 448px, calc(100vw - 32px)', $call['attr']['sizes'], 'tpm_get_page_image(): sizes says 448px once the viewport is wide enough, the viewport minus the 16px gutters before that' );
+tpm_assert( empty( $GLOBALS['tpm_test_filters']['max_srcset_image_width'] ), 'tpm_get_page_image(): the srcset cap is removed again afterwards (a leaked cap would degrade every later image)' );
+
+$GLOBALS['tpm_test_thumb_id'] = 12;
+$wide                         = tpm_get_page_image( 7 );
+$wide_call                    = $GLOBALS['tpm_test_thumb_call'];
+tpm_assert_same( 803, $wide['slot'], 'tpm_get_page_image(): a 16:9 image gets its wider 803px slot' );
+tpm_assert_same( 1606, $wide_call['cap'], 'tpm_get_page_image(): the srcset cap follows the slot (2 x 803), so the 1536px file stays available and the 2048px one does not' );
+tpm_assert_same( '(min-width: 835px) 803px, calc(100vw - 32px)', $wide_call['attr']['sizes'], 'tpm_get_page_image(): sizes follows the slot too' );
+
+// The cap lowers a limit, it never raises one: a stricter site-wide srcset
+// limit set by something else must still win, and 0 ("no limit") is replaced.
+// get_the_post_thumbnail() above feeds each incoming limit to the registered
+// filter and records what it returns.
+$GLOBALS['tpm_test_thumb_id']         = 12;
+$GLOBALS['tpm_test_observe_incoming'] = array( 1024, 0, 4000 );
+$GLOBALS['tpm_test_observed']         = array();
+tpm_get_page_image( 7 );
+tpm_assert_same( array( 1024, 1606, 1606 ), $GLOBALS['tpm_test_observed'], 'tpm_get_page_image(): the srcset cap only LOWERS a limit (1024 stays 1024), replaces "no limit" (0) and caps a looser one (4000 becomes 1606)' );
+unset( $GLOBALS['tpm_test_observe_incoming'], $GLOBALS['tpm_test_observed'] );
+
+$GLOBALS['tpm_test_thumb_html'] = '';
+tpm_assert_same( array(), tpm_get_page_image( 7 ), 'tpm_get_page_image(): an attachment core cannot render (deleted file) returns an empty array, not a figure around nothing' );
+unset( $GLOBALS['tpm_test_thumb_html'] );
+
+$GLOBALS['tpm_test_thumb_throws'] = true;
+$thrown                           = false;
+try {
+	tpm_get_page_image( 7 );
+} catch ( RuntimeException $e ) {
+	$thrown = true;
+}
+tpm_assert( $thrown, 'tpm_get_page_image(): an error inside core still propagates (nothing is swallowed)' );
+tpm_assert( empty( $GLOBALS['tpm_test_filters']['max_srcset_image_width'] ), 'tpm_get_page_image(): the srcset cap is removed even when core throws' );
+$GLOBALS['tpm_test_thumb_throws'] = false;
+
+// The partial itself: a figure whose width follows the image when there is
+// one, nothing at all when there is not (so every page without an image
+// renders exactly as it did before). Rendered inside a function so the
+// partial's own variables ($post_id, $image, $args) stay out of the suite's
+// global scope.
+function tpm_test_render_part( $path, $part_args ) {
+	$args = $part_args;
+	ob_start();
+	require $path;
+	return ob_get_clean();
+}
+$part_path = __DIR__ . '/../../wp-content/themes/thepawmanual/template-parts/content/page-image.php';
+
+$GLOBALS['tpm_test_thumb_id'] = 11;
+$with_square                  = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
+tpm_assert_contains( '<figure class="tpm-page-image', $with_square, 'page-image.php: renders the figure when the Page has a Featured image' );
+tpm_assert_contains( 'x-768x768.webp', $with_square, 'page-image.php: the figure holds the image markup' );
+tpm_assert_contains( 'style="max-width: 448px"', $with_square, 'page-image.php: a square image\'s figure is 448px at most' );
+
+$GLOBALS['tpm_test_thumb_id'] = 12;
+$with_wide                    = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
+tpm_assert_contains( 'style="max-width: 803px"', $with_wide, 'page-image.php: a 16:9 image\'s figure is 803px at most' );
+
+$GLOBALS['tpm_test_thumb_id'] = 0;
+$without_image                = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
+tpm_assert_same( '', trim( $without_image ), 'page-image.php: prints nothing when the Page has no Featured image' );
+
+$GLOBALS['tpm_test_thumb_id'] = 11; // a thumbnail exists, so only the post_id guard can keep this blank
+$no_post                      = tpm_test_render_part( $part_path, array() );
+tpm_assert_same( '', trim( $no_post ), 'page-image.php: prints nothing without a post_id' );
+
+// The partial degrades to "no image" if the helper is missing, so a dropped
+// require_once would fail silently. The suite never loads functions.php, so
+// pin the wiring here.
+$functions_src = (string) file_get_contents( __DIR__ . '/../../wp-content/themes/thepawmanual/functions.php' );
+tpm_assert( false !== strpos( $functions_src, "inc/page-image.php'" ), 'functions.php: loads inc/page-image.php (without it every page silently loses its image)' );
 
 /* ============================== Summary ================================ */
 

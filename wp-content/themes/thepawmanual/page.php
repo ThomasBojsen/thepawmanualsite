@@ -6,11 +6,11 @@
  * itching/), this template branches on whether the Page has children:
  *
  * - Hub (has child Pages): breadcrumb → article-header (eyebrow, title,
- *   optional key takeaway) → intro content → a child-page card grid ("In
- *   This Section"). The cats.com hub pattern — hubs are the PageRank
- *   distributors the content cluster was written for.
+ *   page image if set, optional key takeaway) → intro content → a child-page
+ *   card grid ("In This Section"). The cats.com hub pattern — hubs are the
+ *   PageRank distributors the content cluster was written for.
  * - Article (no children): breadcrumb → article-header (eyebrow, date, read
- *   time, split title + deck, key takeaway) → optional left-rail table of
+ *   time, split title + deck, page image if set, key takeaway) → optional left-rail table of
  *   contents → content (lead paragraph already lifted into the takeaway,
  *   FAQ already an accordion, contextual tool CTA already inserted by
  *   content-blocks.php) → related-reading (siblings + a link up to the hub).

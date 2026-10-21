@@ -1,7 +1,8 @@
 <?php
 /**
  * Article header: eyebrow chip + date + read time, the (split) H1, the deck
- * line, and the key-takeaway box.
+ * line, the page image (when the Page has a Featured Image), and the
+ * key-takeaway box.
  *
  * Replaces the plain "h1 + last-updated" block that used to sit directly in
  * page.php's <header> — tpm_breadcrumbs() stays a separate call in page.php,
@@ -101,5 +102,8 @@ $read_time = $is_hub ? 0 : tpm_get_read_time( $post_id );
 		<?php echo esc_html( $split['deck'] ); ?>
 	</p>
 <?php endif; ?>
+
+<?php // The page image sits here, under the title and deck and above the takeaway, so it comes before the answer box on every page, hub or article, at every width. It prints nothing when the Page has no Featured Image. ?>
+<?php get_template_part( 'template-parts/content/page-image', null, array( 'post_id' => $post_id ) ); ?>
 
 <?php get_template_part( 'template-parts/content/key-takeaway', null, array( 'takeaway' => $takeaway ) ); ?>
