@@ -168,7 +168,11 @@ about the images themselves is decided on the other pages.
    (`TPM_PAGE_IMAGE_DESKTOP_WIDTH`, written literally into
    `article-header.php`'s grid class as well). Below 1024px nothing changed:
    the image sits under the title, up to 448px tall, as before. A page without
-   a Featured image gets no grid.
+   a Featured image gets no grid. On a page with no deck (subtitle) the Key takeaway
+   box also moves up into the left column under the title, and title and
+   image both start at the top, so a short title is not left floating beside
+   the picture. Only the grid placement changes: the HTML order (title,
+   image, takeaway) is the same on every page, so crawlers read it as before.
 2. **Two images carry an invented emergency poster** (`Pet-Safety.webp`,
    `New-Pet-Checklist.webp`): see the decision above. Their pages have no
    Featured image yet.

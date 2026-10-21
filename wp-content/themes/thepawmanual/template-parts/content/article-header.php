@@ -67,15 +67,36 @@ $read_time = $is_hub ? 0 : tpm_get_read_time( $post_id );
 ?>
 <?php
 /*
- * With a page image: from `lg` up, title block on the left and the image in a
- * 400px column on the right (TPM_PAGE_IMAGE_DESKTOP_WIDTH, inc/page-image.php),
- * so a square picture fills the header instead of sitting alone beside empty
- * space. Below `lg` the wrapper is a plain block and everything stacks as it
- * always has. Without an image the wrapper has no classes at all.
+ * With a page image, from `lg` up the title block and the image share a row,
+ * the image in a 400px column on the right (TPM_PAGE_IMAGE_DESKTOP_WIDTH,
+ * inc/page-image.php), so a square picture fills the header instead of
+ * sitting alone beside empty space. Two variants:
+ *
+ * - With a deck, title and deck are centred against the image and the key
+ *   takeaway follows below the row at full width.
+ * - Without a deck, a lone title centred against a 400px picture leaves a
+ *   large empty band above and below it, so the key takeaway moves up into
+ *   the left column under the title and both columns start at the top.
+ *
+ * Only the grid placement differs: the HTML order is title, image, takeaway
+ * in every case, so crawlers and screen readers read the page exactly the
+ * same way and the answer still comes straight after the title. Below `lg`
+ * the wrapper is a plain block and everything stacks as it always has.
+ * Without an image the wrapper has no classes at all.
  */
+$has_image       = ! empty( $image['html'] );
+$takeaway_beside = $has_image && '' === $split['deck'];
+
+if ( $takeaway_beside ) {
+	$header_grid = 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:grid-rows-[auto_1fr] lg:gap-x-10';
+} elseif ( $has_image ) {
+	$header_grid = 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-center lg:gap-10';
+} else {
+	$header_grid = '';
+}
 ?>
-<div class="<?php echo ! empty( $image['html'] ) ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-center lg:gap-10' : ''; ?>">
-<div>
+<div class="<?php echo esc_attr( $header_grid ); ?>">
+<div class="<?php echo $takeaway_beside ? 'lg:col-start-1 lg:row-start-1' : ''; ?>">
 <div class="tpm-article-meta mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-geist text-sm text-neutral-500">
 	<?php if ( $eyebrow ) : ?>
 		<?php // .tpm-chip is the shared eyebrow/category pill (src/tailwind.css) — using it here instead of a hand-rolled utility string is what keeps it present in the compiled build at all (Tailwind's content scan only emits a @layer components rule when its class name literally appears in a scanned template). ?>
@@ -120,17 +141,27 @@ $read_time = $is_hub ? 0 : tpm_get_read_time( $post_id );
 
 </div>
 
-<?php // The page image comes here, after the title and deck and before the takeaway, so it is above the answer box on every page, hub or article, at every width. It prints nothing when the Page has no Featured Image. ?>
-<?php
-get_template_part(
-	'template-parts/content/page-image',
-	null,
-	array(
-		'post_id' => $post_id,
-		'image'   => $image,
-	)
-);
-?>
+<?php // The page image comes here, after the title and deck and before the takeaway, so it is above the answer box on every page, hub or article, at every width. It prints nothing when the Page has no Featured Image. In the takeaway-beside layout it spans both rows of the right column, and lg:mt-4 lines its top up with the meta line's own mt-4. ?>
+<div class="<?php echo $takeaway_beside ? 'lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-4' : ''; ?>">
+	<?php
+	get_template_part(
+		'template-parts/content/page-image',
+		null,
+		array(
+			'post_id' => $post_id,
+			'image'   => $image,
+		)
+	);
+	?>
 </div>
 
-<?php get_template_part( 'template-parts/content/key-takeaway', null, array( 'takeaway' => $takeaway ) ); ?>
+<?php if ( $takeaway_beside ) : ?>
+	<div class="lg:col-start-1 lg:row-start-2">
+		<?php get_template_part( 'template-parts/content/key-takeaway', null, array( 'takeaway' => $takeaway ) ); ?>
+	</div>
+<?php endif; ?>
+</div>
+
+<?php if ( ! $takeaway_beside ) : ?>
+	<?php get_template_part( 'template-parts/content/key-takeaway', null, array( 'takeaway' => $takeaway ) ); ?>
+<?php endif; ?>

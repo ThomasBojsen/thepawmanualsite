@@ -917,8 +917,10 @@ markdown edits at all.
   a capped srcset so a phone does not fetch the multi-megabyte original (as
   long as WordPress's 768px size exists). From 1024px up the image stands in a
   400px column beside the title and deck, whole and never cropped (the
-  owner's choice, 2026-10-21); below that it sits under them with a width that
-  follows its shape (at most 448px tall).
+  owner's choice, 2026-10-21); on a page with no deck the key-takeaway box
+  moves into the title column too (grid placement only, HTML order
+  unchanged). Below 1024px it sits under the title with a width that follows
+  its shape (at most 448px tall).
 - `template-parts/content/card-image.php` + `tpm_get_card_image()` /
   `tpm_prime_card_images()` (`inc/page-image.php`, added 2026-10-21): the same
   Featured image as a square, lazy thumbnail on every Related Reading and hub

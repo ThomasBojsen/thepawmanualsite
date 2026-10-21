@@ -910,6 +910,31 @@ tpm_assert_contains( 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px]', $header_with_
 tpm_assert_same( 0, preg_match_all( '/(?<![\w:-])grid(?![\w-])/', $header_with_image ), 'article-header.php: no unprefixed "grid" class, so below lg everything still stacks as before' );
 tpm_assert( TPM_PAGE_IMAGE_DESKTOP_WIDTH === 400 && false !== strpos( $header_with_image, '_400px]' ), 'article-header.php: the grid column matches TPM_PAGE_IMAGE_DESKTOP_WIDTH, the width the image\'s sizes promises' );
 
+tpm_assert_contains( 'lg:items-center', $header_with_image, 'article-header.php: with a deck, title and deck are centred against the image' );
+tpm_assert_not_contains( 'lg:row-start-2', $header_with_image, 'article-header.php: with a deck, the key takeaway stays below the row, not in the title column' );
+
+// Without a deck, the key takeaway moves up under the title on desktop. The
+// HTML order must not change: title, then image, then takeaway, and the
+// takeaway asked for exactly once.
+$no_deck_args                        = $header_args;
+$no_deck_args['title_parts']['deck'] = '';
+$GLOBALS['tpm_test_thumb_id']        = 11;
+$GLOBALS['tpm_test_template_parts']  = array();
+$header_no_deck                      = tpm_test_render_part( $article_header_path, $no_deck_args );
+$no_deck_parts                       = $GLOBALS['tpm_test_template_parts'];
+tpm_assert_contains( 'lg:grid-rows-[auto_1fr]', $header_no_deck, 'article-header.php: image and no deck: a two-row grid, title on top and takeaway below it' );
+tpm_assert_contains( 'lg:col-start-1 lg:row-start-2', $header_no_deck, 'article-header.php: image and no deck: the key takeaway sits in the left column under the title' );
+tpm_assert_contains( 'lg:col-start-2 lg:row-span-2', $header_no_deck, 'article-header.php: image and no deck: the image spans both rows on the right' );
+tpm_assert_not_contains( 'lg:items-center', $header_no_deck, 'article-header.php: image and no deck: the title starts at the top, not centred against the image' );
+tpm_assert_same( array( 'template-parts/content/page-image', 'template-parts/content/key-takeaway' ), $no_deck_parts, 'article-header.php: image and no deck: the image is still asked for before the takeaway (HTML order unchanged), and the takeaway exactly once' );
+tpm_assert( false === strpos( $header_no_deck, 'lg:row-start-2' ) || strpos( $header_no_deck, '</h1>' ) < strpos( $header_no_deck, 'lg:row-start-2' ), 'article-header.php: image and no deck: the takeaway\'s column comes after the h1 in the HTML' );
+
+$GLOBALS['tpm_test_thumb_id']       = 0;
+$GLOBALS['tpm_test_template_parts'] = array();
+$header_no_deck_no_image            = tpm_test_render_part( $article_header_path, $no_deck_args );
+tpm_assert_not_contains( 'lg:row-start-2', $header_no_deck_no_image, 'article-header.php: no image and no deck: no grid placement, the takeaway stays where it always was' );
+tpm_assert_same( array( 'template-parts/content/page-image', 'template-parts/content/key-takeaway' ), $GLOBALS['tpm_test_template_parts'], 'article-header.php: no image: the takeaway is still asked for exactly once' );
+
 $GLOBALS['tpm_test_thumb_id'] = 0;
 $header_without_image         = tpm_test_render_part( $article_header_path, $header_args );
 tpm_assert_not_contains( 'lg:grid', $header_without_image, 'article-header.php: without an image there is no two-column grid (no empty right-hand column)' );
