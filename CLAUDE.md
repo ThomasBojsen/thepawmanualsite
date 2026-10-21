@@ -544,26 +544,25 @@ action for each: **please confirm or adjust when you approve this plan.**
 ## 11. Current Status
 
 - **Last updated:** 2026-10-06.
-- **Where the live theme comes from (read before zipping anything).** The
-  theme running on `thepawmanual.com` is **not** `main`. It is the branch
-  `claude/seo-optimization-design-4519ad` (the Terracotta redesign, the
-  key-takeaway box, search, the tools strip) **plus three files that were
-  never committed there**: `header.php` (menu `depth` 2), `src/tailwind.css`
-  (nav dropdown CSS, and the `blur` removed from the `fadeSlideIn` keyframes)
-  and `assets/css/theme.css`. `main` is a strict ancestor of that branch and
-  differs from it in 171 files (29 of them theme files). A theme zip built from
-  `main` would replace the live theme through WordPress's "Replace installed
-  with uploaded" (which deletes the old theme folder first) and silently roll
-  the site back to the old design, and one built from the branch's committed
-  files would still lose the three live-only ones. Before building a zip,
-  compare it with the previous `~/Desktop/thepawmanual-deploy/thepawmanual-theme.zip`
-  by file name **and size** (`unzip -l`) and expect only the differences you
-  made on purpose; `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"`
-  must print `2` twice. Keep the previous zip as the rollback copy and write new
-  zips under a new name. Committing those three files would make git match what
-  is live; until then the tree that matches live is the branch
-  `claude/page-images-live-base` (the redesign branch's tip, plus the three
-  files taken from the deployed zip, plus the page-image change).
+- **`main` is the live theme (since 2026-10-21). Read before zipping
+  anything.** Until then it was not: the theme on `thepawmanual.com` was the
+  branch `claude/seo-optimization-design-4519ad` (Terracotta redesign,
+  key-takeaway box, search, tools strip) plus three files never committed there
+  (`header.php` menu `depth` 2, `src/tailwind.css` with the nav dropdown CSS and
+  the `blur` removed from the `fadeSlideIn` keyframes, and the compiled
+  `assets/css/theme.css`), and `main` was 171 files behind it. A zip built from
+  that old `main` would have replaced the live theme through WordPress's
+  "Replace installed with uploaded" (which deletes the old theme folder first)
+  and silently rolled the site back to the old design. On 2026-10-21 `main` was
+  fast-forwarded to include the redesign, the three live-only files and the
+  page-image feature, so a zip built from `main` now matches live. The standing
+  check stays: before uploading, compare the new zip with the previous
+  `~/Desktop/thepawmanual-deploy/thepawmanual-theme.zip` by file name **and
+  size** (`unzip -l`) and expect only the differences you made on purpose;
+  `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"` must print `2`
+  twice. Keep the previous zip as the rollback copy and write new zips under a
+  new name. Any other branch cut from before 2026-10-21 is based on the old
+  design: rebase it onto `main` before using it.
 - **Page images (2026-10-06).** A page's Featured image now prints under the
   title and deck and above the key-takeaway box (`inc/page-image.php`,
   `template-parts/content/page-image.php`, called from `article-header.php`).
