@@ -43,6 +43,18 @@ define( 'TPM_PAGE_IMAGE_MIN_WIDTH', 240 );
 define( 'TPM_PAGE_IMAGE_MAX_WIDTH', 960 );
 
 /**
+ * Width of the page image from Tailwind's `lg` breakpoint (1024px) up, where
+ * it stands in its own column to the right of the title and deck instead of
+ * under them (template-parts/content/article-header.php). Shown whole, never
+ * cropped: the owner ruled out cropping, and on 2026-10-21 chose this layout
+ * over a full-width image so the picture fills the header without being cut
+ * or zoomed. The same number is written literally into article-header.php's
+ * grid class, since Tailwind only sees class names spelled out in templates:
+ * change both together.
+ */
+define( 'TPM_PAGE_IMAGE_DESKTOP_WIDTH', 400 );
+
+/**
  * Widest this attachment is drawn, in CSS pixels: the width at which it is
  * TPM_PAGE_IMAGE_MAX_HEIGHT tall, kept inside the column and never wider than
  * the file itself (so a small upload is not stretched soft), except that
@@ -78,13 +90,15 @@ function tpm_get_page_image_slot( $attachment_id ) {
  *
  * Built for phones first:
  *
- * - `sizes` states the slot width, and the viewport minus the gutters while
- *   the viewport is narrower than that, so the browser does not assume the
+ * - `sizes` states the 400px desktop column from 1024px up, below that the
+ *   slot width, and the viewport minus the gutters while the viewport is
+ *   narrower than the slot, so the browser does not assume the
  *   image fills the screen and over-fetch. It models the 16px phone gutter
  *   only; from 640px page.php's gutter is 24px, which makes the hint a few
  *   pixels generous there and never changes which file is chosen at the usual
  *   pixel densities.
- * - The srcset is capped at twice the slot. Editors upload large masters, and
+ * - The srcset is capped at twice the wider of the slot and the desktop
+ *   column. Editors upload large masters, and
  *   WordPress puts every size up to 2048px wide into the srcset, including the
  *   full-size file when it is that small, which can be ten times the bytes of
  *   the sub-size the slot needs. A 3x phone would pick it. The cap only drops
@@ -108,7 +122,8 @@ function tpm_get_page_image_slot( $attachment_id ) {
  *
  * @param int $post_id Page ID.
  * @return array{html:string,slot:int}|array{} Core's escaped <img> markup and
- *                                             the width to draw it at.
+ *                                             the width to draw it at below
+ *                                             the `lg` breakpoint.
  */
 function tpm_get_page_image( $post_id ) {
 	$attachment_id = (int) get_post_thumbnail_id( $post_id );
@@ -121,7 +136,7 @@ function tpm_get_page_image( $post_id ) {
 	// A cap, never a raise: a lower site-wide limit set elsewhere still wins,
 	// and 0 ("no limit") is replaced by ours.
 	$cap_srcset = static function ( $max_width ) use ( $slot ) {
-		$cap = $slot * 2;
+		$cap = max( $slot, TPM_PAGE_IMAGE_DESKTOP_WIDTH ) * 2;
 		return $max_width ? min( (int) $max_width, $cap ) : $cap;
 	};
 
@@ -134,7 +149,7 @@ function tpm_get_page_image( $post_id ) {
 			'medium_large',
 			array(
 				'class'         => 'w-full',
-				'sizes'         => '(min-width: ' . ( $slot + 32 ) . 'px) ' . $slot . 'px, calc(100vw - 32px)',
+				'sizes'         => '(min-width: 1024px) ' . TPM_PAGE_IMAGE_DESKTOP_WIDTH . 'px, (min-width: ' . ( $slot + 32 ) . 'px) ' . $slot . 'px, calc(100vw - 32px)',
 				'loading'       => 'eager',
 				'fetchpriority' => 'high',
 			)

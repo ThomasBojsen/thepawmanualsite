@@ -107,8 +107,10 @@ not indexed. Worth a look by the SEO specialist; neither was checked here.
 
 ## Preparing new images
 
-- Any shape works, and the image is shown whole, never cropped. On desktop it
-  is drawn at most 448px tall: a square comes out 448px wide, a 16:9 picture
+- Any shape works, and the image is shown whole, never cropped. On desktop
+  (1024px and up) it is 400px wide beside the title, so a square is 400px
+  tall and a 16:9 picture about 225px. Below that it is drawn at most 448px
+  tall: a square comes out 448px wide, a 16:9 picture
   about 800px wide, and nothing is ever wider than the 960px column. On a
   phone it fills the width. Square and 16:9 suit the slot. A very narrow
   portrait (taller than about 1:1.9) is held to 240px wide and so ends up
@@ -136,7 +138,8 @@ not indexed. Worth a look by the SEO specialist; neither was checked here.
 The image sits above the Key takeaway box, so the answer starts lower. On a
 375px phone a square image fills about half the screen and the box starts
 below the first screen; a 16:9 image costs about 215px instead of 370px. On a
-1280px desktop it pushes the box from about 330px down to about 800px. The
+1280px desktop the image sits beside the title, so the box starts just below
+a 400px square instead of under title plus image. Below 1024px the
 knob is `TPM_PAGE_IMAGE_MAX_HEIGHT` in `inc/page-image.php` (448 now; about 360
 moves the box up some 90px). No CSS rebuild is needed to change it.
 
@@ -146,22 +149,15 @@ State on 2026-10-21: the theme with this feature is live, and the owner has set
 Featured images on at least Dogs, Cats, Pet Costs and Pet Insurance. Nothing
 about the images themselves is decided on the other pages.
 
-1. **Image size is being redesigned.** The owner says the images "do not fit
-   the site's design": a square drawn 448px wide and left-aligned sits next to
-   a 960px Key takeaway box. **Do not crop the images** (the owner ruled that
-   out, and a wide crop cuts the animals and props off these square pictures).
-   Two options were shown with the real artwork and neither is chosen yet:
-   - **B**: on desktop the image sits beside the title and deck (about 380px,
-     uncropped), under them on mobile. Recommended: no crop, and it pulls the
-     Key takeaway box up about 400px.
-   - **D**: the image is as wide as the Key takeaway box and its height follows
-     the image. A square becomes 960px tall, so the box starts about 1300px
-     down. It also needs a different srcset: 960px wants the 1.0 to 1.4 MB
-     originals, or a stretched 768px file, and phones must still get the
-     light files (a `<picture>` split by viewport width would do that).
-   Whichever is picked, change `inc/page-image.php`,
-   `template-parts/content/page-image.php` and the tests in
-   `tools/tests/run.php` together, and re-verify in a real browser.
+1. **Image size: decided 2026-10-21 (option B).** The owner found the old
+   layout (a 448px square left-aligned beside a 960px Key takeaway box) did
+   not fit, ruled out cropping again (a 16:9 crop zooms in and cuts the
+   animals), and chose B: from 1024px up the title and deck sit on the left
+   and the whole image stands in a 400px column on the right
+   (`TPM_PAGE_IMAGE_DESKTOP_WIDTH`, written literally into
+   `article-header.php`'s grid class as well). Below 1024px nothing changed:
+   the image sits under the title, up to 448px tall, as before. A page without
+   a Featured image gets no grid.
 2. **Two images carry an invented emergency poster** (`Pet-Safety.webp`,
    `New-Pet-Checklist.webp`): see the decision above. Their pages have no
    Featured image yet.

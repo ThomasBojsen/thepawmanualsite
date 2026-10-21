@@ -57,10 +57,25 @@ $split = isset( $args['title_parts'] ) && is_array( $args['title_parts'] )
 		? tpm_get_title_parts( $post_id )
 		: tpm_split_title( get_the_title( $post_id ) ) );
 
+// Looked up here, not only in the partial, because it decides the layout:
+// with an image, the title block and the image share a row from `lg` up.
+$image = function_exists( 'tpm_get_page_image' ) ? tpm_get_page_image( $post_id ) : array();
+
 // Read time only means something for an article a visitor is about to read
 // top to bottom; a hub page is a menu of other pages, not itself a read.
 $read_time = $is_hub ? 0 : tpm_get_read_time( $post_id );
 ?>
+<?php
+/*
+ * With a page image: from `lg` up, title block on the left and the image in a
+ * 400px column on the right (TPM_PAGE_IMAGE_DESKTOP_WIDTH, inc/page-image.php),
+ * so a square picture fills the header instead of sitting alone beside empty
+ * space. Below `lg` the wrapper is a plain block and everything stacks as it
+ * always has. Without an image the wrapper has no classes at all.
+ */
+?>
+<div class="<?php echo ! empty( $image['html'] ) ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-center lg:gap-10' : ''; ?>">
+<div>
 <div class="tpm-article-meta mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-geist text-sm text-neutral-500">
 	<?php if ( $eyebrow ) : ?>
 		<?php // .tpm-chip is the shared eyebrow/category pill (src/tailwind.css) — using it here instead of a hand-rolled utility string is what keeps it present in the compiled build at all (Tailwind's content scan only emits a @layer components rule when its class name literally appears in a scanned template). ?>
@@ -103,7 +118,19 @@ $read_time = $is_hub ? 0 : tpm_get_read_time( $post_id );
 	</p>
 <?php endif; ?>
 
-<?php // The page image sits here, under the title and deck and above the takeaway, so it comes before the answer box on every page, hub or article, at every width. It prints nothing when the Page has no Featured Image. ?>
-<?php get_template_part( 'template-parts/content/page-image', null, array( 'post_id' => $post_id ) ); ?>
+</div>
+
+<?php // The page image comes here, after the title and deck and before the takeaway, so it is above the answer box on every page, hub or article, at every width. It prints nothing when the Page has no Featured Image. ?>
+<?php
+get_template_part(
+	'template-parts/content/page-image',
+	null,
+	array(
+		'post_id' => $post_id,
+		'image'   => $image,
+	)
+);
+?>
+</div>
 
 <?php get_template_part( 'template-parts/content/key-takeaway', null, array( 'takeaway' => $takeaway ) ); ?>

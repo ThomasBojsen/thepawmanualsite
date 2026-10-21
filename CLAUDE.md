@@ -915,9 +915,10 @@ markdown edits at all.
   2026-10-06): a Page's Featured image, rendered by `article-header.php`
   between the deck and the key-takeaway box. The helper builds the markup with
   a capped srcset so a phone does not fetch the multi-megabyte original (as
-  long as WordPress's 768px size exists), and a width that follows the image's
-  shape (at most 448px tall; a square is 448px wide, a 16:9 picture about
-  800px).
+  long as WordPress's 768px size exists). From 1024px up the image stands in a
+  400px column beside the title and deck, whole and never cropped (the
+  owner's choice, 2026-10-21); below that it sits under them with a width that
+  follows its shape (at most 448px tall).
 
 **The shared class/ID contract** (used across the templates above, treat as
 fixed, several partials depend on it): table of contents `nav.tpm-toc` /

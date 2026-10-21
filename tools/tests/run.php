@@ -822,11 +822,11 @@ $call                         = $GLOBALS['tpm_test_thumb_call'];
 tpm_assert_contains( '<img', $image['html'], 'tpm_get_page_image(): with a Featured image, returns core\'s markup' );
 tpm_assert_same( 448, $image['slot'], 'tpm_get_page_image(): a square image gets a 448px slot' );
 tpm_assert_same( 'medium_large', $call['size'], 'tpm_get_page_image(): asks for the 768px size, so the plain src is a light file, not the master' );
-tpm_assert_same( 896, $call['cap'], 'tpm_get_page_image(): the srcset is capped at twice the slot (896px) while core builds it, which keeps the multi-MB original out' );
+tpm_assert_same( 896, $call['cap'], 'tpm_get_page_image(): the srcset is capped at twice the slot (896px; the 400px desktop column is narrower) while core builds it, which keeps the multi-MB original out' );
 tpm_assert_same( 'eager', $call['attr']['loading'], 'tpm_get_page_image(): loading="eager" (the image is the likely LCP element)' );
 tpm_assert_same( 'high', $call['attr']['fetchpriority'], 'tpm_get_page_image(): fetchpriority="high"' );
 tpm_assert_contains( 'w-full', $call['attr']['class'], 'tpm_get_page_image(): fills its figure' );
-tpm_assert_same( '(min-width: 480px) 448px, calc(100vw - 32px)', $call['attr']['sizes'], 'tpm_get_page_image(): sizes says 448px once the viewport is wide enough, the viewport minus the 16px gutters before that' );
+tpm_assert_same( '(min-width: 1024px) 400px, (min-width: 480px) 448px, calc(100vw - 32px)', $call['attr']['sizes'], 'tpm_get_page_image(): sizes says 400px in the desktop column, 448px below lg once the viewport is wide enough, the viewport minus the 16px gutters before that' );
 tpm_assert( empty( $GLOBALS['tpm_test_filters']['max_srcset_image_width'] ), 'tpm_get_page_image(): the srcset cap is removed again afterwards (a leaked cap would degrade every later image)' );
 
 $GLOBALS['tpm_test_thumb_id'] = 12;
@@ -834,7 +834,7 @@ $wide                         = tpm_get_page_image( 7 );
 $wide_call                    = $GLOBALS['tpm_test_thumb_call'];
 tpm_assert_same( 803, $wide['slot'], 'tpm_get_page_image(): a 16:9 image gets its wider 803px slot' );
 tpm_assert_same( 1606, $wide_call['cap'], 'tpm_get_page_image(): the srcset cap follows the slot (2 x 803), so the 1536px file stays available and the 2048px one does not' );
-tpm_assert_same( '(min-width: 835px) 803px, calc(100vw - 32px)', $wide_call['attr']['sizes'], 'tpm_get_page_image(): sizes follows the slot too' );
+tpm_assert_same( '(min-width: 1024px) 400px, (min-width: 835px) 803px, calc(100vw - 32px)', $wide_call['attr']['sizes'], 'tpm_get_page_image(): sizes follows the slot below lg too' );
 
 // The cap lowers a limit, it never raises one: a stricter site-wide srcset
 // limit set by something else must still win, and 0 ("no limit") is replaced.
@@ -879,11 +879,13 @@ $GLOBALS['tpm_test_thumb_id'] = 11;
 $with_square                  = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
 tpm_assert_contains( '<figure class="tpm-page-image', $with_square, 'page-image.php: renders the figure when the Page has a Featured image' );
 tpm_assert_contains( 'x-768x768.webp', $with_square, 'page-image.php: the figure holds the image markup' );
-tpm_assert_contains( 'style="max-width: 448px"', $with_square, 'page-image.php: a square image\'s figure is 448px at most' );
+tpm_assert_contains( 'style="--tpm-page-image-max: 448px"', $with_square, 'page-image.php: below lg, a square image\'s figure is 448px at most' );
+tpm_assert_contains( 'max-w-[var(--tpm-page-image-max)]', $with_square, 'page-image.php: the figure actually applies that width below lg' );
+tpm_assert_contains( 'lg:max-w-none', $with_square, 'page-image.php: from lg up the figure fills the desktop image column' );
 
 $GLOBALS['tpm_test_thumb_id'] = 12;
 $with_wide                    = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
-tpm_assert_contains( 'style="max-width: 803px"', $with_wide, 'page-image.php: a 16:9 image\'s figure is 803px at most' );
+tpm_assert_contains( 'style="--tpm-page-image-max: 803px"', $with_wide, 'page-image.php: below lg, a 16:9 image\'s figure is 803px at most' );
 
 $GLOBALS['tpm_test_thumb_id'] = 0;
 $without_image                = tpm_test_render_part( $part_path, array( 'post_id' => 7 ) );
@@ -892,6 +894,25 @@ tpm_assert_same( '', trim( $without_image ), 'page-image.php: prints nothing whe
 $GLOBALS['tpm_test_thumb_id'] = 11; // a thumbnail exists, so only the post_id guard can keep this blank
 $no_post                      = tpm_test_render_part( $part_path, array() );
 tpm_assert_same( '', trim( $no_post ), 'page-image.php: prints nothing without a post_id' );
+
+// The desktop layout: with an image, the title block and the image share a
+// row from `lg` up (and only from `lg` up, so phones and tablets keep the
+// stacked layout); without one, the header carries no grid at all.
+$header_args = array(
+	'post_id'     => 4242,
+	'is_hub'      => true,
+	'takeaway'    => '',
+	'title_parts' => array( 'h1' => 'Pet Guides', 'deck' => 'The Decisions That Apply to Every Pet' ),
+);
+$GLOBALS['tpm_test_thumb_id'] = 11;
+$header_with_image            = tpm_test_render_part( $article_header_path, $header_args );
+tpm_assert_contains( 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px]', $header_with_image, 'article-header.php: with an image, title and image sit side by side from lg up, the image in a 400px column' );
+tpm_assert_same( 0, preg_match_all( '/(?<![\w:-])grid(?![\w-])/', $header_with_image ), 'article-header.php: no unprefixed "grid" class, so below lg everything still stacks as before' );
+tpm_assert( TPM_PAGE_IMAGE_DESKTOP_WIDTH === 400 && false !== strpos( $header_with_image, '_400px]' ), 'article-header.php: the grid column matches TPM_PAGE_IMAGE_DESKTOP_WIDTH, the width the image\'s sizes promises' );
+
+$GLOBALS['tpm_test_thumb_id'] = 0;
+$header_without_image         = tpm_test_render_part( $article_header_path, $header_args );
+tpm_assert_not_contains( 'lg:grid', $header_without_image, 'article-header.php: without an image there is no two-column grid (no empty right-hand column)' );
 
 // The partial degrades to "no image" if the helper is missing, so a dropped
 // require_once would fail silently. The suite never loads functions.php, so

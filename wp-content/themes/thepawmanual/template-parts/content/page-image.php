@@ -10,7 +10,9 @@
  * No animation of its own: it sits inside page.php's animated <header> and
  * fades in with the title above it.
  *
- * Expects $args['post_id'].
+ * Expects $args['post_id']. Takes $args['image'], tpm_get_page_image()'s
+ * result, when the caller already has it (article-header.php needs it to pick
+ * its layout), so the image is only looked up once.
  *
  * @package thepawmanual
  */
@@ -30,13 +32,13 @@ if ( ! function_exists( 'tpm_get_page_image' ) ) {
 	return;
 }
 
-$image = tpm_get_page_image( $post_id );
+$image = isset( $args['image'] ) && is_array( $args['image'] ) ? $args['image'] : tpm_get_page_image( $post_id );
 if ( empty( $image['html'] ) ) {
 	return;
 }
 ?>
-<?php // The width is inline because it follows the image's own shape (a square is 448px, a 16:9 picture wider), so no fixed utility class fits. It is the same number the image's `sizes` is built from. mt-6 matches the key-takeaway box below. ?>
-<figure class="tpm-page-image mt-6 overflow-hidden rounded-2xl bg-neutral-100" style="max-width: <?php echo (int) $image['slot']; ?>px">
+<?php // Below `lg` the width follows the image's own shape (a square is 448px, a 16:9 picture wider), so no fixed utility class fits: it arrives as a custom property, the same number the image's `sizes` is built from. From `lg` up the figure fills article-header.php's image column instead. mt-6 matches the key-takeaway box below. ?>
+<figure class="tpm-page-image mt-6 max-w-[var(--tpm-page-image-max)] overflow-hidden rounded-2xl bg-neutral-100 lg:mt-0 lg:max-w-none" style="--tpm-page-image-max: <?php echo (int) $image['slot']; ?>px">
 	<?php
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup built and escaped by WordPress core (get_the_post_thumbnail()).
 	echo $image['html'];
