@@ -20,17 +20,19 @@
  * than in tailwind.config.js so they are guaranteed to be present in the
  * compiled CSS for the arbitrary `[animation:fadeSlideIn_...]` utilities the
  * templates use.
+ *
+ * The blur-in (`filter: blur(8px)` -> `blur(0)`) Aura originally shipped is
+ * deliberately removed: it read as a rendering glitch rather than motion,
+ * on both scroll-reveal and Safari Reader's own reflow. Fade + slide only.
  */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
     transform: translateY(30px);
-    filter: blur(8px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -78,10 +80,53 @@
     @apply flex items-center gap-5;
   }
   .tpm-primary-menu li {
-    @apply list-none;
+    @apply relative list-none;
   }
   .tpm-primary-menu a {
     @apply whitespace-nowrap font-geist text-sm text-neutral-600 transition-colors hover:text-neutral-900;
+  }
+
+  /*
+   * Dropdown sub-menus. header.php requests `'depth' => 2`, so WordPress
+   * nests a `<ul class="sub-menu">` inside a parent <li> on its own whenever
+   * that item has children in the admin menu builder — no custom Walker
+   * needed. A parent with no children (most of them, until a later wave adds
+   * some) gets no `.menu-item-has-children` class and renders as a plain
+   * link, unchanged.
+   *
+   * Shown via :hover and :focus-within rather than a JS-toggled class, so a
+   * keyboard user tabbing into a child link reveals it exactly the way a
+   * mouse does, and it opacity/visibility-hides rather than display:none, so
+   * a screen reader can still reach it in DOM order regardless of the
+   * visual hover state.
+   */
+  .tpm-primary-menu li.menu-item-has-children > a::after {
+    content: '';
+    display: inline-block;
+    width: 0.35em;
+    height: 0.35em;
+    margin-left: 0.45em;
+    margin-bottom: 0.1em;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0.55;
+    transform: rotate(45deg);
+  }
+  .tpm-primary-menu .sub-menu {
+    @apply invisible absolute left-0 top-full z-50 mt-3 min-w-[13rem] rounded-xl border border-neutral-200 bg-white p-2 opacity-0 shadow-lg;
+    transform: translateY(4px);
+    transition: opacity 150ms ease-out, transform 150ms ease-out, visibility 150ms;
+  }
+  .tpm-primary-menu li.menu-item-has-children:hover > .sub-menu,
+  .tpm-primary-menu li.menu-item-has-children:focus-within > .sub-menu {
+    @apply visible opacity-100;
+    transform: translateY(0);
+  }
+  .tpm-primary-menu .sub-menu li {
+    @apply w-full;
+  }
+  .tpm-primary-menu .sub-menu a {
+    @apply block whitespace-nowrap rounded-lg px-3 py-2 text-sm text-neutral-600 transition-colors hover:bg-brand-50 hover:text-brand-700;
   }
 
   /* Stacked version of the navigation, used inside the mobile panel. */
@@ -93,6 +138,16 @@
   }
   .tpm-mobile-menu a {
     @apply block rounded-lg px-3 py-2 font-geist text-sm text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900;
+  }
+  /*
+   * Children render as an always-open indented list, not a hover dropdown:
+   * hover has no touch equivalent, and this panel is mobile-only already.
+   */
+  .tpm-mobile-menu .sub-menu {
+    @apply ml-3 mt-1 flex flex-col gap-1 border-l border-neutral-200 pl-3;
+  }
+  .tpm-mobile-menu .sub-menu a {
+    @apply text-neutral-600;
   }
 
   /*

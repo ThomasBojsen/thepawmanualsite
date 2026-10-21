@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							'container'      => false,
 							'menu_class'     => 'tpm-primary-menu',
 							'fallback_cb'    => 'tpm_primary_menu_fallback',
-							'depth'          => 1,
+							'depth'          => 2,
 						)
 					);
 					?>
@@ -154,7 +154,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'container'      => false,
 					'menu_class'     => 'tpm-mobile-menu',
 					'fallback_cb'    => 'tpm_primary_menu_fallback',
-					'depth'          => 1,
+					'depth'          => 2,
 				)
 			);
 			?>
