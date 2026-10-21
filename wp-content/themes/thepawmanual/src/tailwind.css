@@ -140,11 +140,36 @@
     @apply block rounded-lg px-3 py-2 font-geist text-sm text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900;
   }
   /*
-   * Children render as an always-open indented list, not a hover dropdown:
-   * hover has no touch equivalent, and this panel is mobile-only already.
+   * Children render as an indented list, not a hover dropdown: hover has no
+   * touch equivalent, and this panel is mobile-only already. With JavaScript
+   * the list starts folded and the chevron button inc/nav-menus.php adds next
+   * to the parent opens it (theme.js toggles `.is-open` on the <li>); without
+   * JavaScript the button is hidden and the list stays open, so every link
+   * is still reachable.
    */
+  .tpm-mobile-menu li.menu-item-has-children {
+    @apply flex flex-wrap items-center;
+  }
+  .tpm-mobile-menu li.menu-item-has-children > a {
+    @apply min-w-0 flex-1;
+  }
+  .tpm-submenu-toggle {
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900;
+  }
+  .tpm-submenu-toggle svg {
+    @apply transition-transform duration-150;
+  }
+  .tpm-mobile-menu li.is-open > .tpm-submenu-toggle svg {
+    @apply rotate-180;
+  }
+  .no-js .tpm-submenu-toggle {
+    @apply hidden;
+  }
   .tpm-mobile-menu .sub-menu {
-    @apply ml-3 mt-1 flex flex-col gap-1 border-l border-neutral-200 pl-3;
+    @apply ml-3 mt-1 flex basis-full flex-col gap-1 border-l border-neutral-200 pl-3;
+  }
+  .js .tpm-mobile-menu li.menu-item-has-children:not(.is-open) > .sub-menu {
+    @apply hidden;
   }
   .tpm-mobile-menu .sub-menu a {
     @apply text-neutral-600;

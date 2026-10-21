@@ -34,12 +34,6 @@ get_header();
 	get_template_part( 'template-parts/home/seo-content' );
 	?>
 
-	<section class="mt-16 sm:mt-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<?php get_template_part( 'template-parts/ad-slot', null, array( 'label' => __( 'Advertisement', 'thepawmanual' ) ) ); ?>
-		</div>
-	</section>
-
 	<?php get_template_part( 'template-parts/home/gallery' ); ?>
 
 	<?php get_template_part( 'template-parts/home/statement' ); ?>

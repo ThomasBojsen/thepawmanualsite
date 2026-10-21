@@ -36,6 +36,40 @@
 			var isOpen = panel.classList.toggle( 'hidden' ) === false;
 			toggle.setAttribute( 'aria-expanded', String( isOpen ) );
 		} );
+
+		initMobileSubmenus( panel );
+	}
+
+	/**
+	 * Fold the mobile menu's sub-menus in and out.
+	 *
+	 * inc/nav-menus.php renders a chevron button next to every parent item;
+	 * src/tailwind.css keeps the sub-menu hidden until its <li> carries
+	 * `.is-open`. The parent link keeps working as a link to its hub page, so
+	 * the button is the only thing that opens the list.
+	 */
+	function initMobileSubmenus( panel ) {
+		var buttons = panel.querySelectorAll( '[data-tpm-submenu-toggle]' );
+
+		buttons.forEach( function ( button, index ) {
+			var item = button.parentElement;
+			var submenu = item.querySelector( ':scope > .sub-menu' );
+
+			if ( ! submenu ) {
+				button.hidden = true;
+				return;
+			}
+
+			if ( ! submenu.id ) {
+				submenu.id = 'tpm-mobile-submenu-' + index;
+			}
+			button.setAttribute( 'aria-controls', submenu.id );
+
+			button.addEventListener( 'click', function () {
+				var isOpen = item.classList.toggle( 'is-open' );
+				button.setAttribute( 'aria-expanded', String( isOpen ) );
+			} );
+		} );
 	}
 
 	/**

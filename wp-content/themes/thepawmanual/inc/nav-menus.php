@@ -70,3 +70,52 @@ function tpm_primary_menu_fallback( $args = array() ) {
 	}
 	echo '</ul>';
 }
+
+/**
+ * Add a show/hide button after each top-level mobile-menu item that has a
+ * sub-menu.
+ *
+ * Without it the mobile panel opened with every sub-menu already expanded,
+ * so one tap on the hamburger filled the screen with links. The parent link
+ * itself still goes to its hub page; only the chevron button next to it
+ * folds the children in and out (assets/js/theme.js, initMobileSubmenus()).
+ * The button is rendered here rather than built in JS so its label is
+ * translatable, and src/tailwind.css hides it for `.no-js` visitors, who keep
+ * the always-open list instead of a button that does nothing.
+ *
+ * Only the mobile menu is touched: the desktop menu opens its dropdowns on
+ * hover/focus and needs no button.
+ *
+ * @param string   $item_output The menu item's HTML.
+ * @param WP_Post  $item        The menu item.
+ * @param int      $depth       Depth of the item (0 = top level).
+ * @param stdClass $args        wp_nav_menu() arguments.
+ * @return string
+ */
+function tpm_add_mobile_submenu_toggle( $item_output, $item, $depth, $args ) {
+	if ( 0 !== $depth || empty( $args->menu_class ) || 'tpm-mobile-menu' !== $args->menu_class ) {
+		return $item_output;
+	}
+
+	$classes = is_array( $item->classes ) ? $item->classes : array();
+	if ( ! in_array( 'menu-item-has-children', $classes, true ) ) {
+		return $item_output;
+	}
+
+	ob_start();
+	tpm_icon( 'chevron-down', 'h-4 w-4' );
+	$icon = ob_get_clean();
+
+	$label = sprintf(
+		/* translators: %s: the parent menu item's label, e.g. "Pet Guides". */
+		__( 'Show %s submenu', 'thepawmanual' ),
+		wp_strip_all_tags( $item->title )
+	);
+
+	return $item_output . sprintf(
+		'<button type="button" class="tpm-submenu-toggle" data-tpm-submenu-toggle aria-expanded="false" aria-label="%s">%s</button>',
+		esc_attr( $label ),
+		$icon
+	);
+}
+add_filter( 'walker_nav_menu_start_el', 'tpm_add_mobile_submenu_toggle', 10, 4 );
