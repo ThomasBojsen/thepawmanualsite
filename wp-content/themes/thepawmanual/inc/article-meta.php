@@ -262,6 +262,11 @@ function tpm_get_eyebrow( $post_id ) {
  * one of them), so there is no existing ranking on the old wording to
  * protect by keeping it.
  *
+ * Extended 2026-10-22 with the five new tool pages (Dog/Cat Food, Pet Cost,
+ * Dog/Cat Breed Selector): each renders its bare tool name as the H1 with
+ * no deck, so all seven tool pages share the takeaway-beside-image header
+ * the two age calculators already had.
+ *
  * Filterable (`apply_filters( 'tpm_title_part_overrides', … )`) so the
  * SEO specialist can add, retire, or replace entries without a theme
  * deploy — the same posture CLAUDE.md §9 asks of every SEO-adjacent knob in
@@ -275,8 +280,31 @@ function tpm_get_eyebrow( $post_id ) {
  */
 function tpm_get_title_part_overrides( $post_id ) {
 	$overrides = array(
-		'tools' => array(
+		'tools'                     => array(
 			'h1'   => __( 'Free Pet Calculators', 'thepawmanual' ),
+			'deck' => '',
+		),
+		// The five 2026-10-22 tool pages: H1 = the tool's name, no deck, so
+		// their header matches the Dog/Cat Age Calculator pages (takeaway
+		// beside the image). Post titles and RankMath titles are unchanged.
+		'tools/dog-food-calculator' => array(
+			'h1'   => __( 'Dog Food Calculator', 'thepawmanual' ),
+			'deck' => '',
+		),
+		'tools/cat-food-calculator' => array(
+			'h1'   => __( 'Cat Food Calculator', 'thepawmanual' ),
+			'deck' => '',
+		),
+		'tools/pet-cost-calculator' => array(
+			'h1'   => __( 'Pet Cost Calculator', 'thepawmanual' ),
+			'deck' => '',
+		),
+		'tools/dog-breed-selector'  => array(
+			'h1'   => __( 'Dog Breed Selector', 'thepawmanual' ),
+			'deck' => '',
+		),
+		'tools/cat-breed-selector'  => array(
+			'h1'   => __( 'Cat Breed Selector', 'thepawmanual' ),
 			'deck' => '',
 		),
 	);
