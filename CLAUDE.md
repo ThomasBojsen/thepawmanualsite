@@ -584,6 +584,15 @@ action for each: **please confirm or adjust when you approve this plan.**
   seven cost lines on `/pet-guides/pet-costs/` (listed in that file's Notes).
   The homepage cards show "Coming soon" until each tool's Page is published,
   so the order of theme upload and import doesn't matter.
+- **Registry dates re-harvested (2026-10-22).** The delete-and-reimport of
+  2026-09-18 gave every live page a new `post_date`, but
+  `tools/wxr/publish-registry.json` still held the 2026-09-10 dates. The
+  `tools` wave import therefore did not recognise `/tools/` and created a
+  duplicate draft of it, and parented the five new pages to that draft. This
+  was fixed by hand (pages reparented, draft trashed), and all 22 live URLs
+  now carry their live `datePublished`. **After any import, publish or
+  reimport, re-harvest the affected dates from the live JSON-LD before the
+  next wave** (`tools/wxr/README.md`, "Re-harvesting a drifted date").
 - **Page images (2026-10-06).** A page's Featured image now prints under the
   title and deck and above the key-takeaway box (`inc/page-image.php`,
   `template-parts/content/page-image.php`, called from `article-header.php`).
