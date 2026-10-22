@@ -1,0 +1,1286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0"
+	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:wp="http://wordpress.org/export/1.2/"
+>
+<channel>
+	<title>ThePawManual</title>
+	<link>https://thepawmanual.com</link>
+	<description>ThePawManual content import</description>
+	<pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
+	<language>en-US</language>
+	<wp:wxr_version>1.2</wp:wxr_version>
+	<wp:base_site_url>https://thepawmanual.com</wp:base_site_url>
+	<wp:base_blog_url>https://thepawmanual.com</wp:base_blog_url>
+	<wp:author>
+		<wp:author_id>1</wp:author_id>
+		<wp:author_login><![CDATA[admin]]></wp:author_login>
+		<wp:author_email>info@thepawmanual.com</wp:author_email>
+		<wp:author_display_name><![CDATA[ThePawManual]]></wp:author_display_name>
+		<wp:author_first_name><![CDATA[]]></wp:author_first_name>
+		<wp:author_last_name><![CDATA[]]></wp:author_last_name>
+	</wp:author>
+	<item>
+		<title><![CDATA[Tools: Free Pet Calculators]]></title>
+		<link>https://thepawmanual.com/tools/</link>
+		<pubDate>Thu, 10 Sep 2026 20:03:42 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=78769762</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p>ThePawManual&#39;s tools are free calculators that run entirely in your browser: no account, no email gate, just numbers you can trust matched to your dog or cat. Seven are live: age calculators for dogs and cats, food calculators for dogs and cats, a pet cost calculator in dollars or euros, and breed selectors for both species, each built on published veterinary formulas or researched data instead of rules of thumb.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Live now</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-age-calculator/">Dog Age Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your dog&#39;s age and breed size to get their age in human years, using a size-aware model: small breeds age slower in their later years, giant breeds faster. <a href="/tools/dog-age-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-age-calculator/">Cat Age Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your cat&#39;s age for an instant human-year equivalent, based on the standard feline aging model (year one counts as 15, year two brings the total to 24, and every year after adds about 4). <a href="/tools/cat-age-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-food-calculator/">Dog Food Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your dog&#39;s weight, life stage and activity for their daily calories, worked out with the veterinary resting-energy formula, then turned into cups or grams for your exact food. Works in pounds or kilograms. <a href="/tools/dog-food-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-food-calculator/">Cat Food Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same veterinary energy formula for cats, with an indoor-cat setting, converted into cans, cups or grams from your food&#39;s label. <a href="/tools/cat-food-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/pet-cost-calculator/">Pet Cost Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Itemizes the first year, every year after, the monthly average and a lifetime estimate for a dog or cat, in US dollars or with separately researched Western European prices in euros. <a href="/tools/pet-cost-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-breed-selector/">Dog Breed Selector</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Ten questions about your home, schedule and family rank the five best-fitting breeds from 45 popular US and European breeds, with what each does well and what to keep in mind. <a href="/tools/dog-breed-selector/">Open the selector →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-breed-selector/">Cat Breed Selector</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same approach for cats: ten questions, 25 breeds plus the everyday mixed-breed cat, and an honest caveat for every match. <a href="/tools/cat-breed-selector/">Open the selector →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>In development</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A pet name generator is next. Like every tool here, it ships when it actually works, not before.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What tools does ThePawManual offer?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Seven free tools are live: <a href="/tools/dog-age-calculator/">dog</a> and <a href="/tools/cat-age-calculator/">cat</a> age calculators, <a href="/tools/dog-food-calculator/">dog</a> and <a href="/tools/cat-food-calculator/">cat</a> food calculators, a <a href="/tools/pet-cost-calculator/">pet cost calculator</a> in dollars or euros, and <a href="/tools/dog-breed-selector/">dog</a> and <a href="/tools/cat-breed-selector/">cat</a> breed selectors. A pet name generator is in development.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Are the calculators free to use?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Yes. Every calculator on ThePawManual is free, runs in your browser, and doesn&#39;t require an account or email address.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How accurate are the calculators?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>They&#39;re built on published veterinary models: size-aware aging formulas, the resting-energy formula vets use for feeding, and researched price and breed data, never rules of thumb like &quot;multiply by 7.&quot; They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What tools are coming next?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A pet name generator is next. Each tool ships only once it works, so there are no placeholder tools on the site.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What tools does ThePawManual offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seven free tools are live: dog and cat age calculators, dog and cat food calculators, a pet cost calculator in dollars or euros, and dog and cat breed selectors. A pet name generator is in development."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the calculators free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every calculator on ThePawManual is free, runs in your browser, and doesn't require an account or email address."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are the calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They're built on published veterinary models: size-aware aging formulas, the resting-energy formula vets use for feeding, and researched price and breed data, never rules of thumb like \"multiply by 7.\" They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tools are coming next?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A pet name generator is next. Each tool ships only once it works, so there are no placeholder tools on the site."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>78769762</wp:post_id>
+		<wp:post_date>2026-09-10 20:03:42</wp:post_date>
+		<wp:post_date_gmt>2026-09-10 20:03:42</wp:post_date_gmt>
+		<wp:post_modified>2026-09-10 20:03:42</wp:post_modified>
+		<wp:post_modified_gmt>2026-09-10 20:03:42</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[tools]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Free Pet Calculators & Tools | ThePawManual]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Free dog and cat tools, no signup: age, food and pet cost calculators plus breed selectors. Works in pounds or kilograms, dollars or euros.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Cat Breed Selector: Which Cat Breed Suits Your Home?]]></title>
+		<link>https://thepawmanual.com/tools/cat-breed-selector/</link>
+		<pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=67309958</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p><strong>The right cat is about personality more than looks: how lively, how cuddly, how talkative, and how much grooming its coat needs.</strong> Answer ten questions about your home, your routine and your family, and the selector ranks the five breeds from our list of 25 that fit you best, including the everyday mixed-breed cat most shelters are full of.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[pawmanual_calculator id="cat-breed"]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How does the cat breed selector work?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Each answer becomes a limit on a breed trait: a quiet home rules out the talkers, young children call for a patient, tolerant cat, a busy schedule calls for a cat that copes with time alone. Every breed is checked against every limit, loses points for each one it misses (more for the important ones, like children), and the five with the fewest misses are shown, best first. Coat length works as a hard filter.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The list covers 25 breeds popular in the US and Europe, plus the domestic shorthair, the mixed-breed cat that most owners actually live with. Weights and life spans come from the cat registries&#39; breed standards. The trait ratings (energy, playfulness, affection, voice, shedding, grooming, children, other pets, time alone and beginner-friendliness) are our own editorial ratings, checked against several registry and veterinary breed profiles rather than copied from one.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>What matters most when choosing a cat breed?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Energy and voice matter most day to day: a Bengal or Abyssinian needs climbing space and daily play, and a Siamese or Oriental will tell you about everything, loudly. After that come coat care and time alone, the two things owners most often underestimate.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>Energy:</strong> calm breeds like the British Shorthair, Ragdoll and Persian are content with a sunny window. High-energy breeds get bored, and a bored cat redecorates.</li>
+<li><strong>Coat:</strong> long-haired breeds such as the Persian need daily brushing to prevent painful mats, and the Persian&#39;s flat face needs regular eye cleaning too.</li>
+<li><strong>Time alone:</strong> people-focused breeds like the Siamese, Oriental and Sphynx struggle with long days alone. Breeds such as the British Shorthair and American Shorthair cope better.</li>
+<li><strong>Children and other pets:</strong> the Ragdoll, Birman, Maine Coon and American Shorthair have the best reputations with children and other animals.</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Our breed guides go deeper on the <a href="/cats/breeds/maine-coon/">Maine Coon</a>, <a href="/cats/breeds/ragdoll/">Ragdoll</a>, <a href="/cats/breeds/persian/">Persian</a>, <a href="/cats/breeds/british-shorthair/">British Shorthair</a>, <a href="/cats/breeds/bengal/">Bengal</a> and <a href="/cats/breeds/siamese/">Siamese</a>, and the <a href="/cats/breeds/">cat breeds hub</a> groups breeds by lifestyle, including <a href="/cats/breeds/apartment-cats/">apartment cats</a> and <a href="/cats/breeds/family-cats/">family cats</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Are there hypoallergenic cat breeds?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>No cat breed is truly hypoallergenic. The main cat allergen, Fel d 1, comes from saliva and skin glands, not just hair, so even hairless cats produce it, and levels vary far more between individual cats than between breeds. If anyone in your home has allergies, spend time with the specific cat before committing. Our guide to <a href="/cats/breeds/hypoallergenic-cats/">hypoallergenic cats</a> explains what helps.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Should I get a purebred or a mixed-breed cat?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Most cats are mixed-breed, and an adult cat from a shelter comes with a known personality, which a kitten from any breed doesn&#39;t. Breed describes what&#39;s typical; the individual cat is what you live with, so ask the shelter which of their cats match your answers.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Which cat breed is best for a first-time owner?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Easy-going, adaptable cats suit first-time owners best: the domestic shorthair, British Shorthair, American Shorthair, Ragdoll and Birman are common picks. Very active or demanding breeds like the Bengal or Sphynx are better with some cat experience.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Which cat breeds are the most affectionate?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The Ragdoll, Birman, Burmese and Tonkinese are known for seeking out their people, and the Ragdoll often goes limp when held. Every cat is an individual, so meet an adult cat if cuddliness matters most to you.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Which cat breeds are quiet?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The Ragdoll, Persian, British Shorthair, Exotic Shorthair and Chartreux are among the quietest breeds. The Siamese and Oriental are the most talkative, which some owners love and others can&#39;t live with.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Is a breed quiz accurate for cats?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A breed selector narrows the field, but it can&#39;t predict an individual cat&#39;s personality. Treat the results as a shortlist to read about and meet in person, and remember that a mixed-breed shelter cat with a known temperament can be the best match of all.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which cat breed is best for a first-time owner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Easy-going, adaptable cats suit first-time owners best: the domestic shorthair, British Shorthair, American Shorthair, Ragdoll and Birman are common picks. Very active or demanding breeds like the Bengal or Sphynx are better with some cat experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which cat breeds are the most affectionate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Ragdoll, Birman, Burmese and Tonkinese are known for seeking out their people, and the Ragdoll often goes limp when held. Every cat is an individual, so meet an adult cat if cuddliness matters most to you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which cat breeds are quiet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Ragdoll, Persian, British Shorthair, Exotic Shorthair and Chartreux are among the quietest breeds. The Siamese and Oriental are the most talkative, which some owners love and others can't live with."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a breed quiz accurate for cats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A breed selector narrows the field, but it can't predict an individual cat's personality. Treat the results as a shortlist to read about and meet in person, and remember that a mixed-breed shelter cat with a known temperament can be the best match of all."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>67309958</wp:post_id>
+		<wp:post_date>2026-10-22 00:00:00</wp:post_date>
+		<wp:post_date_gmt>2026-10-22 00:00:00</wp:post_date_gmt>
+		<wp:post_modified>2026-10-22 00:00:00</wp:post_modified>
+		<wp:post_modified_gmt>2026-10-22 00:00:00</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[cat-breed-selector]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>78769762</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Cat Breed Selector: Which Cat Breed Is Right for Me?]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Answer 10 quick questions about your home, routine and family, and our free cat breed selector ranks the 5 cat breeds that suit you best, with caveats.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Cat Food Calculator: How Many Calories Does Your Cat Need?]]></title>
+		<link>https://thepawmanual.com/tools/cat-food-calculator/</link>
+		<pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=49589587</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p><strong>A 10 lb (4.5 kg) indoor, neutered adult cat needs roughly 180–250 calories a day, and a more active neutered cat of the same size about 260.</strong> That&#39;s usually less than the feeding guide on the bag suggests. Enter your cat&#39;s weight, life stage and lifestyle below, add the calories from your food&#39;s label, and the calculator turns it into cans, cups or grams per day and per meal.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[pawmanual_calculator id="cat-food"]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How many calories does a cat need per day?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Many indoor, neutered adult cats need about 1.0 to 1.2 times their resting energy requirement: roughly 150–200 kcal a day at 8 lb, 180–250 kcal at 10 lb and 230–320 kcal for a large 12–14 lb cat. The calculator uses 1.0 for an indoor, mostly calm cat and 1.2 for a playful cat or one with outdoor access.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Cat</th>
+<th>Daily calories (approx.)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8 lb (3.6 kg) indoor adult, neutered</td>
+<td>150–200 kcal</td>
+</tr>
+<tr>
+<td>10 lb (4.5 kg) indoor adult, neutered</td>
+<td>180–250 kcal</td>
+</tr>
+<tr>
+<td>12–14 lb (5.4–6.4 kg) large-frame adult</td>
+<td>230–320 kcal</td>
+</tr>
+<tr>
+<td>Kitten</td>
+<td>about 2.5 times resting energy, recalculated as it grows</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>Treat these as starting points. The real test is the rib check two to three weeks later: ribs easy to feel under a thin cover, a visible waist from above. Our guide to <a href="/cats/food/how-much-should-i-feed-my-cat/">how much to feed your cat</a> covers body condition and meal feeding in detail.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How this calculator works</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The calculator uses the standard veterinary energy formula: it works out your cat&#39;s resting energy requirement (RER), then multiplies it by a factor for life stage and lifestyle.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 1, resting energy:</strong> RER = 70 × (body weight in kg)^0.75.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 2, daily energy:</strong> RER × a factor from this table.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Your cat</th>
+<th>Factor used</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kitten under 12 months</td>
+<td>2.5 × RER</td>
+</tr>
+<tr>
+<td>Neutered adult, indoor and calm</td>
+<td>1.0 × RER</td>
+</tr>
+<tr>
+<td>Neutered adult, playful or outdoor access</td>
+<td>1.2 × RER</td>
+</tr>
+<tr>
+<td>Intact adult</td>
+<td>1.2–1.4 × RER</td>
+</tr>
+<tr>
+<td>Neutered senior (11 years and up)</td>
+<td>1.1–1.2 × RER</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>Senior cats are never set below the adult number: many cats over about 10 to 12 need more calories, not fewer, because digestion becomes less efficient with age.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 3, portions:</strong> daily calories divided by your food&#39;s calorie density. US labels give kcal per can or per cup; European labels usually give energy per 100 g or per kg. The calculator accepts either.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How do I convert calories into cans, cups or grams?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Divide the daily calories by the calories in one can, one cup or 100 g of your food. A cat needing 220 kcal, eating a wet food with 90 kcal per can, needs about 2.4 cans a day; on a dry food with 400 kcal per cup, about half a cup.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Wet foods vary from about 70 to 200 kcal per can and dry foods from about 300 to more than 500 kcal per cup, so the label always beats a rule of thumb. If you feed both, split the calories between them, for example half from each, rather than adding the two amounts together. If your label gives energy only in kilojoules (kJ), divide by 4.184 to get kilocalories (kcal). Treats belong inside a 10% ceiling, taken out of the meal rather than added on top.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>When should you not rely on a calculator?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Ask your vet instead of a calculator when your cat needs to lose weight, is losing weight without trying, is a kitten that has stopped gaining, or has a medical condition. Cats must never be crash-dieted: going without enough food can trigger hepatic lipidosis, a serious liver disease, so safe feline weight loss is slow and vet-supervised.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In cats, unexplained weight loss is often the bigger warning sign than gain, especially in older cats. See <a href="/cats/health/signs-your-cat-needs-a-vet/">signs your cat needs a vet</a> for what&#39;s urgent, and our <a href="/cats/food/kitten-food/">kitten food</a> and <a href="/cats/food/senior-cat-food/">senior cat food</a> guides for life-stage feeding.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote">
+<p><strong>Veterinary disclaimer:</strong> This calculator gives a general estimate for healthy cats, not a feeding prescription. Weight-loss programs, underweight cats, kittens falling behind, and cats with medical conditions need portions set with a licensed veterinarian.</p>
+</blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much should I feed my cat per day?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A typical 10 lb indoor, neutered adult cat needs roughly 180–250 kcal a day. Divide your cat&#39;s number by the calories per can, cup or 100 g on your food&#39;s label to get the portion, then adjust by about 10% if your cat gains or loses weight.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How many cans of wet food should a cat eat a day?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>It depends entirely on the can: wet foods range from about 70 to 200 kcal per can. A cat needing 220 kcal eats about 2.4 cans of a 90 kcal food, but just over one can of a 200 kcal food, so always check the label.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Do indoor cats need fewer calories?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Usually, yes. Many indoor, neutered cats need about 1.0 times their resting energy requirement, compared with the standard 1.2 for a neutered adult, because they move less. That&#39;s one reason so many indoor cats become overweight on bag-guide portions.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Can I put my overweight cat on a diet myself?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Not a fast one. Cutting a cat&#39;s food sharply can trigger hepatic lipidosis, a serious liver disease, so weight loss in cats should be slow and planned with your vet.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much should I feed my cat per day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A typical 10 lb indoor, neutered adult cat needs roughly 180–250 kcal a day. Divide your cat's number by the calories per can, cup or 100 g on your food's label to get the portion, then adjust by about 10% if your cat gains or loses weight."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many cans of wet food should a cat eat a day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends entirely on the can: wet foods range from about 70 to 200 kcal per can. A cat needing 220 kcal eats about 2.4 cans of a 90 kcal food, but just over one can of a 200 kcal food, so always check the label."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do indoor cats need fewer calories?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually, yes. Many indoor, neutered cats need about 1.0 times their resting energy requirement, compared with the standard 1.2 for a neutered adult, because they move less. That's one reason so many indoor cats become overweight on bag-guide portions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I put my overweight cat on a diet myself?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not a fast one. Cutting a cat's food sharply can trigger hepatic lipidosis, a serious liver disease, so weight loss in cats should be slow and planned with your vet."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>49589587</wp:post_id>
+		<wp:post_date>2026-10-22 00:00:00</wp:post_date>
+		<wp:post_date_gmt>2026-10-22 00:00:00</wp:post_date_gmt>
+		<wp:post_modified>2026-10-22 00:00:00</wp:post_modified>
+		<wp:post_modified_gmt>2026-10-22 00:00:00</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[cat-food-calculator]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>78769762</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Cat Food Calculator: How Much to Feed Your Cat]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Free cat food calculator: daily calories from your cat's weight, age and lifestyle, then cans, cups or grams for your food. Works in pounds or kilograms.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Dog Breed Selector: Which Dog Breed Fits Your Life?]]></title>
+		<link>https://thepawmanual.com/tools/dog-breed-selector/</link>
+		<pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=52872080</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p><strong>The right breed is the one whose energy, size, coat and temperament match the life you actually live, not the one you like the look of.</strong> Answer ten questions about your home, your schedule, your family and how much dog hair you can tolerate, and the selector ranks the five breeds from our list of 45 that fit you best, with what each does well and the one thing to keep in mind.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[pawmanual_calculator id="dog-breed"]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How does the dog breed selector work?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Each answer becomes a limit on a breed trait: a first-time owner needs a breed that&#39;s forgiving of beginners, a home with toddlers needs one known for patience with children, a flat with thin walls needs a quiet dog. Every breed is checked against every limit, loses points for each one it misses (more for the important ones, like children), and the five with the fewest misses are shown, best first.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Two answers work as hard filters instead: your preferred size, and &quot;as little hair as possible,&quot; which removes the heavy shedders entirely. A near-miss on those is still the wrong dog.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The list covers 45 breeds: the most popular breeds in the United States plus breeds that are popular in Europe, such as the Staffordshire Bull Terrier, Coton de Tulear and Danish-Swedish Farmdog. Weights and life spans come from the breed standards. The trait ratings (energy, exercise, shedding, grooming, barking, children, apartment life, trainability, beginner-friendliness, time alone and other dogs) are our own editorial ratings, checked against several kennel club and veterinary breed profiles rather than copied from one.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>What matters most when choosing a dog breed?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Energy and exercise needs matter most, because a mismatch there causes most behavior problems: a working breed with nothing to do will find its own job, usually chewing, barking or escaping. After that come time alone, children in the home, and grooming, the four things most owners underestimate.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>Energy:</strong> a Border Collie or Belgian Malinois needs hours of exercise and mental work every day. A Bulldog or French Bulldog is happy with short walks.</li>
+<li><strong>Time alone:</strong> no breed is happy alone for a full working day, every day. If the dog will be alone for more than about six hours, plan for a dog walker or daycare whatever you choose.</li>
+<li><strong>Children:</strong> gentle, patient breeds like the Labrador, Golden Retriever and Cavalier have the best record with young children, but every dog and child need supervision together.</li>
+<li><strong>Coat:</strong> low-shedding breeds such as Poodles and Bichons need regular professional grooming instead, a cost that lasts for life. Our <a href="/tools/pet-cost-calculator/">pet cost calculator</a> adds it to the budget.</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2>Are flat-faced breeds a good choice?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Flat-faced (brachycephalic) breeds like the French Bulldog, Pug and Bulldog often top the list for apartments because they are calm and small, but they are prone to breathing problems, overheating and expensive surgery. If one matches you, choose a breeder who screens for breathing problems, or consider a longer-nosed breed with a similar temperament.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The selector shows this caveat in each breed&#39;s description rather than hiding these breeds, because they suit many homes and owners deserve the full picture. Our guides to the <a href="/dogs/breeds/french-bulldog/">French Bulldog</a>, <a href="/dogs/breeds/labrador-retriever/">Labrador Retriever</a>, <a href="/dogs/breeds/golden-retriever/">Golden Retriever</a>, <a href="/dogs/breeds/german-shepherd/">German Shepherd</a> and <a href="/dogs/breeds/poodle/">Poodle</a> go deeper, and the <a href="/dogs/breeds/">dog breeds hub</a> groups breeds by lifestyle: <a href="/dogs/breeds/apartment-dogs/">apartment dogs</a>, <a href="/dogs/breeds/family-dogs/">family dogs</a> and <a href="/dogs/breeds/low-shedding-dogs/">low-shedding dogs</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Should I get a purebred or a mixed-breed dog?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A mixed-breed dog from a shelter can match your answers just as well as any breed on this list, and an adult dog&#39;s temperament is already known, which a puppy&#39;s isn&#39;t. Breed describes what&#39;s typical; the individual dog in front of you is what you actually live with.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Which dog breed is best for a first-time owner?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Breeds that are friendly, forgiving and easy to train suit first-time owners best: the Cavalier King Charles Spaniel, Golden Retriever, Labrador Retriever, Havanese and Bichon Frise are common picks. Avoid high-drive working and guarding breeds like the Belgian Malinois or Cane Corso until you have experience.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Which dog breeds are best for apartments?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Calm, small-to-medium breeds with modest exercise needs and little barking do best in apartments, such as the Cavalier King Charles Spaniel, French Bulldog, Bichon Frise and Havanese. A dog&#39;s energy and noise matter more than its size: some large breeds manage apartments better than some energetic terriers.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Are there hypoallergenic dog breeds?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>No dog is truly hypoallergenic, because the main allergens come from skin, saliva and urine, not just hair. Low-shedding breeds such as Poodles and Bichons leave less hair around, which some allergic people tolerate better, so spend time with the breed before committing.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How accurate is a dog breed quiz?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A breed selector narrows the field, but it can&#39;t predict an individual dog. Treat the results as a shortlist to research and meet in person, and talk to breeders, rescues and owners of each breed before you decide.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which dog breed is best for a first-time owner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Breeds that are friendly, forgiving and easy to train suit first-time owners best: the Cavalier King Charles Spaniel, Golden Retriever, Labrador Retriever, Havanese and Bichon Frise are common picks. Avoid high-drive working and guarding breeds like the Belgian Malinois or Cane Corso until you have experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which dog breeds are best for apartments?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calm, small-to-medium breeds with modest exercise needs and little barking do best in apartments, such as the Cavalier King Charles Spaniel, French Bulldog, Bichon Frise and Havanese. A dog's energy and noise matter more than its size: some large breeds manage apartments better than some energetic terriers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there hypoallergenic dog breeds?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No dog is truly hypoallergenic, because the main allergens come from skin, saliva and urine, not just hair. Low-shedding breeds such as Poodles and Bichons leave less hair around, which some allergic people tolerate better, so spend time with the breed before committing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is a dog breed quiz?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A breed selector narrows the field, but it can't predict an individual dog. Treat the results as a shortlist to research and meet in person, and talk to breeders, rescues and owners of each breed before you decide."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>52872080</wp:post_id>
+		<wp:post_date>2026-10-22 00:00:00</wp:post_date>
+		<wp:post_date_gmt>2026-10-22 00:00:00</wp:post_date_gmt>
+		<wp:post_modified>2026-10-22 00:00:00</wp:post_modified>
+		<wp:post_modified_gmt>2026-10-22 00:00:00</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[dog-breed-selector]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>78769762</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Dog Breed Selector: Which Dog Breed Is Right for Me?]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Answer 10 quick questions about your home, schedule and family, and our free dog breed selector ranks the 5 breeds that fit you best, with honest caveats.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Dog Food Calculator: How Much Should Your Dog Eat a Day?]]></title>
+		<link>https://thepawmanual.com/tools/dog-food-calculator/</link>
+		<pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=42452076</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p><strong>A healthy, neutered adult dog needs about 1.6 times its resting energy requirement each day: roughly 350 kcal for a 10 lb (4.5 kg) dog, 790 kcal for a 30 lb (14 kg) dog and 1,500 kcal for a 70 lb (32 kg) dog.</strong> Puppies need two to three times their resting energy, very active and working dogs need more, and calm seniors often need less. Enter your dog&#39;s weight, life stage and activity below, add the calorie figure from your food&#39;s label, and the calculator turns it into cups or grams per day and per meal.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[pawmanual_calculator id="dog-food"]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How many calories does a dog need per day?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A neutered adult dog at a healthy weight typically needs about 1.6 times its resting energy requirement, and individual dogs land roughly 10% either side of that: about 300–400 kcal a day at 10 lb and 1,600–2,000 kcal at 90 lb. Calorie needs don&#39;t rise in a straight line with weight: a 90 lb dog needs about five times the calories of a 10 lb dog, not nine times.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Dog&#39;s weight</th>
+<th>Typical daily calories (neutered adult, normal activity)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10 lb (4.5 kg)</td>
+<td>300–400 kcal</td>
+</tr>
+<tr>
+<td>30 lb (14 kg)</td>
+<td>700–900 kcal</td>
+</tr>
+<tr>
+<td>50 lb (23 kg)</td>
+<td>1,000–1,300 kcal</td>
+</tr>
+<tr>
+<td>70 lb (32 kg)</td>
+<td>1,300–1,700 kcal</td>
+</tr>
+<tr>
+<td>90 lb (41 kg)</td>
+<td>1,600–2,000 kcal</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>These are starting points, not prescriptions. Two dogs of the same weight can differ by 20% or more, which is why the real test is your dog&#39;s body condition two to three weeks later, not the number on the screen. Our guide to <a href="/dogs/food/how-much-should-i-feed-my-dog/">how much to feed your dog</a> covers the rib-and-waist check in detail.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How this calculator works</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The calculator uses the standard veterinary energy formula in two steps: it works out your dog&#39;s resting energy requirement (RER), then multiplies it by a factor for life stage and activity to get the daily maintenance energy requirement.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 1, resting energy:</strong> RER = 70 × (body weight in kg)^0.75. This is the energy a dog burns at rest, and it&#39;s the same formula veterinarians use in clinics.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 2, daily energy:</strong> RER × a factor from this table.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Your dog</th>
+<th>Factor used</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Puppy under 4 months</td>
+<td>3.0 × RER</td>
+</tr>
+<tr>
+<td>Puppy 4 to 12 months</td>
+<td>2.0 × RER</td>
+</tr>
+<tr>
+<td>Neutered adult, normal activity</td>
+<td>1.6 × RER</td>
+</tr>
+<tr>
+<td>Intact adult, normal activity</td>
+<td>1.8 × RER</td>
+</tr>
+<tr>
+<td>Neutered adult, low activity</td>
+<td>1.2 × RER</td>
+</tr>
+<tr>
+<td>Very active adult (long runs, dog sports)</td>
+<td>2.0 × RER</td>
+</tr>
+<tr>
+<td>Working dog (herding, sledding)</td>
+<td>3.0 × RER</td>
+</tr>
+<tr>
+<td>Neutered senior, normal activity</td>
+<td>1.4 × RER</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>Working dogs vary the most: veterinary guidelines put moderate work at 2 to 5 times resting energy and hard work higher still, so treat the working-dog result as a starting point to adjust with your vet.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Step 3, portions:</strong> the daily calories divided by your food&#39;s calorie density. US bags list it as kcal per cup; European bags usually list it per 100 g or per kg. The calculator accepts either.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How do I convert calories into cups or grams?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Divide the daily calories by the calories in one cup (or in 100 g) of your food. A 30 lb dog needing 790 kcal, eating a kibble with 380 kcal per cup, gets about 2.1 cups a day: just over a cup per meal on two meals.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Calorie density varies a lot between foods, from about 300 to more than 500 kcal per cup for dry food, so a cup count only applies to one specific bag. Change foods and the portion changes with it. If your label only gives energy in kilojoules (kJ), divide by 4.184 to get kilocalories (kcal). Our <a href="/dogs/food/best-dog-food/">guide to choosing a dog food</a> shows where the calorie statement sits on a label.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Treats count too. Keep them under about 10% of the daily calories and take them out of the food, not on top of it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>When should you not rely on a calculator?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Use the result as a maintenance estimate for a healthy dog, and ask your vet instead when your dog needs to lose or gain weight, is pregnant or nursing, is a large or giant breed puppy, or has a medical condition. Weight loss in particular is usually planned from the dog&#39;s ideal weight, not its current weight, with regular weigh-ins, which is why this calculator does not offer a weight-loss mode.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Unexplained weight loss, a sudden change in appetite, or a dog that stays hungry on a correct portion are reasons to see a vet, not to change the bowl. See <a href="/dogs/health/signs-your-dog-needs-a-vet/">signs your dog needs a vet</a> for what&#39;s urgent. For life-stage feeding, our <a href="/dogs/food/puppy-food/">puppy food guide</a> and <a href="/dogs/food/senior-dog-food/">senior dog food guide</a> go deeper.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote">
+<p><strong>Veterinary disclaimer:</strong> This calculator gives a general estimate for healthy dogs, not a feeding prescription. Weight-loss plans, underweight dogs, pregnant or nursing dogs, and dogs with medical conditions need portions set with a licensed veterinarian.</p>
+</blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much should I feed my dog per day?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Most neutered adult dogs at a healthy weight need about 1.6 times their resting energy requirement: roughly 350 kcal a day at 10 lb, 790 kcal at 30 lb and 1,500 kcal at 70 lb. Divide that by your food&#39;s kcal per cup or per 100 g to get the portion, then adjust by about 10% if your dog gains or loses weight.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What is RER for dogs?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>RER, the resting energy requirement, is the energy a dog uses at rest: 70 × body weight in kg raised to the power 0.75. Daily needs are then estimated by multiplying RER by a factor for life stage and activity, for example 1.6 for a typical neutered adult.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Why is my dog&#39;s portion smaller than the bag says?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Feeding guides on bags are often set for young, intact, active dogs, so many neutered pet dogs gain weight on them. Start from your dog&#39;s calculated calories, check body condition every two to three weeks, and adjust from there.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How many times a day should I feed my dog?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Most adult dogs do well on two meals a day, and young puppies on three to four. The number of meals doesn&#39;t change the daily calories: it only splits the same total into smaller portions.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much should I feed my dog per day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most neutered adult dogs at a healthy weight need about 1.6 times their resting energy requirement: roughly 350 kcal a day at 10 lb, 790 kcal at 30 lb and 1,500 kcal at 70 lb. Divide that by your food's kcal per cup or per 100 g to get the portion, then adjust by about 10% if your dog gains or loses weight."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is RER for dogs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RER, the resting energy requirement, is the energy a dog uses at rest: 70 × body weight in kg raised to the power 0.75. Daily needs are then estimated by multiplying RER by a factor for life stage and activity, for example 1.6 for a typical neutered adult."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my dog's portion smaller than the bag says?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Feeding guides on bags are often set for young, intact, active dogs, so many neutered pet dogs gain weight on them. Start from your dog's calculated calories, check body condition every two to three weeks, and adjust from there."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many times a day should I feed my dog?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most adult dogs do well on two meals a day, and young puppies on three to four. The number of meals doesn't change the daily calories: it only splits the same total into smaller portions."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>42452076</wp:post_id>
+		<wp:post_date>2026-10-22 00:00:00</wp:post_date>
+		<wp:post_date_gmt>2026-10-22 00:00:00</wp:post_date_gmt>
+		<wp:post_modified>2026-10-22 00:00:00</wp:post_modified>
+		<wp:post_modified_gmt>2026-10-22 00:00:00</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[dog-food-calculator]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>78769762</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Dog Food Calculator: How Much to Feed Your Dog]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Free dog food calculator: daily calories from your dog's weight, age and activity, then cups or grams for your exact food. Works in pounds or kilograms.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title><![CDATA[Pet Cost Calculator: What Will a Dog or Cat Really Cost You?]]></title>
+		<link>https://thepawmanual.com/tools/pet-cost-calculator/</link>
+		<pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://thepawmanual.com/?page_id=22717913</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p><strong>In the US, a typical adopted medium-sized dog costs about $750–$1,650 a year in food, routine vet care and supplies, and a cat about $550–$1,350, before insurance, grooming or boarding.</strong> The first year costs more because of adoption, spay or neuter, vaccines and setup gear. Choose dollars or euros, describe your pet and your plans, and the calculator itemizes the first year, every year after, the monthly average and a lifetime estimate.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[pawmanual_calculator id="pet-cost"]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How much does a dog or cat cost per year?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In the US, routine yearly costs typically run $600–$2,400 for a dog depending on size, and $550–$1,350 for a cat, before optional extras. Insurance adds roughly $450–$1,000 a year for a dog and $250–$550 for a cat. In Western Europe the same basics typically cost €430–€1,900 for a dog and €390–€1,020 for a cat.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Pet (adopted, dry food, no extras)</th>
+<th>US, per year</th>
+<th>Western Europe, per year</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Small dog</td>
+<td>$600–$1,450</td>
+<td>€430–€1,050</td>
+</tr>
+<tr>
+<td>Medium dog</td>
+<td>$750–$1,650</td>
+<td>€530–€1,250</td>
+</tr>
+<tr>
+<td>Large dog</td>
+<td>$950–$1,950</td>
+<td>€680–€1,550</td>
+</tr>
+<tr>
+<td>Giant dog</td>
+<td>$1,200–$2,400</td>
+<td>€880–€1,900</td>
+</tr>
+<tr>
+<td>Cat</td>
+<td>$550–$1,350</td>
+<td>€390–€1,020</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>Size is the biggest lever for dogs because food scales with body weight, and food type is the biggest lever for cats: an all-wet diet can cost about four times as much as dry. Our guide to <a href="/pet-guides/pet-costs/">what a pet costs</a> explains each line in detail.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How this calculator works</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The calculator adds up typical low and high prices for each line item, so every answer is a range rather than a single number. It splits costs into three groups:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>One-time setup in the first year:</strong> adoption fee or breeder price, spay or neuter (skipped if it&#39;s already done), vaccines and first vet visits, setup gear, and microchip and registration.</li>
+<li><strong>Every year:</strong> food (by dog size, or by dry, mixed or wet food for cats), routine vet care and parasite prevention, toys and treats, litter for cats, plus anything you add: insurance, professional grooming every 4 to 6 weeks, boarding nights, pet rent, or other yearly costs such as a dog tax.</li>
+<li><strong>Now and then:</strong> a dental cleaning under anesthesia, an emergency vet visit, and a suggested emergency fund. These aren&#39;t added to the yearly total, because they don&#39;t happen every year, but every owner meets them sooner or later.</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>The lifetime estimate is the first year plus the yearly cost for each further year of a typical life span: about 12–16 years for small dogs, 11–14 for medium, 10–13 for large, 7–10 for giant breeds and 12–18 for cats. It covers the basics you selected, so real lifetimes usually cost more once senior care, dental work and the odd emergency are added.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Why are the dollar and euro prices so different?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The euro figures are a separate set of prices researched for Western Europe, not a currency conversion of the US numbers. Routine vet care, insurance and boarding all tend to cost less in Germany, the Netherlands, France, Ireland and the Nordic countries than in the US, while shelter adoption fees often start higher.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Europe has a few costs of its own, too. Several German cities and some Dutch municipalities charge a yearly dog tax, Ireland requires a dog licence, and Denmark and several German states require liability insurance for dogs. Add yours under &quot;other yearly costs.&quot; Pet rent, by contrast, is mostly a US practice.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How much should I keep for a pet emergency?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Keep $2,000–$5,000 (about €1,500–€3,000 in Western Europe) in a dedicated fund, or insure your pet while young. An emergency vet visit typically costs $800–$5,000 or more in the US, and a serious case sits at the top of that range.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Either plan works; having neither is the one that fails. Our guide to <a href="/pet-guides/pet-insurance/">pet insurance</a> explains how to decide, and our <a href="/pet-guides/new-pet-checklist/">new pet checklist</a> covers the setup gear in the first-year total.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote">
+<p><strong>Disclaimer:</strong> These are typical price ranges for planning, not quotes. Prices vary by city, clinic and breed, and breed-related health problems can add substantially to any estimate.</p>
+</blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much does a dog cost per year?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In the US, routine costs for an adopted dog on dry food typically run $600–$2,400 a year depending on size, before insurance, grooming or boarding. Insurance adds roughly $450–$1,000. The first year costs more because of adoption, spay or neuter, vaccines and setup.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much does a cat cost per year?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In the US, an adopted cat on dry food typically costs $550–$1,350 a year for food, routine vet care, litter and toys. Feeding mostly wet food can add several hundred dollars a year, and insurance adds roughly $250–$550.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much does a dog cost in Europe?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In Western Europe, routine yearly costs for a dog typically run €430–€1,900 depending on size, and some countries add a dog tax or required liability insurance. These figures come from European price data, not a conversion of US prices.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What is the most expensive part of owning a pet?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Over a lifetime, food and routine vet care add up to the most money, but the biggest single bills are emergencies, which typically cost $800–$5,000 or more. A dedicated emergency fund or insurance taken out while your pet is young covers that risk.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a dog cost per year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the US, routine costs for an adopted dog on dry food typically run $600–$2,400 a year depending on size, before insurance, grooming or boarding. Insurance adds roughly $450–$1,000. The first year costs more because of adoption, spay or neuter, vaccines and setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a cat cost per year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the US, an adopted cat on dry food typically costs $550–$1,350 a year for food, routine vet care, litter and toys. Feeding mostly wet food can add several hundred dollars a year, and insurance adds roughly $250–$550."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a dog cost in Europe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In Western Europe, routine yearly costs for a dog typically run €430–€1,900 depending on size, and some countries add a dog tax or required liability insurance. These figures come from European price data, not a conversion of US prices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the most expensive part of owning a pet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Over a lifetime, food and routine vet care add up to the most money, but the biggest single bills are emergencies, which typically cost $800–$5,000 or more. A dedicated emergency fund or insurance taken out while your pet is young covers that risk."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>22717913</wp:post_id>
+		<wp:post_date>2026-10-22 00:00:00</wp:post_date>
+		<wp:post_date_gmt>2026-10-22 00:00:00</wp:post_date_gmt>
+		<wp:post_modified>2026-10-22 00:00:00</wp:post_modified>
+		<wp:post_modified_gmt>2026-10-22 00:00:00</wp:post_modified_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name><![CDATA[pet-cost-calculator]]></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>78769762</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_title]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Pet Cost Calculator: What a Dog or Cat Really Costs]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[rank_math_description]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Free pet cost calculator in dollars or euros: first-year setup, yearly food, vet care and insurance, and the lifetime total for your dog or cat, itemized.]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+</channel>
+</rss>

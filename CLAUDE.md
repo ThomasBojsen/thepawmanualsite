@@ -567,7 +567,8 @@ action for each: **please confirm or adjust when you approve this plan.**
   fast-forwarded to include the redesign, the three live-only files and the
   page-image feature, so a zip built from `main` now matches live. The standing
   check stays: before uploading, compare the new zip with the previous
-  `~/Desktop/thepawmanual-deploy/thepawmanual-theme.zip` by file name **and
+  one (now in `deploy/gamle-til-fortryd/`; history before 2026-10-22 is in
+  `~/Desktop/thepawmanual-deploy/`) by file name **and
   size** (`unzip -l`) and expect only the differences you made on purpose;
   `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"` must print `2`
   twice. Keep the previous zip as the rollback copy and write new zips under a
@@ -722,7 +723,10 @@ doubles as the repeatable update process.
 
 **Procedure:**
 1. **[Claude]** Compile the CSS; zip the theme and plugin from the repo
-   (output: `~/Desktop/thepawmanual-deploy/`).
+   (output: the repo's own `deploy/` folder, **committed and pushed** so the
+   whole team can fetch the exact files that went live; see
+   `deploy/README.md`. Before 2026-10-22 zips lived in
+   `~/Desktop/thepawmanual-deploy/`).
 2. **[You]** simply.com WP admin → install the theme and plugin directly from
    their zips (Appearance → Themes → Add New → Upload Theme; Plugins → Add New
    → Upload Plugin) and activate both. WordPress unpacks theme/plugin zips

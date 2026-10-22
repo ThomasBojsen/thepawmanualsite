@@ -1,0 +1,40 @@
+PET COSTS-SIDEN: 7 RETTELSER
+Find det gamle tal på siden (Cmd+F) og skriv det nye i stedet.
+
+1) Tabellen "first year", rækken "Setup gear", KAT-kolonnen
+   GAMMELT: $150–$400
+   NYT:     $100–$300
+   (Pas på: hunde-kolonnen i samme række er $200–$500 og skal IKKE ændres.)
+
+2) Tabellen "per year", rækken "Food", HUND-kolonnen
+   GAMMELT: $300–$900+
+   NYT:     $200–$1,400 on dry food
+
+3) Tabellen "per year", rækken "Food", KAT-kolonnen
+   GAMMELT: $200–$500 (wet-forward costs more)
+   NYT:     $150–$350 dry, $300–$700 mixed, $600–$1,300 mostly wet
+
+4) Rækken "Insurance", HUND
+   GAMMELT: ~$360–$840/yr
+   NYT:     ~$450–$1,000/yr
+
+5) Rækken "Insurance", KAT
+   GAMMELT: ~$180–$480/yr
+   NYT:     ~$250–$550/yr
+
+6) Rækken "Litter"
+   GAMMELT: $150–$300
+   NYT:     $150–$350
+
+7a) Punktet "Grooming:" (under "The lines nobody budgets")
+   GAMMELT: $60–$120+
+   NYT:     $60–$150+
+
+7b) Første sætning under "The emergency question"
+   GAMMEL SÆTNING:
+   A single emergency (bloat surgery, a urinary blockage, a swallowed string) commonly runs $1,500–$5,000+, and it arrives unscheduled.
+   NY SÆTNING:
+   An emergency vet visit typically runs $800–$5,000+, and the serious ones (bloat surgery, a urinary blockage, a swallowed string) sit at the top of that range and arrive unscheduled.
+   (De tre ord bloat surgery / urinary blockage / string er links i dag. Behold linkene: skriv kun om ordene rundt om dem.)
+
+Rør IKKE FAQ-afsnittet nederst. Ingen af rettelserne står der.

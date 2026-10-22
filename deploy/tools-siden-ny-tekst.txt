@@ -1,0 +1,150 @@
+<!-- wp:paragraph -->
+<p>ThePawManual&#39;s tools are free calculators that run entirely in your browser: no account, no email gate, just numbers you can trust matched to your dog or cat. Seven are live: age calculators for dogs and cats, food calculators for dogs and cats, a pet cost calculator in dollars or euros, and breed selectors for both species, each built on published veterinary formulas or researched data instead of rules of thumb.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Live now</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-age-calculator/">Dog Age Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your dog&#39;s age and breed size to get their age in human years, using a size-aware model: small breeds age slower in their later years, giant breeds faster. <a href="/tools/dog-age-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-age-calculator/">Cat Age Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your cat&#39;s age for an instant human-year equivalent, based on the standard feline aging model (year one counts as 15, year two brings the total to 24, and every year after adds about 4). <a href="/tools/cat-age-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-food-calculator/">Dog Food Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enter your dog&#39;s weight, life stage and activity for their daily calories, worked out with the veterinary resting-energy formula, then turned into cups or grams for your exact food. Works in pounds or kilograms. <a href="/tools/dog-food-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-food-calculator/">Cat Food Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same veterinary energy formula for cats, with an indoor-cat setting, converted into cans, cups or grams from your food&#39;s label. <a href="/tools/cat-food-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/pet-cost-calculator/">Pet Cost Calculator</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Itemizes the first year, every year after, the monthly average and a lifetime estimate for a dog or cat, in US dollars or with separately researched Western European prices in euros. <a href="/tools/pet-cost-calculator/">Open the calculator →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/dog-breed-selector/">Dog Breed Selector</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Ten questions about your home, schedule and family rank the five best-fitting breeds from 45 popular US and European breeds, with what each does well and what to keep in mind. <a href="/tools/dog-breed-selector/">Open the selector →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3><a href="/tools/cat-breed-selector/">Cat Breed Selector</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same approach for cats: ten questions, 25 breeds plus the everyday mixed-breed cat, and an honest caveat for every match. <a href="/tools/cat-breed-selector/">Open the selector →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>In development</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A pet name generator is next. Like every tool here, it ships when it actually works, not before.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What tools does ThePawManual offer?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Seven free tools are live: <a href="/tools/dog-age-calculator/">dog</a> and <a href="/tools/cat-age-calculator/">cat</a> age calculators, <a href="/tools/dog-food-calculator/">dog</a> and <a href="/tools/cat-food-calculator/">cat</a> food calculators, a <a href="/tools/pet-cost-calculator/">pet cost calculator</a> in dollars or euros, and <a href="/tools/dog-breed-selector/">dog</a> and <a href="/tools/cat-breed-selector/">cat</a> breed selectors. A pet name generator is in development.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Are the calculators free to use?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Yes. Every calculator on ThePawManual is free, runs in your browser, and doesn&#39;t require an account or email address.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How accurate are the calculators?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>They&#39;re built on published veterinary models: size-aware aging formulas, the resting-energy formula vets use for feeding, and researched price and breed data, never rules of thumb like &quot;multiply by 7.&quot; They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What tools are coming next?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A pet name generator is next. Each tool ships only once it works, so there are no placeholder tools on the site.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What tools does ThePawManual offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seven free tools are live: dog and cat age calculators, dog and cat food calculators, a pet cost calculator in dollars or euros, and dog and cat breed selectors. A pet name generator is in development."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the calculators free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every calculator on ThePawManual is free, runs in your browser, and doesn't require an account or email address."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are the calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They're built on published veterinary models: size-aware aging formulas, the resting-energy formula vets use for feeding, and researched price and breed data, never rules of thumb like \"multiply by 7.\" They give a solid estimate, not a diagnosis; a veterinarian is still the right call for anything health-related."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tools are coming next?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A pet name generator is next. Each tool ships only once it works, so there are no placeholder tools on the site."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->
