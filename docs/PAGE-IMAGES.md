@@ -29,6 +29,11 @@ Uploaded to the Media Library in October 2026 (`/wp-content/uploads/2026/10/`).
 | `/pet-guides/pet-insurance/` | `Gemini_Generated_Image_albj56albj56albj-scaled.webp` | 2560x1429 (16:9) | A person in a knitted jumper holding the paw of a golden retriever on a wooden living-room floor. |
 | `/tools/dog-age-calculator/` | `Dog-Age-Calculator.webp` | 1024 square | A corgi-type dog, a husky and three puppies sitting together on a woven rug in a sunny garden. |
 | `/tools/cat-age-calculator/` | `Cat-Age-Calculator.webp` | 1024 square | Adult cats and kittens of different ages around a tiered stone fountain in a sunny flower garden. |
+| `/tools/dog-food-calculator/` | `Dog-Food-Calculator.webp` | 1024 square | Six dogs, including a Golden Retriever, a French Bulldog, a German Shepherd, a Beagle, a Cavalier King Charles Spaniel and a Border Collie, each with its own bowl of food in a bright kitchen. |
+| `/tools/cat-food-calculator/` | `Cat-Food-Calculator.webp` | 1024 square | Five cats, a Maine Coon, a Siamese, a Bengal, a British Shorthair and a Sphynx, each standing behind its own bowl of food on a kitchen floor. |
+| `/tools/pet-cost-calculator/` | `Pet-Cost-Calculator.webp` | 1024 square | A Golden Retriever and a tabby cat on a window seat beside an open notebook and a terracotta piggy bank. |
+| `/tools/dog-breed-selector/` | `Dog-Breed-Selector.webp` | 1024 square | Eight dogs of different breeds and sizes, from a Dachshund and a French Bulldog to a Samoyed and a German Shepherd, sitting in a row on the grass in a park. |
+| `/tools/cat-breed-selector/` | `Cat-Breed-Selector.webp` | 1024 square | Cats of different breeds, including a Siamese, a Sphynx, a British Shorthair and a long-haired calico, curled up together on a chunky knitted rug. |
 | `/dogs/` | `Dogs.webp` | 1024 square | An adult dog and five puppies on a knitted rug by a sunny window. |
 | `/cats/` | `cats.webp` | 1024 square | Five kittens of different colors cuddled together on a knitted rug by a window. |
 
