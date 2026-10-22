@@ -1,0 +1,218 @@
+<!-- wp:paragraph -->
+<p>The realistic planning numbers: <strong>a dog runs roughly $1,000–$2,000 per year</strong> (size pushes both ends), <strong>a cat roughly $800–$1,200</strong>: with <strong>first years running $1,500–$3,000+ for dogs and $800–$1,900 for cats</strong> thanks to setup, vaccines, and spay/neuter. Over a 10–16 year life, that&#39;s a <strong>$15,000–$30,000+ commitment</strong>: the number worth seeing <em>before</em> the adoption photos, and the reason this page exists. Below: the line items, the costs nobody budgets, and the emergency question that decides whether a bad week becomes a tragedy. The <a href="/tools/pet-cost-calculator/">pet cost calculator</a> personalizes all of it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How much do dogs and cats cost in the first year?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A dog&#39;s first year of ownership typically runs $1,500–$3,000+ and a cat&#39;s runs $800–$1,900: acquisition, spay/neuter, the vaccine series, and setup gear drive the gap above the steady-state annual cost.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Dog</th>
+<th>Cat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Acquisition (adoption fee ↔ breeder)</td>
+<td>$50–$500 ↔ $1,000–$3,000+</td>
+<td>$50–$200 ↔ $500–$1,500+</td>
+</tr>
+<tr>
+<td>Spay/neuter</td>
+<td>$150–$600</td>
+<td>$100–$400</td>
+</tr>
+<tr>
+<td>Vaccine series + initial vet</td>
+<td>$200–$500 (<a href="/dogs/puppy-care/puppy-vaccination-schedule/">the schedule</a>)</td>
+<td>$150–$400 (<a href="/cats/kitten-care/kitten-vaccination-schedule/">the schedule</a>)</td>
+</tr>
+<tr>
+<td>Setup gear</td>
+<td>$200–$500 (<a href="/dogs/puppy-care/new-puppy-checklist/">the checklist</a>)</td>
+<td>$100–$300 (<a href="/cats/kitten-care/new-kitten-checklist/">the checklist</a>)</td>
+</tr>
+<tr>
+<td>Microchip, license, misc</td>
+<td>$50–$150</td>
+<td>$50–$100</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>Low-cost clinics compress the vet lines substantially; they exist in most regions and deserve more traffic than they get.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>How much does it cost to own a dog or cat per year?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>After the first year, ongoing costs settle to roughly $1,000–$2,000 annually for a dog and $800–$1,200 for a cat: food, routine vet care and prevention, and optional insurance make up most of that total.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Dog</th>
+<th>Cat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Food</td>
+<td>$200–$1,400 on dry food; <strong>size is the multiplier</strong>: a <a href="/dogs/breeds/small-dogs/">Chihuahua</a> and a <a href="/dogs/breeds/german-shepherd/">German Shepherd</a> eat different budgets</td>
+<td>$150–$350 dry, $300–$700 mixed, $600–$1,300 <a href="/cats/food/wet-cat-food/">mostly wet</a></td>
+</tr>
+<tr>
+<td>Routine vet + prevention (flea/tick/heartworm)</td>
+<td>$300–$700</td>
+<td>$200–$500</td>
+</tr>
+<tr>
+<td><a href="/pet-guides/pet-insurance/">Insurance</a> (if chosen)</td>
+<td>~$450–$1,000/yr</td>
+<td>~$250–$550/yr</td>
+</tr>
+<tr>
+<td>Litter</td>
+<td>–</td>
+<td>$150–$350</td>
+</tr>
+<tr>
+<td>Toys, chews, replacement gear</td>
+<td>$100–$300</td>
+<td>$50–$150</td>
+</tr>
+</tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:heading -->
+<h2>The lines nobody budgets (and everyone pays)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Beyond the routine line items above, real costs hide in dental cleanings, boarding, grooming, pet rent, and the more expensive senior years: each one easy to forget until the bill arrives.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>Dental cleanings:</strong> $300–$800+ per anesthetic cleaning, <a href="/dogs/health/dental-care/">more with extractions</a>, and <a href="/cats/health/dental-care/">cats need them too</a>. Home brushing is the cost-avoidance program.</li>
+<li><strong>Boarding/sitters:</strong> $25–$85+ per night; two vacations a year is a real line item.</li>
+<li><strong>Grooming:</strong> $60–$150+ every 4–6 weeks <em>for life</em> for <a href="/dogs/breeds/poodle/">Poodles</a>, doodles, <a href="/cats/breeds/persian/">Persians</a>: a four-figure annual line the breed choice locked in.</li>
+<li><strong>Pet rent:</strong> $25–$100/month plus deposits in many rentals: the quiet urban tax.</li>
+<li><strong>The aging years:</strong> senior pets cost more: <a href="/dogs/food/senior-dog-food/">twice-yearly vet visits</a>, bloodwork, chronic medications. Budget the last third of life above the average.</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2>The emergency question (the one that matters)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>An emergency vet visit typically runs <strong>$800–$5,000+</strong>, and the serious ones (<a href="/dogs/health/signs-your-dog-needs-a-vet/">bloat surgery</a>, a <a href="/cats/health/signs-your-cat-needs-a-vet/">urinary blockage</a>, a swallowed <a href="/pet-guides/pet-safety/">string</a>) sit at the top of that range and arrive unscheduled. The two rational answers: <a href="/pet-guides/pet-insurance/">insurance enrolled young</a>, or a dedicated emergency fund you actually fund. The irrational answer, hoping, is how treatable conditions end early. Decide before the pet, not in the exam room.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Frequently asked questions</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much does a dog cost per month?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Roughly $85–$170/month averaged across routine years for most dogs: more for large breeds, groomed breeds, and insured dogs; more still in the senior years. First year runs well above the average.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Are cats cheaper than dogs?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Somewhat: roughly $800–$1,200/year versus $1,000–$2,000, with lower food, boarding, and gear costs. The gap narrows with <a href="/cats/food/wet-cat-food/">wet-food feeding</a> and closes entirely at the emergency vet.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>What&#39;s the most surprising pet expense?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Three candidates by acclamation: the first dental cleaning (routine care nobody mentioned), boarding (the vacation multiplier), and the emergency (the four-figure Tuesday). Grooming breeds add a fourth surprise on a 4–6 week loop.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>How much should I save for pet emergencies?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A dedicated $2,000–$5,000 fund covers the common catastrophes, or <a href="/pet-guides/pet-insurance/">insurance</a> converts the risk into premiums. Either works; having neither is the plan that fails.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much do dogs and cats cost in the first year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dog's first year of ownership typically runs $1,500–$3,000+ and a cat's runs $800–$1,900: acquisition, spay/neuter, the vaccine series, and setup gear drive the gap above the steady-state annual cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost to own a dog or cat per year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After the first year, ongoing costs settle to roughly $1,000–$2,000 annually for a dog and $800–$1,200 for a cat: food, routine vet care and prevention, and optional insurance make up most of that total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a dog cost per month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Roughly $85–$170/month averaged across routine years for most dogs: more for large breeds, groomed breeds, and insured dogs; more still in the senior years. First year runs well above the average."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are cats cheaper than dogs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Somewhat: roughly $800–$1,200/year versus $1,000–$2,000, with lower food, boarding, and gear costs. The gap narrows with wet-food feeding and closes entirely at the emergency vet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the most surprising pet expense?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three candidates by acclamation: the first dental cleaning (routine care nobody mentioned), boarding (the vacation multiplier), and the emergency (the four-figure Tuesday). Grooming breeds add a fourth surprise on a 4–6 week loop."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I save for pet emergencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dedicated $2,000–$5,000 fund covers the common catastrophes, or insurance converts the risk into premiums. Either works; having neither is the plan that fails."
+      }
+    }
+  ]
+}
+</script>
+<!-- /wp:html -->

@@ -10,7 +10,7 @@ The files that get uploaded to thepawmanual.com, kept in git so everyone on the 
 | `thepawmanual-theme-2026-10-22-tools.zip` | The theme | WP admin → Appearance → Themes → Add New Theme → Upload Theme → "Replace active with uploaded" |
 | `thepawmanual-wave-tools.xml` | The five new tool pages (they import as drafts) | WP admin → Tools → Import → WordPress. Then publish the five drafts. The message "Tools: Free Pet Calculators already exists" is expected |
 | `tools-siden-ny-tekst.txt` | New body for the live `/tools/` page | Paste over the page's whole content in the Code editor. Also set the RankMath description (it is in `content/tools/index.md`) |
-| `pet-costs-7-rettelser.txt` | Seven number fixes for the live `/pet-guides/pet-costs/` page | Edit by hand in WordPress; the file lists old → new for each line |
+| `pet-costs-ny-tekst.txt` | Full new body for the live `/pet-guides/pet-costs/` page (the live text plus seven corrected price lines; checked sentence by sentence against live on 2026-10-22) | Paste over the page's whole content in the Code editor |
 
 `gamle-til-fortryd/` ("old, to roll back") holds the theme and plugin zips that were live before this release. Upload them the same way to undo.
 
