@@ -6,7 +6,7 @@ meta-description: "How to travel with dogs and cats: car restraint, flying rules
 status: draft-v1
 ---
 
-# Traveling With Pets: The Practical Guide, Including the Question Nobody Asks
+# Traveling With Pets
 
 Start with the question most travel guides skip: **should the pet come at all?** Most cats prefer their territory with a visiting sitter over any trip you can design ([territory is security](/cats/behavior/)), and for short trips, many dogs are happier with a good boarding setup than a stressful itinerary. When the answer is genuinely yes (moves, long stays, road-trip dogs who love the game), here's how to do car, air, and hotels properly: including the flying risks airlines undersell.
 

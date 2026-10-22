@@ -6,7 +6,7 @@ meta-description: "What dogs and cats really cost per year: first-year setup, fo
 status: draft-v1
 ---
 
-# How Much Does a Pet Cost? The Honest, Itemized Answer
+# How Much Does a Pet Cost?
 
 The realistic planning numbers: **a dog runs roughly $1,000–$2,000 per year** (size pushes both ends), **a cat roughly $800–$1,200**: with **first years running $1,500–$3,000+ for dogs and $800–$1,900 for cats** thanks to setup, vaccines, and spay/neuter. Over a 10–16 year life, that's a **$15,000–$30,000+ commitment**: the number worth seeing *before* the adoption photos, and the reason this page exists. Below: the line items, the costs nobody budgets, and the emergency question that decides whether a bad week becomes a tragedy. The [pet cost calculator](/tools/pet-cost-calculator/) personalizes all of it.
 

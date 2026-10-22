@@ -6,7 +6,7 @@ meta-description: "The pet-proofing master list: toxic foods and plants (lilies 
 status: draft-v1
 ---
 
-# Pet Safety at Home: The Master List of What Actually Hurts Pets
+# Pet Safety at Home
 
 Three facts organize this entire page: **over-the-counter human medications and supplements are the #1 reason people call animal poison control** (prescription medications are a separate top-3 category), **small amounts of lilies can cause fatal kidney injury in cats** (treat any exposure, including pollen or vase water, as an emergency), and **the emergency number belongs in your phone before you need it; ASPCA Animal Poison Control: (888) 426-4435** (a consultation fee applies; your regular vet and local emergency clinic complete the trio). Below: the toxin master list by category, the physical hazards by species, the holiday season's greatest hits, and the protocol for the moment something gets eaten.
 

@@ -6,7 +6,7 @@ meta-description: "The decision checklist before getting a pet: costs, time, lif
 status: draft-v1
 ---
 
-# New Pet Checklist: The Decisions Before the Shopping List
+# New Pet Checklist
 
 This is the checklist *before* the checklists: the [puppy list](/dogs/puppy-care/new-puppy-checklist/) and [kitten list](/cats/kitten-care/new-kitten-checklist/) tell you what to buy once you've decided: this page is the deciding. Shelters are full of pets whose owners skipped it: the commitment is **10–16 years and $15,000–$30,000+**, and the four questions below sort "I want a pet" from "I'm ready for this pet." Answer them honestly and the rest of the site takes over.
 

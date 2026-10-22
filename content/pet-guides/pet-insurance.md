@@ -6,7 +6,7 @@ meta-description: "How pet insurance actually works: reimbursement, the pre-exis
 status: draft-v1
 ---
 
-# Pet Insurance: How It Works, and an Honest Framework for Whether You Need It
+# Pet Insurance
 
 Pet insurance exists to answer one question: **could you absorb a surprise $3,000–$8,000 vet bill without it changing your pet's treatment?** If yes, you may be a candidate for self-insuring via an emergency fund; if no, insurance is how you buy that answer: *provided you enroll while the pet is young and healthy*, because the *pre-existing condition rule* is the single fact that decides most outcomes in this market. Here's how the product actually works, what it does and doesn't cover, and a decision framework instead of a pitch. (We name no insurers and take no commissions from any; this page is education.)
 
