@@ -5,7 +5,7 @@
  * toggle, the scroll-reveal effect that plays Aura's fadeSlideIn animation
  * as sections enter the viewport, forcing the in-article table of contents
  * open on desktop, the header search panel, the TOC's scroll-spy highlight,
- * and opening a deep-linked FAQ answer. The site is fully usable — search
+ * opening a deep-linked FAQ answer, and the homepage tools filter. The site is fully usable — search
  * included, via searchform.php's plain `method="get"` form and header.php's
  * <noscript> fallback — with this script disabled.
  */
@@ -19,6 +19,7 @@
 		initSearchPanel();
 		initTocScrollSpy();
 		initFaqDeepLink();
+		initToolFilters();
 	} );
 
 	/**
@@ -396,5 +397,112 @@
 
 		details.open = true;
 		details.scrollIntoView( { block: 'start' } );
+	}
+
+	/**
+	 * The homepage tools filter: category and species button groups
+	 * (template-parts/home/filter-bar.php) over the cards in tools-grid.php,
+	 * plus the links that set it from elsewhere on the page (the hero's
+	 * category quick links, "Find a Tool", "Browse all tools").
+	 *
+	 * The filter ships `hidden` and is revealed here, so without JavaScript
+	 * every tool shows and no control is dead. Filtering only toggles the
+	 * cards' `hidden` attribute: no URL parameters, so it never creates new
+	 * crawlable URLs.
+	 */
+	function initToolFilters() {
+		var root = document.querySelector( '[data-tpm-tool-filters]' );
+		var cards = document.querySelectorAll( '[data-tpm-tool]' );
+
+		if ( ! root || ! cards.length ) {
+			return;
+		}
+
+		var buttons = root.querySelectorAll( '[data-tpm-filter]' );
+		var status = root.querySelector( '[data-tpm-filter-status]' );
+		var clear = root.querySelector( '[data-tpm-filter-clear]' );
+		var empty = document.querySelector( '[data-tpm-filter-empty]' );
+		var links = document.querySelectorAll( '[data-tpm-filter-link]' );
+		var state = { category: 'all', species: 'all' };
+
+		root.hidden = false;
+
+		function apply( announce ) {
+			var shown = 0;
+
+			cards.forEach( function ( card ) {
+				var species = ( card.getAttribute( 'data-tpm-species' ) || '' ).split( ' ' );
+				var match = ( 'all' === state.category || card.getAttribute( 'data-tpm-category' ) === state.category ) &&
+					( 'all' === state.species || species.indexOf( state.species ) !== -1 );
+
+				card.hidden = ! match;
+				if ( match ) {
+					// A card revealed after the initial scroll-reveal pass would
+					// otherwise stay paused on its first (transparent) frame.
+					card.classList.add( 'is-visible' );
+					shown++;
+				}
+			} );
+
+			buttons.forEach( function ( button ) {
+				var pressed = state[ button.getAttribute( 'data-tpm-filter' ) ] === button.getAttribute( 'data-tpm-value' );
+				button.setAttribute( 'aria-pressed', String( pressed ) );
+			} );
+
+			links.forEach( function ( link ) {
+				var value = link.getAttribute( 'data-tpm-filter-link' );
+				link.classList.toggle( 'is-active', 'all' !== value && value === state.category );
+			} );
+
+			var filtered = 'all' !== state.category || 'all' !== state.species;
+			if ( clear ) {
+				clear.hidden = ! filtered;
+			}
+			if ( empty ) {
+				empty.hidden = shown > 0;
+			}
+			if ( status ) {
+				// Only speak after a user action, not on page load.
+				var text = filtered ? 'Showing ' + shown + ' of ' + cards.length + ' tools' : '';
+				if ( announce || ! text ) {
+					status.textContent = text;
+				}
+			}
+		}
+
+		buttons.forEach( function ( button ) {
+			button.addEventListener( 'click', function () {
+				state[ button.getAttribute( 'data-tpm-filter' ) ] = button.getAttribute( 'data-tpm-value' );
+				apply( true );
+			} );
+		} );
+
+		if ( clear ) {
+			clear.addEventListener( 'click', function () {
+				state.category = 'all';
+				state.species = 'all';
+				apply( true );
+				var first = root.querySelector( '[data-tpm-filter]' );
+				if ( first ) {
+					first.focus();
+				}
+			} );
+		}
+
+		// The quick links keep their normal #tools jump; they just set the
+		// category first. "all" also clears the species, so "Find a Tool"
+		// always lands on the full grid.
+		links.forEach( function ( link ) {
+			link.addEventListener( 'click', function () {
+				var value = link.getAttribute( 'data-tpm-filter-link' );
+				state.category = value;
+				if ( 'all' === value ) {
+					state.species = 'all';
+				}
+				apply( true );
+			} );
+		} );
+
+		apply( false );
 	}
 } )();

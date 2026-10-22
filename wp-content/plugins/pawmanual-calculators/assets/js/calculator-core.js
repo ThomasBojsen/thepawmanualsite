@@ -1,5 +1,5 @@
 /**
- * PawManual Calculators — shared engine.
+ * PawManual Calculators: shared engine.
  *
  * Loaded once on any page that uses the [pawmanual_calculator] shortcode. Each
  * calculator's config file (calculators/<id>/<id>.js) calls
@@ -8,27 +8,46 @@
  *
  * Adding a calculator never requires editing this file.
  *
- * Config shape:
+ * Config shape (every key except id/fields/calculate is optional):
  *   {
  *     id: 'dog-age',
+ *     submitLabel: 'Find my breeds',     // replaces the shell's "Calculate"
  *     fields: [
  *       { name, label, type: 'number' | 'select', required,
  *         min, max, step, unit, help, placeholder,
- *         options: [ { value, label } ]   // select fields only
+ *         default,                         // value, or function returning one
+ *         options: [ { value, label } ],   // select fields only
+ *         units: [                         // number fields only: a unit switch
+ *           { value: 'lb', label: 'lb', system: 'imperial',
+ *             toBase: 0.45359237, min, max, step },
+ *           { value: 'kg', label: 'kg', system: 'metric',
+ *             toBase: 1, min, max, step }
+ *         ]
  *       }
  *     ],
  *     calculate: function (values) {
- *       // values maps each field name to a number (number fields)
- *       // or a string (select fields).
- *       return { headline: 'string', summary: 'string' };
+ *       // values maps each field name to a number (number fields, already
+ *       // converted to the base unit when the field has `units`) or a string
+ *       // (select fields). A field with units also adds values[name + 'Unit'].
+ *       return {
+ *         headline: 'string',
+ *         summary: 'string',
+ *         details: [ { heading } | { label, value } ],   // a rows table
+ *         list: [ { title, path, meta, text } ],         // a ranked list
+ *         notes: [ 'string' ]
+ *       };
  *     }
  *   }
+ *
+ * Everything the engine writes goes through textContent, never innerHTML, so
+ * a config can't inject markup by accident.
  */
 ( function ( window, document ) {
 	'use strict';
 
 	var PawManual = window.PawManual || {};
 	PawManual._configs = PawManual._configs || {};
+	PawManual._published = PawManual._published || {};
 
 	/**
 	 * Register a calculator configuration. Called by each calculator config file.
@@ -41,7 +60,108 @@
 		}
 	};
 
+	/**
+	 * The visitor's region code from the browser language ('US', 'DK', …), or
+	 * '' when the language carries none. Used only to pick sensible defaults
+	 * (lb vs kg, USD vs EUR); the visitor can always switch.
+	 *
+	 * @return {string}
+	 */
+	PawManual.getRegion = function () {
+		var langs = ( window.navigator && window.navigator.languages && window.navigator.languages.length ) ?
+			window.navigator.languages :
+			[ ( window.navigator && window.navigator.language ) || '' ];
+
+		for ( var i = 0; i < langs.length; i++ ) {
+			var parts = String( langs[ i ] ).split( '-' );
+			if ( parts.length > 1 && /^[a-z]{2}$/i.test( parts[ parts.length - 1 ] ) ) {
+				return parts[ parts.length - 1 ].toUpperCase();
+			}
+		}
+		return '';
+	};
+
+	/**
+	 * Whether the visitor most likely measures in pounds. Only the US (plus
+	 * Liberia and Myanmar) defaults to imperial; everyone else gets metric.
+	 *
+	 * @return {boolean}
+	 */
+	PawManual.prefersImperial = function () {
+		return [ 'US', 'LR', 'MM' ].indexOf( PawManual.getRegion() ) !== -1;
+	};
+
+	/**
+	 * Whether a site path is a published page. The plugin prints the list of
+	 * published paths a calculator may link to (includes/enqueue.php), so a
+	 * result never links to a page that hasn't shipped yet: the same rule the
+	 * theme enforces for post-body links.
+	 *
+	 * @param {string} path Site-relative path, e.g. '/dogs/breeds/poodle/'.
+	 * @return {boolean}
+	 */
+	PawManual.isPublished = function ( path ) {
+		return !! PawManual._published[ normalizePath( path ) ];
+	};
+
 	window.PawManual = PawManual;
+
+	function normalizePath( path ) {
+		var p = String( path || '' ).toLowerCase().replace( /[?#].*$/, '' );
+		p = p.replace( /^\/+|\/+$/g, '' );
+		return p ? '/' + p + '/' : '/';
+	}
+
+	/**
+	 * Resolve a field's default value (a plain value or a function).
+	 */
+	function resolveDefault( field ) {
+		if ( typeof field.default === 'function' ) {
+			try {
+				return field.default();
+			} catch ( error ) {
+				return undefined;
+			}
+		}
+		return field.default;
+	}
+
+	/**
+	 * Pick the unit a field starts in: the one matching the visitor's
+	 * measurement system, else the first.
+	 */
+	function initialUnit( units ) {
+		var system = PawManual.prefersImperial() ? 'imperial' : 'metric';
+		for ( var i = 0; i < units.length; i++ ) {
+			if ( units[ i ].system === system ) {
+				return units[ i ];
+			}
+		}
+		return units[ 0 ];
+	}
+
+	function findUnit( units, value ) {
+		for ( var i = 0; i < units.length; i++ ) {
+			if ( units[ i ].value === value ) {
+				return units[ i ];
+			}
+		}
+		return units[ 0 ];
+	}
+
+	/**
+	 * Apply a unit's min/max/step to the number input, so the browser's own
+	 * spinner and the engine's validation agree.
+	 */
+	function applyUnitLimits( control, unit, field ) {
+		var min = typeof unit.min === 'number' ? unit.min : field.min;
+		var max = typeof unit.max === 'number' ? unit.max : field.max;
+		var step = unit.step || field.step;
+
+		if ( typeof min === 'number' ) { control.min = String( min ); } else { control.removeAttribute( 'min' ); }
+		if ( typeof max === 'number' ) { control.max = String( max ); } else { control.removeAttribute( 'max' ); }
+		if ( step ) { control.step = String( step ); } else { control.removeAttribute( 'step' ); }
+	}
 
 	/**
 	 * Build one field group: a label, the control, optional help text, and an
@@ -49,7 +169,7 @@
 	 *
 	 * @param {string} calcId Calculator id, used to namespace element ids.
 	 * @param {Object} field  Field definition from the config.
-	 * @return {Object} { wrap, control, error, field }
+	 * @return {Object} { wrap, control, error, field, unitControl? }
 	 */
 	function createField( calcId, field ) {
 		var wrap = document.createElement( 'div' );
@@ -57,6 +177,10 @@
 
 		var inputId = 'pm-' + calcId + '-' + field.name;
 		var errorId = inputId + '-error';
+		var helpId = inputId + '-help';
+		var hasUnits = field.type === 'number' && field.units && field.units.length > 1;
+		var unitControl = null;
+		var startDefault = resolveDefault( field );
 
 		var label = document.createElement( 'label' );
 		label.className = 'pm-calc__label';
@@ -79,6 +203,12 @@
 				var option = document.createElement( 'option' );
 				option.value = opt.value;
 				option.textContent = opt.label;
+				// defaultSelected (not just selected) so the form's own Reset
+				// restores the default instead of the empty placeholder.
+				if ( startDefault !== undefined && String( startDefault ) === String( opt.value ) ) {
+					option.defaultSelected = true;
+					option.selected = true;
+				}
 				control.appendChild( option );
 			} );
 		} else {
@@ -86,19 +216,72 @@
 			control.className = 'pm-calc__input';
 			control.type = ( field.type === 'number' ) ? 'number' : 'text';
 
-			if ( typeof field.min === 'number' ) { control.min = String( field.min ); }
-			if ( typeof field.max === 'number' ) { control.max = String( field.max ); }
-			if ( field.step ) { control.step = String( field.step ); }
+			if ( ! hasUnits ) {
+				applyUnitLimits( control, {}, field );
+			}
 			if ( field.placeholder ) { control.placeholder = field.placeholder; }
 			if ( field.type === 'number' ) { control.inputMode = 'decimal'; }
+			if ( startDefault !== undefined && startDefault !== null && startDefault !== '' ) {
+				control.defaultValue = String( startDefault );
+			}
 		}
 
 		control.id = inputId;
 		control.name = field.name;
-		control.setAttribute( 'aria-describedby', errorId );
+		control.setAttribute( 'aria-describedby', ( field.help ? helpId + ' ' : '' ) + errorId );
 		if ( field.required ) { control.setAttribute( 'aria-required', 'true' ); }
 
-		if ( field.unit ) {
+		if ( hasUnits ) {
+			// A number input plus its own unit <select>. The select carries an
+			// aria-label because the visible <label> already belongs to the input.
+			var unitsWrap = document.createElement( 'div' );
+			unitsWrap.className = 'pm-calc__control pm-calc__control--units';
+			unitsWrap.appendChild( control );
+
+			unitControl = document.createElement( 'select' );
+			unitControl.className = 'pm-calc__select pm-calc__unit-select';
+			unitControl.id = inputId + '-unit';
+			unitControl.name = field.name + 'Unit';
+			unitControl.setAttribute( 'aria-label', ( field.label || field.name ) + ': unit' );
+
+			var startUnit = initialUnit( field.units );
+			field.units.forEach( function ( unit ) {
+				var option = document.createElement( 'option' );
+				option.value = unit.value;
+				option.textContent = unit.label;
+				if ( unit === startUnit ) {
+					option.defaultSelected = true;
+					option.selected = true;
+				}
+				unitControl.appendChild( option );
+			} );
+			applyUnitLimits( control, startUnit, field );
+
+			// Switching units converts what's already typed, so "20 lb" becomes
+			// "9.1 kg" instead of silently turning into 20 kg. Units without a
+			// toBase (kcal/cup vs kcal/100 g measure different things) can't
+			// convert, so the old value is cleared rather than reinterpreted.
+			unitControl.setAttribute( 'data-pm-previous', startUnit.value );
+			unitControl.addEventListener( 'change', function () {
+				var from = findUnit( field.units, unitControl.getAttribute( 'data-pm-previous' ) );
+				var to = findUnit( field.units, unitControl.value );
+				var current = Number( control.value );
+
+				if ( control.value !== '' ) {
+					if ( isFinite( current ) && from.toBase && to.toBase ) {
+						var converted = current * from.toBase / to.toBase;
+						control.value = String( Math.round( converted * 10 ) / 10 );
+					} else if ( from !== to ) {
+						control.value = '';
+					}
+				}
+				applyUnitLimits( control, to, field );
+				unitControl.setAttribute( 'data-pm-previous', to.value );
+			} );
+
+			unitsWrap.appendChild( unitControl );
+			wrap.appendChild( unitsWrap );
+		} else if ( field.unit ) {
 			var unitWrap = document.createElement( 'div' );
 			unitWrap.className = 'pm-calc__control pm-calc__control--unit';
 			unitWrap.appendChild( control );
@@ -114,6 +297,7 @@
 		if ( field.help ) {
 			var help = document.createElement( 'p' );
 			help.className = 'pm-calc__help';
+			help.id = helpId;
 			help.textContent = field.help;
 			wrap.appendChild( help );
 		}
@@ -124,7 +308,7 @@
 		error.hidden = true;
 		wrap.appendChild( error );
 
-		return { wrap: wrap, control: control, error: error, field: field };
+		return { wrap: wrap, control: control, error: error, field: field, unitControl: unitControl };
 	}
 
 	/**
@@ -150,11 +334,15 @@
 	/**
 	 * Validate one field's current value.
 	 *
-	 * @return {Object} { valid: boolean, value? } — value is present when valid.
+	 * @return {Object} { valid: boolean, value?, unit? }: value is present when
+	 *                  valid, already converted to the base unit for a field
+	 *                  with `units`.
 	 */
 	function validateField( item ) {
 		var field = item.field;
 		var raw = ( item.control.value != null ) ? String( item.control.value ).trim() : '';
+		var unit = item.unitControl ? findUnit( field.units, item.unitControl.value ) : null;
+		var suffix = unit ? ' ' + unit.label : '';
 
 		clearFieldError( item );
 
@@ -163,24 +351,30 @@
 				setFieldError( item, 'Please fill in this field.' );
 				return { valid: false };
 			}
-			return { valid: true, value: '' };
+			return { valid: true, value: '', unit: unit ? unit.value : undefined };
 		}
 
 		if ( field.type === 'number' ) {
 			var num = Number( raw );
+			var min = ( unit && typeof unit.min === 'number' ) ? unit.min : field.min;
+			var max = ( unit && typeof unit.max === 'number' ) ? unit.max : field.max;
+
 			if ( ! isFinite( num ) ) {
 				setFieldError( item, 'Please enter a number.' );
 				return { valid: false };
 			}
-			if ( typeof field.min === 'number' && num < field.min ) {
-				setFieldError( item, 'Please enter ' + field.min + ' or more.' );
+			if ( typeof min === 'number' && num < min ) {
+				setFieldError( item, 'Please enter ' + min + suffix + ' or more.' );
 				return { valid: false };
 			}
-			if ( typeof field.max === 'number' && num > field.max ) {
-				setFieldError( item, 'Please enter ' + field.max + ' or less.' );
+			if ( typeof max === 'number' && num > max ) {
+				setFieldError( item, 'Please enter ' + max + suffix + ' or less.' );
 				return { valid: false };
 			}
-			return { valid: true, value: num };
+			if ( unit && unit.toBase ) {
+				num = num * unit.toBase;
+			}
+			return { valid: true, value: num, unit: unit ? unit.value : undefined };
 		}
 
 		return { valid: true, value: raw };
@@ -194,22 +388,100 @@
 		resultEl.classList.remove( 'pm-calc__result--filled', 'pm-calc__result--error' );
 	}
 
+	function appendText( parent, tag, className, text ) {
+		var el = document.createElement( tag );
+		el.className = className;
+		el.textContent = text;
+		parent.appendChild( el );
+		return el;
+	}
+
+	/**
+	 * A label/value table. A row with only `heading` starts a new group.
+	 */
+	function renderDetails( resultEl, rows ) {
+		var dl = document.createElement( 'dl' );
+		dl.className = 'pm-calc__details';
+
+		rows.forEach( function ( row ) {
+			if ( ! row ) {
+				return;
+			}
+			if ( row.heading ) {
+				appendText( dl, 'div', 'pm-calc__details-heading', row.heading );
+				return;
+			}
+			var line = document.createElement( 'div' );
+			line.className = 'pm-calc__details-row';
+			appendText( line, 'dt', 'pm-calc__details-label', row.label );
+			appendText( line, 'dd', 'pm-calc__details-value', row.value );
+			dl.appendChild( line );
+		} );
+
+		resultEl.appendChild( dl );
+	}
+
+	/**
+	 * A ranked list. An item links to its `path` only when that page is
+	 * published (PawManual.isPublished); otherwise the title is plain text.
+	 */
+	function renderList( resultEl, items ) {
+		var ol = document.createElement( 'ol' );
+		ol.className = 'pm-calc__list';
+
+		items.forEach( function ( item ) {
+			if ( ! item ) {
+				return;
+			}
+			var li = document.createElement( 'li' );
+			li.className = 'pm-calc__list-item';
+
+			var title;
+			if ( item.path && PawManual.isPublished( item.path ) ) {
+				title = document.createElement( 'a' );
+				title.href = normalizePath( item.path );
+				title.className = 'pm-calc__list-title pm-calc__list-title--link';
+				title.textContent = item.title;
+				li.appendChild( title );
+			} else {
+				appendText( li, 'span', 'pm-calc__list-title', item.title );
+			}
+
+			if ( item.meta ) {
+				appendText( li, 'span', 'pm-calc__list-meta', item.meta );
+			}
+			if ( item.text ) {
+				appendText( li, 'p', 'pm-calc__list-text', item.text );
+			}
+			ol.appendChild( li );
+		} );
+
+		resultEl.appendChild( ol );
+	}
+
 	/**
 	 * Render a successful result.
 	 */
 	function showResult( resultEl, result ) {
 		resultEl.textContent = '';
 
-		var value = document.createElement( 'div' );
-		value.className = 'pm-calc__result-value';
-		value.textContent = result.headline;
-		resultEl.appendChild( value );
+		appendText( resultEl, 'div', 'pm-calc__result-value', result.headline );
 
 		if ( result.summary ) {
-			var summary = document.createElement( 'div' );
-			summary.className = 'pm-calc__result-summary';
-			summary.textContent = result.summary;
-			resultEl.appendChild( summary );
+			appendText( resultEl, 'div', 'pm-calc__result-summary', result.summary );
+		}
+		if ( result.details && result.details.length ) {
+			renderDetails( resultEl, result.details );
+		}
+		if ( result.list && result.list.length ) {
+			renderList( resultEl, result.list );
+		}
+		if ( result.notes && result.notes.length ) {
+			result.notes.forEach( function ( note ) {
+				if ( note ) {
+					appendText( resultEl, 'p', 'pm-calc__note', note );
+				}
+			} );
 		}
 
 		resultEl.classList.add( 'pm-calc__result--filled' );
@@ -221,10 +493,7 @@
 	 */
 	function showResultError( resultEl, message ) {
 		resultEl.textContent = '';
-		var value = document.createElement( 'div' );
-		value.className = 'pm-calc__result-value';
-		value.textContent = message;
-		resultEl.appendChild( value );
+		appendText( resultEl, 'div', 'pm-calc__result-value', message );
 		resultEl.classList.add( 'pm-calc__result--filled', 'pm-calc__result--error' );
 	}
 
@@ -235,9 +504,14 @@
 		var form = root.querySelector( '.pm-calc__form' );
 		var fieldsHost = root.querySelector( '[data-pm-fields]' );
 		var resultEl = root.querySelector( '[data-pm-result]' );
+		var submit = root.querySelector( '[data-pm-calculate]' );
 
 		if ( ! form || ! fieldsHost || ! resultEl ) {
 			return;
+		}
+
+		if ( config.submitLabel && submit ) {
+			submit.textContent = config.submitLabel;
 		}
 
 		var items = ( config.fields || [] ).map( function ( field ) {
@@ -263,6 +537,9 @@
 					}
 				} else {
 					values[ item.field.name ] = outcome.value;
+					if ( outcome.unit !== undefined ) {
+						values[ item.field.name + 'Unit' ] = outcome.unit;
+					}
 				}
 			} );
 
@@ -290,6 +567,18 @@
 		form.addEventListener( 'reset', function () {
 			items.forEach( clearFieldError );
 			clearResult( resultEl );
+
+			// The browser restores each unit <select> to its default on reset,
+			// but only after this handler runs: re-sync the input's limits then.
+			window.setTimeout( function () {
+				items.forEach( function ( item ) {
+					if ( item.unitControl ) {
+						var unit = findUnit( item.field.units, item.unitControl.value );
+						applyUnitLimits( item.control, unit, item.field );
+						item.unitControl.setAttribute( 'data-pm-previous', unit.value );
+					}
+				} );
+			}, 0 );
 		} );
 	}
 

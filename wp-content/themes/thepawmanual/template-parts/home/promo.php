@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'A growing library of free, easy-to-use calculators for dogs and cats, with birds and small pets on the way.', 'thepawmanual' ); ?>
 				</p>
 				<div class="mt-5 flex flex-wrap items-center gap-3">
-					<a href="#tools" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-brand-700">
+					<a href="#tools" data-tpm-filter-link="all" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 font-geist text-sm text-white transition hover:bg-brand-700">
 						<?php esc_html_e( 'Browse all tools', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>

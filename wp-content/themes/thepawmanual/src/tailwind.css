@@ -312,6 +312,30 @@
   }
 
   /*
+   * Homepage tools filter (template-parts/home/filter-bar.php) and the hero's
+   * category quick links (hero.php). The pressed/active state is read from
+   * aria-pressed / .is-active, which theme.js (initToolFilters()) keeps in
+   * sync, so the visual state can never disagree with what a screen reader
+   * announces.
+   */
+  .tpm-filter-chip {
+    @apply inline-flex min-h-[2.25rem] items-center rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 font-geist text-sm text-neutral-700 transition hover:border-brand-200 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+  }
+  .tpm-filter-chip[aria-pressed="true"] {
+    @apply border-brand-600 bg-brand-600 text-white hover:text-white;
+  }
+  .tpm-hero-pill {
+    @apply inline-flex rounded-full px-3 py-1.5 font-geist text-xs text-neutral-700 transition hover:bg-white hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+  }
+  .tpm-hero-pill.is-active {
+    @apply bg-brand-600 text-white hover:bg-brand-700 hover:text-white;
+  }
+  /* .tpm-card is display:flex, which would beat the [hidden] attribute the filter sets. */
+  [data-tpm-tool][hidden] {
+    display: none;
+  }
+
+  /*
    * Key takeaway — the lead-paragraph extract content-blocks.php (W2) lifts
    * out of the article body and renders ahead of the content, outside
    * `.tpm-prose`. It ships as bare inner HTML (no wrapping <p>), so this

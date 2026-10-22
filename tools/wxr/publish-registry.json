@@ -1,5 +1,5 @@
 {
-  "_readme": "URL -> { date, title, filePath } recorded the first time that URL was ever emitted into a WXR file. WordPress recognizes an already-imported page by matching its TITLE AND its DATE together (see \"How WordPress decides...\" in tools/wxr/README.md), and it keeps both even after a human later publishes the imported Draft by hand — so this file is what makes a page's title+date pair both believable on the live site AND permanently stable no matter how many more times it gets regenerated, or how much later. generate.js appends one new entry automatically (via --date) the first time a URL needs one; it never rewrites an entry that already exists — if the current H1 for a URL no longer matches the recorded title, generate.js stops with an error instead of guessing which one is right (silently picking either one reopens the exact duplicate-page bug this file exists to prevent). \"filePath\" is only used to notice when a URL itself has been renamed in content/ (the same file now defines a different URL) — see \"A page's URL changing\" in tools/wxr/README.md. Commit this file whenever generate.js reports it added new entries. To correct a mistake before anything has actually been imported into WordPress, it is safe to hand-edit an entry directly — it is plain JSON.",
+  "_readme": "URL -> { date, title, filePath } recorded the first time that URL was ever emitted into a WXR file. WordPress recognizes an already-imported page by matching its TITLE AND its DATE together (see \"How WordPress decides...\" in tools/wxr/README.md). \"date\" holds ONE OF TWO shapes, and the shape itself is the signal for which one you have: (1) a bare calendar date, \"YYYY-MM-DD\" — a RESERVATION, not a record. This URL has never been confirmed against a live WordPress post; generate.js will emit it at midnight UTC, which is fine because nobody has published this page yet, so no live timestamp exists yet to disagree with it. (2) a full ISO-8601 datetime with a UTC offset, e.g. \"2026-09-10T20:03:42+00:00\" — a HARVESTED value, copied verbatim (including the offset) from that exact page's live RankMath JSON-LD \"datePublished\" field. Every wave-1 URL (see tools/wxr/waves.json wave \"1\") was corrected to this shape on 2026-09-14 after the bare-midnight dates were found to have drifted from what WordPress actually put on the live pages once they were published — the fix that shape (2) exists to make permanent. generate.js reads either shape the same way: a bare date gets \"T00:00:00Z\" appended, a full ISO string is parsed as-is (see parseRegistryDateString). IMPORTANT — why bare dates drift and full ones don't: this tool always imports pages as `<wp:status>draft</wp:status>` (see tools/wxr/lib/wxr-xml.js and the README's \"What it does\"). A WordPress draft does not keep the wp:post_date this tool wrote as its real \"this is when it went live\" date — internally a draft's post_date is treated as unset, and the moment a human clicks Publish on it, WordPress stamps that literal moment as the post's real post_date/ post_date_gmt, overwriting whatever this tool imported it with. So a date recorded here is only ever guaranteed to still be accurate for a URL that has NEVER been published in WordPress yet (shape 1, correctly). The instant a human publishes it, this tool's stamped date silently goes stale — it is still remembered here, but it no longer matches the live page, exactly the drift that hit all 17 wave-1 URLs (16 of them share 2026-09-10T20:03:42+00:00; one, /pet-guides/pet-travel/, was republished separately at 2026-09-10T20:20:17+00:00 — always harvest per-URL, never assume one page's value for another). If this happens again for a URL already in this file: open the live page, read `datePublished` out of its RankMath JSON-LD (view source or a console `document.querySelectorAll('script[type=\"application/ld+json\"]')` search — the same way the 2026-09-14 correction was harvested), and hand-edit just that entry's \"date\" to the exact live string, offset included; generate.js also now warns automatically the moment a run re-emits a URL whose registry date is still bare (see warnAboutUnharvestedDates in generate.js and \"Re-harvesting a drifted date\" in tools/wxr/README.md) so this cannot rot silently again. generate.js appends one new bare-date entry automatically (via --date) the first time a URL needs one; it never rewrites an entry that already exists on its own — if the current H1 for a URL no longer matches the recorded title, generate.js stops with an error instead of guessing which one is right (silently picking either one reopens the exact duplicate-page bug this file exists to prevent). \"filePath\" is only used to notice when a URL itself has been renamed in content/ (the same file now defines a different URL) — see \"A page's URL changing\" in tools/wxr/README.md. Commit this file whenever generate.js reports it added new entries, or whenever you hand-correct a drifted date. To correct a mistake before anything has actually been imported into WordPress, it is safe to hand-edit an entry directly — it is plain JSON; correcting a drifted live date is exactly as safe, since this file is a record of fact for WordPress's benefit, not an input WordPress reads live.",
   "/about/": {
     "date": "2026-09-10T20:03:42+00:00",
     "title": "About ThePawManual",
@@ -625,9 +625,34 @@
     "title": "Cat Age Calculator: How Old Is Your Cat in Human Years?",
     "filePath": "content/tools/cat-age-calculator.md"
   },
+  "/tools/cat-breed-selector/": {
+    "date": "2026-10-22",
+    "title": "Cat Breed Selector: Which Cat Breed Suits Your Home?",
+    "filePath": "content/tools/cat-breed-selector.md"
+  },
+  "/tools/cat-food-calculator/": {
+    "date": "2026-10-22",
+    "title": "Cat Food Calculator: How Many Calories Does Your Cat Need?",
+    "filePath": "content/tools/cat-food-calculator.md"
+  },
   "/tools/dog-age-calculator/": {
     "date": "2026-09-10T20:03:42+00:00",
     "title": "Dog Age Calculator: How Old Is Your Dog in Human Years?",
     "filePath": "content/tools/dog-age-calculator.md"
+  },
+  "/tools/dog-breed-selector/": {
+    "date": "2026-10-22",
+    "title": "Dog Breed Selector: Which Dog Breed Fits Your Life?",
+    "filePath": "content/tools/dog-breed-selector.md"
+  },
+  "/tools/dog-food-calculator/": {
+    "date": "2026-10-22",
+    "title": "Dog Food Calculator: How Much Should Your Dog Eat a Day?",
+    "filePath": "content/tools/dog-food-calculator.md"
+  },
+  "/tools/pet-cost-calculator/": {
+    "date": "2026-10-22",
+    "title": "Pet Cost Calculator: What Will a Dog or Cat Really Cost You?",
+    "filePath": "content/tools/pet-cost-calculator.md"
   }
 }

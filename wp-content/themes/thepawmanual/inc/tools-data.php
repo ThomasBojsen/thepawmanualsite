@@ -3,7 +3,7 @@
  * Tool-card data and per-page tool ranking.
  *
  * tpm_get_homepage_tools() is the original, single source of truth for the
- * six tools the site knows about (title/description/icon/status/url), plus
+ * tools the site knows about (title/description/icon/status/url), plus
  * three keys — slug/species/topics — added 2026-09-14 so the same list can
  * also answer "which of these tools actually belongs on THIS page" for the
  * tools strip and the in-article tool CTA (user requirements 2/3). Nothing
@@ -20,22 +20,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Return the tools shown on the homepage.
  *
- * `status` is either 'available' (a real, linked calculator page) or
- * 'coming-soon' (shown as a card but not yet built). URLs and the six-tool
- * set match content/SITEMAP.md's `/tools/` section — only the Dog Age and
- * Cat Age calculators are actually built, so the other four are deliberately
- * non-linked "coming soon" cards (tool-card.php never renders a link unless
- * status is 'available' AND a url is set) rather than dead links to pages
- * that don't exist yet. Shipping working links to unbuilt tools is exactly
- * the thin-content signal a fresh domain can't afford at launch.
+ * `status` is either 'available' (a built calculator) or 'coming-soon' (shown
+ * as a card but not yet built). All seven are built as of 2026-10-22, but
+ * "built" is not "published": the homepage grid (tpm_get_homepage_tool_cards()
+ * below) and tpm_rank_tools_for_post() both re-check that the tool's Page is
+ * actually live before linking it, and show it as "Coming soon" until then.
+ * That lets the theme ship before or after the tool pages without ever
+ * linking to a 404 (CLAUDE.md §13).
  *
  * `slug` is the tool's Page slug under `/tools/` (content/SITEMAP.md), not
- * the calculator engine id the plugin registers — tpm_rank_tools_for_post()
+ * the calculator engine id the plugin registers: tpm_rank_tools_for_post()
  * below needs the Page slug to resolve a tool against
- * tpm_get_published_page_url(), and the two happen to differ for the two
- * built calculators (engine id `dog-age`, Page slug `dog-age-calculator`).
- * `species` and `topics` are what that same ranking matches a page's URL
- * hierarchy against — see tpm_rank_tools_for_post() for how.
+ * tpm_get_published_page_url(), and the two differ (engine id `dog-age`,
+ * Page slug `dog-age-calculator`). `species` and `topics` are what that same
+ * ranking matches a page's URL hierarchy against: see
+ * tpm_rank_tools_for_post() for how. `category` is one key of
+ * tpm_get_tool_categories(): the homepage filter and the hero's quick links
+ * group the grid by it.
  *
  * @return array[] List of tool definitions.
  */
@@ -50,6 +51,7 @@ function tpm_get_homepage_tools() {
 			'slug'        => 'dog-age-calculator',
 			'species'     => array( 'dogs' ),
 			'topics'      => array( 'age', 'senior', 'puppy', 'life-stage' ),
+			'category'    => 'age',
 		),
 		array(
 			'title'       => __( 'Cat Age Calculator', 'thepawmanual' ),
@@ -60,47 +62,109 @@ function tpm_get_homepage_tools() {
 			'slug'        => 'cat-age-calculator',
 			'species'     => array( 'cats' ),
 			'topics'      => array( 'age', 'senior', 'kitten', 'life-stage' ),
+			'category'    => 'age',
 		),
 		array(
 			'title'       => __( 'Dog Food Calculator', 'thepawmanual' ),
 			'description' => __( "Work out the right daily food portion for your dog's weight and activity.", 'thepawmanual' ),
 			'icon'        => 'bowl',
-			'status'      => 'coming-soon',
-			'url'         => '',
+			'status'      => 'available',
+			'url'         => home_url( '/tools/dog-food-calculator/' ),
 			'slug'        => 'dog-food-calculator',
 			'species'     => array( 'dogs' ),
-			'topics'      => array( 'food', 'feeding', 'portion', 'weight', 'nutrition' ),
+			'topics'      => array( 'food', 'feeding', 'feed', 'portion', 'weight', 'nutrition' ),
+			'category'    => 'nutrition',
 		),
 		array(
 			'title'       => __( 'Cat Food Calculator', 'thepawmanual' ),
 			'description' => __( "Work out the right daily food portion for your cat's weight and activity.", 'thepawmanual' ),
 			'icon'        => 'bowl',
-			'status'      => 'coming-soon',
-			'url'         => '',
+			'status'      => 'available',
+			'url'         => home_url( '/tools/cat-food-calculator/' ),
 			'slug'        => 'cat-food-calculator',
 			'species'     => array( 'cats' ),
-			'topics'      => array( 'food', 'feeding', 'portion', 'weight', 'nutrition' ),
+			'topics'      => array( 'food', 'feeding', 'feed', 'portion', 'weight', 'nutrition' ),
+			'category'    => 'nutrition',
 		),
 		array(
 			'title'       => __( 'Pet Cost Calculator', 'thepawmanual' ),
-			'description' => __( 'See what a dog or cat will realistically cost you per year.', 'thepawmanual' ),
+			'description' => __( 'See what a dog or cat will realistically cost you per year, in dollars or euros.', 'thepawmanual' ),
 			'icon'        => 'gauge',
-			'status'      => 'coming-soon',
-			'url'         => '',
+			'status'      => 'available',
+			'url'         => home_url( '/tools/pet-cost-calculator/' ),
 			'slug'        => 'pet-cost-calculator',
 			'species'     => array( 'dogs', 'cats' ),
 			'topics'      => array( 'cost', 'budget', 'insurance', 'money' ),
+			'category'    => 'costs',
 		),
 		array(
 			'title'       => __( 'Dog Breed Selector', 'thepawmanual' ),
 			'description' => __( 'Find which breeds fit your home, schedule, and activity level.', 'thepawmanual' ),
 			'icon'        => 'sliders-horizontal',
-			'status'      => 'coming-soon',
-			'url'         => '',
+			'status'      => 'available',
+			'url'         => home_url( '/tools/dog-breed-selector/' ),
 			'slug'        => 'dog-breed-selector',
 			'species'     => array( 'dogs' ),
 			'topics'      => array( 'breed', 'breeds', 'choosing' ),
+			'category'    => 'breeds',
 		),
+		array(
+			'title'       => __( 'Cat Breed Selector', 'thepawmanual' ),
+			'description' => __( 'Find which cat breeds suit your home, routine, and family.', 'thepawmanual' ),
+			'icon'        => 'sliders-horizontal',
+			'status'      => 'available',
+			'url'         => home_url( '/tools/cat-breed-selector/' ),
+			'slug'        => 'cat-breed-selector',
+			'species'     => array( 'cats' ),
+			'topics'      => array( 'breed', 'breeds', 'choosing' ),
+			'category'    => 'breeds',
+		),
+	);
+}
+
+/**
+ * The tool categories the homepage filter and hero quick links offer, in
+ * display order. Every `category` in tpm_get_homepage_tools() must be a key
+ * here; a category no tool uses would be a filter that empties the grid, so
+ * don't add one before its first tool exists.
+ *
+ * @return array<string, string> Category key => translated label.
+ */
+function tpm_get_tool_categories() {
+	return array(
+		'age'       => __( 'Age', 'thepawmanual' ),
+		'nutrition' => __( 'Nutrition', 'thepawmanual' ),
+		'costs'     => __( 'Costs', 'thepawmanual' ),
+		'breeds'    => __( 'Breeds', 'thepawmanual' ),
+	);
+}
+
+/**
+ * The homepage grid's tools, each linked only when its Page is published.
+ *
+ * Same rule tpm_rank_tools_for_post() applies to the tools strip: a tool
+ * marked 'available' in code whose Page hasn't shipped yet is shown as
+ * 'coming-soon', never as a link to a 404. Catalogue order is kept.
+ *
+ * @return array[] tpm_get_homepage_tools() rows with resolved status/url.
+ */
+function tpm_get_homepage_tool_cards() {
+	return array_map(
+		static function ( $tool ) {
+			if ( 'available' === $tool['status'] ) {
+				$resolved = ( ! empty( $tool['slug'] ) && function_exists( 'tpm_get_published_page_url' ) )
+					? tpm_get_published_page_url( 'tools/' . $tool['slug'] )
+					: null;
+				if ( $resolved ) {
+					$tool['url'] = $resolved;
+				} else {
+					$tool['status'] = 'coming-soon';
+					$tool['url']    = '';
+				}
+			}
+			return $tool;
+		},
+		tpm_get_homepage_tools()
 	);
 }
 
@@ -192,7 +256,7 @@ function tpm_get_page_species_context( $post_id ) {
  * templates read, and threading an extra bookkeeping key through it for the
  * sake of one caller (the species gate below) risks that key leaking into a
  * template that was never meant to see it. A direct lookup against the
- * six-tool catalogue is a handful of array comparisons, not a query, so
+ * tool catalogue is a handful of array comparisons, not a query, so
  * there is no real cost to keeping it separate.
  *
  * @param string $slug A tool's Page slug (tpm_get_homepage_tools()'s `slug`), not the calculator engine id.
@@ -248,9 +312,9 @@ function tpm_get_catalogued_tool_species( $slug ) {
  * down the strip either.
  *
  * Every 'available' tool is re-checked against tpm_get_published_page_url()
- * (inc/internal-links.php) rather than trusted at face value: the six-tool
- * list is fixed in code, but only two of those Pages exist on the live site
- * today, and a wave that hasn't shipped a tool's Page yet must not produce a
+ * (inc/internal-links.php) rather than trusted at face value: the tool list
+ * is fixed in code, but a tool's Page goes live only when its wave is
+ * imported and published, and a wave that hasn't shipped yet must not produce a
  * live link to a 404 (CLAUDE.md §13, same rule tpm_filter_internal_links()
  * enforces for post-body links). A tool that fails this check is downgraded
  * to 'coming-soon' here, in the one place both public functions read from —
@@ -391,7 +455,7 @@ function tpm_rank_tools_for_post( $post_id ) {
  * Backs the tools strip (template-parts/content/tools-strip.php) that ships
  * on every landing/hub page (user requirement 3). Always returns at least
  * two rows — even if a caller passes a smaller $limit — so the strip can
- * never render looking broken; the catalogue has six tools total, minus the
+ * never render looking broken; the catalogue has seven tools total, minus the
  * current page's own when that page IS one of them (tpm_rank_tools_for_post()'s
  * self-exclusion), so this is never short of stock.
  *

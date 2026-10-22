@@ -149,5 +149,12 @@
     "/cats/products/best-cat-trees/",
     "/cats/products/best-cat-toys/",
     "/cats/products/best-cat-carriers/"
+  ],
+  "tools": [
+    "/tools/dog-food-calculator/",
+    "/tools/cat-food-calculator/",
+    "/tools/pet-cost-calculator/",
+    "/tools/dog-breed-selector/",
+    "/tools/cat-breed-selector/"
   ]
 }

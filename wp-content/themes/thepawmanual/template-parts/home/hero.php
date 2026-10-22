@@ -86,20 +86,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 					fetchpriority="high"
 					decoding="async"
 				>
-				<div class="absolute bottom-4 left-4">
-					<a href="#tools" class="hidden items-center gap-2 rounded-full bg-brand-600 px-4 py-2 font-geist text-sm text-white transition hover:bg-brand-700 sm:inline-flex">
+				<?php
+				/*
+				 * "Find a Tool" and the category quick links are plain links to
+				 * #tools, so without JavaScript they still scroll to the full
+				 * grid. theme.js (initToolFilters()) additionally sets the grid's
+				 * category filter from data-tpm-filter-link and marks the active
+				 * quick link. On phones "Find a Tool" sits top-left so it never
+				 * collides with the centred quick links along the bottom.
+				 */
+				?>
+				<div class="absolute left-4 top-4 sm:bottom-4 sm:top-auto">
+					<a href="#tools" data-tpm-filter-link="all" class="inline-flex items-center gap-2 rounded-full bg-brand-600 px-4 py-2 font-geist text-sm text-white shadow transition hover:bg-brand-700">
 						<?php esc_html_e( 'Find a Tool', 'thepawmanual' ); ?>
 						<?php tpm_icon( 'arrow-right', 'h-4 w-4' ); ?>
 					</a>
 				</div>
-				<div class="absolute bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0">
-					<div class="flex items-center gap-1 rounded-full bg-white/80 p-2 shadow backdrop-blur">
-						<span class="rounded-full bg-brand-600 px-3 py-1.5 font-geist text-xs text-white"><?php esc_html_e( 'Age', 'thepawmanual' ); ?></span>
-						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Nutrition', 'thepawmanual' ); ?></span>
-						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Health', 'thepawmanual' ); ?></span>
-						<span class="rounded-full px-3 py-1.5 font-geist text-xs text-neutral-600"><?php esc_html_e( 'Puppies', 'thepawmanual' ); ?></span>
-					</div>
-				</div>
+				<?php if ( function_exists( 'tpm_get_tool_categories' ) ) : ?>
+					<nav class="absolute bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0" aria-label="<?php esc_attr_e( 'Tools by category', 'thepawmanual' ); ?>">
+						<ul class="flex items-center gap-1 rounded-full bg-white/85 p-2 shadow backdrop-blur">
+							<?php foreach ( tpm_get_tool_categories() as $tpm_key => $tpm_label ) : ?>
+								<li>
+									<a href="#tools" data-tpm-filter-link="<?php echo esc_attr( $tpm_key ); ?>" class="tpm-hero-pill"><?php echo esc_html( $tpm_label ); ?></a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</nav>
+				<?php endif; ?>
 			</div>
 
 			<?php // Featured-tool card. ?>

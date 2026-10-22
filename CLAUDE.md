@@ -305,6 +305,16 @@ requires editing anything shared, the pattern has failed and must be fixed
 (2) register the id in `class-registry.php`, (3) create a WP Page with the
 shortcode. Nothing else.
 
+**Generic engine features (added 2026-10-22, all optional, documented in the
+`calculator-core.js` header):** a lb/kg-style unit switch on number fields
+(`units`, default picked from the browser region), field `default`s, a
+`submitLabel`, and richer results (`details` rows, a ranked `list`, `notes`).
+List links are printed only for published pages (registry `link_parents`).
+Seven calculators now use the pattern: dog/cat age, dog/cat food, pet cost
+(USD + EUR price sets), dog/cat breed selectors. Each calculator's numbers are
+tied to its article by `node tools/tests/calculators.test.js`; sources for
+every factor, price and breed are in `docs/calculator-sources/`.
+
 **Calculator math (finalized during the build):**
 - **Dog Age:** a size-aware veterinary model (AKC-style). Roughly: year 1 ≈ 15
   human years, year 2 ≈ +9, then +4…+5 per year depending on size (small breeds
@@ -526,7 +536,7 @@ action for each: **please confirm or adjust when you approve this plan.**
 | UnicornStudio animated background | External CDN dependency, decorative | **Drop** (optionally replace with a lightweight CSS gradient) |
 | Lucide icons CDN script | The SVGs are already inline | **Keep SVGs inline**, drop the CDN script |
 | Tailwind via CDN | Not production-grade; hurts Core Web Vitals | **Replace** with a compiled static `theme.css` (already planned) |
-| "Find a Tool" / category pills / filter bar | Good UI, but no logic in the export | **Keep visually**; real filtering is post-POC |
+| "Find a Tool" / category pills / filter bar | Good UI, but no logic in the export | **Keep visually**; real filtering is post-POC. **Done 2026-10-22**: the filter (category + species buttons, `aria-pressed`, hidden without JS) lives inside `section#tools`; hero pills became quick links (Age / Nutrition / Costs / Breeds); "Pet Size" was dropped (no tool is size-specific). See `initToolFilters()` in `theme.js`. |
 | Ad Banner Placeholder | This is the monetization | **Keep**: becomes the reusable `ad-slot.php` |
 
 **Open questions, all resolved on approval (2026-05-21); the recommendations below were accepted:**
@@ -543,7 +553,7 @@ action for each: **please confirm or adjust when you approve this plan.**
 
 ## 11. Current Status
 
-- **Last updated:** 2026-10-06.
+- **Last updated:** 2026-10-22.
 - **`main` is the live theme (since 2026-10-21). Read before zipping
   anything.** Until then it was not: the theme on `thepawmanual.com` was the
   branch `claude/seo-optimization-design-4519ad` (Terracotta redesign,
@@ -563,6 +573,16 @@ action for each: **please confirm or adjust when you approve this plan.**
   twice. Keep the previous zip as the rollback copy and write new zips under a
   new name. Any other branch cut from before 2026-10-21 is based on the old
   design: rebase it onto `main` before using it.
+- **Five new tools (2026-10-22, branch `claude/adoring-wescoff-21b55c`, not
+  yet on `main` or live).** Dog Food, Cat Food, Pet Cost (USD + EUR), Dog Breed
+  Selector and Cat Breed Selector, plus the working homepage filter. Shipping
+  needs: new plugin zip **and** theme zip (§11 zip check), import of
+  `node tools/wxr/generate.js --wave tools` (all five publish together), and
+  two hand edits on live pages, since a re-import never updates them: the
+  `/tools/` hub body/FAQ/RankMath description (`content/tools/index.md`) and
+  seven cost lines on `/pet-guides/pet-costs/` (listed in that file's Notes).
+  The homepage cards show "Coming soon" until each tool's Page is published,
+  so the order of theme upload and import doesn't matter.
 - **Page images (2026-10-06).** A page's Featured image now prints under the
   title and deck and above the key-takeaway box (`inc/page-image.php`,
   `template-parts/content/page-image.php`, called from `article-header.php`).

@@ -1,18 +1,21 @@
 <?php
 /**
- * Homepage section: filter bar.
+ * Homepage section: the tools-grid filter.
  *
- * Visual only for the POC — the controls are intentionally inert. Real
- * filtering of the tools grid is a post-POC task (CLAUDE.md §10).
+ * Two button groups, category (tpm_get_tool_categories()) and species, that
+ * filter the cards in tools-grid.php client-side (theme.js,
+ * initToolFilters()). Rendered inside the grid's own `section#tools`, so the
+ * hero's quick links and "Find a Tool" land on the filter and the cards
+ * together.
  *
- * The search FIELD this bar used to carry was removed 2026-09-14 (requirement
- * 4 review): it had no wrapping `<form>` and no action, so pressing Enter in
- * it did nothing — a second dead search control on the site's highest-traffic
- * page, right next to the header search this same pass made real. An inert
- * text input that LOOKS like it submits is worse than the honestly-decorative
- * pills beside it; the header's working `#tpm-search-panel` is the one search
- * entry point on the homepage until the tools-grid filtering this bar is
- * built for actually exists.
+ * It ships with the `hidden` attribute and theme.js reveals it: without
+ * JavaScript the buttons could do nothing, so a visitor without it simply sees
+ * every tool and no dead controls. The buttons are real <button>s carrying
+ * aria-pressed, one pressed per group, and the count line is an aria-live
+ * region so a screen reader hears how many tools are left.
+ *
+ * The Aura design's "Pet Size" pill was dropped on purpose (2026-10-22): every
+ * tool works for every size, so a size filter could never filter anything.
  *
  * @package thepawmanual
  */
@@ -20,27 +23,38 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$tpm_categories = function_exists( 'tpm_get_tool_categories' ) ? tpm_get_tool_categories() : array();
+$tpm_species    = array(
+	'dogs' => __( 'Dogs', 'thepawmanual' ),
+	'cats' => __( 'Cats', 'thepawmanual' ),
+);
 ?>
-<section class="mt-10 sm:mt-20">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="flex flex-wrap items-center justify-between gap-4 animate-on-scroll [animation:fadeSlideIn_1s_ease-out_0.1s_both]">
-			<div class="flex flex-wrap items-center gap-3">
-				<span class="font-geist text-sm text-neutral-500"><?php esc_html_e( 'Filter by', 'thepawmanual' ); ?></span>
-				<div class="flex flex-wrap items-center gap-2">
-					<span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-sm text-neutral-700">
-						<?php tpm_icon( 'sliders-horizontal', 'h-4 w-4' ); ?>
-						<?php esc_html_e( 'Category', 'thepawmanual' ); ?>
-					</span>
-					<span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-sm text-neutral-700">
-						<?php esc_html_e( 'Pet Size', 'thepawmanual' ); ?>
-						<?php tpm_icon( 'chevron-down', 'h-4 w-4' ); ?>
-					</span>
-					<span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 font-geist text-sm text-neutral-700">
-						<?php esc_html_e( 'Type: Dogs', 'thepawmanual' ); ?>
-						<span class="h-3 w-3 rounded-full border border-brand-600 bg-brand-500"></span>
-					</span>
-				</div>
+<div class="mb-8" data-tpm-tool-filters hidden>
+	<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8">
+		<div class="flex flex-wrap items-center gap-2">
+			<span id="tpm-filter-category-label" class="mr-1 font-geist text-sm text-neutral-500"><?php esc_html_e( 'Category', 'thepawmanual' ); ?></span>
+			<div class="flex flex-wrap gap-2" role="group" aria-labelledby="tpm-filter-category-label">
+				<button type="button" class="tpm-filter-chip" data-tpm-filter="category" data-tpm-value="all" aria-pressed="true"><?php esc_html_e( 'All', 'thepawmanual' ); ?></button>
+				<?php foreach ( $tpm_categories as $tpm_key => $tpm_label ) : ?>
+					<button type="button" class="tpm-filter-chip" data-tpm-filter="category" data-tpm-value="<?php echo esc_attr( $tpm_key ); ?>" aria-pressed="false"><?php echo esc_html( $tpm_label ); ?></button>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+		<div class="flex flex-wrap items-center gap-2">
+			<span id="tpm-filter-species-label" class="mr-1 font-geist text-sm text-neutral-500"><?php esc_html_e( 'Pet', 'thepawmanual' ); ?></span>
+			<div class="flex flex-wrap gap-2" role="group" aria-labelledby="tpm-filter-species-label">
+				<button type="button" class="tpm-filter-chip" data-tpm-filter="species" data-tpm-value="all" aria-pressed="true"><?php esc_html_e( 'All', 'thepawmanual' ); ?></button>
+				<?php foreach ( $tpm_species as $tpm_key => $tpm_label ) : ?>
+					<button type="button" class="tpm-filter-chip" data-tpm-filter="species" data-tpm-value="<?php echo esc_attr( $tpm_key ); ?>" aria-pressed="false"><?php echo esc_html( $tpm_label ); ?></button>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
-</section>
+
+	<div class="mt-3 flex flex-wrap items-center gap-3">
+		<p class="font-geist text-sm text-neutral-500" data-tpm-filter-status aria-live="polite"></p>
+		<button type="button" class="font-geist text-sm text-brand-700 underline underline-offset-2 hover:text-brand-900" data-tpm-filter-clear hidden><?php esc_html_e( 'Clear filters', 'thepawmanual' ); ?></button>
+	</div>
+</div>

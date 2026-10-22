@@ -2,7 +2,9 @@
 /**
  * One tool card in the homepage tools grid.
  *
- * Expects $args['tool'] — a single entry from tpm_get_homepage_tools().
+ * Expects $args['tool']: a single entry from tpm_get_homepage_tool_cards().
+ * The data-tpm-* attributes are what the homepage filter (theme.js,
+ * initToolFilters()) matches against.
  *
  * `rounded-3xl` on the wrapper (below) is an explicit override of `.tpm-
  * card`'s own `rounded-2xl` (deploy-gate finding, 2026-09-14): this grid
@@ -31,8 +33,10 @@ if ( ! $tool ) {
 
 $is_available = isset( $tool['status'] ) && 'available' === $tool['status'] && ! empty( $tool['url'] );
 $icon         = ! empty( $tool['icon'] ) ? $tool['icon'] : 'calculator';
+$species      = isset( $tool['species'] ) ? implode( ' ', (array) $tool['species'] ) : '';
+$category     = isset( $tool['category'] ) ? $tool['category'] : '';
 ?>
-<article class="tpm-card rounded-3xl group p-6 transition hover:border-brand-200 hover:shadow-sm animate-on-scroll [animation:fadeSlideIn_0.7s_ease-out_both]">
+<article data-tpm-tool data-tpm-species="<?php echo esc_attr( $species ); ?>" data-tpm-category="<?php echo esc_attr( $category ); ?>" class="tpm-card rounded-3xl group p-6 transition hover:border-brand-200 hover:shadow-sm animate-on-scroll [animation:fadeSlideIn_0.7s_ease-out_both]">
 	<div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
 		<?php tpm_icon( $icon, 'h-6 w-6' ); ?>
 	</div>

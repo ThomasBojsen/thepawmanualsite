@@ -3,7 +3,7 @@
  * Plugin Name:       PawManual Calculators
  * Plugin URI:        https://thepawmanual.com/
  * Description:       Interactive pet calculators for ThePawManual, delivered through the [pawmanual_calculator] shortcode. Self-contained and theme-independent.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            ThePawManual
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Plugin version — used to cache-bust enqueued assets. */
-define( 'PMC_VERSION', '0.1.0' );
+define( 'PMC_VERSION', '0.2.0' );
 
 /** Absolute filesystem path to the plugin directory, with a trailing slash. */
 define( 'PMC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

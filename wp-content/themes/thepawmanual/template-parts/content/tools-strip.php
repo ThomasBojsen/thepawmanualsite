@@ -13,7 +13,7 @@
  * Pages, so an available card here only ever links somewhere real.
  *
  * Expects $args['post_id'] (int) — the page the strip is being shown on, so
- * tpm_get_tools_for_context() can rank the six tools for it. Optional
+ * tpm_get_tools_for_context() can rank the tools for it. Optional
  * $args['heading'], $args['limit'] (passed straight through, default 4).
  *
  * @package thepawmanual

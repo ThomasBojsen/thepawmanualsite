@@ -200,14 +200,14 @@ load-bearing for everything else:
 
 | Page | URL | Status |
 |---|---|---|
-| Tools hub | `/tools/` | ✅ published; live 2026-09-10; `content/tools/index.md` · GEO drafted (repo only) 2026-09-14; NOT yet live |
+| Tools hub | `/tools/` | ✅ published; live 2026-09-10; `content/tools/index.md` · GEO drafted (repo only) 2026-09-14; NOT yet live · 2026-10-22 body/FAQ/meta rewritten for the five new tools: paste into WP by hand |
 | Dog Age Calculator | `/tools/dog-age-calculator/` | ✅ published; live 2026-09-10; `content/tools/dog-age-calculator.md` · GEO drafted (repo only) 2026-09-14; NOT yet live |
 | Cat Age Calculator | `/tools/cat-age-calculator/` | ✅ published; live 2026-09-10; `content/tools/cat-age-calculator.md` · GEO drafted (repo only) 2026-09-14; NOT yet live |
-| Dog Food Calculator | `/tools/dog-food-calculator/` | ⬜ (calculator not built yet) |
-| Cat Food Calculator | `/tools/cat-food-calculator/` | ⬜ (calculator not built yet) |
-| Pet Cost Calculator | `/tools/pet-cost-calculator/` | ⬜ (calculator not built yet) |
-| Dog Breed Selector | `/tools/dog-breed-selector/` | ⬜ (tool not built yet) |
-| Cat Breed Selector | `/tools/cat-breed-selector/` | ⬜ (tool not built yet) |
+| Dog Food Calculator | `/tools/dog-food-calculator/` | ✍️ drafted 2026-10-22; `content/tools/dog-food-calculator.md`; calculator built; wave `tools` |
+| Cat Food Calculator | `/tools/cat-food-calculator/` | ✍️ drafted 2026-10-22; `content/tools/cat-food-calculator.md`; calculator built; wave `tools` |
+| Pet Cost Calculator | `/tools/pet-cost-calculator/` | ✍️ drafted 2026-10-22; `content/tools/pet-cost-calculator.md`; calculator built (USD + EUR); wave `tools` |
+| Dog Breed Selector | `/tools/dog-breed-selector/` | ✍️ drafted 2026-10-22; `content/tools/dog-breed-selector.md`; tool built; wave `tools` |
+| Cat Breed Selector | `/tools/cat-breed-selector/` | ✍️ drafted 2026-10-22; `content/tools/cat-breed-selector.md`; tool built; wave `tools` |
 | Pet Name Generator | `/tools/pet-name-generator/` | ⬜ (tool not built yet) |
 
 ## Cluster-level expansion candidates

@@ -20,8 +20,7 @@ get_header();
 
 	<?php get_template_part( 'template-parts/home/hero' ); ?>
 
-	<?php get_template_part( 'template-parts/home/filter-bar' ); ?>
-
+	<?php // The tools grid renders its own filter (template-parts/home/filter-bar.php) inside #tools. ?>
 	<?php get_template_part( 'template-parts/home/tools-grid' ); ?>
 
 	<?php

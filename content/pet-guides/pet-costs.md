@@ -19,7 +19,7 @@ A dog's first year of ownership typically runs $1,500–$3,000+ and a cat's runs
 | Acquisition (adoption fee ↔ breeder) | $50–$500 ↔ $1,000–$3,000+ | $50–$200 ↔ $500–$1,500+ |
 | Spay/neuter | $150–$600 | $100–$400 |
 | Vaccine series + initial vet | $200–$500 ([the schedule](/dogs/puppy-care/puppy-vaccination-schedule/)) | $150–$400 ([the schedule](/cats/kitten-care/kitten-vaccination-schedule/)) |
-| Setup gear | $200–$500 ([the checklist](/dogs/puppy-care/new-puppy-checklist/)) | $150–$400 ([the checklist](/cats/kitten-care/new-kitten-checklist/)) |
+| Setup gear | $200–$500 ([the checklist](/dogs/puppy-care/new-puppy-checklist/)) | $100–$300 ([the checklist](/cats/kitten-care/new-kitten-checklist/)) |
 | Microchip, license, misc | $50–$150 | $50–$100 |
 
 Low-cost clinics compress the vet lines substantially; they exist in most regions and deserve more traffic than they get.
@@ -30,10 +30,10 @@ After the first year, ongoing costs settle to roughly $1,000–$2,000 annually f
 
 | Line | Dog | Cat |
 |---|---|---|
-| Food | $300–$900+; **size is the multiplier**: a [Chihuahua](/dogs/breeds/small-dogs/) and a [German Shepherd](/dogs/breeds/german-shepherd/) eat different budgets | $200–$500 ([wet-forward](/cats/food/wet-cat-food/) costs more) |
+| Food | $200–$1,400 on dry food; **size is the multiplier**: a [Chihuahua](/dogs/breeds/small-dogs/) and a [German Shepherd](/dogs/breeds/german-shepherd/) eat different budgets | $150–$350 dry, $300–$700 mixed, $600–$1,300 [mostly wet](/cats/food/wet-cat-food/) |
 | Routine vet + prevention (flea/tick/heartworm) | $300–$700 | $200–$500 |
-| [Insurance](/pet-guides/pet-insurance/) (if chosen) | ~$360–$840/yr | ~$180–$480/yr |
-| Litter | – | $150–$300 |
+| [Insurance](/pet-guides/pet-insurance/) (if chosen) | ~$450–$1,000/yr | ~$250–$550/yr |
+| Litter | – | $150–$350 |
 | Toys, chews, replacement gear | $100–$300 | $50–$150 |
 
 ## The lines nobody budgets (and everyone pays)
@@ -42,13 +42,13 @@ Beyond the routine line items above, real costs hide in dental cleanings, boardi
 
 - **Dental cleanings:** $300–$800+ per anesthetic cleaning, [more with extractions](/dogs/health/dental-care/), and [cats need them too](/cats/health/dental-care/). Home brushing is the cost-avoidance program.
 - **Boarding/sitters:** $25–$85+ per night; two vacations a year is a real line item.
-- **Grooming:** $60–$120+ every 4–6 weeks *for life* for [Poodles](/dogs/breeds/poodle/), doodles, [Persians](/cats/breeds/persian/): a four-figure annual line the breed choice locked in.
+- **Grooming:** $60–$150+ every 4–6 weeks *for life* for [Poodles](/dogs/breeds/poodle/), doodles, [Persians](/cats/breeds/persian/): a four-figure annual line the breed choice locked in.
 - **Pet rent:** $25–$100/month plus deposits in many rentals: the quiet urban tax.
 - **The aging years:** senior pets cost more: [twice-yearly vet visits](/dogs/food/senior-dog-food/), bloodwork, chronic medications. Budget the last third of life above the average.
 
 ## The emergency question (the one that matters)
 
-A single emergency ([bloat surgery](/dogs/health/signs-your-dog-needs-a-vet/), a [urinary blockage](/cats/health/signs-your-cat-needs-a-vet/), a swallowed [string](/pet-guides/pet-safety/)) commonly runs **$1,500–$5,000+**, and it arrives unscheduled. The two rational answers: [insurance enrolled young](/pet-guides/pet-insurance/), or a dedicated emergency fund you actually fund. The irrational answer, hoping, is how treatable conditions end early. Decide before the pet, not in the exam room.
+An emergency vet visit typically runs **$800–$5,000+**, and the serious ones ([bloat surgery](/dogs/health/signs-your-dog-needs-a-vet/), a [urinary blockage](/cats/health/signs-your-cat-needs-a-vet/), a swallowed [string](/pet-guides/pet-safety/)) sit at the top of that range and arrive unscheduled. The two rational answers: [insurance enrolled young](/pet-guides/pet-insurance/), or a dedicated emergency fund you actually fund. The irrational answer, hoping, is how treatable conditions end early. Decide before the pet, not in the exam room.
 
 ## Frequently asked questions
 
@@ -132,3 +132,4 @@ A dedicated $2,000–$5,000 fund covers the common catastrophes, or [insurance](
 ## Notes (not page copy)
 
 - The most-linked page on the site by design — nearly every cluster routes here. Figures are deliberately given as ranges; benchmark against APPA/ASPCA/Synchrony "Lifetime of Care" data at publish and date-stamp them (inflation ages cost content fast — this page needs an annual review slot in the [editorial calendar](/editorial-process/)).
+- **2026-10-22 fact-check (with the pet cost calculator build):** seven lines updated to sourced 2024–2026 figures, and the calculator at `/tools/pet-cost-calculator/` now uses exactly these: dog food by size $200–$1,400 on dry food (estimate from Tufts Petfoodology 2022 cost-per-calorie data); cat food split dry/mixed/wet (Tufts 2022); insurance dog ~$450–$1,000, cat ~$250–$550 (NAPHIA 2024 averages $749 / $386 sit inside); cat setup gear $100–$300; litter $150–$350; grooming $60–$150+ per visit; emergency $800–$5,000+ (Pumpkin claims data average $653 dog / $919 cat; the old $1,500 floor described a serious case, not a typical visit). Sources per line: `docs/calculator-sources/costs.md`. **This page is live: paste the same seven edits into WordPress by hand** (body table rows plus the emergency paragraph; none touch the FAQ or its JSON-LD).
