@@ -69,7 +69,7 @@ load-bearing for everything else:
 | Page | URL | Status |
 |---|---|---|
 | Dogs hub | `/dogs/` | ✅ published; live 2026-09-10; `content/dogs/index.md` · GEO drafted (repo only) 2026-09-14; NOT yet live |
-| Dog Breeds hub | `/dogs/breeds/` | ✍️ draft; `content/dogs/breeds/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Breeds hub | `/dogs/breeds/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/breeds/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Golden Retriever | `/dogs/breeds/golden-retriever/` | ✍️ draft; `content/dogs/breeds/golden-retriever.md` · GEO drafted (repo only) 2026-09-15 |
 | Labrador Retriever | `/dogs/breeds/labrador-retriever/` | ✍️ draft; `content/dogs/breeds/labrador-retriever.md` · GEO drafted (repo only) 2026-09-15 |
 | French Bulldog | `/dogs/breeds/french-bulldog/` | ✍️ draft; `content/dogs/breeds/french-bulldog.md` · GEO drafted (repo only) 2026-09-15 |
@@ -82,7 +82,7 @@ load-bearing for everything else:
 | Large Dogs (NEW 24-07) | `/dogs/breeds/large-dogs/` | ✍️ draft; `content/dogs/breeds/large-dogs.md` · GEO drafted (repo only) 2026-09-15 |
 | Guard Dogs (NEW 24-07) | `/dogs/breeds/guard-dogs/` | ✍️ draft; `content/dogs/breeds/guard-dogs.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Dogs for Seniors (NEW 24-07) | `/dogs/breeds/best-dogs-for-seniors/` | ✍️ draft; `content/dogs/breeds/best-dogs-for-seniors.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Food hub | `/dogs/food/` | ✍️ draft; `content/dogs/food/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Food hub | `/dogs/food/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/food/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Dog Food | `/dogs/food/best-dog-food/` | ✍️ draft; `content/dogs/food/best-dog-food.md` · GEO drafted (repo only) 2026-09-15 |
 | Puppy Food | `/dogs/food/puppy-food/` | ✍️ draft; `content/dogs/food/puppy-food.md` · GEO drafted (repo only) 2026-09-15 |
 | Senior Dog Food | `/dogs/food/senior-dog-food/` | ✍️ draft; `content/dogs/food/senior-dog-food.md` · GEO drafted (repo only) 2026-09-15 |
@@ -92,7 +92,7 @@ load-bearing for everything else:
 | Can Dogs Eat Chicken? | `/dogs/food/can-dogs-eat-chicken/` | ✍️ draft; `content/dogs/food/can-dogs-eat-chicken.md` · GEO drafted (repo only) 2026-09-15 |
 | Can Dogs Eat Grapes? (NEW 24-07, danger-first) | `/dogs/food/can-dogs-eat-grapes/` | ✍️ draft; `content/dogs/food/can-dogs-eat-grapes.md` · GEO drafted (repo only) 2026-09-15 |
 | Can Dogs Eat Chocolate? (NEW 24-07, danger-first) | `/dogs/food/can-dogs-eat-chocolate/` | ✍️ draft; `content/dogs/food/can-dogs-eat-chocolate.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Health hub | `/dogs/health/` | ✍️ draft; `content/dogs/health/index.md` |
+| Dog Health hub | `/dogs/health/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/health/index.md` |
 | Dog Symptoms | `/dogs/health/symptoms/` | ✍️ draft; `content/dogs/health/symptoms.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Allergies | `/dogs/health/allergies/` | ✍️ draft; `content/dogs/health/allergies.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Dental Care | `/dogs/health/dental-care/` | ✍️ draft; `content/dogs/health/dental-care.md` · GEO drafted (repo only) 2026-09-15 |
@@ -102,7 +102,7 @@ load-bearing for everything else:
 | Signs Your Dog Needs a Vet | `/dogs/health/signs-your-dog-needs-a-vet/` | ✍️ draft; `content/dogs/health/signs-your-dog-needs-a-vet.md` · GEO drafted (repo only) 2026-09-15 |
 | Fleas, Ticks & Worms (NEW 24-07) | `/dogs/health/fleas-ticks-and-worms/` | ✍️ draft; `content/dogs/health/fleas-ticks-and-worms.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Ear Infections (NEW 24-07) | `/dogs/health/ear-infections/` | ✍️ draft; `content/dogs/health/ear-infections.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Training hub | `/dogs/training/` | ✍️ draft; `content/dogs/training/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Training hub | `/dogs/training/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/training/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Puppy Training | `/dogs/training/puppy-training/` | ✍️ draft; `content/dogs/training/puppy-training.md` · GEO drafted (repo only) 2026-09-15 |
 | Potty Training | `/dogs/training/potty-training/` | ✍️ draft; `content/dogs/training/potty-training.md` · GEO drafted (repo only) 2026-09-15 |
 | Crate Training | `/dogs/training/crate-training/` | ✍️ draft; `content/dogs/training/crate-training.md` · GEO drafted (repo only) 2026-09-15 |
@@ -110,7 +110,7 @@ load-bearing for everything else:
 | How to Stop Dog Barking | `/dogs/training/how-to-stop-dog-barking/` | ✍️ draft; `content/dogs/training/how-to-stop-dog-barking.md` · GEO drafted (repo only) 2026-09-15 |
 | Separation Anxiety | `/dogs/training/separation-anxiety-in-dogs/` | ✍️ draft; `content/dogs/training/separation-anxiety-in-dogs.md` · GEO drafted (repo only) 2026-09-15 |
 | Recall Training (NEW 24-07) | `/dogs/training/recall-training/` | ✍️ draft; `content/dogs/training/recall-training.md` |
-| Puppy Care hub | `/dogs/puppy-care/` | ✍️ draft; `content/dogs/puppy-care/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Puppy Care hub | `/dogs/puppy-care/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/puppy-care/index.md` · GEO drafted (repo only) 2026-09-15 |
 | New Puppy Checklist | `/dogs/puppy-care/new-puppy-checklist/` | ✍️ draft; `content/dogs/puppy-care/new-puppy-checklist.md` · GEO drafted (repo only) 2026-09-15 |
 | 8-Week-Old Puppy Schedule | `/dogs/puppy-care/8-week-old-puppy-schedule/` | ✍️ draft; `content/dogs/puppy-care/8-week-old-puppy-schedule.md` · GEO drafted (repo only) 2026-09-15 |
 | Puppy Vaccination Schedule | `/dogs/puppy-care/puppy-vaccination-schedule/` | ✍️ draft; `content/dogs/puppy-care/puppy-vaccination-schedule.md` · GEO drafted (repo only) 2026-09-15 |
@@ -118,13 +118,13 @@ load-bearing for everything else:
 | Puppy Teething Guide | `/dogs/puppy-care/puppy-teething-guide/` | ✍️ draft; `content/dogs/puppy-care/puppy-teething-guide.md` · GEO drafted (repo only) 2026-09-15 |
 | How to Stop Puppy Biting (NEW 24-07) | `/dogs/puppy-care/how-to-stop-puppy-biting/` | ✍️ draft; `content/dogs/puppy-care/how-to-stop-puppy-biting.md` · GEO drafted (repo only) 2026-09-15 |
 | Puppy Socialization (NEW 24-07) | `/dogs/puppy-care/puppy-socialization/` | ✍️ draft; `content/dogs/puppy-care/puppy-socialization.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Products hub | `/dogs/products/` | ✍️ draft; `content/dogs/products/index.md` |
+| Dog Products hub | `/dogs/products/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/products/index.md` |
 | Best Dog Beds | `/dogs/products/best-dog-beds/` | ✍️ draft; `content/dogs/products/best-dog-beds.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Dog Crates | `/dogs/products/best-dog-crates/` | ✍️ draft; `content/dogs/products/best-dog-crates.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Dog Harnesses | `/dogs/products/best-dog-harnesses/` | ✍️ draft; `content/dogs/products/best-dog-harnesses.md` |
 | Best Dog Toys for Chewers | `/dogs/products/best-dog-toys-for-chewers/` | ✍️ draft; `content/dogs/products/best-dog-toys-for-chewers.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog GPS Trackers | `/dogs/products/best-gps-dog-trackers/` | ✍️ draft; `content/dogs/products/best-gps-dog-trackers.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Behavior hub | `/dogs/behavior/` | ✍️ draft; `content/dogs/behavior/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Behavior hub | `/dogs/behavior/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/behavior/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Dog Lick Me? | `/dogs/behavior/why-does-my-dog-lick-me/` | ✍️ draft; `content/dogs/behavior/why-does-my-dog-lick-me.md` |
 | Why Does My Dog Eat Grass? | `/dogs/behavior/why-does-my-dog-eat-grass/` | ✍️ draft; `content/dogs/behavior/why-does-my-dog-eat-grass.md` |
 | Why Does My Dog Follow Me Everywhere? | `/dogs/behavior/why-does-my-dog-follow-me-everywhere/` | ✍️ draft; `content/dogs/behavior/why-does-my-dog-follow-me-everywhere.md` |
@@ -132,14 +132,14 @@ load-bearing for everything else:
 | Dog Zoomies (NEW 24-07) | `/dogs/behavior/dog-zoomies/` | ✍️ draft; `content/dogs/behavior/dog-zoomies.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Dog Stare at Me? (NEW 24-07) | `/dogs/behavior/why-does-my-dog-stare-at-me/` | ✍️ draft; `content/dogs/behavior/why-does-my-dog-stare-at-me.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Dog Dig? (NEW 24-07) | `/dogs/behavior/why-does-my-dog-dig/` | ✍️ draft; `content/dogs/behavior/why-does-my-dog-dig.md` · GEO drafted (repo only) 2026-09-15 |
-| **Dog Grooming hub (NEW 24-07, new 8th pillar)** | `/dogs/grooming/` | ✍️ draft; `content/dogs/grooming/index.md` · GEO drafted (repo only) 2026-09-15 |
+| **Dog Grooming hub (NEW 24-07, new 8th pillar)** | `/dogs/grooming/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/grooming/index.md` · GEO drafted (repo only) 2026-09-15 |
 
 ## Cats: `/cats/` (46 pages)
 
 | Page | URL | Status |
 |---|---|---|
 | Cats hub | `/cats/` | ✅ published; live 2026-09-10; `content/cats/index.md` · GEO drafted (repo only) 2026-09-14; NOT yet live |
-| Cat Breeds hub | `/cats/breeds/` | ✍️ draft; `content/cats/breeds/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Cat Breeds hub | `/cats/breeds/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/breeds/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Maine Coon | `/cats/breeds/maine-coon/` | ✍️ draft; `content/cats/breeds/maine-coon.md` · GEO drafted (repo only) 2026-09-15 |
 | Ragdoll | `/cats/breeds/ragdoll/` | ✍️ draft; `content/cats/breeds/ragdoll.md` · GEO drafted (repo only) 2026-09-15 |
 | Siamese | `/cats/breeds/siamese/` | ✍️ draft; `content/cats/breeds/siamese.md` · GEO drafted (repo only) 2026-09-15 |
@@ -149,7 +149,7 @@ load-bearing for everything else:
 | Hypoallergenic Cats | `/cats/breeds/hypoallergenic-cats/` | ✍️ draft; `content/cats/breeds/hypoallergenic-cats.md` · GEO drafted (repo only) 2026-09-15 |
 | Apartment Cats | `/cats/breeds/apartment-cats/` | ✍️ draft; `content/cats/breeds/apartment-cats.md` · GEO drafted (repo only) 2026-09-15 |
 | Family Cats | `/cats/breeds/family-cats/` | ✍️ draft; `content/cats/breeds/family-cats.md` · GEO drafted (repo only) 2026-09-15 |
-| Cat Food hub | `/cats/food/` | ✍️ draft; `content/cats/food/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Cat Food hub | `/cats/food/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/food/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Cat Food | `/cats/food/best-cat-food/` | ✍️ draft; `content/cats/food/best-cat-food.md` · GEO drafted (repo only) 2026-09-15 |
 | Kitten Food | `/cats/food/kitten-food/` | ✍️ draft; `content/cats/food/kitten-food.md` · GEO drafted (repo only) 2026-09-15 |
 | Senior Cat Food | `/cats/food/senior-cat-food/` | ✍️ draft; `content/cats/food/senior-cat-food.md` · GEO drafted (repo only) 2026-09-15 |
@@ -158,7 +158,7 @@ load-bearing for everything else:
 | Cat Food for Sensitive Stomachs | `/cats/food/cat-food-for-sensitive-stomachs/` | ✍️ draft; `content/cats/food/cat-food-for-sensitive-stomachs.md` · GEO drafted (repo only) 2026-09-15 |
 | How Much Should I Feed My Cat? | `/cats/food/how-much-should-i-feed-my-cat/` | ✍️ draft; `content/cats/food/how-much-should-i-feed-my-cat.md` · GEO drafted (repo only) 2026-09-15 |
 | Can Cats Eat Tuna? | `/cats/food/can-cats-eat-tuna/` | ✍️ draft; `content/cats/food/can-cats-eat-tuna.md` · GEO drafted (repo only) 2026-09-15 |
-| Cat Health hub | `/cats/health/` | ✍️ draft; `content/cats/health/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Cat Health hub | `/cats/health/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/health/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Cat Symptoms | `/cats/health/symptoms/` | ✍️ draft; `content/cats/health/symptoms.md` · GEO drafted (repo only) 2026-09-15 |
 | Cat Allergies | `/cats/health/allergies/` | ✍️ draft; `content/cats/health/allergies.md` |
 | Cat Dental Care | `/cats/health/dental-care/` | ✍️ draft; `content/cats/health/dental-care.md` · GEO drafted (repo only) 2026-09-15 |
@@ -166,19 +166,19 @@ load-bearing for everything else:
 | Why Is My Cat Throwing Up? | `/cats/health/why-is-my-cat-throwing-up/` | ✍️ draft; `content/cats/health/why-is-my-cat-throwing-up.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Is My Cat Sneezing? | `/cats/health/why-is-my-cat-sneezing/` | ✍️ draft; `content/cats/health/why-is-my-cat-sneezing.md` · GEO drafted (repo only) 2026-09-15 |
 | Signs Your Cat Needs a Vet | `/cats/health/signs-your-cat-needs-a-vet/` | ✍️ draft; `content/cats/health/signs-your-cat-needs-a-vet.md` · GEO drafted (repo only) 2026-09-15 |
-| Cat Behavior hub | `/cats/behavior/` | ✍️ draft; `content/cats/behavior/index.md` |
+| Cat Behavior hub | `/cats/behavior/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/behavior/index.md` |
 | Why Does My Cat Meow So Much? | `/cats/behavior/why-does-my-cat-meow-so-much/` | ✍️ draft; `content/cats/behavior/why-does-my-cat-meow-so-much.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Cat Knead? | `/cats/behavior/why-does-my-cat-knead/` | ✍️ draft; `content/cats/behavior/why-does-my-cat-knead.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Cat Lick Me? | `/cats/behavior/why-does-my-cat-lick-me/` | ✍️ draft; `content/cats/behavior/why-does-my-cat-lick-me.md` · GEO drafted (repo only) 2026-09-15 |
 | Why Does My Cat Bite Me? | `/cats/behavior/why-does-my-cat-bite-me/` | ✍️ draft; `content/cats/behavior/why-does-my-cat-bite-me.md` |
 | Why Is My Cat Hiding? | `/cats/behavior/why-is-my-cat-hiding/` | ✍️ draft; `content/cats/behavior/why-is-my-cat-hiding.md` |
-| Kitten Care hub | `/cats/kitten-care/` | ✍️ draft; `content/cats/kitten-care/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Kitten Care hub | `/cats/kitten-care/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/kitten-care/index.md` · GEO drafted (repo only) 2026-09-15 |
 | New Kitten Checklist | `/cats/kitten-care/new-kitten-checklist/` | ✍️ draft; `content/cats/kitten-care/new-kitten-checklist.md` · GEO drafted (repo only) 2026-09-15 |
 | 8-Week-Old Kitten Care | `/cats/kitten-care/8-week-old-kitten-care/` | ✍️ draft; `content/cats/kitten-care/8-week-old-kitten-care.md` |
 | Kitten Feeding Schedule | `/cats/kitten-care/kitten-feeding-schedule/` | ✍️ draft; `content/cats/kitten-care/kitten-feeding-schedule.md` |
 | Kitten Vaccination Schedule | `/cats/kitten-care/kitten-vaccination-schedule/` | ✍️ draft; `content/cats/kitten-care/kitten-vaccination-schedule.md` · GEO drafted (repo only) 2026-09-15 |
 | How to Litter Train a Kitten | `/cats/kitten-care/how-to-litter-train-a-kitten/` | ✍️ draft; `content/cats/kitten-care/how-to-litter-train-a-kitten.md` · GEO drafted (repo only) 2026-09-15 |
-| Cat Products hub | `/cats/products/` | ✍️ draft; `content/cats/products/index.md` · GEO drafted (repo only) 2026-09-15 |
+| Cat Products hub | `/cats/products/` | ✅ published; live 2026-11-11 (wave 2); `content/cats/products/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Cat Litter | `/cats/products/best-cat-litter/` | ✍️ draft; `content/cats/products/best-cat-litter.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Litter Boxes | `/cats/products/best-litter-boxes/` | ✍️ draft; `content/cats/products/best-litter-boxes.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Cat Trees | `/cats/products/best-cat-trees/` | ✍️ draft; `content/cats/products/best-cat-trees.md` · GEO drafted (repo only) 2026-09-15 |
