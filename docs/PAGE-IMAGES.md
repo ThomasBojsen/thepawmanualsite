@@ -36,6 +36,24 @@ Uploaded to the Media Library in October 2026 (`/wp-content/uploads/2026/10/`).
 | `/tools/cat-breed-selector/` | `Cat-Breed-Selector.webp` | 1024 square | Cats of different breeds, including a Siamese, a Sphynx, a British Shorthair and a long-haired calico, curled up together on a chunky knitted rug. |
 | `/dogs/` | `Dogs.webp` | 1024 square | An adult dog and five puppies on a knitted rug by a sunny window. |
 | `/cats/` | `cats.webp` | 1024 square | Five kittens of different colors cuddled together on a knitted rug by a window. |
+| `/dogs/breeds/` | `Dog-Breeds.webp` | 1024 square | A Labrador Retriever, a Border Collie and a Dachshund sitting side by side on the steps of a wooden porch. |
+| `/dogs/food/` | `Dog-Food.webp` | 1024 square | A Golden Retriever sitting in a bright kitchen beside a bowl of kibble and a measuring cup. |
+| `/dogs/health/` | `Dog-Health.webp` | 1024 square | A Beagle standing on an exam table while a vet listens to its chest with a stethoscope. |
+| `/dogs/training/` | `Dog-Training.webp` | 1024 square | A German Shepherd puppy sitting on the lawn and looking up at a hand holding a treat. |
+| `/dogs/puppy-care/` | `Puppy-Care.webp` | 1024 square | A chocolate Labrador puppy asleep on a soft bed inside an open wire crate in a living room. |
+| `/dogs/products/` | `Dog-Products.webp` | 1024 square | An Australian Shepherd in a harness lying in a round dog bed beside a basket of toys and a leash. |
+| `/dogs/behavior/` | `Dog-Behavior.webp` | 1024 square | A Jack Russell Terrier lying on a rug and tilting its head to one side. |
+| `/dogs/grooming/` | `Dog-Grooming.webp` | 1024 square | A Bernese Mountain Dog lying on a towel while being brushed with a slicker brush, with tufts of loose fur beside it. |
+| `/cats/breeds/` | `Cat-Breeds.webp` | 1024 square | A Maine Coon, a Siamese and a British Shorthair sitting together on a cushioned window seat. |
+| `/cats/food/` | `Cat-Food.webp` | 1024 square | An orange tabby cat eating wet food from a plate next to a bowl of water on a kitchen floor. |
+| `/cats/health/` | `Cat-Health.webp` | 1024 square | A silver tabby cat sitting on an exam table while a vet checks its ear with an otoscope. |
+| `/cats/behavior/` | `Cat-Behavior.webp` | 1024 square | A black-and-white tuxedo cat curled up asleep on a chunky knitted blanket. |
+| `/cats/kitten-care/` | `Kitten-Care.webp` | 1024 square | Two kittens, a tabby and a ginger, playing with a feather toy on a rug beside a litter tray. |
+| `/cats/products/` | `Cat-Products.webp` | 1024 square | A Bengal cat on top of a cat tree, with a covered litter box, a pet carrier and a cat bed on the floor below. |
+
+The fourteen wave 2 sub-hub images above (`/dogs/breeds/` down) were uploaded on
+2026-11-12 (`/wp-content/uploads/2026/11/`), generated in Gemini, saved as WebP
+quality 90, with the Alternative Text already filled in in the Media Library.
 
 `pet-tools.webp` is also in the Media Library but is not assigned to any page.
 It shows a cat and a dog looking at a calculator, so it probably belongs to
