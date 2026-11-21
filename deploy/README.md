@@ -6,6 +6,8 @@ The files that get uploaded to thepawmanual.com, kept in git so everyone on the 
 
 **Theme update, 2026-10-22 (tool headers):** the five new tool pages render their bare tool name as the H1 with no deck, so their header matches the Dog/Cat Age Calculator pages (`tpm_get_title_part_overrides()` in `inc/article-meta.php`). Compared with the previous theme zip, only `inc/article-meta.php` differs. Built with `git archive` so line endings stay LF on Windows.
 
+**Theme update, 2026-11-21 (nav third level), built but NOT uploaded yet:** `thepawmanual-theme-2026-11-21-nav-third-level.zip`. The header menu gets a third level: under each sub-hub (Cats > Cat Breeds) the menu lists that sub-hub's published articles automatically, so nothing has to be added in Appearance > Menus. Built with `git archive` from branch `feature/nav-third-level`. Compared with `thepawmanual-theme-2026-10-22-tool-headers.zip`, only `header.php`, `inc/nav-menus.php`, `src/tailwind.css` and `assets/css/theme.css` differ. When it goes live, move the 2026-10-22 theme zip into `gamle-til-fortryd/` as the rollback copy.
+
 | File | What it is | Where it goes |
 |---|---|---|
 | `pawmanual-calculators-2026-10-22-tools.zip` | The calculators plugin, version 0.2.0 | WP admin → Plugins → Add New Plugin → Upload Plugin → "Replace current with uploaded" |

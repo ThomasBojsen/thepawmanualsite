@@ -986,6 +986,163 @@ foreach ( array( 'related-reading', 'child-grid' ) as $grid ) {
 $functions_src = (string) file_get_contents( __DIR__ . '/../../wp-content/themes/thepawmanual/functions.php' );
 tpm_assert( false !== strpos( $functions_src, "inc/page-image.php'" ), 'functions.php: loads inc/page-image.php (without it every page silently loses its image)' );
 
+/* ===================== Header menu: third level ======================== */
+
+echo "\n== Header menu third level (inc/nav-menus.php) ==\n";
+
+// nav-menus.php registers its hooks at the top level; only add_action() is
+// missing from the stubs above. is_admin() is what the nav title filter
+// (article-meta.php) checks first.
+if ( ! function_exists( 'add_action' ) ) {
+	function add_action( $hook, $callback, ...$args ) {
+		$GLOBALS['tpm_test_filters'][ $hook ][] = $callback;
+	}
+}
+if ( ! function_exists( 'is_admin' ) ) {
+	function is_admin() {
+		return false;
+	}
+}
+require $theme_inc . '/nav-menus.php';
+
+/**
+ * A menu item shaped like wp_setup_nav_menu_item()'s output (the fields the
+ * injection reads).
+ */
+function tpm_test_menu_item( $db_id, $parent, $object_id, $title, $type = 'post_type', $object = 'page', $order = 0 ) {
+	return (object) array(
+		'ID'               => $db_id,
+		'db_id'            => $db_id,
+		'menu_item_parent' => (string) $parent,
+		'menu_order'       => $order ? $order : $db_id,
+		'type'             => $type,
+		'object'           => $object,
+		'object_id'        => (string) $object_id,
+		'title'            => $title,
+		'url'              => '/x/',
+		'classes'          => array( '' ),
+	);
+}
+
+/** Group a menu list the way Walker_Nav_Menu does: parent db_id => child titles, in order. */
+function tpm_test_menu_tree( array $items ) {
+	$tree = array();
+	foreach ( $items as $item ) {
+		$tree[ (int) $item->menu_item_parent ][] = $item->title;
+	}
+	return $tree;
+}
+
+// Dogs > Dog Health, Dog Breeds; Cats > Cat Breeds (with one hand-added
+// child) and a Custom Link; Tools; plus an orphan whose parent was deleted.
+$menu = array();
+foreach (
+	array(
+		tpm_test_menu_item( 1, 0, 100, 'Dogs' ),
+		tpm_test_menu_item( 2, 1, 200, 'Dog Health' ),
+		tpm_test_menu_item( 3, 1, 300, 'Dog Breeds' ),
+		tpm_test_menu_item( 4, 0, 400, 'Cats' ),
+		tpm_test_menu_item( 5, 4, 500, 'Cat Breeds' ),
+		tpm_test_menu_item( 6, 5, 501, 'Maine Coon (hand-added)' ),
+		tpm_test_menu_item( 7, 0, 700, 'Tools' ),
+		tpm_test_menu_item( 8, 99, 800, 'Orphan' ),
+		tpm_test_menu_item( 9, 4, 0, 'Custom link', 'custom', 'custom' ),
+	) as $item
+) {
+	$menu[ $item->menu_order ] = $item;
+}
+
+tpm_assert_same(
+	array( 2 => 200, 3 => 300, 5 => 500 ),
+	tpm_nav_depth_one_page_ids( $menu ),
+	'depth-one page items: only second-level items that link to a Page (not top level, not orphans, not custom links)'
+);
+
+$children = array(
+	200 => array(
+		array( 'id' => 201, 'title' => 'Why Is My Dog Itching? The Four Usual Suspects, in Order', 'url' => '/dogs/health/itching/', 'current' => false ),
+		array( 'id' => 202, 'title' => 'Dog Allergies: Why Your Dog Itches Instead of Sneezes', 'url' => '/dogs/health/allergies/', 'current' => false ),
+	),
+	300 => array(),
+	500 => array(
+		array( 'id' => 501, 'title' => 'Maine Coon: The Gentle Giant', 'url' => '/cats/breeds/maine-coon/', 'current' => false ),
+		array( 'id' => 502, 'title' => 'Ragdoll: The Floppy Cat', 'url' => '/cats/breeds/ragdoll/', 'current' => true ),
+	),
+	100 => array( array( 'id' => 101, 'title' => 'Top-level child', 'url' => '/dogs/x/', 'current' => false ) ),
+	800 => array( array( 'id' => 801, 'title' => 'Child of an orphan', 'url' => '/o/x/', 'current' => false ) ),
+);
+
+$out  = tpm_nav_append_child_page_items( $menu, $children );
+$tree = tpm_test_menu_tree( $out );
+
+tpm_assert_same( count( $menu ) + 3, count( $out ), 'append: exactly three items added (201, 202, 502)' );
+tpm_assert_same(
+	array( 'Why Is My Dog Itching? The Four Usual Suspects, in Order', 'Dog Allergies: Why Your Dog Itches Instead of Sneezes' ),
+	$tree[2] ?? null,
+	'append: Dog Health gets its published children, in the order given (menu_order, then title)'
+);
+tpm_assert_same(
+	array( 'Maine Coon (hand-added)', 'Ragdoll: The Floppy Cat' ),
+	$tree[5] ?? null,
+	'append: a hand-added child is kept first and not duplicated; the rest is appended after it'
+);
+tpm_assert( ! isset( $tree[3] ), 'append: a sub-hub with no published children gets no list' );
+tpm_assert( ! in_array( 'Top-level child', $tree[1] ?? array(), true ), 'append: top-level items are never given automatic children' );
+tpm_assert( ! isset( $tree[8] ), 'append: an orphaned item is never given automatic children' );
+
+$by_id = array();
+foreach ( $out as $key => $item ) {
+	$by_id[ (int) $item->db_id ] = $item;
+	tpm_assert_same( (int) $item->menu_order, (int) $key, "append: item {$item->db_id} keyed by its own menu_order" );
+}
+tpm_assert_same( count( $out ), count( $by_id ), 'append: every db_id is unique' );
+
+$ragdoll = $by_id[502];
+tpm_assert_same( '5', $ragdoll->menu_item_parent, 'synthetic item: menu_item_parent is the sub-hub item\'s db_id' );
+tpm_assert_same( 502, $ragdoll->ID, 'synthetic item: ID is the child Page\'s ID' );
+tpm_assert_same( '502', $ragdoll->object_id, 'synthetic item: object_id is the child Page\'s ID' );
+tpm_assert_same( 'post_type', $ragdoll->type, 'synthetic item: type post_type, like a hand-made Page item' );
+tpm_assert_same( '/cats/breeds/ragdoll/', $ragdoll->url, 'synthetic item: url is the Page permalink' );
+tpm_assert( true === $ragdoll->current && in_array( 'current-menu-item', $ragdoll->classes, true ), 'synthetic item: the page being viewed is marked current' );
+tpm_assert( false === $by_id[201]->current && ! in_array( 'current-menu-item', $by_id[201]->classes, true ), 'synthetic item: other pages are not marked current' );
+foreach ( array( 'target', 'xfn', 'attr_title', 'description' ) as $prop ) {
+	tpm_assert( property_exists( $ragdoll, $prop ), "synthetic item: has the {$prop} property Walker_Nav_Menu reads" );
+}
+
+tpm_assert( in_array( 'menu-item-has-children', $by_id[2]->classes, true ), 'parent class: Dog Health gains menu-item-has-children (wp_nav_menu adds it before this filter runs)' );
+tpm_assert( in_array( 'menu-item-has-children', $by_id[5]->classes, true ), 'parent class: Cat Breeds has menu-item-has-children' );
+tpm_assert_same( 1, count( array_keys( $by_id[5]->classes, 'menu-item-has-children', true ) ), 'parent class: never added twice' );
+tpm_assert( ! in_array( 'menu-item-has-children', $by_id[3]->classes, true ), 'parent class: Dog Breeds (no published children) stays a plain link' );
+
+$fresh_menu = array_map(
+	function ( $item ) {
+		return clone $item;
+	},
+	$menu
+);
+$fresh_snapshot = serialize( $fresh_menu );
+tpm_assert_same( $fresh_snapshot, serialize( tpm_nav_append_child_page_items( $fresh_menu, array( 300 => array() ) ) ), 'append: nothing published yet leaves the menu untouched' );
+tpm_assert_same( $menu, tpm_nav_inject_published_child_pages( $menu, (object) array( 'theme_location' => 'footer' ) ), 'filter: a menu outside the primary location is left alone' );
+
+// The label the visitor sees: the existing nav title filter shortens the
+// Page's long H1 to the part before the first ": " or "? ".
+tpm_assert_same( 'Why Is My Dog Itching?', tpm_filter_nav_menu_item_title( $by_id[201]->title, $by_id[201] ), 'label: a question H1 is cut after the "?"' );
+tpm_assert_same( 'Dog Allergies', tpm_filter_nav_menu_item_title( $by_id[202]->title, $by_id[202] ), 'label: a "Hook: subtitle" H1 is cut before the ":"' );
+
+// Mobile: a second-level parent gets the same accordion button as a hub.
+$mobile_args = (object) array( 'menu_class' => 'tpm-mobile-menu' );
+tpm_assert_contains( 'data-tpm-submenu-toggle', tpm_add_mobile_submenu_toggle( '<a>Dog Health</a>', $by_id[2], 1, $mobile_args ), 'mobile: a second-level item with children gets a toggle' );
+tpm_assert_same( '<a>x</a>', tpm_add_mobile_submenu_toggle( '<a>x</a>', $by_id[2], 2, $mobile_args ), 'mobile: the third level never gets a toggle' );
+tpm_assert_same( '<a>x</a>', tpm_add_mobile_submenu_toggle( '<a>x</a>', $by_id[3], 1, $mobile_args ), 'mobile: a second-level item without children gets no toggle' );
+tpm_assert_same( '<a>x</a>', tpm_add_mobile_submenu_toggle( '<a>x</a>', $by_id[2], 1, (object) array( 'menu_class' => 'tpm-primary-menu' ) ), 'mobile: the desktop menu gets no toggle' );
+
+// Wiring the pure tests above cannot see.
+$nav_src    = (string) file_get_contents( $theme_inc . '/nav-menus.php' );
+$header_src = (string) file_get_contents( __DIR__ . '/../../wp-content/themes/thepawmanual/header.php' );
+tpm_assert_same( 2, substr_count( $header_src, "'depth'          => 3," ), 'header.php: both wp_nav_menu() calls render three levels' );
+tpm_assert_contains( "add_filter( 'wp_nav_menu_objects', 'tpm_nav_inject_published_child_pages'", $nav_src, 'nav-menus.php: the injection is hooked to wp_nav_menu_objects' );
+tpm_assert_contains( "'post_status'            => 'publish'", $nav_src, 'nav-menus.php: only published child Pages are queried' );
+
 /* ============================== Summary ================================ */
 
 $pass = $GLOBALS['tpm_test_pass'];

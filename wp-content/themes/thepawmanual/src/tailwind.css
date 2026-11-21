@@ -87,10 +87,11 @@
   }
 
   /*
-   * Dropdown sub-menus. header.php requests `'depth' => 2`, so WordPress
+   * Dropdown sub-menus. header.php requests `'depth' => 3`, so WordPress
    * nests a `<ul class="sub-menu">` inside a parent <li> on its own whenever
-   * that item has children in the admin menu builder — no custom Walker
-   * needed. A parent with no children (most of them, until a later wave adds
+   * that item has children in the admin menu builder (or, at the third
+   * level, published child Pages: inc/nav-menus.php adds those) — no custom
+   * Walker needed. A parent with no children (most of them, until a later wave adds
    * some) gets no `.menu-item-has-children` class and renders as a plain
    * link, unchanged.
    *
@@ -129,6 +130,58 @@
     @apply block whitespace-nowrap rounded-lg px-3 py-2 text-sm text-neutral-600 transition-colors hover:bg-brand-50 hover:text-brand-700;
   }
 
+  /*
+   * Third level: the articles of a sub-hub (Cats > Cat Breeds > the breed
+   * pages), opened as a flyout to the right of the hovered or focused
+   * second-level item, by the same :hover/:focus-within rule above (it
+   * matches any parent <li>, at any depth). Same white card as the
+   * dropdown, aligned with the item that opened it.
+   *
+   * A sub-hub can hold 25 or more articles, so the flyout has a max-height
+   * and scrolls. Only this third-level list may scroll: the second-level
+   * dropdown must keep `overflow: visible`, or it would clip the flyout
+   * that sits outside its box.
+   *
+   * Article titles are longer than hub names, so the flyout is wider and
+   * lets a label wrap instead of running off the card.
+   */
+  .tpm-primary-menu .sub-menu .sub-menu {
+    @apply mt-0 w-72 overflow-y-auto overscroll-contain;
+    top: calc(-0.5rem - 1px);
+    left: calc(100% + 0.75rem);
+    max-height: min(28rem, calc(100vh - 10rem));
+    transform: translateX(-4px);
+  }
+  .tpm-primary-menu .sub-menu .sub-menu a {
+    @apply whitespace-normal;
+  }
+  /*
+   * An invisible strip over the gap between the item and its flyout, so the
+   * pointer stays "inside" the hovered <li> while it crosses to the flyout
+   * and the flyout does not close on the way.
+   */
+  .tpm-primary-menu .sub-menu li.menu-item-has-children::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 0.75rem;
+  }
+  /* The second-level parent's chevron points right, towards its flyout. */
+  .tpm-primary-menu .sub-menu li.menu-item-has-children > a {
+    @apply flex items-center justify-between gap-3;
+  }
+  .tpm-primary-menu .sub-menu li.menu-item-has-children > a::after {
+    margin-bottom: 0;
+    transform: rotate(-45deg);
+  }
+  /* Keep the parent highlighted while the pointer or focus is in its flyout. */
+  .tpm-primary-menu .sub-menu li.menu-item-has-children:hover > a,
+  .tpm-primary-menu .sub-menu li.menu-item-has-children:focus-within > a {
+    @apply bg-brand-50 text-brand-700;
+  }
+
   /* Stacked version of the navigation, used inside the mobile panel. */
   .tpm-mobile-menu {
     @apply flex flex-col gap-1;
@@ -145,7 +198,8 @@
    * the list starts folded and the chevron button inc/nav-menus.php adds next
    * to the parent opens it (theme.js toggles `.is-open` on the <li>); without
    * JavaScript the button is hidden and the list stays open, so every link
-   * is still reachable.
+   * is still reachable. The rules match at every depth, so the third level
+   * (a sub-hub's articles) is the same accordion nested one step further in.
    */
   .tpm-mobile-menu li.menu-item-has-children {
     @apply flex flex-wrap items-center;

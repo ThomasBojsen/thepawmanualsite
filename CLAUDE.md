@@ -570,10 +570,26 @@ action for each: **please confirm or adjust when you approve this plan.**
   one (now in `deploy/gamle-til-fortryd/`; history before 2026-10-22 is in
   `~/Desktop/thepawmanual-deploy/`) by file name **and
   size** (`unzip -l`) and expect only the differences you made on purpose;
-  `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"` must print `2`
-  twice. Keep the previous zip as the rollback copy and write new zips under a
+  `unzip -p NEW.zip thepawmanual/header.php | grep "'depth'"` must print `3`
+  twice (it was `2` until the third menu level, branch
+  `feature/nav-third-level`, 2026-11-21; a zip built from a branch without
+  that change prints `2` and is correct for that branch). Keep the previous zip as the rollback copy and write new zips under a
   new name. Any other branch cut from before 2026-10-21 is based on the old
   design: rebase it onto `main` before using it.
+- **Header menu third level (2026-11-21, branch `feature/nav-third-level`,
+  not yet on `main` or live).** Both `wp_nav_menu()` calls in `header.php` now
+  render `'depth' => 3`, and `inc/nav-menus.php` appends, under every
+  second-level menu item that links to a Page (Dogs > Dog Health), that
+  Page's **published** child Pages at render time (`wp_nav_menu_objects`
+  filter, `primary` location only, one memoized query per request). Nobody
+  maintains the third level in Appearance > Menus: an article appears in the
+  menu when its Page is published and never before. Children added by hand
+  under a second-level item are kept and not duplicated. Labels go through the
+  existing `tpm_filter_nav_menu_item_title()`, so they are the H1's part before
+  the first ": " or "? ". Desktop: a flyout to the right of the hovered or
+  focused item, scrolling past `min(28rem, 100vh - 10rem)`; mobile: the same
+  chevron accordion one level deeper. Tests in `tools/tests/run.php`. Zip:
+  `deploy/thepawmanual-theme-2026-11-21-nav-third-level.zip`.
 - **Five new tools (2026-10-22, branch `claude/adoring-wescoff-21b55c`, not
   yet on `main` or live).** Dog Food, Cat Food, Pet Cost (USD + EUR), Dog Breed
   Selector and Cat Breed Selector, plus the working homepage filter. Shipping
