@@ -415,6 +415,30 @@ function tpm_filter_nav_menu_item_title( $title, $item = null, $args = null, $de
 		return $title;
 	}
 
+	$labels = tpm_get_nav_label_overrides();
+	if ( isset( $labels[ trim( (string) $title ) ] ) ) {
+		return $labels[ trim( (string) $title ) ];
+	}
+
 	return tpm_split_title( $title )['h1'];
 }
 add_filter( 'nav_menu_item_title', 'tpm_filter_nav_menu_item_title', 10, 4 );
+
+/**
+ * Menu labels for page titles tpm_split_title() cannot shorten.
+ *
+ * Keyed by the page's exact post title (the H1, which the WXR registry keeps
+ * fixed once a page is live). Only for titles with no "? ", ": " or dash to
+ * split on, e.g. a comma: splitting on commas in general would cut
+ * "Fleas, Ticks & Worms: ..." down to "Fleas". Affects the menu label only;
+ * the page's own H1 is untouched.
+ *
+ * @return array<string,string> Post title => menu label.
+ */
+function tpm_get_nav_label_overrides() {
+	$labels = array(
+		'Signs Your Dog Needs a Vet, Ranked by Urgency' => __( 'Signs Your Dog Needs a Vet', 'thepawmanual' ),
+	);
+
+	return apply_filters( 'tpm_nav_label_overrides', $labels );
+}

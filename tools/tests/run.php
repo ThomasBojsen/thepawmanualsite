@@ -1128,6 +1128,10 @@ tpm_assert_same( $menu, tpm_nav_inject_published_child_pages( $menu, (object) ar
 // Page's long H1 to the part before the first ": " or "? ".
 tpm_assert_same( 'Why Is My Dog Itching?', tpm_filter_nav_menu_item_title( $by_id[201]->title, $by_id[201] ), 'label: a question H1 is cut after the "?"' );
 tpm_assert_same( 'Dog Allergies', tpm_filter_nav_menu_item_title( $by_id[202]->title, $by_id[202] ), 'label: a "Hook: subtitle" H1 is cut before the ":"' );
+// A comma title has nothing to split on, so the label map shortens it; a
+// comma alone must never split ("Fleas, Ticks & Worms" stays whole).
+tpm_assert_same( 'Signs Your Dog Needs a Vet', tpm_filter_nav_menu_item_title( 'Signs Your Dog Needs a Vet, Ranked by Urgency' ), 'label: the override map shortens a comma title' );
+tpm_assert_same( 'Fleas, Ticks & Worms', tpm_filter_nav_menu_item_title( 'Fleas, Ticks & Worms: The Prevention Habit That Beats Every Treatment' ), 'label: a comma before the ":" does not split' );
 
 // Mobile: a second-level parent gets the same accordion button as a hub.
 $mobile_args = (object) array( 'menu_class' => 'tpm-mobile-menu' );
