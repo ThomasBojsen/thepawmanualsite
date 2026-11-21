@@ -50,6 +50,28 @@ Uploaded to the Media Library in October 2026 (`/wp-content/uploads/2026/10/`).
 | `/cats/behavior/` | `Cat-Behavior.webp` | 1024 square | A black-and-white tuxedo cat curled up asleep on a chunky knitted blanket. |
 | `/cats/kitten-care/` | `Kitten-Care.webp` | 1024 square | Two kittens, a tabby and a ginger, playing with a feather toy on a rug beside a litter tray. |
 | `/cats/products/` | `Cat-Products.webp` | 1024 square | A Bengal cat on top of a cat tree, with a covered litter box, a pet carrier and a cat bed on the floor below. |
+| `/dogs/health/symptoms/` | `Dog-Symptoms.webp` | 1024 square | A vet in navy scrubs checking the eyes of a brown-and-white dog lying on an exam table. |
+| `/dogs/health/allergies/` | `Dog-Allergies.webp` | 1024 square | A yellow Labrador Retriever scratching behind its ear with a hind paw on a woven rug in a sunny living room. |
+| `/dogs/health/dental-care/` | `Dog-Dental-Care.webp` | 1024 square | A woman kneeling in a kitchen brushing the teeth of a Golden Retriever with a dog toothbrush. |
+| `/dogs/health/skin-and-coat/` | `Dog-Skin-And-Coat.webp` | 1024 square | A woman brushing the coat of a blue merle Australian Shepherd on a sunny wooden terrace. |
+| `/dogs/health/why-is-my-dog-itching/` | `Dog-Itching.webp` | 1024 square | A West Highland White Terrier sitting on a wooden floor beside a sofa with one paw raised. |
+| `/dogs/health/why-is-my-dog-throwing-up/` | `Dog-Throwing-Up.webp` | 1024 square | A woman sitting on a kitchen floor stroking a tired Beagle lying on a blanket beside its food and water bowls. |
+| `/dogs/health/signs-your-dog-needs-a-vet/` | `Signs-Your-Dog-Needs-A-Vet.webp` | 1024 square | A vet and an owner kneeling beside a Labrador Retriever on a clinic floor while the vet gently feels its belly. |
+| `/dogs/health/fleas-ticks-and-worms/` | `Fleas-Ticks-And-Worms.webp` | 1024 square | A woman combing a Golden Retriever's fur with a fine-toothed comb as it lies on a blanket on the lawn. |
+| `/dogs/health/ear-infections/` | `Dog-Ear-Infections.webp` | 1024 square | A vet looking into the ear of an English Cocker Spaniel with an otoscope on an exam table. |
+| `/dogs/puppy-care/new-puppy-checklist/` | `New-Puppy-Checklist.webp` | 1024 square | A Golden Retriever puppy sitting on a rug beside new puppy supplies: a crate, bowls, a collar, a brush and chew toys. |
+| `/dogs/puppy-care/8-week-old-puppy-schedule/` | `8-Week-Old-Puppy-Schedule.webp` | 1024 square | An 8-week-old Beagle puppy eating from a bowl on the kitchen floor while its owner watches from a chair with a mug. |
+| `/dogs/puppy-care/puppy-vaccination-schedule/` | `Puppy-Vaccination-Schedule.webp` | 1024 square | A vet in navy scrubs and an owner gently holding a Cavalier King Charles Spaniel puppy on an exam table. |
+| `/dogs/puppy-care/first-night-with-puppy/` | `First-Night-With-Puppy.webp` | 1024 square | A Golden Retriever puppy asleep in a wire crate beside a bed at night, with its owner's hand resting on the crate. |
+| `/dogs/puppy-care/puppy-teething-guide/` | `Puppy-Teething.webp` | 1024 square | A Siberian Husky puppy chewing a rope toy on a knitted rug next to a carrot and a rubber teething ring. |
+| `/dogs/puppy-care/how-to-stop-puppy-biting/` | `Puppy-Biting.webp` | 1024 square | A Border Collie puppy tugging a rope toy held by its owner on a living room rug. |
+| `/dogs/puppy-care/puppy-socialization/` | `Puppy-Socialization.webp` | 1024 square | A Labrador puppy on a lead meeting an adult Golden Retriever in a park, with a smiling girl and the owner crouching nearby. |
+
+The sixteen wave 3 article images (`/dogs/health/symptoms/` down) were
+uploaded on 2026-11-21 (`/wp-content/uploads/2026/11/`), generated in Gemini
+with a prompt that forbids any text, letters or signs in the picture (the
+cork-board lesson below), saved as WebP quality 90 with `cwebp`, and uploaded
+with the Alternative Text and title already set. Each is attached to its page.
 
 The fourteen wave 2 sub-hub images above (`/dogs/breeds/` down) were uploaded on
 2026-11-12 (`/wp-content/uploads/2026/11/`), generated in Gemini, saved as WebP
