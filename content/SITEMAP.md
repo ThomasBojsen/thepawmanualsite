@@ -93,15 +93,15 @@ load-bearing for everything else:
 | Can Dogs Eat Grapes? (NEW 24-07, danger-first) | `/dogs/food/can-dogs-eat-grapes/` | ✍️ draft; `content/dogs/food/can-dogs-eat-grapes.md` · GEO drafted (repo only) 2026-09-15 |
 | Can Dogs Eat Chocolate? (NEW 24-07, danger-first) | `/dogs/food/can-dogs-eat-chocolate/` | ✍️ draft; `content/dogs/food/can-dogs-eat-chocolate.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Health hub | `/dogs/health/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/health/index.md` |
-| Dog Symptoms | `/dogs/health/symptoms/` | ✍️ draft; `content/dogs/health/symptoms.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Allergies | `/dogs/health/allergies/` | ✍️ draft; `content/dogs/health/allergies.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Dental Care | `/dogs/health/dental-care/` | ✍️ draft; `content/dogs/health/dental-care.md` · GEO drafted (repo only) 2026-09-15 |
-| Skin & Coat | `/dogs/health/skin-and-coat/` | ✍️ draft; `content/dogs/health/skin-and-coat.md` · GEO drafted (repo only) 2026-09-15 |
-| Why Is My Dog Itching? | `/dogs/health/why-is-my-dog-itching/` | ✍️ draft; `content/dogs/health/why-is-my-dog-itching.md` |
-| Why Is My Dog Throwing Up? | `/dogs/health/why-is-my-dog-throwing-up/` | ✍️ draft; `content/dogs/health/why-is-my-dog-throwing-up.md` · GEO drafted (repo only) 2026-09-15 |
-| Signs Your Dog Needs a Vet | `/dogs/health/signs-your-dog-needs-a-vet/` | ✍️ draft; `content/dogs/health/signs-your-dog-needs-a-vet.md` · GEO drafted (repo only) 2026-09-15 |
-| Fleas, Ticks & Worms (NEW 24-07) | `/dogs/health/fleas-ticks-and-worms/` | ✍️ draft; `content/dogs/health/fleas-ticks-and-worms.md` · GEO drafted (repo only) 2026-09-15 |
-| Dog Ear Infections (NEW 24-07) | `/dogs/health/ear-infections/` | ✍️ draft; `content/dogs/health/ear-infections.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Symptoms | `/dogs/health/symptoms/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/symptoms.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Allergies | `/dogs/health/allergies/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/allergies.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Dental Care | `/dogs/health/dental-care/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/dental-care.md` · GEO drafted (repo only) 2026-09-15 |
+| Skin & Coat | `/dogs/health/skin-and-coat/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/skin-and-coat.md` · GEO drafted (repo only) 2026-09-15 |
+| Why Is My Dog Itching? | `/dogs/health/why-is-my-dog-itching/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/why-is-my-dog-itching.md` |
+| Why Is My Dog Throwing Up? | `/dogs/health/why-is-my-dog-throwing-up/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/why-is-my-dog-throwing-up.md` · GEO drafted (repo only) 2026-09-15 |
+| Signs Your Dog Needs a Vet | `/dogs/health/signs-your-dog-needs-a-vet/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/signs-your-dog-needs-a-vet.md` · GEO drafted (repo only) 2026-09-15 |
+| Fleas, Ticks & Worms (NEW 24-07) | `/dogs/health/fleas-ticks-and-worms/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/fleas-ticks-and-worms.md` · GEO drafted (repo only) 2026-09-15 |
+| Dog Ear Infections (NEW 24-07) | `/dogs/health/ear-infections/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/health/ear-infections.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Training hub | `/dogs/training/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/training/index.md` · GEO drafted (repo only) 2026-09-15 |
 | Puppy Training | `/dogs/training/puppy-training/` | ✍️ draft; `content/dogs/training/puppy-training.md` · GEO drafted (repo only) 2026-09-15 |
 | Potty Training | `/dogs/training/potty-training/` | ✍️ draft; `content/dogs/training/potty-training.md` · GEO drafted (repo only) 2026-09-15 |
@@ -111,13 +111,13 @@ load-bearing for everything else:
 | Separation Anxiety | `/dogs/training/separation-anxiety-in-dogs/` | ✍️ draft; `content/dogs/training/separation-anxiety-in-dogs.md` · GEO drafted (repo only) 2026-09-15 |
 | Recall Training (NEW 24-07) | `/dogs/training/recall-training/` | ✍️ draft; `content/dogs/training/recall-training.md` |
 | Puppy Care hub | `/dogs/puppy-care/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/puppy-care/index.md` · GEO drafted (repo only) 2026-09-15 |
-| New Puppy Checklist | `/dogs/puppy-care/new-puppy-checklist/` | ✍️ draft; `content/dogs/puppy-care/new-puppy-checklist.md` · GEO drafted (repo only) 2026-09-15 |
-| 8-Week-Old Puppy Schedule | `/dogs/puppy-care/8-week-old-puppy-schedule/` | ✍️ draft; `content/dogs/puppy-care/8-week-old-puppy-schedule.md` · GEO drafted (repo only) 2026-09-15 |
-| Puppy Vaccination Schedule | `/dogs/puppy-care/puppy-vaccination-schedule/` | ✍️ draft; `content/dogs/puppy-care/puppy-vaccination-schedule.md` · GEO drafted (repo only) 2026-09-15 |
-| First Night With Puppy | `/dogs/puppy-care/first-night-with-puppy/` | ✍️ draft; `content/dogs/puppy-care/first-night-with-puppy.md` · GEO drafted (repo only) 2026-09-15 |
-| Puppy Teething Guide | `/dogs/puppy-care/puppy-teething-guide/` | ✍️ draft; `content/dogs/puppy-care/puppy-teething-guide.md` · GEO drafted (repo only) 2026-09-15 |
-| How to Stop Puppy Biting (NEW 24-07) | `/dogs/puppy-care/how-to-stop-puppy-biting/` | ✍️ draft; `content/dogs/puppy-care/how-to-stop-puppy-biting.md` · GEO drafted (repo only) 2026-09-15 |
-| Puppy Socialization (NEW 24-07) | `/dogs/puppy-care/puppy-socialization/` | ✍️ draft; `content/dogs/puppy-care/puppy-socialization.md` · GEO drafted (repo only) 2026-09-15 |
+| New Puppy Checklist | `/dogs/puppy-care/new-puppy-checklist/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/new-puppy-checklist.md` · GEO drafted (repo only) 2026-09-15 |
+| 8-Week-Old Puppy Schedule | `/dogs/puppy-care/8-week-old-puppy-schedule/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/8-week-old-puppy-schedule.md` · GEO drafted (repo only) 2026-09-15 |
+| Puppy Vaccination Schedule | `/dogs/puppy-care/puppy-vaccination-schedule/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/puppy-vaccination-schedule.md` · GEO drafted (repo only) 2026-09-15 |
+| First Night With Puppy | `/dogs/puppy-care/first-night-with-puppy/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/first-night-with-puppy.md` · GEO drafted (repo only) 2026-09-15 |
+| Puppy Teething Guide | `/dogs/puppy-care/puppy-teething-guide/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/puppy-teething-guide.md` · GEO drafted (repo only) 2026-09-15 |
+| How to Stop Puppy Biting (NEW 24-07) | `/dogs/puppy-care/how-to-stop-puppy-biting/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/how-to-stop-puppy-biting.md` · GEO drafted (repo only) 2026-09-15 |
+| Puppy Socialization (NEW 24-07) | `/dogs/puppy-care/puppy-socialization/` | ✅ published; live 2026-11-21 (wave 3); `content/dogs/puppy-care/puppy-socialization.md` · GEO drafted (repo only) 2026-09-15 |
 | Dog Products hub | `/dogs/products/` | ✅ published; live 2026-11-11 (wave 2); `content/dogs/products/index.md` |
 | Best Dog Beds | `/dogs/products/best-dog-beds/` | ✍️ draft; `content/dogs/products/best-dog-beds.md` · GEO drafted (repo only) 2026-09-15 |
 | Best Dog Crates | `/dogs/products/best-dog-crates/` | ✍️ draft; `content/dogs/products/best-dog-crates.md` · GEO drafted (repo only) 2026-09-15 |
